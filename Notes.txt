@@ -1,8 +1,8 @@
 make an app: ng new 'appName'
 
-open proj from terminal in VS code (when in folder): code .
+open proj from terminal in VS code (when in proj folder): code .
 
-Load app into a web server: ng serve 'appName'
+Load app into a web server (when in proj folder): ng serve 'appName'
 
 Angular folder structure:
 e2e: Where 'end to end' automated tests are written for application.
