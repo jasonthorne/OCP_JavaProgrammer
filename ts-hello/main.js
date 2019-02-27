@@ -55,6 +55,20 @@ var drawPoint2 = function (myPointObj) {
     //..
 };
 //then create method, with input perameter of type 'Point'
-var drawPoint3 = function (point) {
+var drawPoint3 = function (myPointObj) {
     //...
 };
+//+++++++++++++++++CLASSES. Typescript 9. 
+//Classes group variables (properties) and functions (methods) that are highly related
+var ExampleClass = /** @class */ (function () {
+    function ExampleClass() {
+    }
+    //method (a function within a class)
+    ExampleClass.prototype.exampleMethod = function () {
+        //...
+    };
+    //method
+    ExampleClass.prototype.exampleMethod2 = function (exampleObj) {
+    };
+    return ExampleClass;
+}());

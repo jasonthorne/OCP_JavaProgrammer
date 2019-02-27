@@ -78,7 +78,28 @@ interface Point{
 }
 
 //then create method, with input perameter of type 'Point'
-let drawPoint3 = (point: Point) => {
+let drawPoint3 = (myPointObj: Point) => {
     //...
 }  
+
+//+++++++++++++++++CLASSES. Typescript 9. 
+
+//Classes group variables (properties) and functions (methods) that are highly related
+
+class ExampleClass {
+    x: number; //instance variable
+    y: number;  //instance variable
+
+    //method (a function within a class)
+    exampleMethod(){
+        //...
+    }
+
+    //method
+    exampleMethod2(exampleObj: ExampleClass){ //defining input type as an ExampleClass object
+
+    }
+}
+
+
 
