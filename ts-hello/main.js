@@ -1,4 +1,4 @@
-//+++++++++++++++++VARIABLE TYPES. Typescript 5.
+//+++++++++++++++++Typescript 5. VARIABLE TYPES. 
 //'let' is important here as it gives proper scope to the variable. ('var' gives global scope instead):
 var count = 5; //has to now be a number. Cant be changed on fly like js can!
 //wont work: count = 'a'; 
@@ -23,7 +23,7 @@ var colour;
 })(colour || (colour = {}));
 ; //explicently setting the values by index (red=0) protects against potential issues if other elements are added. (Apparently! :D)
 var backgroundColour = colour.Red;
-//+++++++++++++++++TYPE ASSERTIONS. Typescript 6. 
+//+++++++++++++++++ Typescript 6. TYPE ASSERTIONS.
 var message = 'abc'; //initially declared as string
 var endsWithc = message.endsWith('c'); //acess granted to string methods as initially declared as string
 var message2; //initially declared as any
@@ -31,7 +31,7 @@ message2 = 'def'; //then made a string
 var endsWithf = message2.endsWith('f'); //needs cast like this to then provide access to string methods!
 var alsoEndsWithf = message2.endsWith('f'); //another way of doing it
 console.log("Boolean results: " + endsWithc, endsWithf, alsoEndsWithf);
-//+++++++++++++++++ARROW FUNCTIONS (lambda). Typescript 7. 
+//+++++++++++++++++Typescript 7. ARROW FUNCTIONS (lambda). 
 //regular function:
 var regularFunction = function (myMessage) {
     console.log(myMessage);
@@ -40,7 +40,7 @@ var regularFunction = function (myMessage) {
 var arrowFunction = function (myMessage) { return console.log(myMessage); }; //can exclude braces due to code only being one line 
 regularFunction("Yo");
 arrowFunction("dawg!");
-//+++++++++++++++++INTERFACES. Typescript 8. 
+//+++++++++++++++++Typescript 8. INTERFACES.  
 ///create drawPoint method:
 var drawPoint = function (myPointObj) {
     //..
@@ -58,7 +58,7 @@ var drawPoint2 = function (myPointObj) {
 var drawPoint3 = function (myPointObj) {
     //...
 };
-//+++++++++++++++++CLASSES. Typescript 9. 
+//+++++++++++++++++Typescript 9. CLASSES.
 //Classes group variables (properties) and functions (methods) that are highly related
 var ExampleClass = /** @class */ (function () {
     function ExampleClass() {
@@ -72,9 +72,23 @@ var ExampleClass = /** @class */ (function () {
     };
     return ExampleClass;
 }());
-//+++++++++++++++++OBJECTS. Typescript 10. 
+//+++++++++++++++++Typescript 10. OBJECTS.  
 //declare a var of class type:
-var example = new ExampleClass(); //No annotation needed as will be infered. Unnecessary annotation example:- let exampleObj: ExampleClass = new ExampleClass();
-example.x = 1;
-example.y = 2;
-example.exampleMethod(); //call object's method 
+var exampleObj2 = new ExampleClass(); //No annotation needed as will be infered. Unnecessary annotation example:- let exampleObj: ExampleClass = new ExampleClass();
+exampleObj2.x = 1;
+exampleObj2.y = 2;
+exampleObj2.exampleMethod(); //call object's method 
+//+++++++++++++++++Typescript 11. CONSTRUCTORS. 
+var MyClass = /** @class */ (function () {
+    //Constructor. IMPORTANT: declared with this keyword, NOT class name like Java!! And can only have ONE constructor. Use '?' to allow for optional parameters
+    function MyClass(num1, num2) {
+        this.num1 = num1;
+        this.num2 = num2;
+    }
+    MyClass.prototype.draw = function () {
+        console.log("num1: " + this.num1 + " num2: " + this.num2);
+    };
+    return MyClass;
+}());
+var myObj = new MyClass(1, 2); //Input parameters are needed here, as there is NO default constructor
+myObj.draw();

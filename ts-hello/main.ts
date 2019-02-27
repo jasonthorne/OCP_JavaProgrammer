@@ -111,7 +111,24 @@ exampleObj2.exampleMethod(); //call object's method
 
 //+++++++++++++++++Typescript 11. CONSTRUCTORS. 
 
+class MyClass {
+    num1: number;
+    num2: number;
 
+    //Constructor. IMPORTANT: declared with this keyword, NOT class name like Java!! And can only have ONE constructor. Use '?' to allow for optional parameters
+    constructor(num1?: number, num2?: number){ //'?' makes parameters optional (If added to one, then ALL other params to the RIGHT of it need to be made optional too!), allowing for a default constructor (one with no params). 
+        this.num1 = num1;
+        this.num2 = num2;
+    }
+
+    draw(){
+        console.log("num1: " + this.num1 + " num2: " + this.num2);
+    }
+
+}
+
+let myObj = new MyClass(1, 2); //Input parameters are needed here, as there is NO default constructor
+myObj.draw();
 
 
 
