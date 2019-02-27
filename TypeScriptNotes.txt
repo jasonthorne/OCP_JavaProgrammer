@@ -1,5 +1,5 @@
 Transpire Typescript into javascript (in terminal0). ('ng serve' transpiles automatically): tsc fileName.ts 
-Execute javascript code with node: node fileName.js.
+Execute javascript code with node: node fileName.js
 
 Declare variables. 'let' is important here as it gives proper scope to the variable. ('var' gives global scope instead): let varName = 1;
 

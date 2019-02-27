@@ -65,10 +65,16 @@ var ExampleClass = /** @class */ (function () {
     }
     //method (a function within a class)
     ExampleClass.prototype.exampleMethod = function () {
-        //...
+        console.log("X: " + this.x + " Y: " + this.y); //'this' is needed here for reference. (cant just use 'x'!)
     };
     //method
     ExampleClass.prototype.exampleMethod2 = function (exampleObj) {
     };
     return ExampleClass;
 }());
+//+++++++++++++++++OBJECTS. Typescript 10. 
+//declare a var of class type:
+var example = new ExampleClass(); //No annotation needed as will be infered. Unnecessary annotation example:- let exampleObj: ExampleClass = new ExampleClass();
+example.x = 1;
+example.y = 2;
+example.exampleMethod(); //call object's method 
