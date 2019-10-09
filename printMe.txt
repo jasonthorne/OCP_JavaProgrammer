@@ -25,7 +25,7 @@ Qty	Title		Cost	MA	ST	AG	AV	Skills
 SKILLS:
 
 Regeneration
-If the player suffers a Casualty, then roll a D6 for Regeneration after the Injury roll and after any Apothecary roll (if allowed). 
+If the player suffers a Casualty, then roll a D6 after the Injury roll and after any Apothecary roll (if allowed). 
 On a result of 1-3, the player suffers the result of the injury as normal. 
 On a 4-6, the player will heal their injury but is placed in the Reserves box.
 
