@@ -7,3 +7,6 @@ eclipse-jee-2018-12-R-win32-x86_64\eclipse
 
 Using: java 1.8.0_181
 test
+
+test2
+
