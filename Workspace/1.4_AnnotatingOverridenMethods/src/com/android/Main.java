@@ -104,8 +104,6 @@ class Dog implements Behaviour{
 		
 	}
 	
-	
-	
 }
 
 
