@@ -21,6 +21,70 @@ public class Animal {
 		return "age is: " + age + ". name is: " + name;
 	}
 
+	/*
+	 * This is exactly the same code as is generated when you go: source > 'generate hashcode & equals':
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		//if both objects are not the same obj then return false.
+		//This ALSO checks for null. As if obj is null, then they're not the same obj (as null wont have an equals method!!):
+		if (!(this == obj))
+			return false;
+		
+		/*
+		if (obj == null)
+			return false; //Not needed as above also checks for null. 
+		*/
+		
+		/*
+		 * If obj sent to method is NOT an animal, then they are not equal, and return false:
+		 */
+		if (!(obj instanceof Animal))
+			return false;
+		
+		/*
+		 * If they are the same objet type (animal), then cast obj to be of type Animal
+		 * As obj is at this point: Object obj = new Animal();
+		 * So we cannot access the age & name of this animal. 
+		 * So we cast it to end up with: Animal other = Animal
+		 */
+		
+		Animal other = (Animal) obj;
+		
+		/*
+		 * If the age of the Animal that calls equals is not the same as the animal sent to the method than the method exits and returns false.
+		 * If they are the same age, then go to next statement.
+		 */
+		if (age != other.age)
+			return false;
+		
+		/*
+		 * If name of either but NOT both Animals is null, this will exit and return false:
+		 */
+		if (name == null) {
+			if (other.name != null)
+				return false;
+			
+			
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
 
 class Dog extends Animal{
@@ -75,4 +139,62 @@ class Dog extends Animal{
 		//return true;
 	}
 	
+
+	
 }
+
+
+
+class Cat extends Animal{
+	
+	/*
+	 * The Cat class uses the equals method from the Animal class. 
+	 */
+	
+	Cat(int age, String name){
+		super(age, name);
+	}
+		
+}
+
+
+class Cow extends Animal{
+	
+	Cow(int age, String name){
+		super(age, name);
+	}
+	
+	/*
+	 * 2 cows can be said to be equal if they have the same age, so here we can see how the programmer can take any meaning of equals
+	 */
+	
+	public boolean equals(Object obj) {
+		
+		if(!(obj instanceof Cow))
+			return false;
+		Cow bessie = (Cow) obj;
+		return bessie.age==age;
+	}
+	
+	
+}
+
+
+/*
+ * Butterfly class uses the object class equals method (as it doesnt extend any of the above)
+ */
+class Butterfly{
+	
+	String name;
+	Butterfly(String name){
+		this.name = name;
+	}
+}
+
+
+
+
+
+
+
+

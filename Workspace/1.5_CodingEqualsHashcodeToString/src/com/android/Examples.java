@@ -143,14 +143,29 @@ public class Examples {
 		System.out.println("dog4 & dog1: " + dog4.equals(dog1)); //same dog
 		
 		
-		Dog dog5 = new Dog();
-		Dog dog6 = new Dog();
-		
-		System.out.println("dog5 & dog6: " + dog5.equals(dog6));
-		
+		//These dogs will either be true or cause a nullPointerException. See Dog class for explanation. ++++++++++++++++++++++++++
 		Dog noDog1 = new Dog(); //a dog with age of 0 & a name of null
 		Dog noDog2 = new Dog(); //a dog with age of 0 & a name of null
 		System.out.println("noDog1 & noDog2: " + noDog1.equals(noDog2));
+		
+		Animal animal1 = new Animal(2, "Andy");
+		Animal animal2 = new Animal(2, "Andy");
+		System.out.println(animal1.equals(animal2));
+		
+		animal2 = new Animal(2, "Angela");
+		
+		
+		//==================
+		
+		Dog spot = new Dog(1, "spot");
+		Cat tibbles = new Cat(1, "spot");
+		
+		System.out.println("Comparing Dog & Cat:");
+		System.out.println(spot.equals(tibbles));
+		
+		System.out.println("Comparing Cat & Dog:");
+		System.out.println(tibbles.equals(spot));
+		
 		
 	}
 	
