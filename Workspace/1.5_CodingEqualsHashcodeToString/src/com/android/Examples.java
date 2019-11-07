@@ -129,7 +129,20 @@ public class Examples {
 		
 		System.out.println(sb1.toString().equals(sb2.toString()));
 		
+		
+		//======================================
+		
+		System.out.println("comparing Dogs:");
+		Dog dog1 = new Dog(1, "spot");
+		Dog dog2 = new Dog(1, "spot");
+		Dog dog3 = new Dog(2, "rex");
+		Dog dog4 = dog1;
+		
+		System.out.println("dog1 & dog2: " + dog1.equals(dog2)); //same values
+		System.out.println("dog2 & dog3: " + dog2.equals(dog3));
+		System.out.println("dog4 & dog1: " + dog4.equals(dog1)); //same dog
 	}
+	
 	
 	
 	
