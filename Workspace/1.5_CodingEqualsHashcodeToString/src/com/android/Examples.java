@@ -141,6 +141,17 @@ public class Examples {
 		System.out.println("dog1 & dog2: " + dog1.equals(dog2)); //same values
 		System.out.println("dog2 & dog3: " + dog2.equals(dog3));
 		System.out.println("dog4 & dog1: " + dog4.equals(dog1)); //same dog
+		
+		
+		Dog dog5 = new Dog();
+		Dog dog6 = new Dog();
+		
+		System.out.println("dog5 & dog6: " + dog5.equals(dog6));
+		
+		Dog noDog1 = new Dog(); //a dog with age of 0 & a name of null
+		Dog noDog2 = new Dog(); //a dog with age of 0 & a name of null
+		System.out.println("noDog1 & noDog2: " + noDog1.equals(noDog2));
+		
 	}
 	
 	
