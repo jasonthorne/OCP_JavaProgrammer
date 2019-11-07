@@ -25,7 +25,6 @@ public class Examples {
 		 * The arraylist class overrides the toString of the object class and will print out all of the contents of this list. 
 		 */
 		
-		
 		Cards myCards = new Cards();
 		
 		/*
@@ -33,7 +32,6 @@ public class Examples {
 		 */
 		
 		System.out.println(myCards);
-		
 		
 		
 		Animal andy = new Animal();
