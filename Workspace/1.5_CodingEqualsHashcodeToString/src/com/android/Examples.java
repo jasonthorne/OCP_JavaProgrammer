@@ -1,7 +1,10 @@
 package com.android;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import com.android.Employee.Occupation;
 
 public class Examples {
 	
@@ -29,13 +32,13 @@ public class Examples {
 		 * The arraylist class overrides the toString of the object class and will print out all of the contents of this list. 
 		 */
 		
-		Cards myCards = new Cards();
+		//Cards myCards = new Cards();
 		
 		/*
 		 * Cards doeant have an overridden toString, so it just prints out the address:
 		 */
 		
-		System.out.println(myCards);
+		//System.out.println(myCards);
 		
 		Animal andy = new Animal();
 		Animal angela = new Animal(3, "angela");
@@ -199,9 +202,51 @@ public class Examples {
 	}
 	
 	
+	//++++++++++++++++++++++++++++++++HASH CODES: +++++++++++++++++++++++++++++++++++++++++++++++++
 	
+	/*
+	 * A hascode is a method of the object class and is usually overriden with the equals method. 
+	 * And can be used in conjunction with the equals method to uniquelt identify an object.
+	 * It is used in particular with hashmaps and sets which are covered in detail in chapter 3.  
+	 * A hash is a number which is produced usually from variables of an object. Which can be used to identify an object.  
+	 */
 	
-	
+	static void ex3() {
+		
+		String name1 = "yo";
+		System.out.println("String hashcodes:");
+		System.out.println("hashcode of name is: " + name1.hashCode());
+		
+		String name2 = "dawg";
+		
+		List<String>names1 = new ArrayList<String>();
+		names1.add(name1);
+		names1.add(name2);
+		System.out.println("hashcode of names1 is: " + names1.hashCode());
+		
+		List<String>names2 = new ArrayList<String>();
+		names2.add(name1);
+		names2.add(name2);
+		System.out.println("hashcode of names2 is: " + names2.hashCode()); //Same hashcode as names1 (list order MATTERS)
+		
+		/*
+		 * The arraylist class uses the hashcode method of whatever data type it contains to determine if both lists are the same.
+		 * In this case, the list hashcode is produced by the string hashes of each string in the list.
+		 * Lists with the same objects in them will have the same hashcode.
+		 */
+		
+		
+		//===========================
+		Employee eddie = new Employee(123, "eddie", 234.6, Occupation.NURSE);
+		
+		double weight = 12345.678;
+		long temp;
+		temp = Double.doubleToLongBits(weight); //convert a double to long
+		System.out.println(temp);
+		
+		
+		
+	}
 	
 	
 	
