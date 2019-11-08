@@ -167,6 +167,35 @@ public class Examples {
 		System.out.println(tibbles.equals(spot));
 		
 		
+		//==========COMPARIMG PIGS
+		
+		Pig murty = new Pig(1, "murty");
+		Pig bob = new Pig(1, "murty");
+		tibbles = new Cat(1, "murty");
+		
+		/*
+		 * This pig calls the equals method, that will always return false if comparing with an Animal that is NOT a pig.
+		 * Tibbles is a cat so this is false. 
+		 * This uses the pig equals() method which checks first if they're pigs, so this will always be false. 
+		 */
+		
+		System.out.println(murty.equals(tibbles));
+		System.out.println(murty.equals(bob));
+		
+		System.out.println("Comparing cat with a pig: ");
+		//this uses the animals equals method which doesnt take into account if the anuimals are different species.
+		//it only checks to see if they're both animals with the same name and age so this will return true. 
+		System.out.println(tibbles.equals(bob));
+		
+		
+		
+		Sheep sheep1 = new Sheep(1, "shawn", 2.56);
+		Sheep sheep2 = new Sheep(1, "shawn", 2.56);
+		Sheep sheep3 = new Sheep(1, "shawn", 3.2);
+		System.out.println(sheep1.equals(sheep2));
+		System.out.println(sheep1.equals(sheep3));
+		System.out.println(sheep1.equals(tibbles));
+		
 	}
 	
 	

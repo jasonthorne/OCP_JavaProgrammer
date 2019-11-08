@@ -28,6 +28,10 @@ public class Animal {
 	@Override
 	public boolean equals(Object obj) {
 		
+		
+		if (this == obj) 
+			return true;
+		
 		//if both objects are not the same obj then return false.
 		//This ALSO checks for null. As if obj is null, then they're not the same obj (as null wont have an equals method!!):
 		if (!(this == obj))
@@ -193,8 +197,42 @@ class Butterfly{
 
 
 
+class Pig extends Animal{
+	
+	Pig(int age, String name){
+		super(age, name);
+	}
+	
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Pig)) //check if obj is also a pig
+				return false; //return false if not
+		return super.equals(obj);
+	}
+}
 
-
-
+class Sheep extends Animal{
+	double woolWeight;
+	Sheep(int age, String name, double woolWeight){
+		super(age, name);
+		this.woolWeight = woolWeight;
+	}
+	
+	/*
+	 *  If you are using a superclass equals method and wish to use it in a subclass, 
+	 *  you have to check for all of the vars of the subclass that are unique FIRST b4 you use the super class equals method. 
+	 *  Here we first check if the object is  sheep thenwe check to see if the're NOT the same weight of wool, 
+	 *  then name and age with the super Animal equals method.
+	 */
+	
+	public boolean equals(Object obj) {
+		if(!(obj instanceof Sheep))
+				return false;
+		Sheep other = (Sheep)obj;
+		if(woolWeight != other.woolWeight)
+				return false;
+		return super.equals(obj);
+	}
+	
+}
 
 
