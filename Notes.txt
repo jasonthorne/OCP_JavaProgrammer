@@ -1,0 +1,3 @@
+enums:
+
+http://buraktas.com/java-enums-tutorial/
