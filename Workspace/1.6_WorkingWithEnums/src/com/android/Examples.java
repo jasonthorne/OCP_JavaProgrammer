@@ -106,9 +106,11 @@ public class Examples {
 		
 		System.out.println("\n==========================================================\nCreating Months:");
 		
-		Months janurary = Months.JAN;
+		Months janurary = Months.JAN; //this calls the enum month's printMe method
 		
-		//sMonths december = Months.DEC;
+		Months december = Months.DEC; //this calls the overriden december printMe method
+		
+		december.printMe();
 		
 	}
 	

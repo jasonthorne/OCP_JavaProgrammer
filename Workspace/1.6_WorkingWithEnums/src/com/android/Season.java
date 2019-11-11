@@ -244,6 +244,12 @@ enum Months{
 			
 		} //calls constructor that takes a double
 		
+		
+		@Override
+		void printMe() {
+			System.out.println("December's printMe");
+		}
+		
 	};
 	
 	private String expectedVisitors; 
@@ -261,13 +267,67 @@ enum Months{
 		System.out.println(this);
 	}
 	
-	abstract void absMethod();  //++++++++++++++++++++++++++++CAN have an abstract method but each enum types HAS TO HAVE a body
+	abstract void absMethod();  //++++++++++++++++++++++++++++CAN have an abstract method but each enum types HAS TO HAVE a body, and HAS TO OVERRIDE THIS.
 	
+
+	void sunShining() {
+		System.out.println("sunShining mwethod avaliable to ALL enum types");
+	}
+	
+	//All of the enum month types has a printMe method, however December decides to override this
+	void printMe() {
+		System.out.println("Expected visitor level is: " + expectedVisitors);
+	}
 	
 	
 }
 
 
+interface Movement{
+	void run();
+	void walk();
+}
+
+enum AnimalTypes implements Movement{
+	
+	
+	MAMMAL(){
+		
+		@Override
+		public void walk() {
+			System.out.println("Reptile overriding walk method");
+		}
+		
+	},
+	REPTILE(){
+		
+		@Override
+		public void run() {
+			System.out.println("Reptile overriding run method"); //overriding method in REPTILE OBJECT ++++++++++++++++
+		}
+	},
+	AVIAN;
+	
+	/*
+	 * If each of your types has a run & walk method, you would not need the below() and walk() method. 
+	 * And if you did not have any overriden methods in any of the types above, you would have to have the below.
+	 */
+
+	@Override
+	public void run() {
+		System.out.println("generic Animal run method"); //overriding method in ENUM BODY +++++++++++++++++++
+		
+	}
+
+	@Override
+	public void walk() {
+		System.out.println("generic Animal walk method");
+		
+	}
+	
+	
+	
+}
 
 
 
