@@ -52,16 +52,65 @@ public class Examples {
 			System.out.println("ordinal of season is: " + season.ordinal());
 			
 			/*
-			 * This uses the toString mwethod of the enum class,
+			 * This uses the toString method of the enum class,
 			 * which we could override, but arent here.
 			 */
 		}
 		
 		
-		if(mySeason1.ordinal() ==0)
-				System.out.println("This is spring & has number1 as it's ordinal");
+		if(mySeason1.ordinal()==0) {
+				System.out.println("\nThis is spring & has number 0 as it's ordinal");
+		}
+		else System.out.println("Not spring");
 		
+		/*
+		 * You can create n enum variable from a string, but they HAVE to match the enum type and has to be the same case. 
+		 */
+		Season s1 = Season.valueOf("SUMMER");
 		
+		s1=Season.valueOf("SUMMER");
 		
 	}
+	
+	static void ex2() {
+		System.out.println("create first season2 obj:");
+		
+		/*
+		 * The season2 class contains a constructor that contains no args.
+		 * If our enum types do not have braces after them i.e SUMMER(), 
+		 * that means that this enum types is calling the blank no argument constructor of the enum season2 class.
+		 */
+		
+		Season2 mySeason = Season2.SUMMER;
+		System.out.println("create second season2 obj:");
+		Season2 mySeason2 = Season2.WINTER;
+		
+		Days monday = Days.MON;
+		
+		System.out.println("create another days");
+		Days sunday = Days.SUN;
+		
+		/*
+		 * This is calling the signIn method that we created in the 
+		 */
+		monday.signIn();
+		
+		sunday.signIn();
+		
+		
+		Days wednesday = Days.WED;
+		wednesday.signIn();
+		
+		
+		//==================================
+		
+		System.out.println("\n==========================================================\nCreating Months:");
+		
+		Months janurary = Months.JAN;
+		
+		//sMonths december = Months.DEC;
+		
+	}
+	
+	
 }
