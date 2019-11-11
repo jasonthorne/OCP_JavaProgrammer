@@ -72,8 +72,8 @@ class Employee extends Human{
 		final int prime = 31;
 		int result = super.hashCode(); 	//this produces a hashcode from the id and name
 		
-		result = prime*result + ((dob == null)?0:dob.hashCode());
-		result = prime*result+ ((occupation == null)?0:occupation.hashCode());
+		result = prime*result + ((dob==null)?0:dob.hashCode());
+		result = prime*result+ ((occupation==null)?0:occupation.hashCode());
 		
 		long temp;
 		temp = Double.doubleToLongBits(weight); //convert a double to long
@@ -81,6 +81,29 @@ class Employee extends Human{
 		
 		return result;
 	}
+	
+	/*
+	 * Equals method for employee class:
+	 */
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(this==obj) //if the same obj
+			return true;
+		if(getClass()!=obj.getClass()) //if NOT the same class
+			return false; 
+		Employee other = (Employee)obj;
+		
+		/*
+		if(this.hashCode()!= other.hashCode()) //this checks that ALL vars are the same (as the same hashcodes are produced)
+			return false;
+		return true;
+		*/
+		
+		return this.hashCode() == other.hashCode();
+	}
+	
+	
 
 }
 

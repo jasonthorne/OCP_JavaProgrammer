@@ -237,20 +237,62 @@ public class Examples {
 		
 		
 		//===========================
-		Employee eddie = new Employee(123, "eddie", 234.6, Occupation.NURSE);
+		Employee eddie = new Employee(123, "eddie", 234.2, Occupation.NURSE);
 		
+		/*
 		double weight = 12345.678;
 		long temp;
 		temp = Double.doubleToLongBits(weight); //convert a double to long
 		System.out.println(temp);
 		
+		*/
+		Employee emp2 = new Employee(123, "eddie", 234.2, Occupation.NURSE);
 		
+		
+		//same hashcodes as they have the same properties:
+		System.out.println(eddie.hashCode());
+		System.out.println(emp2.hashCode());
 		
 	}
 	
 	
 	
+	static void ex4() {
+		
+		int num = 60;
+		
+		System.out.println("binary version of 60: " + Integer.toBinaryString(num));	//this is binary  number: 111100
+		
+		System.out.println("right bit shifting >>");
+		
+		/*
+		 * the right shift operator >> moves all of the right most bits 2 places in this situation.
+		 * So the number 111100 becomes: 1111
+		 */
+		System.out.println("60 right bit shift 2 is: " + (num >> 2) + ". In binary: " + Integer.toBinaryString(num >> 2)); 
+		
+		System.out.println("60 left bit shift 2 is: " + (num << 2) + ". In binary: " + Integer.toBinaryString(num << 2));
+		
+		//---------------------
+		
+		/*
+		 * Zero fill right shift: Basically does the same thing as the right shift operator, but it fills up the bits with zeros.
+		 */
 	
+		//=======================================+++++++++++++++++++++++++++++++++++++
+		//BITWISE XOR
+		
+		System.out.println("BITWISE XOR");
+		
+		num = 60;
+		int num2 = 15;
+		
+		System.out.println("60 in binary: " + Integer.toBinaryString(num));
+		System.out.println("15 in binary: 00" + Integer.toBinaryString(num2));
+		System.out.println("60 XOR 15:    " + Integer.toBinaryString(num^num2));
+		
+		
+	}
 	
 	
 	
