@@ -1,5 +1,8 @@
 package com.android;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class SolarSystem {
 	
 	private Planets[]planetArray = new Planets[6]; //array of 6 planets
@@ -7,6 +10,19 @@ public class SolarSystem {
 	//constructor that creates our solar system:
 	SolarSystem() {
 		
+		planetArray[0]= Planets.EARTH; //its at THIS line that all our planet enum types are created. Constructors are ONLT called at this line.
+		planetArray[1]= Planets.MARS;
+		planetArray[2] = Planets.VENUS;
+		planetArray[3] = Planets.MERCURY;
+		planetArray[4] = Planets.JUPITER;
+		planetArray[5] = Planets.SATURN;
+	}
+	
+	//solarSystem has it's own toString method:
+	@Override
+	public String toString() {
+		List<Planets>listPlanets=Arrays.asList(planetArray);
+		return listPlanets.toString();
 	}
 	
 	
@@ -17,12 +33,12 @@ public class SolarSystem {
 		EARTH, MARS, VENUS, MERCURY,
 		JUPITER(45_000_000, 56789.89, 98_765.99){
 			 
-			@Override //overrding a second time for Jupiter
+			@Override //overriding a second time for Jupiter
 			public void gravity() { 
 				System.out.println("Jupiter's own gravity method");
 			}
 			
-			@Override //overrding a second time for Jupiter
+			@Override //overriding a second time for Jupiter
 			public void move() {
 				System.out.println("Jupiter's own move method");
 			}
