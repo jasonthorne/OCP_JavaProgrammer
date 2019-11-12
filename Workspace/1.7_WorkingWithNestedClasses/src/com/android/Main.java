@@ -21,7 +21,9 @@ public class Main {
 		 * Doctor for static inner classes
 		 */
 	
-		System.out.println("Inner classes");
+		System.out.println("++++++++++Inner classes+++++++++");
+		
+		Examples.ex1();
 	}
 
 }

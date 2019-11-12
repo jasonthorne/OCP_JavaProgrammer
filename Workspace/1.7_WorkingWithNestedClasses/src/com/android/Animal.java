@@ -33,14 +33,33 @@ public class Animal {
 	Liver myLiver;
 	Lungs myLungs;
 	Kidney myKidney;
+	static int liverId=0; //this uniquely ids our livers
 	
 	{
 		//To access an inner classe's var, we have to acces it through an object of the class. I this case the heart variable myHeart that every Animal has.
-		System.out.println(myHeart.bpm);
+		//System.out.println(myHeart.bpm);
 	}
 	
 	private int myInt = 3; //This var is available to all of the inner classes, the access level modifier makes no difference. 
 	
+	
+	//CONSTRUCTOR:
+	Animal(int age, String name, double weight){
+		this.age = age;
+		this.name = name;
+		this.weight = weight;
+		
+		//make objects:
+		myHeart = new Heart();
+		myLiver = new Liver();
+		myKidney = new Kidney();
+		myLungs = new Lungs();
+		
+	}
+	
+	Animal(){
+		
+	}
 	
 	
 	private class Heart{ //the inner member class, which can ONLY be accessed inside the member class.
@@ -73,7 +92,30 @@ public class Animal {
 	
 	public class Liver{ //this can be accessed everywhere
 		
+		//You CANT create a static inside an inner member class. However you CAN access a static of the outer class. 
+		//static int someInt; //wont compile! 
 		
+		int id;
+		
+		Liver(){
+			liverId++; //accessing this static var of the outer class.
+			id=liverId;
+			System.out.println("liver created");
+		}
+		
+		
+		//this method can access all of the vars of the outer Animal class: 
+		void cleanse() {
+			System.out.println("liver cleansing");
+			System.out.println("age is: " + age);
+			System.out.println("weight is: " + weight);
+			System.out.println("id is: " + id);
+			
+		}
+		
+		private void recycle() {
+			System.out.println("liver helps with recycling the body");
+		}
 		
 	}
 	
