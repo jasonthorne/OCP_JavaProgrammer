@@ -35,19 +35,19 @@ public class SolarSystem {
 			 
 			@Override //overriding a second time for Jupiter
 			public void gravity() { 
-				System.out.println("Jupiter's own gravity method");
+				System.out.println("\nJupiter's own gravity method");
 			}
 			
 			@Override //overriding a second time for Jupiter
 			public void move() {
-				System.out.println("Jupiter's own move method");
+				System.out.println("\nJupiter's own move method");
 			}
 			
 			@Override //overriding a second time for Jupiter
 			public String toString() {
 				//String str = "largest planet is: " + name() + "population: " + population + "surface area: " + surfaceArea + "size: " + size;
 				//return str;
-				return "largest planet is: " + name() + "population: " + population + "surface area: " + surfaceArea + "size: " + size;
+				return "largest planet is: " + name() + ". population: " + population + ". surface area: " + surfaceArea + ". size: " + size;
 			}
 			
 		},
@@ -89,19 +89,19 @@ public class SolarSystem {
 		//EARTH, MARS, VENUS & SATURN will call these versions of these methods: 
 		@Override
 		public void gravity() {
-			System.out.println(name() + "general gravity method for planets");
+			System.out.println(name() + "\ngeneral gravity method for planets");
 			
 		}
 
 		@Override
 		public void move() {
-			System.out.println(name() + "general move method for planets");
+			System.out.println(name() + "\ngeneral move method for planets");
 			
 		}
 		
 		@Override
 		public String toString() {
-			String str = "name of planet: " + name() + "population: " + population + "surface area: " + surfaceArea + "size: " + size;
+			String str = "name of planet: " + name() + ". population: " + population + ". surface area: " + surfaceArea + ". size: " + size;
 			return str;
 		}
 		

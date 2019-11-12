@@ -131,4 +131,51 @@ public class Examples {
 	}
 	
 	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	static void ex3() {
+		
+		SolarSystem solarSystem = new SolarSystem();
+		
+		System.out.println("printing out details of solar system: " + solarSystem);
+	}
+	
+	
+	static void ex4() {
+		/*
+		 * Can use enums in switch statements
+		 */
+		
+		Months myMonth = Months.DEC;
+		
+		Months myMonth2 = Months.JAN;
+		
+		switch(myMonth) {
+		case JAN: 
+			System.out.println("it's january");
+			myMonth.printMe();
+			myMonth.absMethod();
+			myMonth.sunShining();
+			break;
+		case JUN:
+			System.out.println("it's June");
+			break;
+		case OCT:
+			System.out.println("it's October");
+			myMonth.printMe();
+			break;
+		case DEC:
+			System.out.println("it's Xmas!");
+			break;
+			default:
+				System.out.println("It's some other month");
+			
+			
+		}
+		
+		
+		
+	}
+	
+	
 }
