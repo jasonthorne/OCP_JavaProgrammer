@@ -111,7 +111,23 @@ public class Examples {
 		Months december = Months.DEC; //this calls the overriden december printMe method
 		
 		december.printMe();
+		System.out.println();
 		
+		//========
+		
+		AnimalTypes myMammal = AnimalTypes.MAMMAL;
+		AnimalTypes myReptile = AnimalTypes.REPTILE;
+		AnimalTypes myAvion = AnimalTypes.AVIAN;
+		
+		
+		myMammal.walk(); //has own walk method
+		myMammal.run(); //uses main enum run method
+		
+		myReptile.walk(); //uses main enum walk method
+		myReptile.run(); //has own run method
+		
+		myAvion.walk(); //uses main enum walk method
+		myAvion.run(); //uses main enum run method
 	}
 	
 	

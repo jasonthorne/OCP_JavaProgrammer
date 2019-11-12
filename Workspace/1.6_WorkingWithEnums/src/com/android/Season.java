@@ -297,6 +297,12 @@ enum AnimalTypes implements Movement{
 		public void walk() {
 			System.out.println("Reptile overriding walk method");
 		}
+
+		@Override
+		void fly() {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	},
 	REPTILE(){
@@ -305,8 +311,20 @@ enum AnimalTypes implements Movement{
 		public void run() {
 			System.out.println("Reptile overriding run method"); //overriding method in REPTILE OBJECT ++++++++++++++++
 		}
+
+		@Override
+		void fly() {
+			// TODO Auto-generated method stub
+			
+		}
 	},
-	AVIAN;
+	AVIAN {
+		@Override
+		void fly() {
+			// TODO Auto-generated method stub
+			
+		}
+	};
 	
 	/*
 	 * If each of your types has a run & walk method, you would not need the below() and walk() method. 
@@ -325,7 +343,16 @@ enum AnimalTypes implements Movement{
 		
 	}
 	
+	//If you have an abstract metyhos in your enum, you HAVE TO implement it in each one of the enum values. 
+	//so this has to be implemented in Mammal, Reptile & Avian.
+	abstract void fly();
 	
+	
+	/* THIS CANT BE OVERRIDEN HERE as its in the same class as where it's declared.
+	@Override
+	void fly() {
+		
+	}*/
 	
 }
 
