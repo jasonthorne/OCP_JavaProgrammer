@@ -1,5 +1,7 @@
 package com.android;
 
+import com.android.Dog.Cardiac.Cells.Chemicals;
+
 /*
  * This class can only be public or package level, and only ONE public class per file. And has to be the same name as file. 
  */
@@ -55,6 +57,13 @@ public class Animal {
 		myKidney = new Kidney();
 		myLungs = new Lungs();
 		
+		System.out.println(myHeart.bpm);
+		System.out.println(myLiver.id);
+		System.out.println("end of Animal constructor");
+		
+		myKidney.alive(); //accessing the alive method from the local Beghaviour interface that this implements.
+		myLungs.alive();
+		
 	}
 	
 	Animal(){
@@ -82,11 +91,25 @@ public class Animal {
 		}
 	}
 	
-	protected class Lungs{ //this can only be accessed in the same package or in a subclass of animal.
+	//this can only be accessed in the same package or in a subclass of animal:
+	protected class Lungs implements Behaviour{
+
+		@Override
+		public void alive() {
+			System.out.println("lungs alive");
+			
+		} 
 		
 	}
 	
-	class Kidney{ //this can only be accessed in the same package
+	 //this can only be accessed in the same package
+	class Kidney implements Behaviour{
+
+		@Override
+		public void alive() {
+			System.out.println("lungs alive");
+			
+		}
 		
 	}
 	
@@ -101,6 +124,7 @@ public class Animal {
 			liverId++; //accessing this static var of the outer class.
 			id=liverId;
 			System.out.println("liver created");
+			//System.out.println(myHeart.bpm); /////////////Accessing the bpm of the Heart object. ++++++++++++++++++++++++++++++++++++++++
 		}
 		
 		
@@ -117,14 +141,96 @@ public class Animal {
 			System.out.println("liver helps with recycling the body");
 		}
 		
+	}//end of inner liver class
+	
+	
+	//-----------------------------------------------------------------------
+	//only classes inside the Animal class can implement the behaviour interface
+	private interface Behaviour{
+		/*
+		 * This method is public so we can only implement this interface from inside the Animal class
+		 */
+		void alive();
 	}
 	
 	
-	
-	
-	
+	static class Brain implements Behaviour{
+		
+		/*
+		 * A static inner class CAN have non static members.
+		 * Uses the same rules as static methods in that you cant access NON static member variables directly. 
+		 */
+		
+		int brainNum = 10;
+
+		@Override
+		public void alive() {
+			//System.out.println("age of Animal is: " + age); //You cant access member instance variables
+			System.out.println("liverId is: " + liverId); //liver id is a static variable of the Liver class, so we CAN access it directly. 
+			System.out.println(new Animal().age); //Just like a static method, the only way to access NON static vars here is to create an animal object, then access that age..
+		} 
+		
+	}
 	
 
+} //end of Animal class
+
+
+class Dog extends Animal{
+	
+	int age=10;
+	Animal andy = new Animal();
+	Liver dogLiver; //liver is public so its inherited
+	
+	
+	
+	Dog(){
+		
+		//I want to create a chemicals object. Inorder to do this, I have to first create a Cardiac obj, then a Cells obj, then a Chemicals object.
+		//I have to create a Chemicals object, to get a chemicals constructor 
+		new Cardiac().new Cells().new Chemicals();
+		
+	}
+	
+	/*
+	 * You can have variables of the same name in outer and inner classes: 
+	 */
+	class Cardiac{
+		
+		int age=20;
+		class Cells{
+			
+			int age=30;
+			class Chemicals{
+				
+				int age=40;
+				Chemicals(){
+					System.out.println("Chemical Constructor called");
+					/*
+					 * If we are just accessing 'age', it will access whatever var is closest to it
+					 * '40' in this case
+					 */
+					System.out.println("age of Chemicals is: " + age);
+					System.out.println("age of Cells is: " + Cells.this.age);
+					System.out.println("age of Cardiac is: " + Cardiac.this.age);
+					System.out.println("age of Dog is: " + Dog.this.age);
+				}
+			}
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
