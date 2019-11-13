@@ -52,6 +52,16 @@ public class Examples {
 		
 		Dog myDog = new Dog();
 	}
+	
+	
+	
+	static void ex2() {
+		System.out.println("local inner classes ");
+		Human harry = new Human();
+	}
+	
+	
+	
 }
 
 

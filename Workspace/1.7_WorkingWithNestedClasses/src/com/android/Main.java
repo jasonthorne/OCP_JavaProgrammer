@@ -23,7 +23,9 @@ public class Main {
 	
 		System.out.println("_______________Inner classes______________");
 		
-		Examples.ex1();
+		//Examples.ex1();
+		
+		Examples.ex2();
 	}
 
 }
