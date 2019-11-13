@@ -20,7 +20,6 @@ public class Human {
 	}
 	*/
 	
-	
 	static int HumanCounter;
 	String name;
 	int age;
@@ -66,7 +65,9 @@ public class Human {
 			
 	}
 	
-	
+	/*
+	 * We have an inner digest, local class in this method. Which means we can only create a Digest object inside of the eat() method.
+	 */
 	void eat() {
 		System.out.println("eat method of the Human class called");
 		
@@ -86,11 +87,13 @@ public class Human {
 		
 		int number = 1000;
 		
+		//inner local class of the eat method.
 		class Digestion{
 			
 			//constructor:
 			Digestion(){
 				digestFiber();
+				digestProtein();
 			}
 			
 			/*
@@ -106,14 +109,48 @@ public class Human {
 				System.out.println("str is: " + str); //effectively final, so all good (except when changed in the examples above & below).
 			}
 			
-			void drink() {
+			void digestProtein() {
 				//str="new String"; //changing string here, prevents it from being 'effectively final'.
+				System.out.println("digestProtein method called.");
 			}
 			
 		}//end of digestion class
 		
 		
-	}
+		//We can only create a digestion object inside the eat method, and only after the digestion class declaration: 
+		Digestion digest = new Digestion();
+		System.out.println("Calling digestFiber method:");
+		/*
+		 * digestFiber is a private method of the local digestion class. 
+		 * However we are in the eat method that encloses this class, so we have access to all members of the digestion class,
+		 * regardless of whether they are private or not.
+		 */
+		digest.digestFiber();
+		
+		System.out.println("Calling digestProtein method:");
+		digest.digestProtein();
+		
+		/*
+		 * inner local classes can only be ABSTRACT or FINAL
+		 */
+		
+		abstract class getNutrients{
+			
+		}
+		
+		/*
+		 * interfaces can't be created inside a method. Interfaces cant be local.
+		 * 
+		 * interface Mood{} //will not compile.
+		 */
+		
+		
+		//A local class can also be final:
+		final class Deer{
+			
+		}
+		
+	}//end of eat method
 	
 	
 	

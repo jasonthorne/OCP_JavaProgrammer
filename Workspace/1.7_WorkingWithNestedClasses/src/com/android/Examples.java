@@ -58,6 +58,7 @@ public class Examples {
 	static void ex2() {
 		System.out.println("local inner classes ");
 		Human harry = new Human();
+		harry.eat();
 	}
 	
 	
