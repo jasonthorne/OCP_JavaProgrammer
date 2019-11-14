@@ -166,5 +166,178 @@ public class Building {
 		});
 		
 	}//end of callAnon
+	
+	//----------------
+	/*You CANT create an instance of an abstract class, and you normally cant use the new keyword with an abstract class. 
+	There is however one exception:*/
+	
+	abstract class Bungalow{
+		abstract int heatMe();
+		abstract void lightMe();
+	}
+	
+	class SemiDetached extends Bungalow{
+
+		@Override
+		int heatMe() {
+			System.out.println("SemiDetached heatMe");
+			return 0;
+		}
+
+		@Override
+		void lightMe() {
+			System.out.println("SemiDetached lightMe");
+			
+		}
+		
+	}
+	
+	SemiDetached mySemi = new SemiDetached();
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	/*
+	 * The only place where you can use the keyword new with an abstract class is with an anonymous class obj
+	 * that implements the abstract methods contained within the abstract class method.
+	 */
+	
+	//This is a property of the variable class. 
+	Bungalow myBungalow = new Bungalow() {
+		
+		/*
+		 * If you are using anonymous class implementation of an abstract class, 
+		 * then you have to override the abstract methods contained within that abstract class.
+		 * Here the abstract class bungalow contains the abstract methods: heatMe & lightMe,
+		 * so we have to override both of these methods. 
+		 */
+
+		@Override
+		int heatMe() {
+			liveIn();
+			lightMe();
+			return 0;
+		}
+
+		@Override
+		void lightMe() {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		void liveIn() {
+			System.out.println("liveIn method");
+		}
+	};
+	
+	
+	/*
+	 * This method uses the different sorts of Bungalow you can have:
+	 * + An anonymous class implementation of the abstract Bungalow class
+	 * + A concrete sub class implementation of the super abstract bungalow
+	 */
+	
+	void callBungalow() {
+		System.out.println("CallBungalow method: ");
+		myBungalow.heatMe(); //call the overridden heatMe method
+		mySemi.heatMe();
+	}
+	
+	
+	//++++++++++++++++++++++COULD BE IN EXAM: ++++++++++++++++++++++++++++++++++++++++++++
+	
+	//inner class that extends its outer(parent) class
+	class Apartment extends Building{
+		
+	}
+	Apartment myApartment = new Apartment(); 
+	
+	
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	/*
+	 * inner interfaces, but for our purposes, behave the same way as a top level interface:
+	 * You cant create an interface obj, because an interface is a purel abstract class. 
+	 * So you cant usually use the new keyword with an interface. 
+	 * However you CAN with an anonymous class implementation of an interface. 
+	 */
+	
+	interface Behaviour{
+		void aggressive();
+		void passive();
+	}
+	
+	/*
+	 * below can be a reference to an object whos class implements this interface
+	 * or it can be an anonomous inner class implementation (same syntax as abstract classes).
+	 */
+	Behaviour myBehave = new Behaviour() {
+
+		//this has to override these abstract methods: 
+		@Override
+		public void aggressive() {
+		System.out.println("myBehave aggressive");
+		}
+
+		@Override
+		public void passive() {
+			System.out.println("myBehave passive");
+			delirious(); //calling the local method
+		}
+		
+		//this is its own method
+		public void delirious() {
+			System.out.println("myBehave delirious");
+		}
+		
+	};
+	
+	void callBehaviour() {
+		myBehave.aggressive();
+		myBehave.passive();
+		//myBehave DOESNT have access to its classe's 'delirious' method here, +++++++++++++++++++++++++++++IMPORTANT!!!  
+		//as the REFERENCE refers to the interface NOT the anonymous class. 
+	}
+	
+	//-------------------------------------------------------
+	
+	//A functional interface is an interface with only 1 abstract method inside it:
+	
+	@FunctionalInterface
+	interface Mood{
+		void happy();
+	}
+	
+	//OPTION 1 - to implement the mood interface is to have a class implement the interface
+	class Zebra implements Mood{
+
+		@Override
+		public void happy() {
+			System.out.println("Zebra happy");
+			
+		}
+
+		
+	}//end of zebra
+	
+	
+	//OPTION 2 - anonmous class implementation of the mood interface
+	Mood moodAnon = new Mood() {
+
+		@Override
+		public void happy() {
+			System.out.println("anonymous implementation of the Mood interface");
+		}
+		
+	};
+	
+	//OPTION 3 - With a functional interface we can use LAMBDA notation:
+	/*
+	 * We re trying to implement the only abstract method from this functional interface which is: void happy();
+	 */
+	Mood moodLamb =()->{
+		System.out.println("using long form lambda notation for happy method");
+	};
+	
+	
+	
 
 }//end of building class

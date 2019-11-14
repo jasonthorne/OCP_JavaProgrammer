@@ -66,6 +66,7 @@ public class Examples {
 		Employee ethna = new Employee();
 		ethna.doWork();
 		myBuilding.callAnon();
+		myBuilding.callBungalow();
 	}
 	
 	
