@@ -1,9 +1,17 @@
 package com.android;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 class Employee{
 	
@@ -405,12 +413,58 @@ public class Building {
 		
 	};
 	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++FUCTIONAL INTERFACES ++++++++++++++++++++++++++++++++++++++++
+	
+	//Predicate: takes an object, and returns a boolean
 	Predicate<Integer>pred=a->a>18?true:false;
 	
+	//BiPredicate: Takes 2 objects (can be of different types) and compares some property of both of them.
 	BiPredicate<Integer,String>biPred=(a,b)->true;
 	
+	//CONSUMER:
+	/*
+	 * This has an accept method that takes an object and returns void (nothing).
+	 * Here this takes in a number and prints a double of it.
+	 */
+	Consumer<Integer>consume=(a)->System.out.println(a*2); //printing, not returning.
 	
+	void callFunction() {
+		Arrays.asList(23,56,89).forEach(consume); //takes in numbers as a list, then spins through each and calls consume on them.
+	}
 	
+	/*
+	 * BiConsumer has an accept method that takes two objects (can be the same type or different) and returns void.
+	 */
+	BiConsumer<Integer,String>biConsume =(a,b)->System.out.println(a+b); //not a return but a PRINTOUT
+	
+	/*
+	 * Function: Has an apply method which takes an object and returns an object (both can be the same or different)
+	 */
+	Function<Integer, String>function=(a)->"sup dawg!"; //a is an integer, return is a string (order of types matters) ++++++++++++++++++
+	
+	/*
+	 * BiFunction: Has an apply method which takes an object and returns an object (both can be the same or different)
+	 */
+	BiFunction<Integer,String, Double>bifunction=(a, b)->3.3; //a is an integer, b is string, return is a double (order of types matters) ++++++++++++++++++
+	
+	/*
+	 * Supplier:
+	 * Has 1 method 'get' which takes in nothing, and returns an object. Here it returns an integer.
+	 */
+	Supplier<Integer>supplier=()->2;
+	
+	/*
+	 * Unary Opperator:
+	 * Takes an object and returns an object. Both must be of the same type.
+	 */
+	UnaryOperator<Integer>unary = a->a*2; //return and input HAVE TO BE of the same type
+	
+	/*
+	 * Binary Opperator:
+	 * Has one method "get" Takes 2 objects and returns an object. Both must be of the same type.
+	 */
+	BinaryOperator<Integer>binary = (a,b)->a*b; 
 	
 
 }//end of building class
