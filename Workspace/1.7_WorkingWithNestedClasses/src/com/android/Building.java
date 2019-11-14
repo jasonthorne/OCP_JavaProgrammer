@@ -1,5 +1,10 @@
 package com.android;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
+
 class Employee{
 	
 	//vars:
@@ -243,13 +248,13 @@ public class Building {
 	
 	
 	//++++++++++++++++++++++COULD BE IN EXAM: ++++++++++++++++++++++++++++++++++++++++++++
-	
+	/*
 	//inner class that extends its outer(parent) class
 	class Apartment extends Building{
 		
 	}
 	Apartment myApartment = new Apartment(); 
-	
+	*/
 	
 	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
@@ -260,6 +265,7 @@ public class Building {
 	 * However you CAN with an anonymous class implementation of an interface. 
 	 */
 	
+	//NOT a FUNCTIONAL INTERFACE
 	interface Behaviour{
 		void aggressive();
 		void passive();
@@ -301,41 +307,108 @@ public class Building {
 	
 	//A functional interface is an interface with only 1 abstract method inside it:
 	
-	@FunctionalInterface
+	@FunctionalInterface //this is an annotation, and you will get an error if you have more than 1 abstract method inside it.
 	interface Mood{
 		void happy();
 	}
 	
 	//OPTION 1 - to implement the mood interface is to have a class implement the interface
 	class Zebra implements Mood{
-
+		
 		@Override
 		public void happy() {
 			System.out.println("Zebra happy");
 			
 		}
 
-		
 	}//end of zebra
 	
 	
 	//OPTION 2 - anonmous class implementation of the mood interface
 	Mood moodAnon = new Mood() {
-
 		@Override
 		public void happy() {
 			System.out.println("anonymous implementation of the Mood interface");
 		}
-		
 	};
 	
 	//OPTION 3 - With a functional interface we can use LAMBDA notation:
 	/*
 	 * We re trying to implement the only abstract method from this functional interface which is: void happy();
 	 */
-	Mood moodLamb =()->{
+	
+	Mood moodLamb1 =()->{
 		System.out.println("using long form lambda notation for happy method");
 	};
+	
+	//shortform lambda (NO curly brackets needed if only one line) 
+	Mood moodLamb2 =()->System.out.println("using long form lambda notation for happy method");
+	
+	void callMood(){
+		moodLamb1.happy();
+		moodLamb2.happy();
+	}
+	
+	
+	//++++++++++++++++++++++++++++++++++++++++++PREDICATES+++++++++++++++++++++++++++++++
+	
+	/*
+	 * There is a built in functional interface in java called "Predicate"
+	 * which has 1 abstract method called "test":
+	 * public boolean test(Object t)
+	 */
+	
+	/*
+	 * Here there is an issue in that we have not supplied a type, 
+	 * so this means this will be an arraylist of objects. 
+	 * So that means we wont be able to access any of the methods of these objects that does not already exist in the object list.
+	 * I.E a dog has a walk() method, but we wont be able to access the walk() method as this will be like this:
+	 * Object spot = new dog(), no access to Dog methods.
+	 */
+	
+	List myList = new ArrayList<>(); //list of objects
+	
+	//here we supply a type (has to be Aan object) of Integer. Only have to supply on left hand side. Most times you do not have to supply on the right hand side.
+	List<Integer>intList = new ArrayList<Integer>();
+	
+	//a can only be an object, because we haven't supplied it with a type. Therefore it only has access to methods of the object class
+	Predicate myPred = a->true; //short hand 
+	
+	Predicate myPred2 = (a)->{ //long hand
+		return true;
+	};
+	
+	Predicate<Integer> myPred3 = (a)->{ //long hand Lambda
+		if(a>18)
+			return true;
+		return false;
+	};
+	
+	/*
+	 * anonymous inner class implementation of the predicate interface method boolean test(Object t)
+	 */
+	Predicate<Integer>predInt=new Predicate() {
+		
+		/*
+		 * Even thpough we supplied it with a type, anonymous class implementation doesnt recognise this object as an Integer
+		 * so we have to cast it.
+		 */
+
+		@Override
+		public boolean test(Object t) {
+			
+			Integer num = (Integer)t; //cast to Integer needed, as it only accepts Object
+			if(num>18)
+					return true;
+			return false;
+		}
+		
+	};
+	
+	Predicate<Integer>pred=a->a>18?true:false;
+	
+	BiPredicate<Integer,String>biPred=(a,b)->true;
+	
 	
 	
 	
