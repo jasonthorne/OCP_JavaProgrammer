@@ -62,6 +62,10 @@ public class Examples {
 	}
 	
 	
+	static void ex3() {
+		Building myBuilding = new Building();
+	}
+	
 	
 }
 
