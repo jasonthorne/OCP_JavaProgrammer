@@ -54,7 +54,6 @@ public class Examples {
 	}
 	
 	
-	
 	static void ex2() {
 		System.out.println("local inner classes ");
 		Human harry = new Human();
@@ -64,6 +63,9 @@ public class Examples {
 	
 	static void ex3() {
 		Building myBuilding = new Building();
+		Employee ethna = new Employee();
+		ethna.doWork();
+		myBuilding.callAnon();
 	}
 	
 	
