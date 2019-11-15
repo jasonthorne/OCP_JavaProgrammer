@@ -1,6 +1,8 @@
 package com.android;
 
 import com.android.Animal.Liver;
+import com.android.Doctor.Pay;
+import com.android.Plant.Tree;
 
 public class Examples {
 	
@@ -67,6 +69,36 @@ public class Examples {
 		ethna.doWork();
 		myBuilding.callAnon();
 		myBuilding.callBungalow();
+		
+		
+		//creating a plant that has itself a plant obj:
+		Plant myPlant = new Plant();
+		myPlant.aMethod();
+		myPlant.callInners();
+		
+		
+		
+	}
+	
+	
+	static void ex4() {
+		Doctor doctor = new Doctor(50, "John");
+		
+		Liver myLiver = new Animal().new Liver(); //creates a stand alone liver. (Animal isnt referenced by liver, so dies after creation)
+		
+		//You cant create a nested object in the same way:
+		//new Doctor.new Pay(); - Doesnt work
+		Pay myPay = new Pay(); 
+		Doctor.Pay myPay2 = new Pay(); //you can access this static inner class in a static way
+		Doctor.Pay myPay3 = new Doctor.Pay(); //or this way
+		
+		
+		System.out.println("Weekly is " + myPay3.weekly); //accessing the non statics of the static inner class 
+		System.out.println("payId is: " + myPay3.payId); //accessing the statics of the static inner class 
+		
+		System.out.println(Pay.payId); //accessing a static in a static way (can ONLY use the class name if var is static)
+		//System.out.println(Pay.weekly); //CANT access the non static vars of a static class in a static way.
+		
 	}
 	
 	
