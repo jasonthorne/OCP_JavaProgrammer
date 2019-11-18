@@ -19,4 +19,17 @@ public interface Behaviour {
 	
 	//void happy(); //this breaks this functional interface, as you can only have ONE abstract method in an interface.
 	
+	
+	//these are fine
+	default void happy() {
+		
+	}
+	
+	//these are fine
+	static void bad() {
+		
+	}
+	
+	
+	
 }

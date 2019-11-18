@@ -169,6 +169,38 @@ public class Examples {
 			a.canSwim();
 			return true;
 		};
+		
+		/*
+		 * Behaviour is a functional interface and has one abstract method. Which is void sad();
+		 * This has no generic in it as this method doesnt return or take any variable.
+		 */
+		Behaviour myBehave=()->{
+			System.out.println("behaviour sad lambda");
+		};
+		
+		
+		//-------------
+		Move<Integer>intMove=a->a*2;
+		System.out.println(intMove.run(12));
+		
+		Move<String>strMove=s->s+" is our string";
+		System.out.println(strMove.run("Jay"));
+		
+	
+		Behaviour behaveHuman = new Human();
+		behaveHuman.happy();
+		Move moveHuman = new Human();
+		moveHuman.run("hello");
+		
+		//++++++++++++++++++++++++++++++++++++
+		/*
+		 * You can have an interface refeence to 3 different things:
+		 * 
+		 * + An interface reference to an anonymous class implementation of the interface. This works for all types of interface.
+		 * + An interface reference to a lambda implementing the interface. (Only works for functional interfaces)
+		 * + An inteeface reference to an anonymus class implementing that interface. This works for all types of interface.
+		 */
+		
 	}
 	
 	
