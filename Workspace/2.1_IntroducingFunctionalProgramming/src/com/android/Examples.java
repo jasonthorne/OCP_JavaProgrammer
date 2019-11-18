@@ -99,7 +99,78 @@ public class Examples {
 	
 	static void ex2() {
 		
+		System.out.println("creating our two Animals");
+		Animal rabbit = new Animal("rabbit", true, false); //can hop but can't swim
+		Animal fish=new Animal("fish", false, true); //can swim, can't hop
 		
+		
+		//calling the static print method that takes an Animal and a predicate Animal object.
+		
+		/*
+		 * This method takes an Animal object and predicate, which is a meothd that implements test(Object obj) of the predicte interface.
+		 */
+		
+		Animal.print(rabbit, a->a.canHop()); //'a' is the rabbit object being passed. and were implementing it whilst calling the 'canHop' on it, whilst passing it as a param
+		Animal.print(rabbit, (Animal a)->{ //long form version of above
+			return a.canSwim();
+		}); 
+		
+		
+		//You can have a predicate as a variable:
+		
+		Predicate<Animal>hopPred=a->a.canHop();
+		Predicate<Animal>swimPred=a->a.canSwim(); //predicate variable
+		System.out.println("\nfish predicate test:"); //predicate variable
+		Animal.print(fish, hopPred);
+		Animal.print(fish, swimPred);
+		
+		
+	
+		
+		
+		//redefining hopPred:
+		//hopPred can only take an Animal and return a boolean.
+		hopPred=a->a.canSwim(); //redefining the implementation of hopPred
+		
+		hopPred=(s)->true;
+		
+		//hopPred=(String s)->true; ++++++++++++++++++++++++++++++++++POSSIBLE EXAM QUESTION +++++++++++++++++++++++++++++++
+		/*
+		 * Above wont compile as hopPred was created with the generic type of Animal, so the parameteer has to be an Animal, if you say what type it is.
+		 */
+		
+		
+		/*
+		 * You can declare a predicate without a data type but you will have issues with this.
+		 * If you dont define a type of the left hand sise, a will be the object of type object, and we'll only have access to methods of the object class.
+		 */
+		
+		Predicate objPred=obj->obj.equals(rabbit);  //using the object equals method to check if object is a rabbit
+		
+		/*
+		 * You have no access to any methods of the Animal class as this was created with no generic type, so is given the type of object.
+		 */
+		//objPred=obj->obj.canHop(); //cant be done without casting this to an Animal (shown below), as objPred is an object.
+		objPred=obj->((Animal) obj).canHop(); //casting to Animal, to call animal's canHop
+		
+		/*
+		 * If you dont give a type to the predicate lambda upon creation, then you are implementing the test method with the following signiature:
+		 * 
+		 * public boolean test(Object obj);
+		 * 
+		 * so that means it only has access0s to the methods of the Object class, and no access to any of the method a of the Animal class. 
+		 * By giving out predicate a data type we will know what class obj is I(in this case Animal), and can then call the methods of the Animal class.
+		 */
+		
+		//This predicate lambda has access ot all methods of Animal class.
+		Predicate<Animal>animalPred; 
+		animalPred=(a)->{
+			a.canHop();
+			a.canSwim();
+			return true;
+		};
 	}
+	
+	
 
 }
