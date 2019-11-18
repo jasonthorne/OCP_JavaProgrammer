@@ -30,8 +30,41 @@ public class Examples {
 		
 		//==========================
 		
-		Mammal.takeMovement(new Mammal(), 45);
+		//Mammal.takeMovement(new Mammal(), 45);
+		/*
+		 * You dont have to provide a generic type here, as movement has the following class definition: class Mammal implements Movement<Integer>
+		 * This means that type t inside the method: void walk(Integer t), t of type Integer
+		 */
+		Movement moveMammal = new Mammal();
+		moveMammal.walk(12);
 		
+		//generic type doesnt need to be declared (but isnt harmful to give). BUt if you do, make sure it's right!!! :P
+		//i.e Integer works for cow and Mammal.
+		Movement<Integer>moveCow = new Cow(); 
+		
+		Movement<Dog>moveEmployee= new Employee();
+		
+		//Movement<Integer>moveIntEmp=new Employee(); //wont compile as generic type is set to be Dog
+		
+		
+		Movement<Integer>moveFish = new Fish();
+		moveFish.walk(3);
+		
+		//===================
+		
+		Movement<Integer>moveLambda=(t)->{
+			System.out.println("Walk method in lambda called");
+			System.out.println("t is of type: " + t.getClass().getSimpleName());
+			t=t*3*3*3;
+			System.out.println("t is: " + t);
+		};
+		
+		moveLambda.walk(333);
+		
+		//these wont compile if you send the wrong object type as a parameter.
+		Mammal.takeMovement(moveCow, 12);	
+		Mammal.takeMovement(moveMammal, 100);	
+		Mammal.takeMovement(moveEmployee, new Dog());	
 	}
 
 }

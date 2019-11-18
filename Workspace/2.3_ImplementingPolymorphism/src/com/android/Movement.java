@@ -26,6 +26,8 @@ class Mammal implements Movement<Integer>{
 	
 	/*
 	 * This method takes a movement reference and an object:
+	 * The movement reference and the object t can only be certain combinations.
+	 *eg  A moment reference to a Mammal object has to have an Integer sent with it. 
 	 */
 	static void takeMovement(Movement m1, Object t) {
 		m1.walk(t); //this can be an Integer, an Object, a Dog 
