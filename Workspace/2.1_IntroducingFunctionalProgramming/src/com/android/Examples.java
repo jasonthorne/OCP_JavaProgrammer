@@ -48,6 +48,58 @@ public class Examples {
 		
 		
 		System.out.println("greater than or equal to 18? " + intPred.test(19));
+		
+		/*
+		 * We will replace the above anonymous class with a lambda, as Predicate is a Functional Interface and has only 1 abstract method inside it. 
+		 */
+		
+		
+		//-----------------------Long form lambda:
+		
+		Predicate<Integer>intPred2=(Integer a)->{
+			/*
+			 * If more than one statement in a lambda, you HAVE to have curly braces.
+			 */
+			System.out.println("Long form lambda implementation of test method");
+			
+			//NO NEED TO CAST as it's being passed an integer NOT an onbject.
+			if(a<=18) { //do stuff with integer
+				System.out.println("You're a child");
+				return true;
+			}else {
+				System.out.println("You're an adult");
+				return false;
+			}
+			
+		};
+		
+		intPred2.test(12);
+		
+		
+		//-----------------------Medium form lambda:
+		/*
+		 * when you give a type on the left hand side, you dont need one one the right, as it knows a is an Integer.
+		 * If you DONT GIVE A TYPE then the type is assumed to be object.
+		 */
+		Predicate<Integer>intPred3 = (a)->{
+			
+			if(a>=18)
+				return true;
+			return false;
+		};
+		
+		//-----------------------Short form lambda:
+		/*
+		 * when you have only one line of code in your lambda body, you dont need curly braces on the right hand side. 
+		 */
+		
+		Predicate<Integer>shortPred = a->a>18?true:false; 
+	}
+	
+	
+	static void ex2() {
+		
+		
 	}
 
 }
