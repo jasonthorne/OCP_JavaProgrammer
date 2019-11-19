@@ -178,17 +178,88 @@ public class Examples {
 		 * Human is in Animal file and does not extend anything except Object.
 		 */
 		
-		Human myHuman = new Human(); //this is a human reference to a Human object. When casting it's NOT the OBJECT you are changing, its the reference.
+		Human myHuman = new Human(); 
+		
+		/*this is a human reference to a Human object. When casting it's NOT the OBJECT you are changing, its the reference.
+		 * With a human reference, you have access to all of the human methods in the human class. 
+		 */
+		
+		myHuman.mad();
+		myHuman.sad();
+		myHuman.hashCode();
+		
+		/*
+		 * This object is STILL a human object, HOWEVER it only has access to object class methods or any object class methods that were overriden in the Human class. +++++++++++++++++
+		 */
+		Object humanObj = new Human(); 
+		
+		//humanObj.mad(); //defined in Human, so no access here
+		
+		
+		//----
+	
+		/*
+		 * below is an object reference to an existing human object. Again we can only access methods first defined in the object class. 
+		 */
+		Object objHuman = myHuman;
+		
+		//---
+		
+		/*
+		 * Below is a behaviour reference to an existing object. (As Human implements Behaviour)
+		 */
+		Behaviour behaveHuman = myHuman;
+		
+		behaveHuman.sad(); //defined in behaviour interface, so we can target this.
+		
+		
+		/*
+		 * This is an object reference to a Human object, which means you can cast this object to a Human reference.
+		 * this object has no access to sad(), mad() or talk()
+		 */
+		System.out.println(humanObj);
+		
+		
+		/*
+		 * newHuman below is a human reference to a human object. 
+		 */
+		Human newHuman=(Human)humanObj; 
+		newHuman.sad();
+		newHuman.mad();
+		newHuman.talk();
 		
 		
 		
+		//-------------------
+		//CASTING DOGS:
+		
+		System.out.println("Casting Dogs");
+		Dog spot = new Dog(); //in Animal class, has own bark() method.
+		
+		/*
+		 * spot is a Dog reference to a Dog object, so has access to all methods of the Dog class.
+		 */
+		
+		spot.bark();
+		
+		/*
+		 * Below is a superclass Animal reference to a subclass Dog object.
+		 * This doesnt have access to bark (as it was created in the Dog class).
+		 */
+		Animal anDog = new Dog();
+		anDog.mad();
+		anDog.sad();
+		//anDog.bark(); - no access a this was defined in Dog 
+		
+		//Dog myDog = anDog(); - doesnt work as anDog is an ANIMAL reference, and so this is a subclass reference to a superclass object.
+		Dog myDog=(Dog)anDog; //this works as anDog's reference is cast to a Dog first.
 		
 		
-		
-		
-		
-		
-		
+		try {
+			spot = (Dog) new Animal(); //cant cast a super to a sub
+		}catch(Exception e) {
+			System.out.println("The exception is: " + e.getClass().getSimpleName());
+		}
 		
 	}
 	

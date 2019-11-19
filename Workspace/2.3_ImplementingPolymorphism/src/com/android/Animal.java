@@ -52,6 +52,10 @@ class Human implements Behaviour{
 		return name;
 	}
 	
+	public void talk() {
+		System.out.println("Human talking");
+	}
+	
 }
 
 
