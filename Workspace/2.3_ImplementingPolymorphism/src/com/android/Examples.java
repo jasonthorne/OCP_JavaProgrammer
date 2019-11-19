@@ -70,6 +70,9 @@ public class Examples {
 	
 	static void ex2() {
 		
+		
+		System.out.println("Interface reference to a class object");
+		
 		Transport<Integer>transCar = new Car(); //interface reference to a Car object
 		
 		//ONLY methods of the interface 'transport' and the object class are avalaible to this object.
@@ -86,19 +89,67 @@ public class Examples {
 		myBoat.sail(); //access granted :P
 		//------
 		
-		Transport boatTrans = new Boat();
+		Transport boatTrans = new Boat(); //++++++++++++++++++++No data type given, but still recognises it as a string as the interface is defined as such.
 		boatTrans.drive("sally");
 	
+		//Transport<Integer>noTrans = new Boat(); //WONT COMPILE - as it needs a string
 		
+		//------
 		
+		Human myHuman = new Human();
+		myHuman.name = "harry";
 		
+		/*
+		 * Transport refernce to an aeroplane object ,and only has access to the drive(Human t) method
+		 */
+		Transport<Human>aeroTrans=new Aeroplane();
+		aeroTrans.drive(myHuman);
 		
+		//aeroTrans.fly(); - only aeroplane reference objects have access to the Areoplane fly() method. This will not compile.
 		
+		//==========================================
 		
+		System.out.println("Interface reference to a lambda");
 		
+		/*
+		 * A lambda ONLY compiles for a functional Interface. So only interfaces with ONE abstract methods can be lambdas.
+		 */
 		
+		System.out.println("long form lambda");
+		Transport <Integer>transLamb1=(Integer i)->{ //implementing the drive method
+			System.out.println("transLamb1 drive method called:");
+			System.out.println("i is: " + i.getClass().getSimpleName());
+		};
 		
+		transLamb1.drive(3); //calling the lambdas implemented drive method. (It can also call all methods of the object class)
 		
+		//-----------------------
+		System.out.println("Medium form lambda");
+		
+		Transport <String>transLamb2=(s)->System.out.println("transLamb2 drive method called:" + s);
+		
+		transLamb2.drive("banana"); //calling the transLamb2 drive
+		
+		//-----------------------
+		System.out.println("Long form lambda");
+		
+		//dont have to put in brackets for d as it knows that d is a double. And dont have to put in curly brackets for body.
+		Transport<Double>transLamb3=d->System.out.println("transLamb3 drive method called:" + d);
+		transLamb3.drive(3.3); //calling transLamb3 drive
+		
+		/*
+		 * If there is no parameter in the method the lambda s implementing you have to have a blank set of braces. 
+		 * i.e void eat()
+		 * ()-> sysout("yo");
+		 * 
+		 * if you have more than 1 param, you HAVE to have a blank set of braces:
+		 * abstract void drink(Integer age, String name):
+		 * (a,n) -> sysout("stuff");
+		 */
+		
+		//--
+		
+		Needs<String, Double>needLamb=(s,d)->System.out.println(s + " s." + d + "d"); //implementing the drink method from the needs interface. 
 		
 	}
 	

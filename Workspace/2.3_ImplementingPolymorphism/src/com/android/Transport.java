@@ -32,6 +32,7 @@ class Boat implements Transport<String>{
 	public void drive(String t) {
 		System.out.println("You are driving your boat");
 		System.out.println("your name is: " + t);
+		System.out.println("length of name is: " + t.length());
 		
 	}
 	
@@ -48,6 +49,10 @@ class Aeroplane implements Transport<Human>{
 	public void drive(Human t) {
 		System.out.println("You are flying your areoplane");
 		System.out.println(t + "is flying your areoplane");
+	}
+	
+	void fly() {
+		System.out.println("aeroplane flying");
 	}
 	
 	
