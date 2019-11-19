@@ -46,6 +46,12 @@ class Human implements Behaviour{
 		
 	}
 	
+	public String name;
+	
+	public String toString() {
+		return name;
+	}
+	
 }
 
 

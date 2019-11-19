@@ -66,5 +66,43 @@ public class Examples {
 		Mammal.takeMovement(moveMammal, 100);	
 		Mammal.takeMovement(moveEmployee, new Dog());	
 	}
+	
+	
+	static void ex2() {
+		
+		Transport<Integer>transCar = new Car(); //interface reference to a Car object
+		
+		//ONLY methods of the interface 'transport' and the object class are avalaible to this object.
+		transCar.drive(333);
+		
+		//transCar.commute(); //wont compile as its only accessible to CAR references.
+		
+		//------
+		
+		Transport<String>transBoat = new Boat(); //interface reference to a Car object
+		transBoat.drive("Bob");
+		//transBoat.sail(); //wont compile as its only accessible to BOAT references.
+		Boat myBoat = new Boat(); //Boat reference to a boat object and has access to ALL of the Boat class methods.
+		myBoat.sail(); //access granted :P
+		//------
+		
+		Transport boatTrans = new Boat();
+		boatTrans.drive("sally");
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
 
 }
