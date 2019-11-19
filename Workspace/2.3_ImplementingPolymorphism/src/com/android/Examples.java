@@ -151,9 +151,16 @@ public class Examples {
 		
 		Needs<String, Double>needLamb=(s,d)->System.out.println(s + " s." + d + "d"); //implementing the drink method from the needs interface. 
 		
+		takeTransport(transCar,  33); //call takeTransport below, passing in drive implemented car lambda and int of 33
+		takeTransport(aeroTrans,  myHuman); //call takeTransport below, passing in drive implemented aeroplane lambda and human object
+		takeTransport(transLamb3,  3.3); //call takeTransport below, passing in drive implemented transLamb3 lambda and a double
 	}
 	
 	
+	//========================================================
+	static void takeTransport(Transport t1, Object t) { //method that takes a transport referenced obj, and a generic obj
+		t1.drive(t); //passing t into t1's .drive method
+	}
 	
 
 }
