@@ -154,12 +154,42 @@ public class Examples {
 		takeTransport(transCar,  33); //call takeTransport below, passing in drive implemented car lambda and int of 33
 		takeTransport(aeroTrans,  myHuman); //call takeTransport below, passing in drive implemented aeroplane lambda and human object
 		takeTransport(transLamb3,  3.3); //call takeTransport below, passing in drive implemented transLamb3 lambda and a double
+		
+		//this is a car reference to a car object, and the cr class does implement Transport. Which means we can send this object to this method
+		//This method can take ANY OBJECt that IMPLEMENTS the Transport interface, regardless of it's reference.
+		//Because it implements the Drive reference.
+		
+		Car myCar = new Car();
+		takeTransport(myCar, 45);
+		
 	}
+	
 	
 	
 	//========================================================
 	static void takeTransport(Transport t1, Object t) { //method that takes a transport referenced obj, and a generic obj
 		t1.drive(t); //passing t into t1's .drive method
+	}
+	
+	
+	static void ex3() {
+		
+		/*
+		 * Human is in Animal file and does not extend anything except Object.
+		 */
+		
+		Human myHuman = new Human(); //this is a human reference to a Human object. When casting it's NOT the OBJECT you are changing, its the reference.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 
