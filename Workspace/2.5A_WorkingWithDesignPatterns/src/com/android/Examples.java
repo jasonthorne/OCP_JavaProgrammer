@@ -15,6 +15,12 @@ public class Examples {
 		 */
 		
 		System.out.println("SINGLETON PATTERN");
+		
+		//HayStorage.statMethod(); //no object of this class has been created, however it's static  initialiser is triggered by this static method call
+		
+		HayStorage.getInstance(); //creates HayStorage instance obj
+		HayStorage.getInstance(); //merely accesses the instance object already created.
+		
 	}
 
 }
