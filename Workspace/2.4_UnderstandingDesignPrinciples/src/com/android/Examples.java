@@ -90,6 +90,24 @@ public class Examples {
 		 * An objkect has a particular property or value
 		 * If a superclass has a public or protected attribute thne the subclass also has this attribute.
 		 */
+		Bird tweety = new Bird(); //bird is in primate file. all birds have feathers, which is a HAS-A relationship.
+		
+		Shetland shergar = new Shetland(); //all objects have tails.
+	}
+	
+	
+	static void ex4() {
+		System.out.println("Object composition");
+		
+		/*
+		 * Object composition is the process of constructing classes using references to thoer classes.
+		 * See penguin class.
+		 * It can be an alternative to inheritence, or it can compliment inheritence, and both techneques do have their place in sw development.
+		 */
+	}
+	
+	static void ex5() {
+		
 	}
 	
 
