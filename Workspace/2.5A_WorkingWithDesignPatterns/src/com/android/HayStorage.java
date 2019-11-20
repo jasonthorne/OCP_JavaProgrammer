@@ -71,11 +71,34 @@ public class HayStorage {
 		System.out.println("Static initialiser called");
 	}
 	
+	//-----------------
 	
+	/*
+	 * This method adds more hay to the qty of hay already in the hay storage obj.
+	 * Syncronized is for use in threads and ensures that mo 2 threads can access the same method at the same time. 
+	 */
 	public synchronized void addHay(int amount) {
 		System.out.println(amount+ " hay added");
 		quantity+=amount;
 	}
+	
+	
+	/*
+	 * when a zookeeper removes some hay, this method is called. If the need is > quantity, then this will return false. 
+	 */
+	public synchronized boolean removeHay(int amount) {
+		
+		if(quantity<amount) {
+			System.out.println("There is not anough hay in the store for the amount requested");
+			return false;
+		}else { //if qty to be removed dosent exceed the amount of hay then remove and return true.
+			quantity-=amount;
+			System.out.println(amount+ " removed");
+			return true;
+		}
+	}
+	
+	//--------------
 	
 	static void statMethod() {
 		System.out.println("StatMethod called");
