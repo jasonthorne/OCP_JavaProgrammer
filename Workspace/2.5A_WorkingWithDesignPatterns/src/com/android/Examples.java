@@ -25,5 +25,10 @@ public class Examples {
 		zed.feedElephant(10);
 		zed.feedElephant(20);
 	}
+	
+	static void ex2() {
+		Stock.getStock();
+	}
+	
 
 }
