@@ -16,11 +16,14 @@ public class Examples {
 		
 		System.out.println("SINGLETON PATTERN");
 		
-		//HayStorage.statMethod(); //no object of this class has been created, however it's static  initialiser is triggered by this static method call
+		//HayStorage.statMethod(); //no object of this class has been created, however it's static initialiser is triggered by this static method call
 		
-		HayStorage.getInstance(); //creates HayStorage instance obj
-		HayStorage.getInstance(); //merely accesses the instance object already created.
+		//HayStorage.getInstance(); //creates HayStorage instance obj
+		//HayStorage.getInstance(); //merely accesses the instance object already created.
 		
+		ZooKeeper zed = new ZooKeeper();
+		zed.feedElephant(10);
+		zed.feedElephant(20);
 	}
 
 }

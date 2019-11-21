@@ -5,7 +5,7 @@ public class HayStorage {
 	//this will show how many hayStorage objects have been created
 	static int counter=0;
 	int id; //uniquely id the singleton.
-	//non static initialiser. Runs evertime a HayStorage object is created. it runs BEFORE constructor
+	//non static initialiser. Runs everytime a HayStorage object is created. it runs BEFORE constructor
 	{
 		System.out.println("non static initialiser called"); //runs everytime a HayStorage obj is created 
 	}
@@ -18,7 +18,7 @@ public class HayStorage {
 	 */
 	private int quantity = 100; 
 	
-	
+	 
 	/*
 	 * A private constructor ensures that you cant create a new singleton object outside of the class. 
 	 * As this is now the ONLY way to create a Haystorage object, we cant create a HayStorage object directly outside of the class. 
@@ -48,13 +48,13 @@ public class HayStorage {
 	/*
 	 * When accessing by atyatic method for the first time, we go:
 	 * HayStorage.instance()
-	 * this causes ALL statics inthis class to be given values, including our dude here: private static final HayStorage instance = new HayStorage();
+	 * this causes ALL statics in this class to be given values, including our dude here: private static final HayStorage instance = new HayStorage();
 	 * 
 	 * Every subsequent call of HayStorage.instance() will NOT cause the statics to be given values, it will use whatever values the static currently have.
 	 * 
 	 * Your singleton has to have 3 things to work:
 	 * Constructor needs to be private,
-	 * You have to vcreate an obj of the class inside the singleton class that is: priavte, static and final
+	 * You have to create an obj of the class inside the singleton class that is: priavte, static and final
 	 * You have to have a static method that access the private static final variavle (first time it runs it will create a singleton. Other times it doesnt)
 	 */
 	
@@ -91,7 +91,7 @@ public class HayStorage {
 		if(quantity<amount) {
 			System.out.println("There is not anough hay in the store for the amount requested");
 			return false;
-		}else { //if qty to be removed dosent exceed the amount of hay then remove and return true.
+		}else { //if qty to be removed doesn't exceed the amount of hay then remove and return true.
 			quantity-=amount;
 			System.out.println(amount+ " removed");
 			return true;
@@ -99,7 +99,22 @@ public class HayStorage {
 	}
 	
 	//--------------
+	/*
+	 * return the quantity of hay in the hayStorage object, or our hay shed in the zoo.
+	 * Quantity is a private 
+	 */
+	public synchronized int getHayQuantity() {
+		return quantity;
+	}
 	
+	
+	
+	
+	
+	
+	
+	
+	//static methods DONT need synchronized.
 	static void statMethod() {
 		System.out.println("StatMethod called");
 	}

@@ -21,6 +21,17 @@ public class ZooKeeper {
 		 */
 		HayStorage hayStorage = HayStorage.getInstance(); 
 		
-		return false;
+		/*
+		 * If the amount of hay that is needed is less than the amount of hay the zoo keeper needs, add twice the amount the zookeeper needs.
+		 */
+		if(hayStorage.getHayQuantity()<amountNeeded) {
+			hayStorage.addHay(amountNeeded*2); 
+		}
+		
+		boolean fed=hayStorage.removeHay(amountNeeded); //if fed is true, then the elephants have been fed and the hay was successfully removed from the store.
+		
+		if(fed)
+			System.out.println("Elephants have been fed");
+		return fed; //fed is boolean
 	}
 }
