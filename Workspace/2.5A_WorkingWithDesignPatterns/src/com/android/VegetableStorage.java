@@ -15,6 +15,7 @@ public class VegetableStorage {
 	 * As the method might not be called. 
 	 */
 	private static VegetableStorage instance;
+	private int quantity;
 	
 	private VegetableStorage() {
 		System.out.println("VegetableStorage object created");
@@ -44,7 +45,7 @@ public class VegetableStorage {
 			/*
 			 * we will use the following syntax to put a lock on the object so it cant be accessed by another thread.
 			 */
-			synchronized(VegetableStorage.class) { //locks this object ("class") "VegetableStorage.class"
+			synchronized(VegetableStorage.class) { //locks this object ("class") "VegetableStorage.class" FOR USE IN A STATIC METHOD +++++++++++++ 1
 				if(instance==null) {
 					instance = new VegetableStorage();
 				}
@@ -56,6 +57,11 @@ public class VegetableStorage {
 	
 	
 	public void addVegetables(int amount) {
+		
+		//syncronized a block of code: FOR A NON STATIC METHOD +++++++++++++ 2
+		synchronized(this) { //'this' cant be used with a static variable (as static refers to multiple classes)
+			quantity+=amount;
+		}
 		
 	}
 	
