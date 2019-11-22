@@ -20,8 +20,11 @@ public class Examples {
 	
 	
 	static void ex2() {
+		//this creates an animal with an age of 12 and name of cow.
 		Animal myAnimal=new AnimalBuilder().setAge(12).setName("Cow").build();
 		System.out.println("\n" + myAnimal);
+		
+		Animal myAnimal2 = new AnimalBuilder().build(); //in AnimalBuilder the values are given a default value
 	}
 
 }
