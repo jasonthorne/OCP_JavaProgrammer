@@ -111,6 +111,69 @@ public class Examples {
 		Months december = Months.DEC; //this calls the overriden december printMe method
 		
 		december.printMe();
+		System.out.println();
+		
+		//========
+		
+		AnimalTypes myMammal = AnimalTypes.MAMMAL;
+		AnimalTypes myReptile = AnimalTypes.REPTILE;
+		AnimalTypes myAvion = AnimalTypes.AVIAN;
+		
+		
+		myMammal.walk(); //has own walk method
+		myMammal.run(); //uses main enum run method
+		
+		myReptile.walk(); //uses main enum walk method
+		myReptile.run(); //has own run method
+		
+		myAvion.walk(); //uses main enum walk method
+		myAvion.run(); //uses main enum run method
+	}
+	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	static void ex3() {
+		
+		SolarSystem solarSystem = new SolarSystem();
+		
+		System.out.println("printing out details of solar system: " + solarSystem);
+	}
+	
+	
+	static void ex4() {
+		/*
+		 * Can use enums in switch statements
+		 */
+		
+		Months myMonth = Months.DEC;
+		
+		Months myMonth2 = Months.JAN;
+		
+		switch(myMonth) {
+		case JAN: 
+			System.out.println("it's january");
+			myMonth.printMe();
+			myMonth.absMethod();
+			myMonth.sunShining();
+			break;
+		case JUN:
+			System.out.println("it's June");
+			break;
+		case OCT:
+			System.out.println("it's October");
+			myMonth.printMe();
+			break;
+		case DEC:
+			System.out.println("it's Xmas!");
+			break;
+			default:
+				System.out.println("It's some other month");
+			
+			
+		}
+		
+		
 		
 	}
 	
