@@ -34,24 +34,30 @@ public class Examples {
 	static void ex3() {
 		System.out.println("creating immutable class objects with a builder class");
 		
-		
-		
+
 		//You can create an AnimalBuilder object
 		AnimalBuilder cowBuilder = new AnimalBuilder(); 
 		
-		/*Its common to chain methods with the buider pattern:
+		/*Its common to chain methods with the builder pattern:
 		NOT that we HAVE NOT yet created a Cow. 
-		this is just assigning the vlaue of 12 to the int age var inside the cow builder class,
+		this is just assigning the value of 12 to the int age var inside the cow builder class,
 		and string "bessie" to the name var*/
 		cowBuilder.setAge(12).setName("Bessie");
 		
 		//creating cow object:
-		Animal cow = cowBuilder.build();
-		//Animal test = new Animal(); //You CANT make an aimal without using a builder.
+		//Animal test = new Animal(); //You CANT make an animal without using a builder.
+		Animal cow = cowBuilder.build(); //cow1 (12, bessie)
+		cow=cowBuilder.build(); //cow2 made. Changing cow reference to point to a new cow. Returned with cowbuilder
 		System.out.println(cow);
-	
+		cow=cowBuilder.setAge(4).build(); //cow 3
+		System.out.println(cow);
+	    
+		
+		//-------------
 		
 		
+		///You dont have to create an animal builder reference when creating an animal:
+		Animal sheep = new AnimalBuilder().setAge(3).setName("flossie").build();
 	
 	
 	}
