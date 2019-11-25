@@ -1,6 +1,7 @@
 package com.android;
 
 import com.android.Flower.FlowerBuilder;
+import com.android.Flower.colour;
 
 public class Examples {
 	
@@ -16,6 +17,9 @@ public class Examples {
 		System.out.println("Flower with just an age:");
 		Flower myFlower3 = new FlowerBuilder().setAge(12).build();
 		System.out.println(myFlower3);
+		
+		Flower myFlower4 = new FlowerBuilder().setColour(colour.GREEN).build();
+		System.out.println(myFlower4);
 	}
 	
 	
@@ -25,6 +29,31 @@ public class Examples {
 		System.out.println("\n" + myAnimal);
 		
 		Animal myAnimal2 = new AnimalBuilder().build(); //in AnimalBuilder the values are given a default value
+	}
+	
+	static void ex3() {
+		System.out.println("creating immutable class objects with a builder class");
+		
+		
+		
+		//You can create an AnimalBuilder object
+		AnimalBuilder cowBuilder = new AnimalBuilder(); 
+		
+		/*Its common to chain methods with the buider pattern:
+		NOT that we HAVE NOT yet created a Cow. 
+		this is just assigning the vlaue of 12 to the int age var inside the cow builder class,
+		and string "bessie" to the name var*/
+		cowBuilder.setAge(12).setName("Bessie");
+		
+		//creating cow object:
+		Animal cow = cowBuilder.build();
+		//Animal test = new Animal(); //You CANT make an aimal without using a builder.
+		System.out.println(cow);
+	
+		
+		
+	
+	
 	}
 
 }

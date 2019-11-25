@@ -19,7 +19,7 @@ public final class Animal {
 	*/
 	
 	
-	
+	//THIS NEEDS to have ONE constructor that takes all of it's variables.
 	Animal(String name, int age){
 		this.name=name;
 		this.age=age;

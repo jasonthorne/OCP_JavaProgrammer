@@ -2,19 +2,19 @@ package com.android;
 
 public class Flower {
 	
-	int age;
+	private int age;
 	enum type{
 		ROSE, TULIP, BAGONIA, THISTLE;
 	};
-	type type;
-	double weight;
-	double height;
+	private type type;
+	private double weight;
+	private double height;
 	enum colour{
 		RED,BLUE,GREEN,YELLOW,PURPLE,PINK;
 	};
-	colour colour;
-	boolean smell;
-	int petalCount;
+	private colour colour;
+	private boolean smell;
+	private int petalCount;
 	
 	//blank constructor
 	private Flower(){

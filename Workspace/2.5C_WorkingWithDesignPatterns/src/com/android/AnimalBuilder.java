@@ -1,6 +1,5 @@
 package com.android;
 
-
 public class AnimalBuilder {
 	
 	/*
@@ -8,7 +7,7 @@ public class AnimalBuilder {
 	 * When we are using a builder class to create an object of an immutable class, we first dont create an object of the Animal class.
 	 * As if we gave ourt animal object's variables a value (age and name for example) then we couldnt change values as both age and name are FINAL.
 	 * 
-	 * what we dso instead is declare private versions of all of the variables the Animal class will use to create an object of itself.
+	 * what we do instead is declare private versions of all of the variables the Animal class will use to create an object of itself.
 	 * Animal has tow variables: name and age.
 	 * So what were going to do is create an animal from these 2 variables:
 	 */
