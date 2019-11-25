@@ -1,5 +1,7 @@
 package com.android;
 
+import java.time.LocalDate;
+
 import com.android.Flower.FlowerBuilder;
 import com.android.Flower.colour;
 import com.android.Human.HumanBuilder;
@@ -72,9 +74,24 @@ public class Examples {
 		
 		HumanBuilder humanBuilder = new HumanBuilder();
 		
-		Human me = new HumanBuilder().setAge(33).setName("yo").setWeight(3.3).build();
-		System.out.println(me);
+		Human human1 = humanBuilder.setAge(3).setName("yo").setWeight(3.3).build();
+		System.out.println(human1);
 		
+		Human human2 = new HumanBuilder().setAge(33).setName("dawg").setWeight(3.3).build();
+		System.out.println(human2);
+		
+		//below can cause error as the humanBuilder obj is being changed before reassignment.
+		Human human3 =  humanBuilder.setAge(333).build();
+		System.out.println("human3: " + human3);
+		System.out.println("human1: " + human1); //same age as above! 
+		
+		//----------
+		
+		Human harry = new HumanBuilder().setDob(LocalDate.now().minusYears(30)).setName("Harry").build();
+		System.out.println(harry);
+		
+		Human mary = new HumanBuilder().setAge(25).setDob(LocalDate.now().minusYears(25)).setName("mary").build();
+		System.out.println(mary);
 		
 	}
 

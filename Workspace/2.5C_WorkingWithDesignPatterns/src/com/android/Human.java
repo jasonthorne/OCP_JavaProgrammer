@@ -1,5 +1,7 @@
 package com.android;
 
+import java.time.LocalDate;
+
 //Builder class in an inner static nested class.
 
 /*
@@ -13,6 +15,13 @@ public class Human { //Human is a MUTABLE class.
 	private int age;
 	private String name;
 	private double weight;
+	
+	
+	//========================WE ADDD THESE VARS AT A LATER DATE:=======================
+	//so all we need ot add in is setters in the humanBuilder class for both these vars
+	private double height;
+	private LocalDate dob;
+	//=================================================================================
 	
 	/*
 	 * We can CHOOSE to use this constructor or not, as this is a MUTABLE class.
@@ -32,7 +41,7 @@ public class Human { //Human is a MUTABLE class.
 	//overriden toString method
 	@Override
 	public String toString() {
-		return "age is: " + age + " name is: " + name + " weight is: " + weight;
+		return "age is: " + age + ".name is: " + name + ".weight is: " + weight + ".height is: " + height + ".dob is: " + dob;
 	}
 	
 	
@@ -67,6 +76,18 @@ public class Human { //Human is a MUTABLE class.
 		//setter for name:
 		public HumanBuilder setWeight(Double weight) {
 			myHuman.weight = weight;
+			return this;
+		}
+		
+		public HumanBuilder setHeight(double height) {
+			if(height<=0)
+					height=1.0;
+			myHuman.height=height;
+			return this;
+		}
+		
+		public HumanBuilder setDob(LocalDate dob) {
+			myHuman.dob=dob;
 			return this;
 		}
 		
