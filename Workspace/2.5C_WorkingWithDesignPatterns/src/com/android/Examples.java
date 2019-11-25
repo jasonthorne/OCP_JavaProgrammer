@@ -2,6 +2,7 @@ package com.android;
 
 import com.android.Flower.FlowerBuilder;
 import com.android.Flower.colour;
+import com.android.Human.HumanBuilder;
 
 public class Examples {
 	
@@ -58,8 +59,23 @@ public class Examples {
 		
 		///You dont have to create an animal builder reference when creating an animal:
 		Animal sheep = new AnimalBuilder().setAge(3).setName("flossie").build();
+		System.out.println(sheep);
+		
+		//an Animal of name "goat" and age of 0:
+		Animal goat = new AnimalBuilder().setName("goat").build();
+		System.out.println(goat);
+
+	}
 	
 	
+	static void ex4() {
+		
+		HumanBuilder humanBuilder = new HumanBuilder();
+		
+		Human me = new HumanBuilder().setAge(33).setName("yo").setWeight(3.3).build();
+		System.out.println(me);
+		
+		
 	}
 
 }
