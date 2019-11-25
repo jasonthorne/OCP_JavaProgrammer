@@ -27,7 +27,7 @@ public class Employee {
 	static int empCount=0;
 	
 	//any new variable has to bee added in here:
-	public Employee(String name, LocalDate startDate, Title role, double wages, boolean gender) {
+	private Employee(String name, LocalDate startDate, Title role, double wages, boolean gender) {
 		super();
 		empCount++;
 		System.out.println("Employee: " + empCount + " created");
@@ -38,6 +38,18 @@ public class Employee {
 		this.gender = gender;
 	}
 	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Employee [name=" + name + ", startDate=" + startDate + ", role=" + role + ", wages=" + wages
+				+ ", gender=" + gender + "]";
+	}
+
+
+
+
 	//==========================================BUILDER:===================================
 	static class EmployeeBuilder{
 		

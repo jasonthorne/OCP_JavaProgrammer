@@ -2,6 +2,7 @@ package com.android;
 
 import java.time.LocalDate;
 
+import com.android.Employee.EmployeeBuilder;
 import com.android.Flower.FlowerBuilder;
 import com.android.Flower.colour;
 import com.android.Human.HumanBuilder;
@@ -72,6 +73,9 @@ public class Examples {
 	
 	static void ex4() {
 		
+		//MUTABLE EXAMPLE: +++++++++++++++++++++++++++
+		
+		
 		HumanBuilder humanBuilder = new HumanBuilder();
 		
 		Human human1 = humanBuilder.setAge(3).setName("yo").setWeight(3.3).build();
@@ -94,5 +98,16 @@ public class Examples {
 		System.out.println(mary);
 		
 	}
+	
+	static void ex5() {
+		
+		//IMUTABLE EXAMPLE: +++++++++++++++++++++++++++
+		
+		EmployeeBuilder employeeBuilder = new EmployeeBuilder();
+		Employee employee1 = employeeBuilder.setGender(false).setName("Bob").build();
+		System.out.println(employee1);
+		
+	}
+	
 
 }

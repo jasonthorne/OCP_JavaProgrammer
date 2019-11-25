@@ -14,6 +14,8 @@ public class Main {
 		
 		Examples.ex4();
 		
+		Examples.ex5();
+		
 	}
 
 }
