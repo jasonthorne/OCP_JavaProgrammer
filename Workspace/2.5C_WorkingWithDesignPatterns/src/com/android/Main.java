@@ -6,6 +6,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		/*
+		 * HUMAN - MUTABLE builder pattern
+		 * EMPLOYEE - IMMUTABLE builder pattern
+		 */
+		
 		Examples.ex1();
 	
 		Examples.ex2();
