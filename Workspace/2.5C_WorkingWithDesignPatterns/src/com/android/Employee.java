@@ -2,9 +2,9 @@ package com.android;
 
 import java.time.LocalDate;
 
-//IMMUTABLE BUILDER +++++++++++++++++++
+//IMMUTABLE BUILDER ++++++++++++++++++++++++++++++++++++++
 
-public class Employee {
+public final class Employee {
 	
 	/*
 	 * With a MUTABLE (cannot change) class, each time we add a new variable, we have to add this to ur constructor,
@@ -27,7 +27,8 @@ public class Employee {
 	static int empCount=0;
 	
 	//any new variable has to bee added in here:
-	private Employee(String name, LocalDate startDate, Title role, double wages, boolean gender) {
+	//constructor is private, so cant create a Employee from anywhere other than within this class. ++++++++++++
+	private Employee(String name, LocalDate startDate, Title role, double wages, boolean gender) { 
 		super();
 		empCount++;
 		System.out.println("Employee: " + empCount + " created");
@@ -56,6 +57,9 @@ public class Employee {
 		/*has to have the same var types as the Employee class: 
 		 * As these aren't final, this will allow the Employee (which is final) to have default values.
 		 */
+		
+		
+		//THe steers below ONLY GIVE VALUES TO THESE VARS. (not an instantiated object like for a mutable class builder)
 		private String name; //default is null
 		private LocalDate startDate; //default is null
 		private Title role; //default is null

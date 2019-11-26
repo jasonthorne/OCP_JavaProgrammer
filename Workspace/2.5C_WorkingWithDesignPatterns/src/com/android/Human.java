@@ -2,6 +2,8 @@ package com.android;
 
 import java.time.LocalDate;
 
+//MUTABLE BUILDER ++++++++++++++++++++++++++++++++++++++++++++++++++
+
 //Builder class in an inner static nested class.
 
 /*
@@ -33,9 +35,10 @@ public class Human { //Human is a MUTABLE class.
 		this.weight=weight;
 	}
 	
-	//We will use this class instead:
+	//We will use this class instead: 
+	//constructor is private, so a Human cant be created anywhere toher than in ths iclass ++++++++++++++
 	private Human() {
-		System.out.println("Human no args constructor called");
+		System.out.println("Human no args constructor called"); 
 	}
 	
 	//overriden toString method
@@ -45,21 +48,21 @@ public class Human { //Human is a MUTABLE class.
 	}
 	
 	
-	//==================Builder class:
-	static class HumanBuilder{
+	//==================Builder class: You can now ONLY make a Huamn through this Builder class. ++++++++++++
+	static class HumanBuilder{ //Being a static this can ONLY access statics directly +++++++++++++
 		
 		/*
 		 * This is a builder for the Human class
 		 * Human is MUTABLE so the first thing we do is create sn insteance of the Human class.
 		 * 
-		 * This is the object that will be returned by thre final method build(), +++++++++++++++++++++++++++++++++++++
+		 * This is the object that will be returned by the final method build(), +++++++++++++++++++++++++++++++++++++
 		 * and we will have setters for all of the variables of the Human class.
 		 */
-		private Human myHuman = new Human();
+		private Human myHuman = new Human(); //MUTABLE classes need an instance of this class
 		
 		//setter for age:
 		public HumanBuilder setAge(int age) {
-			//this int age is a local var:
+			//this age is a local var:
 			if(age<0) {
 				age=0;
 			}

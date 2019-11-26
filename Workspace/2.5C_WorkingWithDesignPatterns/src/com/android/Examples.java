@@ -107,6 +107,13 @@ public class Examples {
 		Employee employee1 = employeeBuilder.setGender(false).setName("Bob").build();
 		System.out.println(employee1);
 		
+		
+		//Using employee builder numerous times:
+		EmployeeBuilder employeeBuilder2 = new EmployeeBuilder();
+		employeeBuilder2.build();
+		employeeBuilder2.setName("Bill").build();
+		employeeBuilder2.setName("ben").build();
+
 	}
 	
 
