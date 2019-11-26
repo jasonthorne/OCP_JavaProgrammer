@@ -45,8 +45,10 @@ public class Main {
 		
 		
 		//=============================
-		
-		
+		///Calling 3rd overloaded method that takes an Animal type enum:
+		System.out.println("\nCalling 3rd overloaded method that takes an Animal type enum:");
+		food1 = FoodFactory.getFood(AnimalType.GOAT);
+		food1.consumes();
 		
 
 	}
