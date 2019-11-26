@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 //IMMUTABLE BUILDER ++++++++++++++++++++++++++++++++++++++
 
-public final class Employee {
+public final class Employee { //OUTER CLASS HAS TO BE FINAL FOR IMMUTABILITY +++++++++++++++++++++++++++++++++++
 	
 	/*
 	 * With a MUTABLE (cannot change) class, each time we add a new variable, we have to add this to ur constructor,
@@ -12,7 +12,7 @@ public final class Employee {
 	 * And also make sure we are calling the right constructor in the builder class.
 	 */
 	
-	private final String name;
+	private final String name; //PROPERTIES NEED TO BE FINAL FOR IMMUTABILLITY +++++++++++++++++++++++++++++++
 	private final LocalDate startDate;
 	
 	//this enum is not private so it can be accessed outside this class
