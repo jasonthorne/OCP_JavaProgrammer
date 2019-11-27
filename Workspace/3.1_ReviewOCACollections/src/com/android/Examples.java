@@ -150,6 +150,28 @@ public class Examples {
 		int[]numbers2 = {67,2,3};
 		System.out.println(Arrays.binarySearch(numbers2, 2));
 		
+		/*
+		 * sort & binarySearch works with all primitive numbers, chars but not booleans
+		 * Sort and binarySearch ONLY works with classes of objects that implement the comaprable interface
+		 * String class implements the Comparable interface.
+		 * Symbols first,
+		 * Then numbers,
+		 * Then caps,
+		 * then lowercase
+		 * 
+		 *
+		 */
+		
+		String[]names = {"pat ", "mary ", "Zeb ", "peter "};
+		Arrays.parallelSort(names);
+		
+		for(String n:names) { 
+			System.out.print(n);
+		}
+		
+		
+		
+		
 	}
 	
 	
