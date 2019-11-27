@@ -3,6 +3,7 @@ package com.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Examples {
 	
@@ -65,5 +66,63 @@ public class Examples {
 		
 		
 	}
+	
+	
+	
+	static void ex2() {
+		
+	
+		//we CAN add  elements to this places list as it was defined separately.
+		List<String>places = new ArrayList<String>();
+		places.addAll(Arrays.asList("Galway", "Dublin", "Cork", "Limerick", "Belfast"));
+		
+		//we CANNOT add (or remove) to this towns list as it was implemented during definition
+		List<String>towns=Arrays.asList("Roscommon", "Mayo", "Leitrim", "Wexford");
+		
+		places.addAll(towns);
+		
+		System.out.println("\n" + places);
+		
+		//remove JUST roscommon:
+		places.remove("Roscommon");
+		System.out.println(places);
+		
+		places.removeAll(towns);
+		System.out.println(places);
+		//------------------------------
+		
+		List<Integer>numbers = new ArrayList<Integer>();
+		
+		//produce 15 numbers between 1-100, and adding them to "numbers" list above.
+		Stream.generate(()->(int)(Math.random()*100)).limit(15).forEach(a->numbers.add(a));
+		System.out.println(numbers);
+		
+		//----------------
+		//REMOVE IF
+		/*Takes a predicate and tests for some condition and if that consdition is true for that number,
+		 * then it removes the number from the list.
+		 * Here we are testing to see if each number is greater than 50, and if it is, then it's removed from the list.
+		 * 
+		 */
+		
+		numbers.removeIf(a->a>50);
+		System.out.println(numbers);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
