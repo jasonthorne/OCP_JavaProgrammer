@@ -222,6 +222,15 @@ public class Examples {
 		ints.remove(new Integer(16));
 		System.out.println(ints);
 		
+		//remove object 12:
+		Integer myInt = 12;
+		ints.remove(myInt);
+		System.out.println(ints);
+		
+		//trying to remove 12 again (returns false):
+		System.out.println(ints.remove(myInt));
+		
+		
 	}
 	
 	
