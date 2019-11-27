@@ -2,6 +2,7 @@ package com.android;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -170,10 +171,58 @@ public class Examples {
 		}
 		
 		
+		Animal[]zoo= {new Animal("Osterich"), new Animal("Lion")};
+		
+		/*The Animal class DOES NOT implement the Comparable interface, 
+		 * so an array of Animals cannot be sorted using the Arrays.sort method
+		 */
+		
+		//this creates a classCastExcpetion as the Animal class doesn't implement the Comparable interface.
+		//Arrays.sort(zoo);
+		
+		List<Integer>integers=Arrays.asList(145,23,27,44,21);
+		
+		/*
+		 * To use with ArrayLists we use Collections.sort()
+		 * There is a sort() method for lists, sets and maps, but it takes something called a 
+		 * Comparator, which we haven't covered yet. It's an alternative to the Comparable interface.
+		 * 
+		 * collections.sort() takes any list, set or map.
+		 */
+		Collections.sort(integers);
+		System.out.println();
+		System.out.println(integers);
+		System.out.println();
+		System.out.println(Collections.binarySearch(integers, 2));
 		
 		
 	}
 	
+	
+	static void ex4() {
+		
+		/*
+		 * Only objects can be added to classes that implement the comparable interface (lists, sets, maps), 
+		 * so when we attempt to add a primitive, the primitive is actually autoboxed to become a wrapper object.
+		 */
+		List<Integer>ints = new ArrayList<Integer>();
+		
+		//4 is autoboxed to become an Integer object
+		ints.add(4);
+		
+		//lists allow duplicates:
+		ints.addAll(Arrays.asList(16,8,99,12,4,3,2,4,5));
+		System.out.println(ints);
+		
+		//this reoves the number at index pos 2 (8)
+		ints.remove(2);
+		System.out.println(ints);
+		
+		//if you want to remove a specific item, then you need to make a similar object and use that as comparison.+++++++++++
+		ints.remove(new Integer(16));
+		System.out.println(ints);
+		
+	}
 	
 	
 
