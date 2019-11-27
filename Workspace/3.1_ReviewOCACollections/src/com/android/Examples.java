@@ -231,7 +231,81 @@ public class Examples {
 		System.out.println(ints.remove(myInt));
 		
 		
+		//---------------------
+		
+		Animal spot = new Animal("Spot");
+		Animal tibbles = new Animal("Tibbles");
+		Animal harry = new Animal("Harry");
+		
+		List<Animal>animalList = new ArrayList<Animal>();
+		animalList.addAll(Arrays.asList(spot,tibbles,harry));
+		
+		animalList.add(spot);
+		animalList.add(tibbles);
+		animalList.add(harry);
+		
+		/*
+		 * remove uses the equals() method to find a match:
+		 */
+		System.out.println(animalList.remove(spot));
+		
+		//second spot is still there:
+		System.out.println(animalList);
+		
+		//this will remove the second animal harry:
+		animalList.remove(2);
+		System.out.println(animalList);
+		
+		Animal newAnimal = new Animal("spot");
+		System.out.println(animalList.remove(newAnimal));
+		
+		System.out.println(newAnimal.equals(spot));
+		
+		
 	}
+	
+	
+	
+	static void ex5() {
+		
+		/*
+		 * Before java 5, all you had was arrayLists of objects and nothing else.
+		 * This liat could contain ANY object, however you can't call any methods of the subclasses of object. You could only call methods of the Object.
+		 * You wouldnt know by looking at the code what this list contains (Humans, Animals etc)
+		 * The only way you'd know was if it was documented somewhere.
+		 * 
+		 */
+		List names = new ArrayList();
+		
+		/*
+		 * After java5, we have generics which helps enforce the asumption that your list contians  certian data type.
+		 * Inthis case it changes the references of the list. 5 & 6 had to haave <String> on both sides of the list
+		 * 
+		 */
+		List<String>names2 = new ArrayList<String>();
+		
+		/*
+		 * After java 7 you could write the shortened version using the DIAMOND OPERATOR <> on the right hand side, 
+		 * however this can cause certain circumstances. LOSS OF TYPE information, which will be covered wehn we do generics 
+		 */
+		List<String>names3 = new ArrayList<>();
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 
