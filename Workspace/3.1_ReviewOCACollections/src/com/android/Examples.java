@@ -108,19 +108,49 @@ public class Examples {
 		numbers.removeIf(a->a>50);
 		System.out.println(numbers);
 		
-		
-		
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	static void ex3() {
+		//SEARCHING AND SORTING
+		
+		int[]numbers = {6,9,1,8};
+		
+		for(int n:numbers) { //print out in order they were inserted
+			System.out.print(n);
+		}
+		
+		///List<Integer>list=Arrays.asList(3,4,5,6);
+		System.out.println();
+		//Sorts the array in it's natural order (for numbers is ascending0
+		Arrays.sort(numbers);
+		
+		for(int n:numbers) { //print out in order they were inserted
+			System.out.print(n);
+		}
+		
+		
+		//BINARY SEARCH:
+		
+		/*
+		 * This method of the arrays class searches for a particular number,
+		 * and returns the position in array number of where the number is in the array
+		 */
+		System.out.println();
+		System.out.println(Arrays.binarySearch(numbers, 6)); //position 1
+		System.out.println(Arrays.binarySearch(numbers, 8)); //position 2
+		
+		//if this was in the list, then it would show up in index 5 so it shows up at pos 5
+		System.out.println(Arrays.binarySearch(numbers, 234)); 
+		
+		
+		//-------
+		
+		int[]numbers2 = {67,2,3};
+		System.out.println(Arrays.binarySearch(numbers2, 2));
+		
+	}
 	
 	
 	
