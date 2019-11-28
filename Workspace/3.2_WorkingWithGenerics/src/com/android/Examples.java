@@ -5,7 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.android.animals.Animal;
+import com.android.animals.Cow;
+import com.android.animals.Cow.*;
 import com.android.animals.Elephant;
+import com.android.animals.Whale;
+import com.android.animals.Zebra;
+import com.android.generics.Box;
+import com.android.generics.Bucket;
 import com.android.generics.Crate;
 
 public class Examples {
@@ -165,7 +171,38 @@ public class Examples {
 		Crate<List>crateList = new Crate<List>(numbers);
 		crateList.returnMe(numbers);
 		
+		//-------------------------
+		
 	}
 	
+	static void ex3() {
+		
+		System.out.println("\nex3:");
+		
+		System.out.println("Using extends with generics");
+		
+		Cow myCow = new CowBuilder().setAge(3).setHeight(3.3).setWeight(3.33).build();
+		
+		System.out.println("Creating Box objects");
+		
+		//myAnimal inside box will be an Animal (an Animal reference to an Animal object)
+		Box<Animal> boxAnimal = new Box<>(new Animal());
+		
+		//myAnimal inside box will be a Zebra (Animal reference to a Zebra object)
+		Box<Zebra>boxZebra = new Box<>(new Zebra());
+		
+		Box<Cow>boxCow = new Box<>(myCow);
+		
+		Box<Cow>boxCow2 = new Box<>(new CowBuilder().setHeight(3.3).setAge(3).setWeight(33.3).build());
+	
+	}
+	
+	
+	static void ex4() {
+		
+		System.out.println("\nex4:");
+		
+		Bucket<Whale>bucketWhale = new Bucket<Whale>(new Whale());
+	}
 
 }
