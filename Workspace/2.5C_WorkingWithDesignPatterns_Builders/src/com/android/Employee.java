@@ -40,15 +40,11 @@ public final class Employee { //OUTER CLASS HAS TO BE FINAL FOR IMMUTABILITY +++
 	}
 	
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Employee [name=" + name + ", startDate=" + startDate + ", role=" + role + ", wages=" + wages
 				+ ", gender=" + gender + "]";
 	}
-
-
 
 
 	//==========================================BUILDER:===================================
