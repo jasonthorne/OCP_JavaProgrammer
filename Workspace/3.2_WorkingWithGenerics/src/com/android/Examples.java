@@ -3,6 +3,10 @@ package com.android;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.android.animals.Animal;
+import com.android.animals.Elephant;
+import com.android.generics.Crate;
+
 public class Examples {
 	
 	private interface Grow{ //this "inner private interface", can only be accessed inside this class. ++++++++
@@ -124,6 +128,27 @@ public class Examples {
 		
 		List<Double>doubles = new ArrayList<Double>();
 		//doubles.add(1);
+
+	}
+	
+	
+	static void ex2() {
+		
+		System.out.println("ex2:");
+		
+		
+		//Crate<Elephant>elephantCrate = new Crate<>(new Elephant());
+		//elephantCrate.returnMe();
+		
+		Elephant nellie = new Elephant();
+		Crate<Elephant>crateElephant = new Crate<Elephant>(nellie); //this creates a Crate obj and sets its generic type to be of type Elephant.
+		
+		//---------Explanation for someone else:
+		Animal myAnimal1 = new Animal(33);
+		Animal myAnimal2=new Animal(myAnimal1);
+		//-------
+		
+		Crate<String>crateString = new Crate<>("Yo"); //creates a Crate obj of type String.
 		
 		
 		
