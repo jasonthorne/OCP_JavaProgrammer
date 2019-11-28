@@ -2,16 +2,19 @@ package com.android.animals;
 
 public class Animal {
 	
-	int age;
-	Animal partner;
+	public double weight;
+	public double height;
 	
-	public Animal(int age) {
-		this.age = age;
+	public void eat() {
+		System.out.println("Animal eating");
 	}
 	
+	public void sleep() {
+		System.out.println("Animal sleeping");
+	}
 	
-	public Animal(Animal partner) {
-		this.partner = partner;
+	public static void stampede() {
+		System.out.println("Animals stampeeding");
 	}
 
 }

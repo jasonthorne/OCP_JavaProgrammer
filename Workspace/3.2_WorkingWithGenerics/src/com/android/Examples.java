@@ -1,6 +1,7 @@
 package com.android;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.android.animals.Animal;
@@ -92,6 +93,8 @@ public class Examples {
 	
 	static void ex1() {
 		
+		System.out.println("\nex1:");
+		
 		/*
 		 * When we do below, we supply a TYPE to the list interface, and that type is String.
 		 * So we can only now add Strings to this list. If we attempt to add anything else, it will not compile.
@@ -134,7 +137,7 @@ public class Examples {
 	
 	static void ex2() {
 		
-		System.out.println("ex2:");
+		System.out.println("\nex2:");
 		
 		
 		//Crate<Elephant>elephantCrate = new Crate<>(new Elephant());
@@ -143,14 +146,24 @@ public class Examples {
 		Elephant nellie = new Elephant();
 		Crate<Elephant>crateElephant = new Crate<Elephant>(nellie); //this creates a Crate obj and sets its generic type to be of type Elephant.
 		
+		
 		//---------Explanation for someone else:
+		/*
 		Animal myAnimal1 = new Animal(33);
 		Animal myAnimal2=new Animal(myAnimal1);
+		*/
 		//-------
 		
 		Crate<String>crateString = new Crate<>("Yo"); //creates a Crate obj of type String.
 		
+		//If you dont supply Crate with s type, it will assume that type T is an Object.
+		Crate crateObj = new Crate<>(new Object());
 		
+		crateElephant.returnMe(new Elephant());
+		
+		List<Integer>numbers=Arrays.asList(12,67,88,99);
+		Crate<List>crateList = new Crate<List>(numbers);
+		crateList.returnMe(numbers);
 		
 	}
 	
