@@ -14,6 +14,7 @@ import com.android.animals.Zebra;
 import com.android.generics.Box;
 import com.android.generics.Bucket;
 import com.android.generics.Crate;
+import com.android.generics.Kettle;
 import com.android.generics.Pan;
 import com.android.interfaces.Behaviour;
 import com.android.interfaces.Life;
@@ -325,9 +326,36 @@ public class Examples {
 		 * + any anonymous class that implements the Life interface. 
 		 */
 		
+		//previous method with type declared as Flower instead of Life interface:
+		Pan<Flower>flowerPan = new Pan<Flower>(new Flower());
 		
+		//will not take a lambda:
+		//flowerPan=new Pan<>(myLife);
+		
+		//will not take an anonymous inner class:
+		//flowerPan=new Pan<>(anonLife);
 		
 		
 	}
+	
+	static void ex6() {
+		
+		System.out.println("\nex6:");
+		
+		//type T is an Integer, V is a Cow, E is a Zebra.
+		
+		/*
+		 * 1st arg of constructor can be Animal or sub of Animal, so it can be an Animal, Elephant, Zebra or Cow
+		 * 2nd arg can be any object that implements the Behaviour interface, so it can be:
+		 * A class that implements Behaviour - Whale or Lemur
+		 * 
+		 */
+		
+		Kettle<Zebra,Whale,Integer>myKettle1 = new Kettle<Zebra,Whale,Integer>(new Zebra(), new Whale(), 23);
+		Kettle<Animal,Behaviour,Integer>myKettle2 = new Kettle<Animal,Behaviour,Integer>(new Animal(), new Lemur(), 45);
+		
+		
+	}
+	
 
 }
