@@ -14,7 +14,10 @@ import com.android.animals.Zebra;
 import com.android.generics.Box;
 import com.android.generics.Bucket;
 import com.android.generics.Crate;
+import com.android.generics.Pan;
 import com.android.interfaces.Behaviour;
+import com.android.interfaces.Life;
+import com.android.plants.Flower;
 
 public class Examples {
 	
@@ -269,6 +272,60 @@ public class Examples {
 		anonBehave.happy();
 		anonBehave.mad();
 		anonBehave.sad();
+		//anonBehave.dummy(); //cant access this method as anonBehave has a behaviour reference.
+		
+		
+		/*
+		 * This sets our generic to be any object that implements the behaviour interface.
+		 * Whale implements Behaviour
+		 * Lemur implements Behaviour
+		 * anonBehave implements Behaviour
+		 */
+		
+		System.out.println("Bucket with an interface type generic");
+		
+		//the below reference can be reassigned to ANYTHING that implements Behaviour, when Beahaviour is defined as its type. (WAAAY more dynamic) ++++++++++++++++++++
+		Bucket<Behaviour>bucketBehave = new Bucket<>(new Whale()); 
+		bucketBehave = new Bucket<>(new Lemur());  //changing reference to a Lemur object
+		bucketBehave = new Bucket<>(anonBehave); //changing reference to an anonoBehave object
+		
+	}
+	
+	
+	static void ex5() {
+		
+		System.out.println("\nex5:");
+		
+		//lambda implementation of the "Life" functional interface 
+		Life myLife = ()->System.out.println("grow method of myLife lambda");
+		
+		/*this sets the generic T myLife to be any object that implements the functional interface life,
+		which can be a Flower, an anonymous class or a lambda
+		*/
+		Pan<Life>lifePan=new Pan<Life>(myLife); //this Pan object is created with a Life lambda.
+		
+		lifePan = new Pan<Life>(new Flower()); //Pan object is now pointing to a class that implements Life
+		
+		Life anonLife = new Life() {
+
+			@Override
+			public void grow() {
+				System.out.println("anonymus class life implementation");
+			}
+		};//end of anonymous class
+		
+		lifePan= new Pan<>(anonLife); //pan object is now pointing to an anonymous class that implements Life
+		
+		/*
+		 * Type T myLife inside the Pan class can only be a Flower, so you can only send a flower to the constructor,
+		 * whereas if we say Pan<Life>
+		 * we can send any objject that implements the Life interface. Which can be: 
+		 * + any class that implements the life interface.
+		 * + any lambda that impolements the life interface
+		 * + any anonymous class that implements the Life interface. 
+		 */
+		
+		
 		
 		
 	}
