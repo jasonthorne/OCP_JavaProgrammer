@@ -8,11 +8,13 @@ import com.android.animals.Animal;
 import com.android.animals.Cow;
 import com.android.animals.Cow.*;
 import com.android.animals.Elephant;
+import com.android.animals.Lemur;
 import com.android.animals.Whale;
 import com.android.animals.Zebra;
 import com.android.generics.Box;
 import com.android.generics.Bucket;
 import com.android.generics.Crate;
+import com.android.interfaces.Behaviour;
 
 public class Examples {
 	
@@ -202,7 +204,73 @@ public class Examples {
 		
 		System.out.println("\nex4:");
 		
-		Bucket<Whale>bucketWhale = new Bucket<Whale>(new Whale());
+		//behaviour reference to a whale object. 
+		//Meaning it ONLY has access to the methods defined in the Behaviour interface:
+		Behaviour behaveWhale = new Whale(); 
+		
+		//my comment:
+		//creating a bucket obj with a whale class. So bucket becomes of type 'whale'
+		//the 'new whale' being passed in is for the constructor of the Bucket class. Which has to be of Type T (as defined in angle brackets).
+		
+		/*
+		 * noels comment:
+		 * 
+		 * This creates a bucket and sets the generic type in the bucket class T to be a whale.
+		 * So T myBehave is now a Whale myBehave; reference. 
+		 * So anywhere inside the bucket class you have T, it now means whale.
+		 * remember <T extends Behaviour>, which means we can only use objects of a class that extend the Behaviour interface. 
+		 */
+		Bucket<Whale>bucketWhale = new Bucket<Whale>(new Whale()); 
+		bucketWhale.fill(new Whale(), 3); //calling the Bucket classes fill method
+		
+		//------------
+		
+		System.out.println();
+		Bucket<Lemur>lemurBucket = new Bucket<Lemur>(new Lemur());
+		lemurBucket.fill(new Lemur(), 2);
+		
+		//=======================================
+		
+		/*
+		 * Anonymous class implementation of the Behaviour interface ++++++++++++++++++++++++++++++++++++++
+		 */
+		Behaviour anonBehave = new Behaviour() {
+			
+			//this anonymous class can have everything a normal class an EXCEPT a constructor:
+			
+			//This object CANT call this method outside of these curly braces. As it has a BEHAVIOUR reference, so only have access to the methods first defined there.
+			void dummy() {
+				System.out.println("dummy method called");
+			}
+
+			/*
+			 *These 3 overridden method from the Behaviour interface only exist for this object called anonBehave.
+			 */
+			
+			@Override
+			public void sad() {
+				System.out.println("anonymous class implementation of sad method in behaviour");
+			}
+
+			@Override
+			public void happy() {
+				System.out.println("anonymous class implementation of happy method in behaviour");
+			}
+
+			@Override
+			public void mad() {
+				System.out.println("anonymous class implementation of mad method in behaviour");
+			}
+			
+		}; //end of anonBehave
+		
+		
+		//calling the methods:
+		anonBehave.happy();
+		anonBehave.mad();
+		anonBehave.sad();
+		
+		
 	}
 
 }
