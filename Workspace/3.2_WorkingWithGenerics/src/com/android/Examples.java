@@ -335,7 +335,6 @@ public class Examples {
 		//will not take an anonymous inner class:
 		//flowerPan=new Pan<>(anonLife);
 		
-		
 	}
 	
 	static void ex6() {
@@ -353,7 +352,6 @@ public class Examples {
 		
 		Kettle<Zebra,Whale,Integer>myKettle1 = new Kettle<Zebra,Whale,Integer>(new Zebra(), new Whale(), 23);
 		Kettle<Animal,Behaviour,Integer>myKettle2 = new Kettle<Animal,Behaviour,Integer>(new Animal(), new Lemur(), 45);
-		
 		
 	}
 	
