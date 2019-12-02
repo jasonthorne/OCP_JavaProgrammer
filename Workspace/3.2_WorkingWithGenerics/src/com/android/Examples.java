@@ -379,10 +379,13 @@ public class Examples {
 		 */
 		
 		Kettle<Zebra,Whale,Integer>myKettle1 = new Kettle<Zebra,Whale,Integer>(new Zebra(), new Whale(), 23);
-		Kettle<Animal,Behaviour,Integer>myKettle2 = new Kettle<Animal,Behaviour,Integer>(new Animal(), new Lemur(), 45);
+		
+		//Below takes Animals (or subs), Behaviour referenced objs (or subs) & Double, so has to be a double: 
+		//Double has to be defined with . as Number accepts arg as a wrapper (is autoboxed immediately when passed). Could be cast though.
+		Kettle<Animal,Behaviour,Double>myKettle2 = new Kettle<Animal,Behaviour,Double>(new Animal(), new Lemur(), 45.0);
 		
 		//-----------------
-		//ananymous class implementation of the behaviour interface:
+		//anonymous class implementation of the behaviour interface:
 		Behaviour myBehave=new Behaviour() {
 
 			@Override
