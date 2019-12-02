@@ -298,15 +298,18 @@ public class Examples {
 		System.out.println("\nex5:");
 		
 		//lambda implementation of the "Life" functional interface 
-		Life myLife = ()->System.out.println("grow method of myLife lambda");
+		Life anotherLife = ()->System.out.println("grow method of anotherLife lambda"); //this is the void grow method being assigned to the 'Life' variable (as a sysout)
 		
 		/*this sets the generic T myLife to be any object that implements the functional interface life,
 		which can be a Flower, an anonymous class or a lambda
 		*/
-		Pan<Life>lifePan=new Pan<Life>(myLife); //this Pan object is created with a Life lambda.
+		System.out.println("\nprinting Pan object with grow method from lambda:");
+		Pan<Life>lifePan=new Pan<Life>(anotherLife); //this Pan object is created with a Life lambda (created above ).
 		
+		System.out.println("\nprinting Pan object with grow method from a Flower object:");
 		lifePan = new Pan<Life>(new Flower()); //Pan object is now pointing to a class that implements Life
 		
+		System.out.println("\nprinting Pan object with grow method from an anonymous class Life implementation:");
 		Life anonLife = new Life() {
 
 			@Override
@@ -326,8 +329,8 @@ public class Examples {
 		 * + any anonymous class that implements the Life interface. 
 		 */
 		
-		//previous method with type declared as Flower instead of Life interface:
-		Pan<Flower>flowerPan = new Pan<Flower>(new Flower());
+		//previous method with type declared as Flower instead of Life interface: this can ONLT take a FLower. Not a lambda, or anonymous inner class for example.
+		Pan<Flower>flowerPan = new Pan<Flower>(new Flower()); //sending the type T to the pan's constructor when creating the pan object.
 		
 		//will not take a lambda:
 		//flowerPan=new Pan<>(myLife);
@@ -337,9 +340,20 @@ public class Examples {
 		
 	}
 	
+	
 	static void ex6() {
 		
 		System.out.println("\nex6:");
+		
+		
+		
+	}
+	
+	
+	
+	static void ex7() {
+		
+		System.out.println("\nex7:");
 		
 		//type T is an Integer, V is a Cow, E is a Zebra.
 		

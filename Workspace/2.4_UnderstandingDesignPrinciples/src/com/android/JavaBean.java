@@ -8,7 +8,7 @@ package com.android;
  * + getter for properties and getters for non boolean properties begin with the word "get"
  * + getter for boolean properties may begin with "is" or "get"
  * + setter methods begin with set
- * The mathod name for a getter or setter must have the prefix of set/get/is followed by the first letter of the property in uppercase and rest of the property in lowercase
+ * The method name for a getter or setter must have the prefix of set/get/is followed by the first letter of the property in uppercase and rest of the property in lowercase
  * This is just a standard that is used widely in sw dev.
  */
 
