@@ -13,6 +13,7 @@ import com.android.animals.Whale;
 import com.android.animals.Zebra;
 import com.android.generics.Box;
 import com.android.generics.Bucket;
+import com.android.generics.Container;
 import com.android.generics.Crate;
 import com.android.generics.Kettle;
 import com.android.generics.Pan;
@@ -345,8 +346,13 @@ public class Examples {
 		
 		System.out.println("\nex6:");
 		
+		//container class defining types, and passing them to it's constructor:
+		Container<Integer, String, Animal>myContainer = new Container<Integer, String, Animal>(49, "Yo", new Animal());
 		
-		
+		/*
+		//container class WITHOUT defining types and passing them to it's constructor:
+		Container container2 = new Container(49, "Yo", new Animal());
+		*/
 	}
 	
 	
@@ -361,11 +367,31 @@ public class Examples {
 		 * 1st arg of constructor can be Animal or sub of Animal, so it can be an Animal, Elephant, Zebra or Cow
 		 * 2nd arg can be any object that implements the Behaviour interface, so it can be:
 		 * A class that implements Behaviour - Whale or Lemur
-		 * 
+		 * 3rd arg van be of ANY type
 		 */
 		
 		Kettle<Zebra,Whale,Integer>myKettle1 = new Kettle<Zebra,Whale,Integer>(new Zebra(), new Whale(), 23);
 		Kettle<Animal,Behaviour,Integer>myKettle2 = new Kettle<Animal,Behaviour,Integer>(new Animal(), new Lemur(), 45);
+		
+		//-----------------
+		//ananymous class implementation of the behaviour interface:
+		Behaviour myBehave=new Behaviour() {
+
+			@Override
+			public void sad() {System.out.println("myBehave sad");}
+
+			@Override
+			public void happy() {System.out.println("myBehave happy");}
+
+			@Override
+			public void mad() {System.out.println("myBehave mad");}
+			
+		};//end of myBehave anonyous class
+		
+		//A class that extends or is an Animal, takes an anonymous class implementation of the Behaviour interface, and an Integer: 
+		Kettle<Animal, Behaviour, Integer>myKettle3 = new Kettle <Animal,Behaviour,Integer>(new Elephant(), myBehave, 333);
+		
+		
 		
 	}
 	

@@ -17,6 +17,9 @@ public class Container <T,U,V>{
 		this.myU = myU;
 		this.myV = myV;
 		System.out.println("constructor that takes 3 variables");
+		System.out.println("myT is a: " + myT.getClass().getSimpleName() + " " + myT); //print what they are, and their results (them)
+		System.out.println("myU is a: " + myU.getClass().getSimpleName() + " " + myU);
+		System.out.println("myV is a: " + myV.getClass().getSimpleName() + " " + myV);
 	}
 	
 	//constructor that takes no variables
