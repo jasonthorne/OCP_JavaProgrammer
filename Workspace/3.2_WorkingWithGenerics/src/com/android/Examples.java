@@ -349,10 +349,18 @@ public class Examples {
 		//container class defining types, and passing them to it's constructor:
 		Container<Integer, String, Animal>myContainer = new Container<Integer, String, Animal>(49, "Yo", new Animal());
 		
-		/*
-		//container class WITHOUT defining types and passing them to it's constructor:
-		Container container2 = new Container(49, "Yo", new Animal());
-		*/
+		//container class WITHOUT defining types and passing them to it's constructor (Meaning they're of default type 'Object'):
+		Container container2 = new Container(49, "yo", new Animal());
+		
+		//with the diamond operator missing on the right you can pass anything into the constructor! ++++++++++++++++++++++
+		Container<Integer, String, Animal>myContainer3 = new Container(3.33, new Animal(), "Yo"); //not an int, String and Animal
+		
+		//Doesnt compile as there IS a diamond operator on the right hand side (with the constructor args conflicting with the diamond operator types on the left):
+		//Container<Integer, String, Animal> container4 = new Container<>(3.33, new Animal(), "Yo"); //not an int, String and Animal
+		
+		Container container5 = new Container(49, "yo", new Animal());
+	
+
 	}
 	
 	
