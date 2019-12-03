@@ -11,3 +11,12 @@ public class Flower implements Life {
 	}
 
 }
+
+
+class Rose extends Flower{
+	@Override
+	public void grow() {
+		System.out.println("Rose growing");
+	}
+
+}
