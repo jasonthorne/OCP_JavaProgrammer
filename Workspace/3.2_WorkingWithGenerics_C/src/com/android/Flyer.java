@@ -50,8 +50,6 @@ class Goose implements Glider{ //implementing Glider means it ALSO implements Fl
 }
 
 
-
-
 class Handlider implements Glider{ //implementing Glider means it ALSO implements Flyer (as glider imlements flyer)
 
 	@Override
