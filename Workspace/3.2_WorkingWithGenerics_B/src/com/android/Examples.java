@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.android.animals.Animal;
+import com.android.animals.Ape;
 import com.android.animals.Cow;
 import com.android.animals.Cow.*;
 import com.android.animals.Elephant;
@@ -61,5 +62,29 @@ public class Examples {
 		myCar.fly("yo");
 		myCar.walk("hello", new Animal());
 		
+	}
+	
+	
+	static void ex3() {
+		
+		Ape myApe = new Ape();
+		
+		myApe.sorry(new Elephant(), new Flower()); 
+		
+		Flower myFlower = new Flower() {
+			
+			@Override
+			public void grow() {
+				System.out.println("Anonymous class grow method");
+			}
+		};
+		
+		myApe.sorry(new Elephant(), myFlower); //taking an Elephant nad an anonymous class implementation of the Life interface.
+		
+		myApe.sorry(new Elephant(), ()->System.out.println("Lanbda grow method")); //taking an Elephant and a lambda.
+		
+		
+		//this implementation can ONLY take an Elephant
+		//myApe.sorry(new Monkey(), myFlower);
 	}
 }

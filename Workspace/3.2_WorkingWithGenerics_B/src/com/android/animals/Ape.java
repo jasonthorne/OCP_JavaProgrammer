@@ -46,6 +46,7 @@ class Chimp implements Manners<Animal, Life>{
 	@Override
 	public void sorry(Animal t, Life v) {
 		System.out.println("Chimp sorry method");
+		v.grow();
 	}
 	
 }
