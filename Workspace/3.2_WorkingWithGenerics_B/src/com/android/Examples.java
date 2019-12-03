@@ -21,6 +21,7 @@ import com.android.generics.Pan;
 import com.android.generics.Pot;
 import com.android.interfaces.Behaviour;
 import com.android.interfaces.Life;
+import com.android.machines.Android;
 import com.android.machines.Car;
 import com.android.machines.Robot;
 import com.android.machines.Vehicle;
@@ -66,6 +67,7 @@ public class Examples {
 	
 	
 	static void ex3() {
+		System.out.println("ex3:");
 		
 		Ape myApe = new Ape();
 		
@@ -86,5 +88,24 @@ public class Examples {
 		
 		//this implementation can ONLY take an Elephant
 		//myApe.sorry(new Monkey(), myFlower);
+	}
+	
+	
+	static void ex4() {
+		System.out.println("ex4:");
+		
+		
+		Android myAndroid = new Android();
+		
+		/*
+		 * The method signature for this method is:
+		 * <S> void talk(S myS){}
+		 * So here we have an object reference to a Zebra object.
+		 * If you dont supply a type, you can pass in ANY object.
+		 * 
+		 */
+		myAndroid.talk(new Zebra());
+		
+		myAndroid.<Animal>talk(new Elephant()); //here were saying the generic type is going to be an Animal.
 	}
 }

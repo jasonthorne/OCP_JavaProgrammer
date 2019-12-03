@@ -6,7 +6,7 @@ import com.android.interfaces.Move;
 /*
  * first we specify the types for T & V in the interface Move to be a Cow & a Zebra.
  */
-public class Robot implements Move <Cow, Zebra> { //GIVING A SPECIFIC TYPE HERE +++++
+public class Robot implements Move <Cow, Zebra> { 
 
 	@Override
 	public void fly(Cow t) {
@@ -20,5 +20,7 @@ public class Robot implements Move <Cow, Zebra> { //GIVING A SPECIFIC TYPE HERE 
 		System.out.println(t.getClass().getSimpleName() + " is walking");
 		System.out.println(v.getClass().getSimpleName() + " is walking");
 	}
+	
+	
 	
 }
