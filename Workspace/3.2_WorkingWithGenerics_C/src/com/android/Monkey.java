@@ -6,6 +6,8 @@ public class Monkey<T extends Glider> {
 	
 	public Monkey(T myT){
 		this.myT = myT;
+		myT.fly();
+		myT.glide();
 	}
 	
 }

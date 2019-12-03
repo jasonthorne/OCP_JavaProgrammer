@@ -8,6 +8,10 @@ public class Animal {
 	public String toString() {
 		return "this is an Animal";
 	}
+	
+	public void move() {
+		System.out.println("Animal moving");
+	}
 
 }
 
@@ -17,6 +21,10 @@ class Dog extends Animal{
 	@Override
 	public String toString() {
 		return "This is a Dog";
+	}
+	
+	public void move() {
+		System.out.println("Dog moving");
 	}
 }
 
