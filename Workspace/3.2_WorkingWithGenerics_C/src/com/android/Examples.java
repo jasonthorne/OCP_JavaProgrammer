@@ -180,4 +180,67 @@ public class Examples {
 		}
 		System.out.println();
 	}
+	
+	
+	
+	//---------------------------------------
+	static void ex5() {
+		System.out.println("\nEx5:");
+	
+		System.out.println("Upper bounded wild cards using implemented interface.");
+		
+		List<Plane>planes = Arrays.asList(new Plane(), new Plane());
+		List<Goose>goose = Arrays.asList(new Goose(), new Goose(), new Goose());
+		List<Handlider>handGlider = Arrays.asList(new Handlider(), new Handlider(), new Handlider());
+		List<Flyer>flyers = Arrays.asList(new Handlider(), new Goose(), new Plane(), ()->System.out.println("Lambda fly method"));
+		takeGlider(planes);
+		takeGlider(handGlider);
+		takeGlider(planes);
+		takeGlider(flyers);
+		
+	}
+	
+	/*
+	 * This method takes a list of objects that implement the Flyer interface:
+	 */
+	static void takeGlider(List<? extends Flyer>flyers) {
+		for(Flyer f:flyers) {
+			f.fly();
+			System.out.println(f);
+		}
+	}
+	
+	//----------------------------------------------------------------------------------
+	
+	static void ex6() {
+		System.out.println("\nEx6:");
+		
+		System.out.println("lower bounded wildcards");
+		//LOWER BOUNDED WILDCARDS:
+		
+		/*
+		 * These use the word "super" and list produced is MUTABLE
+		 */
+		
+		List<Dog>dogs = new ArrayList<>();
+		dogs.addAll(Arrays.asList(new Dog(), new Dog(), new Dog()));
+		
+		takeLowerBound(dogs); //pass dogs into lowerBound method
+	}
+	
+	/*
+	 * This method takes a lower bounded wildcard and uses the keyword "super".
+	 * This one takes a list of Dogs or objects that are superclasses of Dog.
+	 * So this can tkae a list of Dogs, Animals or Objects. 
+	 */
+	static void takeLowerBound(List<? super Dog>list) {
+		/*
+		 * You can add objects to this list. HOWEVER you can only add the type mentioned in the method signature. So here we can only add Dogs.
+		 */
+		list.add(new Dog());
+		
+		//list.add(new Animal());
+		
+	}
+	
 }
