@@ -336,9 +336,62 @@ public class Examples {
 		things=new ArrayList<>();
 		
 		
-		//if you make a FINAL list that includes an immutable wildcard, then this cant be modified AND it's reference cant be changed.
+		//if you make a FINAL list that includes an immutable wildcard, then this cant be modified AND it cant be reassigned.
 		final List<?>immutes=Arrays.asList(12.33, new Dog(), new ArrayList());
 		
+		
+		//-----------------------------
+		//initialising a list with an array.
+		/*
+		 * If you initialise a list with an array you cant add or remove elements to a list. However you can CHANGE elements in a list. 
+		 */
+		List<Integer>numbers=Arrays.asList(3,33,333,3333);
+		
+		//cant add anything to this list:
+		//numbers.add(3333333); //this generates a runtime exception.
+		
+		//cant remove anything to this list:
+		//numbers.remove(3); //this generates a runtime exception.
+		
+		//you CAN however change elements in the list:
+		numbers.set(0, 1_00000);
+		System.out.println(numbers);
+		
+		
+		//-------------------------
+		
+		List<Integer>ints=new ArrayList<>();
+		ints.addAll(Arrays.asList(33,44,555,666,77865)); //addAll only takes objects that implement the COLLECTIONS interface (Maps, sets & lists).
+		
+		Integer[]integerArray = {34,67,888,99};
+		
+		//this doesnt compile, as addAll only takes objects of classes that implement the collection interface. 
+		//ints.addAll(integerArray) //wont compile as its an ARRAY
+		
+		ints.addAll(Arrays.asList(integerArray)); //"Arrays.AsList" takes an array and converts it into a List. ++++++++++++++++++++
+		
+		//This is STILL a list of Objects, type is not determined if you DO NOT put in a type on the LEFT hand side. 
+		List someNumbers = new ArrayList<Integer>();
+		someNumbers.add("yo");
+		System.out.println(someNumbers);
+		
+		
+		//------------------------
+		/*
+		 * We created this as a list of Numbers reference to an ArrayList object.
+		 */
+		System.out.println(numbers);
+		/*
+		 * numbers is a list with a generic type of Integer. 
+		 * So this reference can only be assigned to a compatible object. 
+		 * IE if it's assigned like below to a new ArrayList, this new ArrayList can only take integers.
+		 * If you put nothing in the diamond operators,the type is assumed to be an arraylist<Integer>
+		 * Put anything else other thanb bliank in it and it wont compile.
+		 */
+		
+		numbers = new ArrayList<>(); //fine
+		numbers = new ArrayList<Integer>(); //fine
+		//numbers = new ArrayList<Number>(); //computer say's no
 	
 	}
 	
