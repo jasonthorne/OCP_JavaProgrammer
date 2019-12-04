@@ -6,7 +6,7 @@ public interface Flyer {
 	void fly();
 }
 
-
+//Glider isnt a functional interface as it inherits the void fly method, so it actually contains 2 abstract methods.
 interface Glider extends Flyer{
 	
 	void glide();

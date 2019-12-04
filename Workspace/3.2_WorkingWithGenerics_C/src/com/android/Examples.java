@@ -189,21 +189,22 @@ public class Examples {
 	
 		System.out.println("Upper bounded wild cards using implemented interface.");
 		
-		List<Plane>planes = Arrays.asList(new Plane(), new Plane());
-		List<Goose>goose = Arrays.asList(new Goose(), new Goose(), new Goose());
-		List<Handlider>handGlider = Arrays.asList(new Handlider(), new Handlider(), new Handlider());
-		List<Flyer>flyers = Arrays.asList(new Handlider(), new Goose(), new Plane(), ()->System.out.println("Lambda fly method"));
-		takeGlider(planes);
-		takeGlider(handGlider);
-		takeGlider(planes);
-		takeGlider(flyers);
+		List<Plane>planes = Arrays.asList(new Plane(), new Plane()); //this list can only take planes
+		List<Goose>goose = Arrays.asList(new Goose(), new Goose(), new Goose()); //this list can only take geese
+		List<Handlider>handGlider = Arrays.asList(new Handlider(), new Handlider(), new Handlider()); //this list can only take handgliders
+		//list of an INTERFACE TYPE allows creation of any objects that implement this interface: 
+		List<Flyer>flyers = Arrays.asList(new Handlider(), new Goose(), new Plane(), ()->System.out.println("Lambda fly method")); //can take anything that implements this interface
+		takeFlyer(planes);
+		takeFlyer(handGlider);
+		takeFlyer(planes);
+		takeFlyer(flyers);
 		
 	}
 	
 	/*
 	 * This method takes a list of objects that implement the Flyer interface:
 	 */
-	static void takeGlider(List<? extends Flyer>flyers) {
+	static void takeFlyer(List<? extends Flyer>flyers) {
 		for(Flyer f:flyers) {
 			f.fly();
 			System.out.println(f);
@@ -214,18 +215,43 @@ public class Examples {
 	
 	static void ex6() {
 		System.out.println("\nEx6:");
-		
+		//LOWER BOUNDED WILDCARDS: ++++++++++++++++++++++++++++++++++++++
 		System.out.println("lower bounded wildcards");
-		//LOWER BOUNDED WILDCARDS:
+		
 		
 		/*
 		 * These use the word "super" and list produced is MUTABLE
 		 */
 		
+		//-----The method can take a list of Dogs:
 		List<Dog>dogs = new ArrayList<>();
 		dogs.addAll(Arrays.asList(new Dog(), new Dog(), new Dog()));
 		
 		takeLowerBound(dogs); //pass dogs into lowerBound method
+		
+		//-----The method can take a list of Animals:
+		List<Animal>animals = new ArrayList<>();
+		animals.addAll(Arrays.asList(new Dog(), new Animal(), new Poodle(), new Cat()));
+		
+		System.out.println();
+		takeLowerBound(animals); //pass Animals into list
+		
+		//-----The method can take a list of Objects:
+		List<Object>objects = new ArrayList<>();
+		objects.addAll(Arrays.asList(new Object(), new Animal(), new Dog(), new Cat()));
+		
+		System.out.println();
+		takeLowerBound(objects); //pass objects into list
+		
+		//-----------
+		//THis wont work because takeLowerBound cant take a TYPE which is a subclass of Dog.
+		List<Poodle>poodles = new ArrayList<>();
+		poodles.addAll(Arrays.asList(new Poodle(), new Poodle(), new Poodle(), new Poodle()));
+		
+		System.out.println();
+		//takeLowerBound(poodles); //wont compile as poodle is a subclass of Dog
+		
+		
 	}
 	
 	/*
@@ -233,11 +259,18 @@ public class Examples {
 	 * This one takes a list of Dogs or objects that are superclasses of Dog.
 	 * So this can tkae a list of Dogs, Animals or Objects. 
 	 */
-	static void takeLowerBound(List<? super Dog>list) {
+	static void takeLowerBound(List<? super Dog>list) { //THIS CAN TAKE DOGS OR ANY SUPERCLASS OF DOG +++++++++++++++++++
 		/*
 		 * You can add objects to this list. HOWEVER you can only add the type mentioned in the method signature. So here we can only add Dogs.
 		 */
 		list.add(new Dog());
+		
+		
+		//loop through list:
+		for(Object o:list) //have to loop through OBJECTS because there could be an object in here ++++++
+			System.out.println(o);
+		
+	
 		
 		//list.add(new Animal());
 		
