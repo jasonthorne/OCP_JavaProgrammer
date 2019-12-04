@@ -304,6 +304,55 @@ public class Examples {
 		
 	}
 	
+	//----------------------------------------------------------------------------------
+	
+	static void ex8() {
+		System.out.println("\nEx8:");
+		
+		System.out.println("General Generics:");
+		
+		/*
+		 * This is an IMMUTABLe arraylist.
+		 * You cant add to it, and you cant modify the items in the list.
+		 */
+		List<?>list = new ArrayList<>();
+		
+		/*
+		 * The below list is immutable, and you cant add or remove any objects. You cant modify any items on the list.
+		 */
+		List<?>things=Arrays.asList(12, "yo", 3.3, new Animal(), new ArrayList()); //creating an immutable list
+		
+		//can't change elements:
+		//things.set(0, 14);
+		
+		//can't add elements:
+		//things.add("word");
+		
+		//can't remove elements:
+		//things.remove(1); //this WILL compile, but gives a runtime exception
+		
+		
+		//You can assign an ew list to things. as soon as you do this new list also becomes immutable
+		things=new ArrayList<>();
+		
+		
+		//if you make a FINAL list that includes an immutable wildcard, then this cant be modified AND it's reference cant be changed.
+		final List<?>immutes=Arrays.asList(12.33, new Dog(), new ArrayList());
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
