@@ -276,4 +276,34 @@ public class Examples {
 		
 	}
 	
+	
+	//----------------------------------------------------------------------------------
+	
+	static void ex7() {
+		System.out.println("\nEx7:");
+		
+		Employee<Animal>emp1 = new Employee<>(new Animal()); //create an Employee of type Animal
+		
+		//banks created with Animal or subclass of Animal:
+		Bank<Animal>bank1=new Bank(new Animal()); 
+		Bank<Dog>bank2=new Bank(new Dog());
+		Bank<Cat>bank3=new Bank(new Cat());
+		Bank<Poodle>bank4=new Bank(new Poodle());
+		
+		/*Bank created with a type which is NOT an Animal or suclass.
+		Meaning pay() method WONT work. (as its arg is set to ONLY take Animal tyupe or subclass types).
+		*/
+		Bank<String>bank5=new Bank("sup, world!");
+		
+		
+		emp1.pay(bank1); 
+		emp1.pay(bank2);
+		emp1.pay(bank3);
+		emp1.pay(bank4);
+		//emp1.pay(bank5);
+		
+	}
+	
+	
+	
 }
