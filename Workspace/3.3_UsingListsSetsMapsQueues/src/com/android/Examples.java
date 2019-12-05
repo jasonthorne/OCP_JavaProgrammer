@@ -8,9 +8,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.android.animals.Animal;
+import com.android.animals.Behaviour;
 import com.android.animals.Cat;
+import com.android.animals.Collie;
 import com.android.animals.Dog;
 import com.android.animals.Hippo;
+import com.android.animals.Mouse;
 
 public class Examples {
 	
@@ -177,8 +180,6 @@ public class Examples {
 		Dog lassie=new Dog("Lassie", 5);
 		System.out.println(dogSet.contains(lassie)); //false
 		System.out.println(strList.contains("one")); //false 
-		
-	
 	}
 	
 	
@@ -217,10 +218,122 @@ public class Examples {
 		List<Dog>dogList=new ArrayList<>();
 		
 		
-		
+		/*
+		 * Below has access to all pof the methods of iterable, Collection, list and Serializable, clonable and randomAccess interfaces. 
+		 */
 		ArrayList<String>strArrList = new ArrayList<>();
-		///strArrList.
+		
+		//------------------------------------
+		
+		/*
+		 * This deterines that this is a list of Integers.
+		 */
+		List<Integer>numList=new ArrayList<>();
+		//4 is autoboxed to become an integer and added to the list.
+		numList.add(4);
+		numList.add(Integer.getInteger("333"));
+		//numList.add(Double.parseDouble("3.33")); //wont work as this is an INTEGER list 
+		byte myByte=56;
+		//numList.add(myByte); //wont compile as Integer list can only take Integer wrapper Objects.
+		numList.add((int)myByte); //fine as byte is cast to int first.
+		//numList.add((Integer)myByte); wont compile as there's no relationship between a byte primitive, and an Integer wrapper.
+		
+		//----------------------------
+		
+		/*
+		 * Below list can take Animals and subclasses of Animals
+		 */
+		List<Animal>animalList = new ArrayList<>();
+		
+		//add animals or suclasses to list:
+		animalList.add(new Animal());
+		animalList.add(new Dog());
+		animalList.add(new Collie());
+		animalList.add(new Mouse());
+		
+		Animal dogAnimal = new Dog();
+		
+		//Animal ref to a Dog object
+		animalList.add(dogAnimal);
+		
+		
+		Behaviour behaveDog = new Dog();
+		//animalList.add(behaveDog); //wont compile. Cant add a Behaviour reference as it's not an Animla reference.
+		
+		//a Behaviour list can take anything that implements the Behaviour interface
+		List<Behaviour>behaveList = new ArrayList<>();
+		behaveList.add(new Dog());
+		behaveList.add(behaveDog);
+		behaveList.add(()->System.out.println("lamda sad method"));
+		
+		//-----
+		
+		/*
+		 * below list can only take a Dog ref or a subclass referenced object (of whixh there is only 1 - a Collie)
+		 */
+		List<Dog>kennel = new ArrayList<Dog>();
+		kennel.add(new Dog());
+		kennel.add(new Collie()); //a Collie IS-A Dog
+		//this is an animal ref to a Dog object:
+		dogAnimal=new Dog(); 
+		//kennel.add(dogAnimal); //dogAnimal has a ANIMAL ref so cant be added
+		
+		kennel.add((Dog)dogAnimal); //casting dogAnimal from an Animal ref to a Dog ref
+		
+		//-------
+		//This is a list that can take ANY OBJECT as there's no diamond operator on the LEFT hand side.
+		//You can the n ONLY call methods of the object class on the items of this list.
+		List myList=new ArrayList<Integer>();
+		myList.add("hello");
+		myList.add(23.5);
+		myList.add(new Animal());
+		
+		//---------
+		
+		System.out.println("AddAll");
+		
+		/*
+		 * add all takes an object that implements the Collection interface, 
+		 * so all sets, Lists and Queues can be the parameter that is sent to this method.
+		 * Kennel is a list, list implements the colection interface. 
+		 */
+		kennel.addAll(kennel);
+		Set<Dog>setDog= new HashSet<>();
+		setDog.addAll(Arrays.asList(new Dog(), new Dog(), new Dog()));
+		
+		kennel.addAll(setDog);
+
 		
 	}
+	
+	
+	
+	static void ex3() {
+		System.out.println("\nEx3:");
+		
+		System.out.println("ITERATORS:");
+	
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

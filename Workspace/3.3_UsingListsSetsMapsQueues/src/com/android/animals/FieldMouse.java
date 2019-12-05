@@ -1,5 +1,5 @@
 package com.android.animals;
 
-public class FieldMouse {
+public class FieldMouse extends Mouse {
 
 }

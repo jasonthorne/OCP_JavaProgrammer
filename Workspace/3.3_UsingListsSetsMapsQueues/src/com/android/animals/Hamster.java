@@ -1,5 +1,5 @@
 package com.android.animals;
 
-public class Hamster {
+public class Hamster extends Animal{
 
 }

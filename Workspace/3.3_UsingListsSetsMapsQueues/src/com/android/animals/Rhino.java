@@ -86,11 +86,12 @@ public class Rhino<K, V> implements Map<K, V>{
 }
 
 
+
 interface Mood{
 	
 }
 
-interface Behaviour extends Mood{
+interface Emotion extends Mood{
 	
 }
 

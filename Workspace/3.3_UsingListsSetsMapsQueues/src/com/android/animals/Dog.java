@@ -1,6 +1,6 @@
 package com.android.animals;
 
-public class Dog extends Animal{
+public class Dog extends Animal implements Behaviour{
 	
 	int age;
 	String name;
@@ -13,6 +13,10 @@ public class Dog extends Animal{
 		this.age=age;
 		dogCount++;
 		id=dogCount;
+	}
+	
+	public Dog() {
+		
 	}
 
 	@Override
@@ -50,6 +54,10 @@ public class Dog extends Animal{
 	@Override
 	public String toString() {
 		return "name is: " + name + ". age is: " + age;
+	}
+	
+	public void sad() {
+		
 	}
 	
 	
