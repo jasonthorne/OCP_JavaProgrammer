@@ -7,8 +7,8 @@ import java.util.Iterator;
  * Every class that implements collection will have all of the overridden methods.
  * You can put in a generic when you implement this generic. 
  */
-public class Cat implements Collection{
-//Collection<T> extends collection{}
+public class Cat implements Collection{ //NO GENERIC DEFINED HERE - so anything passed in here will be of type object.
+//interface Collection<T>{}
 	
 	@Override
 	public boolean add(Object e) {
