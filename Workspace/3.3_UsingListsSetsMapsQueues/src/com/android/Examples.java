@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import com.android.animals.Animal;
@@ -310,12 +311,39 @@ public class Examples {
 	
 	static void ex3() {
 		System.out.println("\nEx3:");
-		
 		System.out.println("ITERATORS:");
 	
+		/*
+		 * An iterator is an object that is used to go through a collection object.
+		 */
 		
+		List<Dog>kennel=new ArrayList<>();
+		kennel.addAll(Arrays.asList(new Dog("spot", 2), new Dog("rex", 3), new Dog("lassie", 5), new Dog("benji", 10)));
 		
+		for(Dog d:kennel)
+			System.out.println(d);
 		
+		/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * ListIterator object for going through values in list. 
+		 * You create a listIterator from an existing list.
+		 * 1st rule: The type of the listIterator has to match the type of the list.
+		 * You create the object by having the list call the ListIterator() method which creates a lisatIterator.
+		 */
+		ListIterator<Dog>dogIterator=kennel.listIterator(); 
+		System.out.println(dogIterator); //printing the iterator just prints off it's ref
+		
+		//methods for the ListIterator:
+		/*
+		 * hasNext: returns a boolean value which indicates if there's another record in the list
+		 */
+		System.out.println();
+		
+		while(dogIterator.hasNext()) { //while there's another dog in list
+			System.out.println("index of next Dog is: " + dogIterator.nextIndex());
+			//dogIterator.next(); //go to next list 
+			System.out.println(dogIterator.next()); //also returns the next object
+			System.out.println(dogIterator.hasNext()); //returns boolean of whether there is another object in list
+		}
 		
 		
 		
@@ -324,16 +352,6 @@ public class Examples {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 
 }
