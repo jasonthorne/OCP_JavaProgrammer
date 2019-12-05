@@ -2,6 +2,7 @@ package com.android;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class Examples {
 	 */
 	
 	static void ex1() {
-		System.out.println("Ex1:");
+		System.out.println("\nEx1:");
 		
 		/*
 		 * Cat class didnt specify a generic in the class declaration.
@@ -177,8 +178,48 @@ public class Examples {
 		System.out.println(dogSet.contains(lassie)); //false
 		System.out.println(strList.contains("one")); //false 
 		
+	
+	}
+	
+	
+	static void ex2() {
+		System.out.println("\nEx2:");
+		
+		System.out.println("ArrayLists:");
+		
+		/*
+		 * List implementation
+		 * 
+		 * List interface extends Collection, and Collection extends Iterable
+		 * So We can have an Iterable reference to an ArrayList object.
+		 * we can have a Collection interface to an ArrayList object.
+		 * We can have a List reference to an ArrayList object.
+		 * 
+		 */
+		
+		/*
+		Below object ONLY has access to the Iterable interface methods.
+		//ForEach and iterator() are the main ones from this.
+		*/
+		Iterable<Integer>iterList = new ArrayList<>();
 		
 		
+		/*
+		 * Below obj has access to all of the Iterable interface methods and the Collection interface methods
+		 * ie: add(), addAll(), clear(), contains(), stream()
+		 */ 
+		Collection<String>strCollection=new ArrayList<>();
+		
+		/*
+		 * below obj has access to all of the methods of Iterable, Collection and List interface.
+		 * i.e set(), get()
+		 */
+		List<Dog>dogList=new ArrayList<>();
+		
+		
+		
+		ArrayList<String>strArrList = new ArrayList<>();
+		///strArrList.
 		
 	}
 
