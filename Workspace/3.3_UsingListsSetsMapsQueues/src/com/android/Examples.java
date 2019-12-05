@@ -8,6 +8,7 @@ import java.util.Set;
 
 import com.android.animals.Animal;
 import com.android.animals.Cat;
+import com.android.animals.Dog;
 import com.android.animals.Hippo;
 
 public class Examples {
@@ -143,6 +144,38 @@ public class Examples {
 		strSet.addAll(Arrays.asList("orange, banana", "apple", "pineapple"));
 		System.out.println(strSet);
 		
+		
+		//================================
+		
+		System.out.println();
+		
+		/*
+		 * Below is using the equals() method of the Dog class. 
+		 * If it returns true the Dog will be inserted into the list.
+		 */
+		
+		Set<Dog>dogSet=new HashSet<>(); //create Dog set
+		//create dogs:
+		Dog dog1 = new Dog("spot", 1); 
+		Dog dog2 = new Dog("spot", 1); 
+		Dog dog3 = new Dog("rex", 2); 
+		Dog dog4 = dog1; //create new ref to dog1. Meaning that as the id is the same, this wont be inserted.
+		
+		dogSet.addAll(Arrays.asList(dog1, dog2, dog3, dog4)); //add dogs to dogSet
+		System.out.println(dogSet);
+		
+		
+		//--------------------
+		
+		System.out.println("\nContains:");
+		
+		/*
+		 * Returns a boolean. True if the collection contains a particular obj, false if not.
+		 */
+		System.out.println(dogSet.contains(dog1)); //true
+		Dog lassie=new Dog("Lassie", 5);
+		System.out.println(dogSet.contains(lassie)); //false
+		System.out.println(strList.contains("one")); //false 
 		
 		
 		
