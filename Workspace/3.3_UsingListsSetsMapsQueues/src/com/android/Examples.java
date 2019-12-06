@@ -346,12 +346,67 @@ public class Examples {
 		}
 		
 		
+	}
+	
+	static void ex4() {
+		System.out.println("\nEx4:");
+		System.out.println("ITERATORS CONTINUED:");
+		
+		
+		//list of numbers:
+		List<Integer>numbers=new ArrayList<>();
+		//add these numbers to the list:
+		numbers.addAll(Arrays.asList(23,44,566,34,667,889,10000));
+		//create an iterator for collections of Integers:
+		ListIterator<Integer>intIter=numbers.listIterator();
+		System.out.println("numbers in forward order:");
+		
+		while(intIter.hasNext()) {
+			System.out.println("number is: " + intIter.next());
+		}
+		
+		//System.out.println(intIter.next()); //this gives a NoSuchElementException (which is a runtimeException) as were at the end of the list
+		/*
+		 * At this point, the iterator points to the LAST number on the list, which is index pos 7. And iterator number of 8. 
+		 * The final number of the iterator will be the total amount of numbers in the list the itarator is based on, which is 8 numbers. 
+		 */
+		
+		System.out.println("\nNumbers in reverse order:");
+		while(intIter.hasPrevious()) {
+			System.out.println("number is: " + intIter.previous());
+		}
+		
+		//System.out.println(intIter.previous()); //this gives a NoSuchElementException (which is a runtimeException) as were at the start of the list
+		intIter=numbers.listIterator();
+		
+		System.out.println("\nfirst five numbers:");
+		while(intIter.nextIndex()<5) {
+			System.out.println("number is: " + intIter.next());
+			
+			/*
+			if(intIter.nextIndex()>1)
+					System.out.println("number is: " + intIter.next());
+			*/
+		}
+		
 		
 		
 	}
 	
-	
-	
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
