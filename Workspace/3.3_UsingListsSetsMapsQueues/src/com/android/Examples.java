@@ -1,11 +1,14 @@
 package com.android;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Queue;
 import java.util.Set;
 
 import com.android.animals.Animal;
@@ -382,20 +385,120 @@ public class Examples {
 		System.out.println("\nfirst five numbers:");
 		while(intIter.nextIndex()<5) {
 			System.out.println("number is: " + intIter.next());
+		}
+		
+		System.out.println("next number is: " + intIter.next());
+		
+		//---------------------
+		
+		//create dogs:
+		Dog spot = new Dog("spot", 12); 
+		Dog rex = new Dog("rex", 5); 
+		Dog lasie = new Dog("lassie", 6); 
+		List<Dog>kennel = new ArrayList<>();
+		
+		kennel.addAll(Arrays.asList(spot, rex, lasie, new Dog("Benji", 40)));
+		
+		System.out.println(kennel);
+		
+		ListIterator<Dog>dogIter=kennel.listIterator(); //create iterator for kennel
+		
+		
+		/*
+		 * EXAMPLE OF WRONG WAY TO PRINT VALUES:
+		while(dogIter.hasNext()) {
+			
+			System.out.println("name of dog is: " + dogIter.next().name);
+			System.out.println("age of dog is: " + dogIter.next().age);
+		}
+	
+		dogIter=kennel.listIterator(); //reset iterator
+		*/
+		
+		while(dogIter.hasNext()) {
 			
 			/*
-			if(intIter.nextIndex()>1)
-					System.out.println("number is: " + intIter.next());
-			*/
+			 * we create a temp dog var and assign that the value of the next Dog
+			 */
+			Dog temp=dogIter.next();
+			System.out.println("name of dog is: " + temp.name + ". age of dog is: " + temp.age);
 		}
 		
 		
+		/*
+		 * INFINATE LOOP EXAMPLE:
+		 * 
+		 * If you have a while lopp that relies on a hasNext and you are at the start of your list.
+		 * If you dont have a next method, your loop will be infinite. Nexxt is the command that causes your loop to move forward by 1.
+		 * Similarly, if you are at the end of your list and you odnt have a pre, your loop will also be infinte.
+		 * 
+		 * 
+		dogIter=kennel.listIterator(); //reset iterator
+		while(dogIter.hasNext()) {
+			System.out.println("dog is: " + dogIter.next());
+			System.out.println("dog is: " + dogIter.previous());
+		}
+		 */
 		
+		//----------------------------------
+		intIter=numbers.listIterator();
+		
+		System.out.println();
+		System.out.println(numbers);
+		
+		/*
+		while(intIter.nextIndex()<5) {
+			if(intIter.nextIndex()>1)
+					System.out.println("number is: " + );
+		}
+		*/
+
 	}
 	
-
-
 	
+	
+	static void ex5() {
+		System.out.println("\nEx5:");
+		System.out.println("ARRAY DEQUE:"); //++++++++++++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * These can be used instead of stacks (FILO/LIFO)
+		 * 
+		 * implements Collection, Queue, Deque & iteratble interfaces:
+		 * Collection base class
+		 * Queue extends Collection
+		 * Deque extends Queue
+		 * 
+		 */
+		
+		Collection<String>collectDeque=new ArrayDeque();
+		
+		Queue<Hippo>queueDeque = new ArrayDeque<>();
+		
+		Deque<Dog>arrayDeque = new ArrayDeque<>();
+		
+		ArrayDeque<Cat>catArrDeque=new ArrayDeque<>();
+		
+		//does NOT implement the list interface:
+		//List<Integer>noDeque=new ArrayDeque<>(); will not compile
+		
+		Deque<String>stringDeque=new ArrayDeque<>();
+		stringDeque.addAll(Arrays.asList("hello", "apple", "orange", "apple", "orange", "banana")); //duplicates ARE allowed
+		
+		stringDeque.add("tomato"); //adding to arrayDeque
+		System.out.println(stringDeque);
+		
+		//You CANNOT add a NULL ++++++++++++++++++++++++++
+		//stringDeque.add(null); //gives nullPointer exception
+		//System.out.println(stringDeque);
+		
+		/*You CAN add elements at a particular location in the list
+		 * i.e have a list of strings called fruits and want  to add a fruit at pos 3
+		 * numbers.add(3, "pineapple")
+		*/
+	
+		
+	}
 	
 	
 	

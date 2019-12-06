@@ -2,10 +2,10 @@ package com.android.animals;
 
 public class Dog extends Animal implements Behaviour{
 	
-	int age;
-	String name;
-	static int dogCount=0;
-	int id;
+	public int age;
+	public String name;
+	public static int dogCount=0;
+	public int id;
 	
 	public Dog(String name, int age){
 		//super(age, name);
