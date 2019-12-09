@@ -588,9 +588,39 @@ public class Examples {
 		List<Integer>listNumbers=new ArrayList<>(numbers);
 		
 		
+		//--------
+		int sum=0;
 		
 		
+		while(!(deqNumbers.isEmpty())) { //while deque isnt empty
+			sum=sum+deqNumbers.poll(); //add number to the sum and then remove it from the arrayDeque deqNumbers
+			
+			System.out.println("Sum is: " + sum);
+			System.out.println(deqNumbers);
+		}
 		
+		//-----------
+		
+		ArrayDeque<Dog>kennel = new ArrayDeque<>();
+		List<Dog>dogList=Arrays.asList(new Dog(), new Dog("spot", 3), new Dog("rex", 5), new Dog("lassie", 10));
+		kennel.addAll(dogList);
+		System.out.println(dogList);
+		System.out.println(kennel);
+		
+		//kennel=new ArrayDeque<>(dogList); //another way to create a kennel deque with a dogList
+		System.out.println(kennel.peekLast()); //peek at last dog
+		
+		System.out.println(kennel.equals(dogList));
+		
+		
+		//-------
+		//BELOW ARE " DIFFERENT LISTS< BUT CONTAIN THE SAME DOGS: 
+		ArrayDeque<Dog>kennel2=new ArrayDeque<>(dogList);
+		System.out.println(kennel2.equals(dogList)); //not equal. 1 is a deque made from dogList, other is dogList.
+		
+		System.out.println(kennel2);
+		System.out.println(dogList);
+		System.out.println(kennel2.peekLast().equals(dogList.get(3))); //both are referencing the same dog, but the dog references are in DIFFERENT LISTS
 	}
 	
 	
