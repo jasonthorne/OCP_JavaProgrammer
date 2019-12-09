@@ -492,11 +492,34 @@ public class Examples {
 		//stringDeque.add(null); //gives nullPointer exception
 		//System.out.println(stringDeque);
 		
-		/*You CAN add elements at a particular location in the list
+		/*You CANT add elements at a particular location in the list
 		 * i.e have a list of strings called fruits and want  to add a fruit at pos 3
-		 * numbers.add(3, "pineapple")
+		 * stringDeque.add(3, "pineapple")
 		*/
+		
+		System.out.println(stringDeque);
+		
+		//--------------
+		
+		//PUSH
+		System.out.println("Push");
+		
+		//push adds an element at the BEGINNING of a list:
+		stringDeque.push("turnip");
+		System.out.println(stringDeque);
 	
+		//add adds it to the end of the deque:
+		stringDeque.add("kumquot");
+		System.out.println(stringDeque);
+		
+		
+		//-------------
+		
+		//OFFER
+		System.out.println("Offer");
+		
+		System.out.println(stringDeque.offer("carrot"));
+		
 		
 	}
 	
