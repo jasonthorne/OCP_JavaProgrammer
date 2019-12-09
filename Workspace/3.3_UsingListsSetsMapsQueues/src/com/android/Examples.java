@@ -504,11 +504,11 @@ public class Examples {
 		//PUSH
 		System.out.println("Push");
 		
-		//push adds an element at the BEGINNING of a list:
+		//push adds an element at the BEGINNING of a list: (doesnt return a boolean)
 		stringDeque.push("turnip");
 		System.out.println(stringDeque);
 	
-		//add adds it to the end of the deque:
+		//add adds it to the END of the deque (returns a boolean):
 		stringDeque.add("kumquot");
 		System.out.println(stringDeque);
 		
@@ -516,9 +516,79 @@ public class Examples {
 		//-------------
 		
 		//OFFER
+		//same as add. (Also Returns a boolean).  
 		System.out.println("Offer");
-		
 		System.out.println(stringDeque.offer("carrot"));
+		System.out.println(stringDeque);
+		
+		//-------------
+		
+		//POP
+		//removes the FIRST element from the collection, and returns that element
+		System.out.println("Pop");
+		System.out.println(stringDeque.pop()); //pop the first element from the arrayDeque:
+		System.out.println(stringDeque); //element has been popped from the collection
+		
+		//---
+		
+		//If you try to pop fro man empty deque, you will get a NoSuchElementException, which is a runtime exception. 
+		ArrayDeque<String>emptyDeq=new ArrayDeque<>(); //empty deque
+		//emptyDeq.pop(); //gives a NoSuchElementException if the deque is empty. 
+		
+		//-------------
+		
+		//POLL
+		//Does the same as popping, and removes the first element, and returns that element. 
+		//DIFFERENCE BETWEEEN POP: If used on an empty deque this returns Null instead of NoSuchElementException given by Pop. ++++++++++++++++
+		System.out.println(stringDeque.poll()); //remove the first element from the arrayDeque:
+		System.out.println(stringDeque); //element has been removed from the collection
+	
+		//POLL LAST:
+		//remove the last element of the collection:
+		System.out.println("PoleLast");
+		System.out.println(stringDeque.pollLast()); //last element
+		System.out.println(stringDeque); //last element now removed from collection.
+		
+		//-------------
+		
+		//REMOVE
+		//removes the first item from the collection (like pole and pop)
+		System.out.println("Remove");
+		System.out.println(stringDeque.remove()); //first element
+		System.out.println(stringDeque); //first element now removed
+		
+		//gives a nosuchElementException if the deque is empty (like pop) ++++++++++++++++++++++++++++++++++++++++++++++++
+		//emptyDeq.remove();
+		
+		
+		//-------------
+		
+		//PEEK
+		//allows us to see the first element of the collection
+		System.out.println(stringDeque.peek()); //see first element
+		System.out.println(stringDeque.peekFirst()); //also see last element
+		System.out.println(stringDeque.peekLast()); //see last element
+		
+		//---------------
+		
+		List<Integer>numbers=new ArrayList<>();
+		numbers.addAll(Arrays.asList(20, 345,67,765,3,20, 33,99,6666));
+		
+		/*
+		 * The constructors for all sets, queues and lists can take a list, set or queue.
+		 */
+		
+		 //Here we create an ArrayDeque from an existing list called numbers:
+		ArrayDeque<Integer>deqNumbers=new ArrayDeque<>(numbers); //creating a queue from a list +++++++++++++++++++++
+		
+		//creating a set of Integers from an existing list called numbers:
+		Set<Integer>setNumbers=new HashSet<>(numbers);
+		
+		//creating a list of Integers from an existing list called numbers:
+		List<Integer>listNumbers=new ArrayList<>(numbers);
+		
+		
+		
 		
 		
 	}
