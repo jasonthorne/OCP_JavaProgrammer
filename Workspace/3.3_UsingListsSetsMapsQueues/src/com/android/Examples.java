@@ -803,9 +803,17 @@ public class Examples {
 		Dog lassie = new Dog();
 		Dog prince = lassie; 
 		
-		HashSet<Dog>kennel = new HashSet<>();
+		HashSet<Dog>kennel = new HashSet<>(Arrays.asList(
+				lassie, //1. added to set
+				prince, //2.  NOT added to set, as prince is the same dog as lassie
+				new Dog(), //3. Not added to set as same name and age as dog1
+				new Dog("spot", 2), //4. added to set
+				new Dog("rex", 4), //5. added to set
+				new Dog("spot", 2), //6. NOT added to set
+				new Dog() //7. NOT added to set
+			));
 		
-		
+		System.out.println("amount of dogs added to set is: " + kennel.size());
 		
 	}
 	
