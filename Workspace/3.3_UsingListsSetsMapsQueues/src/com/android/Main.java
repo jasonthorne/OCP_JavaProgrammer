@@ -41,10 +41,11 @@ public class Main {
 		
 		//Examples.ex1();
 		//Examples.ex2();
-		Examples.ex3();
-		Examples.ex4();
-		Examples.ex5();
-		
+		//Examples.ex3();
+		//Examples.ex4();
+		//Examples.ex5();
+		//Examples.ex6();
+		Examples.ex7();
 		
 	}
 

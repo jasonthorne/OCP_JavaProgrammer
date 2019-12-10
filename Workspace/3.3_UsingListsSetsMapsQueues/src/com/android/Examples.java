@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Queue;
@@ -582,7 +583,7 @@ public class Examples {
 		ArrayDeque<Integer>deqNumbers=new ArrayDeque<>(numbers); //creating a queue from a list +++++++++++++++++++++
 		
 		//creating a set of Integers from an existing list called numbers:
-		Set<Integer>setNumbers=new HashSet<>(numbers);
+		Set<Integer>setNumbers=new HashSet<>(numbers); //here the duplicates are removed ++++++++++++++++++++++++++++++++++++++++
 		
 		//creating a list of Integers from an existing list called numbers:
 		List<Integer>listNumbers=new ArrayList<>(numbers);
@@ -590,7 +591,6 @@ public class Examples {
 		
 		//--------
 		int sum=0;
-		
 		
 		while(!(deqNumbers.isEmpty())) { //while deque isnt empty
 			sum=sum+deqNumbers.poll(); //add number to the sum and then remove it from the arrayDeque deqNumbers
@@ -612,20 +612,131 @@ public class Examples {
 		
 		System.out.println(kennel.equals(dogList));
 		
-		
 		//-------
-		//BELOW ARE " DIFFERENT LISTS< BUT CONTAIN THE SAME DOGS: 
+		//BELOW ARE " DIFFERENT LISTS, BUT CONTAIN THE SAME DOGS: +++++++++++++++++++++++++++++++++++++++++++
 		ArrayDeque<Dog>kennel2=new ArrayDeque<>(dogList);
 		System.out.println(kennel2.equals(dogList)); //not equal. 1 is a deque made from dogList, other is dogList.
 		
-		System.out.println(kennel2);
-		System.out.println(dogList);
+		System.out.println(kennel2); //arrayDeque of Dogs
+		System.out.println(dogList); //list of Dogs
 		System.out.println(kennel2.peekLast().equals(dogList.get(3))); //both are referencing the same dog, but the dog references are in DIFFERENT LISTS
+		
+	}
+	
+	static void ex6() {
+		System.out.println("\nEx6:");
+		System.out.println("LINKED LIST:"); 
+		
+		/*
+		 * Implements Collection,  Queue, Deque & List.
+		 * 
+		 * Collection base Interface
+		 * Queue extends Collection
+		 * Deque extends Queue
+		 * Also implements List
+		 * 
+		 * LinkedList implements both queue/Deque and List interface.
+		 * 
+		 * ALL methods of list list and deque are then available to this class, so allows duplicates and null elements.
+		 * And elements can be added anywhere in a linked list. 
+		 */
+		
+		LinkedList<String>strLinked=new LinkedList<>();
+		strLinked.add("apple");
+		strLinked.add("banana");
+		
+		strLinked.offer("orange"); //added to end
+		strLinked.push("pineapple"); //added to start
+		strLinked.add(1, "mango"); //added at pos 1
+		strLinked.set(2, "pineapple"); //set this pos to be "pineapple"
+		
+		System.out.println(strLinked);
+		
+		//get is from list interface:
+		System.out.println(strLinked.get(1)); //mango
+		
+		//Can add null: Cant do this with a queue:
+		strLinked.push(null);
+		
+		strLinked.remove(1); //from list. remove at pos 1
+		strLinked.remove();
+		
 	}
 	
 	
+	static void ex7() {
+		System.out.println("\nEx7:");
+		System.out.println("SET INTERFACE:"); 
+		
+		//SET INTERFACE DOES NOT ALLOW DUPLICATES and elements are returned in no particular order.
+		/*
+		 * Extends the collection interface
+		 * THe classes we cover are:
+		 * HASHSET
+		 * LINKEDHASHSET
+		 * TREESET
+		 */
+		
+		//-----------------
+		//HASHSET:
+			
+		/*
+		 * implements Collection and Set interface.
+		 * Collection super interface
+		 * Set interface extends Collection
+		 */
+		
+		//You can have a set reference to a HashSet object:
+		//Set<String>strHash=new HashSet<>();
+		
+		HashSet<String>strHash=new HashSet<>();
+	
+		//HashSet doesn't add elements in any particular order:
+		System.out.println(strHash.addAll(Arrays.asList("noel", "NOEL", "mary", "shelly", "mary"))); //the 2nd mary will NOT be added
+		
+		System.out.println(strHash);
+		
+		//noel will not be added, and this will return false.
+		System.out.println(strHash.add("noel"));
+		
+		List<String>names=new ArrayList<String>();
+		names=Arrays.asList("harry", "noel", "shelly", "laura", "Colm", "NOEL", "MARY", "shelly");
+		
+		//this will not add strings that already exist in strHash
+		strHash.addAll(names);
+		System.out.println(strHash);
+		
+		System.out.println("Adding null: " + strHash.add(null));
+		
+		//Like with other elements though, you cant add a second null:
+		System.out.println("Adding 2nd null: " + strHash.add(null));
+		
+		//-------
+		
+		//integer hashset:
+		HashSet<Integer>intHash=new HashSet<Integer>();
+		
+		intHash.addAll(Arrays.asList(234,5,33,678,124));
+		
+		System.out.println("intHash is: " + intHash);
+		
+		/*
+		 * If you are adding many elements to a hashset, you will not know how many elements will be added to your set. 
+		 * set (duplicates are not added), so size here is more important for this class than previous collection classes.
+		 */
+		
+		int size=intHash.size(); //size before we add elements
+		intHash.addAll(Arrays.asList(4,4,99,123,999,67,121,119,3));
+		int dif=intHash.size()-size;
+		System.out.println("ammount of items of numbers added to list is: " + dif);
+		
+		
+	}
 	
 	
+	static void ex8() {
+		
+	}
 	
 	
 	
