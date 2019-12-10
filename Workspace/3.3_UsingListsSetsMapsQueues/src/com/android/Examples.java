@@ -768,6 +768,43 @@ public class Examples {
 		Rat ronnie = new Rat(4, "ronnie");
 		Rat rachel = new Rat(4, "rachel");
 		
+		System.out.println("2 rats, same age: " + ronnie.equals(rachel));
+		//Both rats have the same hashcode, which is produced from age:
+		System.out.println(ronnie.hashCode());
+		System.out.println(rachel.hashCode());
+		
+		/*
+		 * If 2 rats have the same hashCode and return true when used against each other with the equals() method, 
+		 * then they will NOT BE added to the set. 
+		 */
+		//attempt to add rats to animalHash:
+		System.out.println("ronnie the rat is added?: " + animalHash.add(ronnie)); //will be added
+		System.out.println("rachel the rat is added?: " + animalHash.add(rachel)); //wont be added
+		
+		//----
+		System.out.println();
+		HashSet<Rat>ratSet = new HashSet<>();
+		
+		System.out.println("Rachel added to the ratSet: " + ratSet.add(rachel)); //will be added
+		System.out.println("Ronnie added to the ratSet: " + ratSet.add(ronnie)); //wont be added
+		
+		/*
+		 * If you override ONLY the equals() or only the hashcode then both of the above Rats will be added to the sets. 
+		 * As if you dont override either equals or hashCode it will then use the non overriden method from the object class. 
+		 * Which will return true or equals() if and only if the same object, and returns the same hashcode if and only if they are the same object. 
+		 */
+		
+		//-----------------------
+		/*
+		 * equals() and hashCode() are both overridden in the Dog class. And equals returns true if they have the same name and age. 
+		 * If they have the same age and name then they have the same hashcode().
+		 * Only lassie or prince will be added, as both references are the same Dog.
+		 */
+		Dog lassie = new Dog();
+		Dog prince = lassie; 
+		
+		HashSet<Dog>kennel = new HashSet<>();
+		
 		
 		
 	}

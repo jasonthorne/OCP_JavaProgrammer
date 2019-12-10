@@ -6,6 +6,10 @@ public class Rat extends Animal {
 		super(age, name);
 	}
 	
+	
+	/*
+	 * If this returns true and the hashcode is the same for both rats, then both rats will NOT be added.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		Rat other=(Rat)obj;
@@ -19,7 +23,7 @@ public class Rat extends Animal {
 	@Override
 	public int hashCode() {
 		int number=41;
-		return age*14;
+		return age*number;
 	}
 
 }
