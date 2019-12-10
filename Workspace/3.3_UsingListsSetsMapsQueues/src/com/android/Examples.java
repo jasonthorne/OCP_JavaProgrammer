@@ -19,6 +19,7 @@ import com.android.animals.Collie;
 import com.android.animals.Dog;
 import com.android.animals.Hippo;
 import com.android.animals.Mouse;
+import com.android.animals.Rat;
 
 public class Examples {
 	
@@ -735,6 +736,39 @@ public class Examples {
 	
 	
 	static void ex8() {
+		System.out.println("\nEx8:");
+		System.out.println("Hash set of animals"); 
+		
+		/*
+		 * HashSet uses hashCode() methods to determine if 2 objects are the same or equal. 
+		 * HashSet does not allow us to add 2 objects that have the same hashCode. 
+		 * Animal does not override the hashCode method. So it will use the hashCode method implmentartion from the object class. 
+		 * The same objects have the same hashcode. However a copy of the object has a different hashcode if you are using the object class hashcode method. 
+		 */
+		HashSet<Animal>animalHash=new HashSet<>();
+		
+		/*
+		 * These 2 Animals have the same age & name. But the equals() and hashCode method are not overriden.
+		 * So it will use the hashcode method from the Object class. It will alos use the equals method from the Object class, and will return true if they are the same object. 
+		 * The hashcode method produces the same hash(number) if both objects are the same object. 
+		 */
+		System.out.println("Animal added: " + animalHash.add(new Animal(1, "andy"))); //will be added
+		System.out.println("Animal added: " + animalHash.add(new Animal(1, "andy"))); //will be added
+		
+		//----------additional references to the same object wont be added:
+		Animal andy = new Animal();
+		Animal angela = andy; //andy and angela are the same Animal. 
+		
+		System.out.println("Animal added: " + animalHash.add(andy)); //this will be added
+		System.out.println("Animal added: " + animalHash.add(angela)); //this will NOT be added
+		
+		
+		//====================RATS:
+		
+		Rat ronnie = new Rat(4, "ronnie");
+		Rat rachel = new Rat(4, "rachel");
+		
+		
 		
 	}
 	
