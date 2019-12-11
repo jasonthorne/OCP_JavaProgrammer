@@ -873,7 +873,7 @@ public class Examples {
 	
 	static void ex9() {
 		System.out.println("\nEx9:");
-		System.out.println("Linked HashSet"); 
+		System.out.println("Linked HashSet"); //arranged how they're imputted.
 		
 		/*
 		 * Implements the Set and Collection Interface, and is a subclass of HashSet.
@@ -896,10 +896,86 @@ public class Examples {
 		List<Dog>dogList=new ArrayList<Dog>();
 		dogList.addAll(Arrays.asList(new Dog("spot", 2), new Dog("rex", 4), new Dog("lassie", 3), new Dog("benhji", 4)));
 		
+		Set<Dog>dogLHS=new LinkedHashSet<Dog>();
+		dogLHS.addAll(dogList); //add list to linked hash set
+		System.out.println(dogLHS); //print lhs
+		
+		
+		//------------------------------
+		//adding obj to set:
+		Dog prince = new Dog("prince", 12);
+		System.out.println(dogLHS.add(prince)); //adding to hashSet
+		System.out.println(dogLHS);
+		
+		//removing from set:
+		System.out.println(dogLHS.remove(prince));
+		System.out.println(dogLHS);
+		
+		//===============================================
+		//containsAll:
+		
+		//avaliable to all classes that implement Collection interface
+		Dog spot = new Dog("spot", 2);
+		Dog lassie = new Dog("lassie", 3);
+		Dog benji = new Dog("benji", 4);
+		Dog lady = new Dog("lady", 4);
+		
+		//create kennel list and add 4 dogs to it (in one order)
+		List<Dog>kennelList=new ArrayList<>();
+		kennelList.addAll(Arrays.asList(spot, lassie, benji, lady));
+		
+		//create set and add dogs
+		Set<Dog>dogSet=new LinkedHashSet<Dog>();
+		dogSet.addAll(Arrays.asList(new Dog(), new Dog("ruby", 5), new Dog("babe", 8)));
+		
+		//add first 4 dogs to set (in a different order to that inserted into kennel list)
+		dogSet.add(spot);
+		dogSet.add(benji);
+		//dogSet.add(lady);
+		//dogSet.add(lassie);
+		
+		System.out.println();
+		System.out.println(dogSet);
+		//checks to see if it contains the same elements as found in kennel list ++++++++++++++++++++++++++++++++++++++
+		System.out.println("dogSet containsAll: " + dogSet.containsAll(kennelList)); 
+		
+		
+		//----------------------------------------
+		//removeAll:
+		//remove ANY elements found in the list that are also in kennel list: ++++++++++++++++++++++++++++++++++++++++
+		System.out.println("dogSet removeAll: " + dogSet.removeAll(kennelList)); 
+		
+		System.out.println(dogSet);
+		
 	}
 	
+	static void ex10() {
+		System.out.println("\nEx10:");
+		System.out.println("TREE SET"); 
+		
+		/*
+		 * Implements the following interfaces:
+		 * Collection<E>
+		 * Set
+		 * Navigable Set
+		 * SortedSet
+		 * Iterable
+		 * Comparable
+		 * 
+		 * Navigable and sorted Set are both subinterfaces of set
+		 * 
+		 * prints out in ascending order by default. 
+		 * So numbers print: 1 > 2 > 3.
+		 * strings and chars: non-numeric >  numbers > uppercase > lowercase
+		 * 
+		 * Only objects that implement the Comparable interface can be added to a treeSet.
+		 * All numeric wrappers and the string class implement the comparable interface.
+		 * The only abstract method in the comparable interface is the method: compareTo().
+		 * This method is used to determin order and the treeset uses this overloaded method to determine order. (covered in detail in the next section).
+		 * 
+		 * 
+		 */
 	
-	
-	
+	}
 	
 }
