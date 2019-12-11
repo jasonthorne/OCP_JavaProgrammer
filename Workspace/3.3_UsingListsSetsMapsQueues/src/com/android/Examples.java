@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Queue;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.android.animals.Animal;
 import com.android.animals.Behaviour;
@@ -20,6 +21,7 @@ import com.android.animals.Collie;
 import com.android.animals.Dinosaur;
 import com.android.animals.Dinosaur.Type;
 import com.android.animals.Dog;
+import com.android.animals.FieldMouse;
 import com.android.animals.Hamster;
 import com.android.animals.Hippo;
 import com.android.animals.Mouse;
@@ -259,7 +261,7 @@ public class Examples {
 		animalList.add(new Animal());
 		animalList.add(new Dog());
 		animalList.add(new Collie());
-		animalList.add(new Mouse());
+		//animalList.add(new Mouse());
 		
 		Animal dogAnimal = new Dog();
 		
@@ -951,6 +953,8 @@ public class Examples {
 	
 	static void ex10() {
 		System.out.println("\nEx10:");
+		
+		//TREE SET
 		System.out.println("TREE SET"); 
 		
 		/*
@@ -971,10 +975,69 @@ public class Examples {
 		 * Only objects that implement the Comparable interface can be added to a treeSet.
 		 * All numeric wrappers and the string class implement the comparable interface.
 		 * The only abstract method in the comparable interface is the method: compareTo().
-		 * This method is used to determin order and the treeset uses this overloaded method to determine order. (covered in detail in the next section).
-		 * 
+		 * This method is used to determine order and the treeset uses this overloaded method to determine order. (covered in detail in the next section).
 		 * 
 		 */
+		
+		TreeSet<String>stringTs=new TreeSet<>();
+		stringTs.addAll(Arrays.asList("zed", "12", "adam", "!he", "Betty", "aidan", "adam"));
+		System.out.println("stringTs: " + stringTs);
+		
+		List<Integer>numbers=new ArrayList<>();
+		numbers.addAll(Arrays.asList(56,2,34,56,12,9,12,3,1000,450,9,6,3,449,448,1));
+		
+		TreeSet<Integer>intTree=new TreeSet<>();
+		intTree.addAll(numbers);
+		System.out.println(intTree);
+		
+		/*
+		 * Like all sets, duplicates are NOT allowed. 
+		 * The order is set by only objects that implement comparable interface can be added to a TreeSet. 
+		 */
+		
+		//=============================
+		
+		/*
+		 * Mouse implements Comparable and only an object who's class implements comparable can be added to  treeSet. 
+		 * The mouse class can organise by the name of the mouse (string) or the age of the mouse (Integer). 
+		 */
+		Mouse mikey = new Mouse("mickey", 10);
+		Mouse jerry = new Mouse("jerry", 7);
+		Mouse maggie = new Mouse("maggie", 2);
+		Mouse mary = new Mouse("mary", 4);
+		Mouse mouse1 = mary;
+		
+		TreeSet<Mouse>mouseTree=new TreeSet<Mouse>();
+		mouseTree.addAll(Arrays.asList(mouse1, mary, maggie, jerry, mikey));
+		System.out.println(mouseTree);
+		
+		//------
+		//treeSet of Animals:
+		
+		/*
+		 * This treeSet CANNOT take an Animal object, as Animal DOES NOT implement Comparable. However you can add any subclass that implements comparable. 
+		 */
+		TreeSet<Animal>animalTree=new TreeSet<>();
+		
+		//Below creates the runTime exception classCastException, as treeSets can ONLY take objects who's class implements Comparable. 
+		//The Animal class DOES NOT implement Comparable: 
+		//System.out.println(animalTree.add(new Animal())); //doesnt implement comparable, so throws up
+		//System.out.println(animalTree.add(new Dog())); //doesnt implement comparable, so throws up
+		
+		//You CAN however add any class that implements the comparable interface, and ANY subclass of that class.
+		System.out.println(animalTree.add(mikey));
+		System.out.println(animalTree.add(new FieldMouse("freddie", 4)));
+		
+		/*
+		 * NONE of Dog's subclasses currently implement comparable. However some subclass in the future MAY implement comparable
+		 * and then objects of that subclass will be able to be added to this TreeSet.
+		 */
+		TreeSet<Dog>dogTree=new TreeSet<>();
+		
+		/*
+		 * This can take ANY object who's class implements the comparable interface:
+		 */
+		TreeSet<Object>objTree=new TreeSet<>();
 	
 	}
 	
