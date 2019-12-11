@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -854,6 +855,10 @@ public class Examples {
 		//----------------
 		//Hamsters
 		
+		/*
+		 * Every hamster has a unique ID so every hamster with the same age, name and weight will be entered into the set. 
+		 */
+		
 		Hamster hamster1 = new Hamster(2,"harry", 2.5);
 		Hamster hamster2 = new Hamster(2,"harry", 2.5);
 		Hamster hamster3 = hamster1;
@@ -866,9 +871,32 @@ public class Examples {
 		
 	}
 	
-	
-	
-	
+	static void ex9() {
+		System.out.println("\nEx9:");
+		System.out.println("Linked HashSet"); 
+		
+		/*
+		 * Implements the Set and Collection Interface, and is a subclass of HashSet.
+		 * Similar to hashSet in that you cannot enter duplicate entries, however the items are ORDERED IN WHATEVER WAY THEY WERE ENTERED. 
+		 * So order is guaranteed in the way they were entered. 
+		 * this DOES NOT IMPLEMENT the LIST INTERFACE. ++++++++++++++++++++++++++++++++++++++++MIGHT BE ON EXAM +++++++++++++++
+		 */
+		
+		Set<Animal>animalLHS=new LinkedHashSet<>();
+		
+		//NO hashcode and equals in Animal, so it uses the default ones in Object, which just checks if they're the same objects.
+		System.out.println(animalLHS.add(new Animal())); //true
+		System.out.println(animalLHS.add(new Animal())); //true
+		System.out.println(animalLHS.add(new Dog("spot", 2))); //true
+		System.out.println(animalLHS.add(new Dog("spot", 2))); //false
+		
+		System.out.println(animalLHS);
+		
+		//-----------
+		List<Dog>dogList=new ArrayList<Dog>();
+		dogList.addAll(Arrays.asList(new Dog("spot", 2), new Dog("rex", 4), new Dog("lassie", 3), new Dog("benhji", 4)));
+		
+	}
 	
 	
 	
