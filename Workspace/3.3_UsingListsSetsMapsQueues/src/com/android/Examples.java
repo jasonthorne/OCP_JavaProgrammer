@@ -16,7 +16,10 @@ import com.android.animals.Animal;
 import com.android.animals.Behaviour;
 import com.android.animals.Cat;
 import com.android.animals.Collie;
+import com.android.animals.Dinosaur;
+import com.android.animals.Dinosaur.Type;
 import com.android.animals.Dog;
+import com.android.animals.Hamster;
 import com.android.animals.Hippo;
 import com.android.animals.Mouse;
 import com.android.animals.Rat;
@@ -739,6 +742,13 @@ public class Examples {
 		System.out.println("\nEx8:");
 		System.out.println("Hash set of animals"); 
 		
+		/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * elements are NOT added to a hashSet if:
+		 * + An element with the same equals method but different hashcodes.
+		 * + The equals method is different but same hashcode.
+		 * + The equals method and the hashcode HAVE TO check the SAME things (eg. age and name)
+		*/
+		
 		/*
 		 * HashSet uses hashCode() methods to determine if 2 objects are the same or equal. 
 		 * HashSet does not allow us to add 2 objects that have the same hashCode. 
@@ -814,6 +824,45 @@ public class Examples {
 			));
 		
 		System.out.println("amount of dogs added to set is: " + kennel.size());
+		
+		
+		//====================================
+		//Dinosaurs:
+		//public Dinosaur(int age, String name, double weight, double height, Type type) {
+		Dinosaur tRex = new Dinosaur(23, "TRex", 607.8, 23.2,Type.CARNIVORE); 
+		Dinosaur tRex2 = new Dinosaur(23, "TRex", 607.8, 23.2,Type.CARNIVORE); 
+			
+		Dinosaur tRex3 = tRex2;
+		Dinosaur bronto = new Dinosaur(12, "Brontosaurus", 1200.2, 40.0,Type.HERBIVORE); 
+		Dinosaur trici = new Dinosaur(12, "Triceritpos", 400.12, 40.2,Type.OMNIVORE); 
+		
+		
+		/*
+		 * Sets (and in particular hashSets) do not have any particular order. So the order may not be the way the orders were input. ++++++++++++++++++++++
+		 */
+		Set<Dinosaur>dinoSet = new HashSet<>();
+		System.out.println("\nadding dinosaurs");
+		System.out.println(dinoSet.add(tRex)); //added
+		System.out.println(dinoSet.add(tRex2)); //not added
+		System.out.println(dinoSet.add(tRex3)); //not added
+		System.out.println(dinoSet.add(bronto)); //added
+		System.out.println(dinoSet.add(trici)); //added
+		System.out.println(dinoSet.add(trici)); //not added
+		System.out.println(dinoSet.add(null)); //added
+		System.out.println(dinoSet.add(null)); //not added
+		
+		//----------------
+		//Hamsters
+		
+		Hamster hamster1 = new Hamster(2,"harry", 2.5);
+		Hamster hamster2 = new Hamster(2,"harry", 2.5);
+		Hamster hamster3 = hamster1;
+		
+		Set<Hamster>hamsterSet=new HashSet<>();
+		System.out.println("\nadding hamsters");
+		System.out.println(hamsterSet.add(hamster1));
+		System.out.println(hamsterSet.add(hamster2));
+		System.out.println(hamsterSet.add(hamster3));
 		
 	}
 	

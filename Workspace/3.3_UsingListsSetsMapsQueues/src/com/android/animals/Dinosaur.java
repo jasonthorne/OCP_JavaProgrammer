@@ -6,11 +6,14 @@ public class Dinosaur {
 	String name;
 	double weight;
 	double height;
-	enum Type{
+	
+	Type type;
+	
+	public enum Type{
 		CARNIVORE, HERBIVORE, OMNIVORE
 	}
 	
-	Type type;
+	
 	
 	public Dinosaur() {
 		
