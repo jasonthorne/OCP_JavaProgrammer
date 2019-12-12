@@ -1095,10 +1095,12 @@ public class Examples {
 		System.out.println(intTree.add(300)); //add another number to intTree
 		System.out.println(intTree);
 		
+		/*
 		while(it.hasNext()) {
 			 //iterator now no longer works as the list has been changed after iterator creation. ++++++++++++++++++++
 			//System.out.println("number is: " + it.next()); //runtime exception is: ConcurrentModificationException
 		}
+		*/
 		
 		//----------------------------
 		/*
@@ -1133,24 +1135,48 @@ public class Examples {
 		
 		System.out.println(fruits);
 		
+		fruitListIt=fruits.listIterator(); //redefine iterator
+		while(fruitListIt.hasNext()) {
+			System.out.println(fruitListIt.next());
+			//this is the end of the list
+		}
+		
+		System.out.println(fruits);
+		
+		fruits.add("turnip"); //add an extra elelement to fruits
+		
+		/*
+		while(fruitListIt.hasPrevious()) {
+			//this will cause a ConcurrentModificationException as the list of strings now has 9 strings in it. 
+			///	System.out.println(fruitListIt.previous()); 
+		}
+		 */
+		
+		fruitListIt=fruits.listIterator();  //redefine iterator (isd now based on 9 strings)
+		System.out.println(fruits);
+		
+		fruits.set(4, "apple"); //change pineapple to apple
+		System.out.println(fruits);
+		
+		//Iterator still works AS IT HAS THE SAME NUMBER OF ELEMENTS +++++++++++++++++
+		while(fruitListIt.hasNext()) { 
+			System.out.println("fruit is: " + fruitListIt.next()); 
+		}
 		
 		
+		//=========================================================
 		
+		TreeSet<Integer>integers=new TreeSet<Integer>();
 		
+		while(integers.size()<10) {
+			integers.add((int)(Math.random()*10));
+		}
 		
-		
-		
+		System.out.println(integers);
+		integers.clear(); //clear the set
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-
 	
 	
 }
