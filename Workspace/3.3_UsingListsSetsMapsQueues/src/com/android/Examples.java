@@ -1259,14 +1259,30 @@ public class Examples {
 		
 		System.out.println(salary);
 		
+		//-----------getting items from a HashMap:
+		
+		/*
+		If you want to get a particular value, you use get in conjunction with the key. 
+		So in this case, we use the name to get the wages. 
+		*/
+		
+		System.out.println("Wages of Bob: " + salary.get("Bob"));
+		System.out.println(salary.get(1)); //returns null
+		System.out.println(salary.get("purple-monkey-dishwasher")); //returns null
+		
+		//you can have null as a key. but can only be there ONCE
+		salary.put(null, 34500.0);
+		
+		salary.put(null, 3.0); //wont be added
+		System.out.println(salary);
 		
 		
+		//Can have multiple null values:
+		salary.put("Ben", null); 
+		salary.put("Douglas", null); 
 		
 		
-		
-		
-		
-		
+		System.out.println(salary);
 		
 	}
 	
