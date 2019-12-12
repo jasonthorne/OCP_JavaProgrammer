@@ -1072,16 +1072,72 @@ public class Examples {
 			System.out.println("descending order number is: " + descIntIt.next());
 		}
 		
+		//---------------------------
 		
-		//reset intIt (as its now at the bottom of our list)
-		intIt=intTree.descendingIterator();
+		//Creating an iterator with a generic type of Integer:
+		Iterator<Integer>it=intTree.descendingIterator(); 
 		
-		while(intIt.hasNext()) {
-			int num=(Integer)intIt.next(); //store number in temp var (casting to int as iterator is obj)
+		while(it.hasNext()) {
+			//int num=(Integer)it.next(); //store number in temp var (casting to int as iterator is obj) ++++++THIS ISNT NEEDED as iterator is given a type of Integer (otherwise would be0
+			int num=it.next(); //no cast needed here as the iterator is given a generic type of Integer
 			if(num%2>0) {
-				intIt.remove();
+				it.remove();
 			}
 		}
+		
+		System.out.println("int Tree is now:");
+		System.out.println(intTree);
+		
+		//-------------------------------
+		
+		
+		it=intTree.iterator(); //reset iterator
+		System.out.println(intTree.add(300)); //add another number to intTree
+		System.out.println(intTree);
+		
+		while(it.hasNext()) {
+			 //iterator now no longer works as the list has been changed after iterator creation. ++++++++++++++++++++
+			//System.out.println("number is: " + it.next()); //runtime exception is: ConcurrentModificationException
+		}
+		
+		//----------------------------
+		/*
+		 * ListIterator does NOT WORK on sets of any description
+		 * ListIterator works on all lists and queues
+		 * ITERATOR does work on sets. 
+		 */
+		Set<Integer>mySet=new HashSet<>();
+		Iterator myIt = mySet.iterator();
+		///ListIterator myListIt=mySet.ListIterator(); 
+		
+		
+		/*
+		 * Iterator does NOT HAVE previous or hasPrevious()
+		 * Iterator also does NOT HAVE add()
+		 */
+		
+		List<String>fruits=new ArrayList<>();
+		
+		fruits.addAll(Arrays.asList("banana", "apple", "cherry", "pineapple", "strawberry", "orange", "mango"));
+		//Iterator fruitIt=fruits.iterator(); //creating an iterator for fruits.
+		
+		ListIterator<String>fruitListIt=fruits.listIterator(); //create a listIterator for fruits
+		String fruit;
+		
+		while(fruitListIt.hasNext()) {
+			fruit=fruitListIt.next();
+			if(fruit.equals("cherry")) {
+				fruitListIt.add("blueberry");
+			}
+		}
+		
+		System.out.println(fruits);
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -1094,20 +1150,7 @@ public class Examples {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 }
