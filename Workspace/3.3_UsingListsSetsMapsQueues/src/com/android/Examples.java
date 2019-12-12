@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -1031,6 +1032,7 @@ public class Examples {
 		/*
 		 * NONE of Dog's subclasses currently implement comparable. However some subclass in the future MAY implement comparable
 		 * and then objects of that subclass will be able to be added to this TreeSet.
+		 * You can create a TreeSet of any type, even if that type doesnt implement the comparable interface.
 		 */
 		TreeSet<Dog>dogTree=new TreeSet<>();
 		
@@ -1038,7 +1040,74 @@ public class Examples {
 		 * This can take ANY object who's class implements the comparable interface:
 		 */
 		TreeSet<Object>objTree=new TreeSet<>();
+		
+		/*adding the int beow makes this now a TreeSet of Object reference to a TreeSert of Integer Objects object. +++++++++++++
+		 * Basically it now makes the treeSet integer only :D. It sets the treeSet.
+		*/
+		System.out.println(objTree.add(12));
+		//System.out.println(objTree.add("hello world!")); //this now falls over as objTree can now ONLY take Integers.
 	
+		
+		//==============================================================
+		
+		//ITERATOR WITH TREESET+++++++++++++++++++++++
+		System.out.println("\nITERATOR WITH TREESET:");
+		System.out.println(intTree);
+		
+		Iterator intIt=intTree.iterator();
+		
+		/*
+		 * When you are working with Sets, you do not have a hasPrevious() or previous. 
+		 */
+		while(intIt.hasNext()) {
+			System.out.println("number iterator is: " + intIt.next());
+		}
+		
+		System.out.println("Descending order");
+		
+		//Descending iterator. THis will progress through the set in descending order:
+		Iterator descIntIt=intTree.descendingIterator();
+		
+		while(descIntIt.hasNext()) {
+			System.out.println("descending order number is: " + descIntIt.next());
+		}
+		
+		
+		//reset intIt (as its now at the bottom of our list)
+		intIt=intTree.descendingIterator();
+		
+		while(intIt.hasNext()) {
+			int num=(Integer)intIt.next(); //store number in temp var (casting to int as iterator is obj)
+			if(num%2>0) {
+				intIt.remove();
+			}
+		}
+		
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
