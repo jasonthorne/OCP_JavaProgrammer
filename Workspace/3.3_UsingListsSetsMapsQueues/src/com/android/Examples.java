@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
@@ -1175,8 +1177,97 @@ public class Examples {
 		System.out.println(integers);
 		integers.clear(); //clear the set
 		
+		
+		/*
+		 * This tries to create a set of 11 numbers, 
+		but we can only use the numbers 1-9 and as it is a set we cant have duplicates, 
+		so this will be an infinate loop and will get stuck when it gets to 9.
+		
+		while(integers.size()<=10) {
+			integers.add((int)(Math.random()*10));
+		}
+		*/
 	}
 	
 	
+	static void ex11() {
+		System.out.println("\nEx11:");
+		
+		//MAPS
+		System.out.println("MAPS"); 
+		
+		/*
+		 * Map interface does NOT extend the collection interface. ++++++++++++++++++++++
+		 * A map has a key and a value. IE Key: car reg 191g23456, Value: Porche 911
+		 * 
+		 * key pps: 4454545454
+		 * value: John Doe
+		 * 
+		 * Keys have to unique. Duplicate keys are not allowed. Duplicate values are allowed.
+		 * Keys are used to uniquely identify one of the items on your map.
+		 * 
+		 * We will be focusing on: HashMap, linkedHashMap, TreeMap.
+		 * 
+		 * TreeMap are sorted by the SortedMap interface.
+		 * TreeMap, HashMap & LinkedHashMap ARE NOT SYNCHRONIZED. (NOT THREAD SAFE)
+		 */
+		
+		//HASHMAP:
+		
+		System.out.println("consists of a key and a value (No primitives allowed), null is allowed");
+		
+		//HashMaps are not in any particular order 
+		
+		//Map is an interface:
+		//Map<K,V> interface
+		
+		/*
+		 * String is the name of the person (key), Double are the wages of the person (value)
+		 */
+		Map<String, Double>salary=new HashMap<>();
+		
+		
+		//----------------------------
+		//We insert values into a map by using the Put() method: 
+		
+		//Put()
+		System.out.println("Put()");
+		salary.put("me", 33.3); //"me" is the key, "33.3" is the value
+		salary.put("you", 3.33);
+		salary.put("us", 333.333);
+		
+		System.out.println(salary);
+		
+		
+		/*
+		 * put() returns the value of the key, if no value exists for "them", which it doesnt, 
+		 * as this is a new key/value pair, so this will return null.
+		 */
+		System.out.println(salary.put("them", 3.3));
+		
+		
+		/*
+		 * If you attempt to put in another value for shela, 
+		 * it will NOT be input and it will display the previous value for shela.
+		 * Duplicate keys are NOT ALLOWED. Also this will NOT overwrite the existing value of 3.3 for "them"
+		 */
+		System.out.println(salary.put("them", 3.333));
+		
+		//add new key/value pairs. Duplicate values ARE ALLOWED
+		salary.put("Bob", 100.00);
+		salary.put("Bill", 100.00);
+		
+		System.out.println(salary);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
 }
