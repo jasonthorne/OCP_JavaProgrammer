@@ -30,6 +30,8 @@ import com.android.animals.Hippo;
 import com.android.animals.Mouse;
 import com.android.animals.Rat;
 import com.android.humans.Fireman;
+import com.android.humans.Human;
+import com.android.humans.Nurse;
 
 public class Examples {
 	
@@ -1329,9 +1331,57 @@ public class Examples {
 		System.out.println(firemen);
 		System.out.println("We have " + firemen.size() + " firemen");
 		
-		//System.out.println(firemen.get);
+		System.out.println(firemen.get(2));
+		System.out.println(firemen.put(2, new Fireman("sam"))); //add a new fireman to the key of 2.
+		System.out.println(firemen.get(2).toString()); //call the toString method for the fireman with a key of 2.
+		System.out.println(firemen);
+		
+		//---------------------
+		
+		/*
+		 * A map with a Fireman key and a Double value:
+		 */
+		Map<Fireman, Double>payRoll=new HashMap<>();
+		Fireman bruce = new Fireman("bruce");
+		payRoll.put(new Fireman(), 34_000.0); //fireman object as key, double as value - GOES IN
+		payRoll.put(bruce, 50_000.0); //add bruce as key - GOES IN
+		payRoll.put(new Fireman("mary"), 75_000.0); //fireman object as key, double as value - GOES IN
+		payRoll.put(bruce, 100_000.0); //add bruce AGAIN, but with different value - CHANGES VALUE
+		payRoll.putIfAbsent(bruce, 250_000.0); //use a put with absent with bruce - DOESNT CHANGE VALUE (as bruce exists)
+		
+		System.out.println("payroll: " + payRoll);
 		
 		
+		//---------
+		//A key/value can be ANY object +++++
+		Map<Human, ArrayList<Dog>>mapsList; //+++++++++++++++++++++++++++++++Human key, list of Dogs as value
+		
+		//------------
+		
+		
+		/*What determines if a key is unique is the equals() and hashcode() methods. 
+		 * In the Nurse class we have overriden the equals and hashcode methods. Such that if 2 nurses habe the same name, they will have the same hashcode.
+		 * return true when equals is run against both of them
+		 */
+		
+		//make some nurses:
+		Nurse nurse1 = new Nurse("helen");
+		Nurse nurse2 = new Nurse("mary");
+		Nurse nurse3 = new Nurse("helen");
+		
+		/*A hashmap with a nurse key, which means each nurse has to be unique, 
+		and will be determined that it is unique by the equals and hashcode method in the Nurse class.
+		It has a double value
+		*/
+		Map<Nurse, Double>nurses=new HashMap<>();
+		nurses.put(nurse1, 25_000.00);
+		nurses.put(nurse2, 56_000.00);
+		/*add a DIFFERENT object, but with the SAME NAME as nurse1. Meaning it wont be added as the name is taken into account in the equals method.
+		 * It WILL however CHANGE THE VALUE to 100_000.00 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 */ 
+		nurses.put(nurse3, 100_000.00); 
+		
+		System.out.println(nurses);
 		
 	}
 	
