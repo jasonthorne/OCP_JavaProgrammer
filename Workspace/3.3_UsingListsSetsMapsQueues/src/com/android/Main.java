@@ -49,7 +49,8 @@ public class Main {
 		//Examples.ex8();
 		//Examples.ex9();
 		//Examples.ex10();
-		Examples.ex11();
+		//Examples.ex11();
+		Examples.ex12();
 		
 	}
 

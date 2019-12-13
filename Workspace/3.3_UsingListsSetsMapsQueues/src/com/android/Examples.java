@@ -29,6 +29,7 @@ import com.android.animals.Hamster;
 import com.android.animals.Hippo;
 import com.android.animals.Mouse;
 import com.android.animals.Rat;
+import com.android.humans.Fireman;
 
 public class Examples {
 	
@@ -1246,12 +1247,24 @@ public class Examples {
 		System.out.println(salary.put("them", 3.3));
 		
 		
-		/*
+		/* +++++++++++++++++++++++++++++++CHANGING A VALUE:++++++++++++++
+		 * 
+		 * PUT: 
+		 * 
 		 * If you attempt to put in another value for shela, 
-		 * it will NOT be input and it will display the previous value for shela.
-		 * Duplicate keys are NOT ALLOWED. Also this will NOT overwrite the existing value of 3.3 for "them"
+		 * it WILL be input BUT it will display the previous value for shela.
+		 * Duplicate keys are NOT ALLOWED, so this WILL overwrite the existing value of 3.3 for "them"
 		 */
 		System.out.println(salary.put("them", 3.333));
+		
+		/*
+		 * REPLACE:
+		 * 
+		 * does same thing as put:
+		 */
+		System.out.println("using replace: " + salary.replace("them", 1.1));
+		System.out.println(salary);
+		//++++++++++++++++++++++++++++++++++++++++++++++++
 		
 		//add new key/value pairs. Duplicate values ARE ALLOWED
 		salary.put("Bob", 100.00);
@@ -1261,7 +1274,7 @@ public class Examples {
 		
 		//-----------getting items from a HashMap:
 		
-		/*
+		/* HasahMaps are not in any particular order so:
 		If you want to get a particular value, you use get in conjunction with the key. 
 		So in this case, we use the name to get the wages. 
 		*/
@@ -1280,9 +1293,45 @@ public class Examples {
 		//Can have multiple null values:
 		salary.put("Ben", null); 
 		salary.put("Douglas", null); 
-		
-		
 		System.out.println(salary);
+		
+		
+		//----------------------------------------------
+		
+		//PUT IF ABSENT:
+		System.out.println("PUT IF ABSENT");
+		
+		//if this key DOESNT exist: put in the key and value. If this key DOES exist: dont change the existing key/val. +++++++++++++++++++++++++++++++++
+		
+		//add 2 key/values:
+		salary.put("kevin", 150_000.0);
+		salary.put("Mick", 75_000.0);
+		
+		System.out.println(salary.putIfAbsent("Mick", 100.00)); //WONT be put as key/val already exists.
+		System.out.println(salary.putIfAbsent("Donald", 80.00)); //WILL be put as key/val doesnt already exist.
+		
+		System.out.println("salary after 'put with absent': " + salary);
+	
+	}
+	
+	
+	static void ex12() {
+		System.out.println("\nEx12:");
+		
+		//HASHMAP OF FIREMAN:
+		Map<Integer, Fireman>firemen=new HashMap<>();
+		
+		//add 5 Fireman objs to firemen:
+		for(int i=1;i<6;i++)
+			firemen.put(i, new Fireman());
+	
+		
+		System.out.println(firemen);
+		System.out.println("We have " + firemen.size() + " firemen");
+		
+		//System.out.println(firemen.get);
+		
+		
 		
 	}
 	
