@@ -8,6 +8,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -1462,13 +1463,11 @@ public class Examples {
 		
 		//-------------------------------
 		System.out.println();
-		for(Integer k:namesMap.keySet()) {
-			System.out.println("value is: " + namesMap.get(k));
+		for(Integer k:namesMap.keySet()) { //[produces a set of keys
+			System.out.println("value is: " + namesMap.get(k)); //get the value of the kth pos (k is the key)
 			System.out.println("key is: " + k);
 			System.out.println(k.hashCode());
 		}
-		
-		
 		
 		//------------------------------
 		
@@ -1482,11 +1481,132 @@ public class Examples {
 		fireWages.put(fred2, 50_000.00);
 		
 		
+		//==========================================================================
 		
+		//Map.Entry +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * An interface with 3 methods: getKey(), getValue, setValue().
+		 * 
+		 * We use this structure for going through a hashmap and getting the key,
+		 * and changing the value for a particular entry.
+		 * 
+		 * getKey() here will return whatever the data type we have said our key is (in this case an Integer)
+		 * getValue() will return the value and the data type we have said our value is (in this case a String)
+		 */
+		Map.Entry<Integer, String>myEntry=new Map.Entry<Integer, String>(){
+
+			@Override
+			public Integer getKey() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String getValue() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String setValue(String arg0) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		};
+		
+		/*
+		 * Names map defined above:
+		namesMap.put(5000, "noel");
+		namesMap.put(7, "ane");
+		namesMap.put(123, "colm");
+		namesMap.put(99, "shelly");
+		namesMap.put(101, "laura");
+		*/
+		
+		//ENTRY SET() +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//returns a Set made up of Map.Entry objects. (A set of Map.Entry<Integer, String> objects.
+		System.out.println(namesMap.entrySet()); 
+		
+		//------------------------looping through entry set:
+		
+		//looping through enrtSet. (using one entry set to go over namesMap.entrySet()) +++++++++++++++++++++
+		for(Map.Entry<Integer, String>entry: namesMap.entrySet()) { 
+			System.out.println("key of entry is: " + entry.getKey()); //get the key of every entry in hashmap
+			System.out.println("value of entry is: " + entry.getValue()); //get the value of every entry in the hashmap
+			
+			if(entry.getValue().equals("ann")) //if the value equals anne
+				entry.setValue("kate"); //change its value to kate
+			
+			//you CANT remove an entry this way, as your in the loop that you're trying to alter:
+			/*
+			if(entry.getValue().equals("mary"))
+				namesMap.remove(entry.getValue()); 
+			*/
+		}
+		
+		//show new results:
+		System.out.println(namesMap.entrySet()); //show altered entrySet
+		System.out.println(namesMap); //map is also altered
+		
+		//------------------------iterating through entry set: (ALLOWS FOR REMOVAL OF VALUES)
+		
+		//ListIterator doesnt work here. HAS to be an Iterator
+		Iterator<Map.Entry<Integer, String>>myIterator=namesMap.entrySet().iterator(); //an Iterator for the namesMap set
+		
+		/*
+		 * Using this iterator we will delete this key/value: pair 3=mary
+		 */
+		
+		while(myIterator.hasNext()) { //while there is another value in the entry set.
+			String str=myIterator.next().getValue(); //move to next element
+			
+			if (str.equals("mary")) //if entry 
+				myIterator.remove(); //remove that entry (the KEY and VALUE is removed)
+		}
+		
+		
+		//------------------------PUT ALL
+		
+		/*
+		 * You can add an existing HashMap to a hashMap by using putAll:
+		 */
+		Map<Integer, String>moreNames=new HashMap<>();
+		moreNames.put(333, "bob");
+		moreNames.put(1, "bill");
+		moreNames.putAll(namesMap); //adds the contents of one hashmap to another. If a key already exists, the value will NOT be added. 
+		
+		System.out.println(namesMap);
 		
 	}
 	
 	
+	
+	static void ex13() {
+		System.out.println("\nEx13:");
+		
+		//LINKED HASH SET - 
+		/*
+		 * Items are displayed in the order they were entered. 
+		 * Linked means they are displayed in the order they were inserted.
+		 * 
+		 * LinkedHashMap are displayed in the order they were entered. 
+		 */
+		
+		//some dogs:
+		Dog spot = new Dog("spot", 2);
+		Dog rex = new Dog("rex", 7);
+		Dog benji = new Dog("benji", 5);
+		Dog lassie = new Dog("lassie", 3);
+		
+		//map of integers and dogs. Key (integer) made from the dog's hashcode
+		Map<Integer, Dog>dogLinked=new LinkedHashMap<>();
+		dogLinked.put(spot.hashCode(), spot);
+		dogLinked.put(rex.hashCode(), rex);
+		dogLinked.put(benji.hashCode(), benji);
+		
+	}
 	
 	
 	
