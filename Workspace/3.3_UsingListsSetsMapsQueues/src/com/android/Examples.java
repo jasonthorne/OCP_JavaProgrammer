@@ -1400,7 +1400,7 @@ public class Examples {
 		
 		
 		//==========================================================
-		
+		//object as keys:
 		Dog dog1 = new Dog(); //this key will be inputed
 		Dog dog2 = new Dog(); //this key will NOT be inputed, because it has the same name and age as the first dog (age and name of 0)
 		Dog dog3 = new Dog("spot", 1); //this key WILL be inputed
@@ -1408,13 +1408,86 @@ public class Examples {
 		
 		Map<Dog,String>dogMap=new HashMap<Dog,String>();
 		dogMap.put(dog1, "dog1"); //key & value are inputed
-		dogMap.put(dog2, "dog2"); //not inputted, BUT the object's toString is changed (as this one's toString mentions "dog2")
+		dogMap.put(dog2, "dog2"); //not inputed, BUT the object's toString is changed (as this one's toString mentions "dog2")
 		dogMap.put(dog3, "dog3"); //key & value are inputed
-		dogMap.put(dog4, "dog4"); //not inputted, BUT the object's toString is changed (as this one's toString mentions "dog4")
+		dogMap.put(dog4, "dog4"); //not inputed, BUT the object's toString is changed (as this one's toString mentions "dog4")
 		
 		System.out.println(dogMap); //prints: {name is: null. age is: 0=dog2, name is: spot. age is: 1=dog4}
 		
+		//=============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//KEYSET - returns a set containing all the keys. VALUES - returns a collection of the Map values.
+		
+		
+		Map<Integer, String>namesMap=new HashMap<>();
+		namesMap.put(1, "ann");
+		namesMap.put(2, "brid");
+		namesMap.put(3, "mary");
+		namesMap.put(4, "paddy");
+		namesMap.put(5, "kathleen");
+		
+		for(int i=1;i<=namesMap.size();i++) {
+			System.out.println("namesMap: " + namesMap.get(i));
+		}
+		
+		System.out.println(namesMap);
+		
+		//------------
+		
+		namesMap.put(5000, "noel");
+		namesMap.put(7, "ane");
+		namesMap.put(123, "colm");
+		namesMap.put(99, "shelly");
+		namesMap.put(101, "laura");
+		
+		//This returns a SET containing all of the keys for namesMap. In this case it will be a set of Integers. 
+		System.out.println("all of the keys: " + namesMap.keySet());
+		
+		/*
+		 * this returns a Collection of the values for namesMap. In this case, it will be a collection of Strings.
+		 */
+		System.out.println("all of the values: " + namesMap.values());
+		
+		/*
+		 * The order of the keys and values will match ++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * so you can spin through 1, and relate it to the other.
+		 */
+	
+		for(Integer i:namesMap.keySet())
+			System.out.println("key is: " + i);
+		
+		System.out.println();
+		
+		for(String j:namesMap.values())
+			System.out.println("value is: " + j);
+		
+		//-------------------------------
+		System.out.println();
+		for(Integer k:namesMap.keySet()) {
+			System.out.println("value is: " + namesMap.get(k));
+			System.out.println("key is: " + k);
+			System.out.println(k.hashCode());
+		}
+		
+		
+		
+		//------------------------------
+		
+		Map<Fireman, Double>fireWages=new HashMap<>();
+		
+		//2 unique firemen:
+		Fireman sam = new Fireman(); 
+		Fireman fred2 = new Fireman();
+		
+		fireWages.put(sam, 50_000.00);
+		fireWages.put(fred2, 50_000.00);
+		
+		
+		
 		
 	}
+	
+	
+	
+	
 	
 }
