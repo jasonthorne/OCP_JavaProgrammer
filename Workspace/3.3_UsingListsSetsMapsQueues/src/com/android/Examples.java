@@ -1331,8 +1331,8 @@ public class Examples {
 		System.out.println(firemen);
 		System.out.println("We have " + firemen.size() + " firemen");
 		
-		System.out.println(firemen.get(2));
-		System.out.println(firemen.put(2, new Fireman("sam"))); //add a new fireman to the key of 2.
+		System.out.println(firemen.get(2)); //2 is for key. 2 is NOT for position +++++++++++++++++++++++++++++++++++++++++++
+		System.out.println(firemen.put(2, new Fireman("sam"))); //add a new fireman to the KEY of 2. 
 		System.out.println(firemen.get(2).toString()); //call the toString method for the fireman with a key of 2.
 		System.out.println(firemen);
 		
@@ -1349,13 +1349,18 @@ public class Examples {
 		payRoll.put(bruce, 100_000.0); //add bruce AGAIN, but with different value - CHANGES VALUE
 		payRoll.putIfAbsent(bruce, 250_000.0); //use a put with absent with bruce - DOESNT CHANGE VALUE (as bruce exists)
 		
-		System.out.println("payroll: " + payRoll);
+		Fireman fred=new Fireman("fred");
+		System.out.println("put on fred: " + payRoll.put(fred, 200_000.00)); //display null as fred didnt prev exist. If it had, this would display his prev value.
+		//this value is NOT put in as fred exists:
+		System.out.println("put on fred: " + payRoll.putIfAbsent(fred, 400_000.00)); 
 		
+		System.out.println("payroll: " + payRoll);
 		
 		//---------
 		//A key/value can be ANY object +++++
 		Map<Human, ArrayList<Dog>>mapsList; //+++++++++++++++++++++++++++++++Human key, list of Dogs as value
-		
+		Map <Human, Set<Animal>>mapHumanAnimals;
+		Map<Human,Set<? super Dog>>funkyMap;
 		//------------
 		
 		
@@ -1367,7 +1372,7 @@ public class Examples {
 		//make some nurses:
 		Nurse nurse1 = new Nurse("helen");
 		Nurse nurse2 = new Nurse("mary");
-		Nurse nurse3 = new Nurse("helen");
+		Nurse nurse3 = new Nurse("helen"); //nurse 3 is the same as nurse 1, so this merely modifies nurse 1's values.
 		
 		/*A hashmap with a nurse key, which means each nurse has to be unique, 
 		and will be determined that it is unique by the equals and hashcode method in the Nurse class.
@@ -1379,9 +1384,36 @@ public class Examples {
 		/*add a DIFFERENT object, but with the SAME NAME as nurse1. Meaning it wont be added as the name is taken into account in the equals method.
 		 * It WILL however CHANGE THE VALUE to 100_000.00 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		 */ 
-		nurses.put(nurse3, 100_000.00); 
+		
+		/*also called "helen" so this is determined to be the same as nurse1 as the euqals and hashcode method only uses name 
+		 * so 2 nurses called helen cannot be used as keys, so the second value of 100k is put in for the nurse called helen.
+		 */
+		nurses.put(nurse3, 100_000.00);  
+		
+		//nurses.putIfAbsent doesnt put in a value if a nurse named "helen" is already in the hashMap
+		
 		
 		System.out.println(nurses);
+		System.out.println(nurses.get(nurse1));
+		System.out.println(nurses.get(nurse3));
+		
+		
+		
+		//==========================================================
+		
+		Dog dog1 = new Dog(); //this key will be inputed
+		Dog dog2 = new Dog(); //this key will NOT be inputed, because it has the same name and age as the first dog (age and name of 0)
+		Dog dog3 = new Dog("spot", 1); //this key WILL be inputed
+		Dog dog4 = new Dog("spot", 1);
+		
+		Map<Dog,String>dogMap=new HashMap<Dog,String>();
+		dogMap.put(dog1, "dog1"); //key & value are inputed
+		dogMap.put(dog2, "dog2"); //not inputted, BUT the object's toString is changed (as this one's toString mentions "dog2")
+		dogMap.put(dog3, "dog3"); //key & value are inputed
+		dogMap.put(dog4, "dog4"); //not inputted, BUT the object's toString is changed (as this one's toString mentions "dog4")
+		
+		System.out.println(dogMap); //prints: {name is: null. age is: 0=dog2, name is: spot. age is: 1=dog4}
+		
 		
 	}
 	
