@@ -1579,6 +1579,31 @@ public class Examples {
 		
 		System.out.println(namesMap);
 		
+		//=====================================================================================
+		//STREAMS +++++++++++++++++++++IMPORTANT!! +++++++++++++++++
+		
+		moreNames.entrySet(); //flatten moreNames hashmap to a set
+		
+		/*flattening gives us access to Streams
+		 * forEach is a consumer object (that returns nothing)
+		 * that takes each item in the entrySet (e is each record in the set)
+		 * call getKey on each set entry to get the entry set key.
+		 * call getValue on each set entry to get the entry set value.
+		 */
+		moreNames.entrySet().stream().forEach(e->System.out.println(e.getKey()+ ":" + e.getValue()));
+		
+		
+		//==================
+		//USING FILTER WITH STREAMS:
+		
+		//a is the value of each entry in the set (hashmap entry's key and value).
+		//filter removes the entries that dont match the search. 
+		moreNames.entrySet().stream().filter(a->a.getKey()>10).forEach(a->System.out.println(a.getValue()));
+		
+		//==================
+		//USING FILTER WITHOUT STREAMS:
+		//here forEach takes in a BICONSUMER that is taking in the hashmap entries in their original key and value form. (breaks them back up basically :P)
+		moreNames.forEach((k,v)->System.out.println("key is: " + k + "value is: " + v));
 	}
 	
 	
@@ -1606,7 +1631,20 @@ public class Examples {
 		dogLinked.put(rex.hashCode(), rex);
 		dogLinked.put(benji.hashCode(), benji);
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+	
+
 	
 	
 	
