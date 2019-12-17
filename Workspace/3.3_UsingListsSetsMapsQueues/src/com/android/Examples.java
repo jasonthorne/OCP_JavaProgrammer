@@ -1728,29 +1728,142 @@ public class Examples {
 		 * and goes through each item in the list and performs some action without changing the original list
 		 */
 		
+		/*
+		 * a forEach for a list, Set or queue takes a consumer, takes an object and returns void.
+		 */
+		
 		intList.forEach(a->System.out.println("Double the number: " + (a*2)));
 	
-	
+		Map<Integer, String>nameMap = new HashMap<>();
+		nameMap.put(3, "mary");
+		nameMap.put(7, "kate");
+		nameMap.put(15, "pat");
+		/*
+		 * a forEach for a Map takes a bi-consumer. A bi consumer takes 2 objects and returns void. 
+		 * This forEach is called by a hashMap that is like the following:
+		 * Map<Integer, String>nameMap 
+		 * so k will be an Integer
+		 * and v will be a String
+		 */
+		nameMap.forEach((k,v)->System.out.println("key is: " + k + "value is: " + v)); 
+		
+		//-------------------------------------------------------------------------------------------
+		//REPLACE ALL ++++++++++++++++++
+		
+		/*
+		 * replaces all of the values in a set, list or queue.
+		 * It takes a unary operator (which takes an object of a type, and returns an object of the same type).
+		 * Here it takes an int and returns an int. 
+		 * This multiplies all our numbers by 3, so our list now has numbers that are the original numbers multiplied by 3. 
+		 */
+		
+		//UNARY OPERATOR - takes an object of a type, and returns an object of the SAMRE type.
+		System.out.println("before change:");
+		System.out.println(intList);
+		
+		intList.replaceAll(a->a*3); //times all by 3.
+		
+		System.out.println("after change:");
+		System.out.println(intList);
 		
 		
+		intList.replaceAll(a->a/3); //divide all by 3.
+		
+		System.out.println("after change:");
+		System.out.println(intList);
 		
 		
+		//-------------------------------------------------------------------------------------------
+		//REMOVE ALL ++++++++++++++++++
+		intList.add(23);
+		System.out.println("before removal: " + intList);
+		/*
+		 * removeALl seaches the list intList for all the numbers that are contained in newList (23,89,1000)
+		 */
+		
+		List<Integer>newList=Arrays.asList(23,89,1000);
+		intList.removeAll(newList); //removes from intList, whatever is common in newList. +++++++++++++++++++++++++++++
+		//after removal:
+		System.out.println("after removal: " + intList);
 		
 		
+		//-------------------------------------------------------------------------------------------
+		//REMOVE DUPLICATES ++++++++++++++++++
+		
+		intList.addAll(Arrays.asList(23,45,45,23,23));
+		System.out.println(intList);
+		
+		Set<Integer>setInt=new HashSet<>(intList); //create a hashset from intList (REMOVES ALL DUPLICATES)
+		
+		//---------
+		
+		Set<Integer>treeInt=new HashSet<>(intList);
+		System.out.println(treeInt); //list is now ordered.
 		
 		
+		//-------------------------------------------------------------------------------------------
+		//TO ARRAY ++++++++++++++++++
+		
+		int size = treeInt.size(); //REMEMBER treeInt is a HASHSET
+		
+		Integer[]intArray=treeInt.toArray(new Integer[size]);
+		
+		for(Integer i:intArray)
+			System.out.println("array is: " + i);
 		
 		
+		//=================================================================================
+		
+		//REMOVE FOR MAPS:
+		
+		Map<Integer, String>myMap=new HashMap<>();
+		
+		for(Integer i:treeInt)
+			myMap.put(i, "str"+i);
+		
+		System.out.println(myMap);
+		
+		/*
+		 * This removes the entry with the key of 67, and the value of "str67"
+		 */
+		myMap.remove(67);
+		System.out.println(myMap);
+		
+		/*this type of remove below, will ONLY remove this entry if the key and value match the key AND value of the map. 
+		 * The below example doesnt, as the key is 99 and the value is str99:
+		*/
+		myMap.remove(99,"banana");
+		System.out.println(myMap); //9 is still there
+		
+		//--------------------
+		
+		//replace: 
+		
+		/*
+		 * will only replace the value if the existing value is "banana"
+		 * Its not so its not replaced.
+		 * If the value isnt there, then NOTHING happens. It isnt put in instead.
+		 */
+		myMap.replace(99, "banana", "orange");
+		System.out.println(myMap); //mot replaced
+		
+		myMap.replace(99, "str99", "banana");
+		System.out.println(myMap); //IS replaced
 		
 		
+		//-------------------------
+		//replace all: 
 		
+		/*
+		 * Changes ALL of the values. Here it changes each value to the following:
+		 */
 		
+		myMap.replaceAll((k,v) ->{
+			v=k+"str";
+			return k + "str";
+		});
 		
-		
-		
-		
-		
-		
+		System.out.println(myMap);
 		
 	}
 	
