@@ -1,6 +1,6 @@
 package com.android.animals;
 
-public class Animal {
+public class Animal{
 	
 	static int animalCount = 0;
 	int id;

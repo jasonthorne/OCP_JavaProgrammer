@@ -1,6 +1,6 @@
 package com.android.animals;
 
-public class Rat extends Animal {
+public class Rat extends Animal implements Comparable{
 	
 	public Rat(int age, String name) {
 		super(age, name);
@@ -24,6 +24,13 @@ public class Rat extends Animal {
 	public int hashCode() {
 		int number=41;
 		return age*number;
+	}
+
+
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

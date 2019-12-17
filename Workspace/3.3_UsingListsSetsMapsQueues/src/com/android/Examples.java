@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.android.animals.Animal;
@@ -1611,7 +1613,7 @@ public class Examples {
 	static void ex13() {
 		System.out.println("\nEx13:");
 		
-		//LINKED HASH SET - 
+		//LINKED HASH MAP - 
 		/*
 		 * Items are displayed in the order they were entered. 
 		 * Linked means they are displayed in the order they were inserted.
@@ -1630,6 +1632,114 @@ public class Examples {
 		dogLinked.put(spot.hashCode(), spot);
 		dogLinked.put(rex.hashCode(), rex);
 		dogLinked.put(benji.hashCode(), benji);
+		System.out.println(dogLinked);
+		
+		//DONT DO (as it doesnt make sense :P)   +++++++++++++++++++
+		dogLinked.put(benji.hashCode(), lassie); //Changing this entry, by adding a different dog as the value 
+		
+		System.out.println(dogLinked);
+		
+		
+		dogLinked.put(benji.hashCode(), new Dog("prince", 25));
+		
+		System.out.println(dogLinked);
+		
+		
+		//-----------
+		
+		Map<Integer, String>linkedAnimal=new LinkedHashMap<>();
+		int counter=0;
+		linkedAnimal.put(++counter, "pig");
+		linkedAnimal.put(++counter, "sheep");
+		linkedAnimal.put(++counter, "chicken");
+		
+		System.out.println(linkedAnimal.values()); //print all the values
+		System.out.println(linkedAnimal.values()); //print all the keys
+	}
+	
+
+	static void ex14() {
+		System.out.println("\nEx14:");
+		
+		//TREE MAP ++++++++++++++++++++++++++++++++++++
+		/*
+		 * Tree maps are maps with all the same advantages of MAPS, 
+		 * but the key HAS TO implement the comparable interface 
+		 * (Integers, all numbers, Strings etc all implement the comparable interface)
+		 * IE if you have a numeric type as a key, then your records will be stored in ascending order according to the key.
+		 * this class implements:
+		 * MAP<K,V>
+		 * NavigableMap<K,V>
+		 * SortedMap<K,V>
+		 */
+		
+		Map<Integer, String>animalTm=new TreeMap<Integer, String>();
+		//add integers:
+		animalTm.put(5, "camel");
+		animalTm.put(1, "horse");
+		animalTm.put(3, "sheep");
+		animalTm.put("cow".hashCode(), "cow"); //adding cow string's hashcode as key +++++++++++
+		animalTm.put("chicken".hashCode(), "chicken");
+		
+		System.out.println(animalTm);
+		
+		//--------------------
+		
+		Map<Fireman, Integer>fireInt = new TreeMap<>();
+		
+		//Only classes that implement the comparable interface can be added as a key.
+		//Below wont give a compile error, but will fallover on runtime.
+		//fireInt.put(new Fireman(), 6);
+		
+		//-----------------
+		
+		Map<Animal, Integer>animalInt = new TreeMap<>();
+		
+		//animalInt.put(new Animal(), 3); //animal doesnt implement Comparable so this will crash
+		
+		//this CAN be added as a key, as Rat DOES implement the comparable interface:
+		animalInt.put(new Rat(3, "Roland"), 3); 
+		
+		System.out.println(animalInt);
+		
+		//---------------------
+		
+		//reverse order:
+		
+		Map<Integer, String>reverseAnimal = new TreeMap<>(Collections.reverseOrder());
+		reverseAnimal.putAll(animalTm);
+		
+		System.out.println(reverseAnimal);	
+		
+	}
+	
+	
+	
+	static void ex15() {
+		System.out.println("\nEx15:");
+		
+		List<Integer>intList=new ArrayList<>();
+		intList.addAll(Arrays.asList(23,45,67,45,89,99,100));
+		
+		//FOR EACH() ++++++++++++++++++
+		
+		/*
+		 * for each works for all objects that implement the collection interface (List, Set, Queue) and maps
+		 * and goes through each item in the list and performs some action without changing the original list
+		 */
+		
+		intList.forEach(a->System.out.println("Double the number: " + (a*2)));
+	
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -1643,9 +1753,5 @@ public class Examples {
 		
 		
 	}
-	
-
-	
-	
 	
 }
