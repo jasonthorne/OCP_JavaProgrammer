@@ -1,5 +1,6 @@
 package com.android;
 
+import java.util.Arrays;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -73,7 +74,18 @@ public class Examples {
 	static void ex2() {
 		System.out.println("ex2:");
 		
+		System.out.println("Rat class implements comparable");
 		
+		Rat rat = new Rat("rory", 3, 12.4); // - 4th in
+		Rat rat2 = new Rat("rory", 3, 11.4); // - 3rd in
+		Rat rat3 = new Rat("rory", 2, 12.4); //different age - 2nd in
+		Rat rat4 = new Rat("angela", 3, 13.4); //different name - 1st in
+		Rat rat5 = new Rat("angela", 3, 13.4); //different name //not put in as same as 1st
+		
+		Set<Rat>ratTree=new TreeSet<>();
+		ratTree.addAll(Arrays.asList(rat,rat2,rat3,rat4,rat5));
+		
+		System.out.println(ratTree);
 		
 	}
 }

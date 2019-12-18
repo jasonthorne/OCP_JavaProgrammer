@@ -63,6 +63,12 @@ public class Rat implements Comparable<Rat>{ //add the TYPE that the compareTO m
 	//Arranged by name, then age, then weight. 
 	@Override
 	public int compareTo(Rat r) {
+		
+		/*
+		If we use ints instead of Integer, we have to do something like the following, where we assign the int to an Integer,
+		so we can then call the compareTo() method of the Integer class.
+		*/
+		
 		//If same Rat or all have same name, age and weight, will return 0:
 		//clones, which are different rats but with the same values will not be added.
 		if(this.equals(r)) //calling the equals method of the Rat class (above) Returns true if same rat, or if 2 rats have the same name, age and weight.
@@ -77,9 +83,23 @@ public class Rat implements Comparable<Rat>{ //add the TYPE that the compareTO m
 		if(!(age.equals(r.age))) //if different ages
 			return age.compareTo(r.age);  //difference inorder by age
 		
-		//return the comparrison of weight as thats the last possible difference between them.
+		//return the comparison of weight as thats the last possible difference between them.
 		return weight.compareTo(r.weight);
 	}
+	
+	@Override
+	public String toString() {
+		return "name is: " + name + ". Age is: " + age + ". Weight is: " + weight;
+	}
+	
+	//constructor:
+	public Rat(String name, Integer age, Double weight) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.weight = weight;
+	}
+	
 	
 	
 
