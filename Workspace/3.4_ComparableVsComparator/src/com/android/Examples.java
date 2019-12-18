@@ -1,5 +1,8 @@
 package com.android;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 public class Examples {
 	
 	/*
@@ -9,11 +12,11 @@ public class Examples {
 	 * and overriding the compareTo() method. 
 	 * comparable interface looks like: 
 	 * interface Comparable<T>{
-	 * 		int compare(T arg)
+	 * 		int compareTo(T arg)
 	 * }
 	 * 
-	 * comparable is a functional interface, so we can create lambdas from this interface. 
-	 * These lambdas are called Comparators.
+	 * Comparable is a functional interface, so we can create lambdas from this interface. 
+	 * Comparator is a SEPERATE interface and has a COMPARE() METHOD
 	 * 
 	 * To explain how compareTo works, we will give the example of the String class. 
 	 * String class implements the comparable interface.
@@ -36,11 +39,41 @@ public class Examples {
 	static void ex1() {
 		System.out.println("ex1:");
 		
-		System.out.println("strings");
+		//COMPARETO ++++++++++++++++++
 		
-		System.out.println("adam".compareTo("betty")); //negative number
-		System.out.println("betty".compareTo("adam")); //positive number
+		System.out.println("strings");
+	
+		System.out.println("adam".compareTo("betty")); //negative number (number returned is the difference between them)
+		System.out.println("betty".compareTo("adam")); //positive number (number returned is the difference between them)
 		System.out.println("betty".compareTo("betty")); // returns 0
-	}
 
+		System.out.println("adam".compareTo("Zee")); //returns a positive number, as Capital Z comes before lower case a
+		
+		/*
+		 * Can't use null with compateTo, as null has no value, and you cant compare nothing with something. 
+		 * If you cant use null with compareTo, that means you cant add null to a TreeSet or as a key in a TreeMap. 
+		 */
+		Set<Integer>mySet=new TreeSet<>();
+		
+		//Integers NOT ints: 
+		Integer one = 1;
+		Integer two = 2;
+		Integer twentyTwo = 22;
+		Integer minusFive = -5;
+		
+		//Just gives a -1,0 or 1, NOT the amount of difference between them.
+		System.out.println(one.compareTo(two)); // -1
+		System.out.println(twentyTwo.compareTo(one)); //1
+		System.out.println(twentyTwo.compareTo(minusFive)); //1
+		System.out.println(one.compareTo(one)); //0
+		
+	}
+	
+	
+	static void ex2() {
+		System.out.println("ex2:");
+		
+		
+		
+	}
 }
