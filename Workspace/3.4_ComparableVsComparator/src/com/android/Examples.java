@@ -140,7 +140,7 @@ public class Examples {
 		//ANONYMOUS CLASS IMPLEMENTATION OF COMPATATOR:
 		
 		/*
-		 * This is goingto be used to organise a list of names alphabetically (ignoring case)
+		 * This is going to be used to organise a list of names alphabetically (ignoring case)
 		 */
 		Comparator<String>byString= new Comparator<String>(){
 
@@ -153,19 +153,28 @@ public class Examples {
 		
 		System.out.println("List of strings");
 		List<String>names=new ArrayList<>();
-		names.addAll(Arrays.asList("bernie", "ann", "Ann", "adam", "Aidan", "bernie", "Ciara", "Siobhan", "mick",
-				"shelly", "Laura", "COLM"));
+		names.addAll(Arrays.asList("bernie", "ann", "Ann", "adam", "Aidan", "bernie", "Ciara", "Siobhan", "mick", "shelly", "Laura", "COLM"));
+				
 		
 		System.out.println(names);
 		
+		/*
+		 * ONLY objects that implement Comparable can use the .sort method below. 
+		 * String class does implement comparable and the compareTO method compares:
+		 * symbols > numbers > uppercase > lowercase
+		 */
 		Collections.sort(names); 
+		//names is now sorted according to the rules of the compareTo method of the String class.
+		System.out.println(names); //THIS WILL ADD DUPLICATES +++++++++++++++++++++++++++++++++++++++++++++
+		names.clear(); //reset names
 		
+		//adding original strings again
+		names.addAll(Arrays.asList("bernie", "ann", "Ann", "adam", "Aidan", "bernie", "Ciara", "Siobhan", "mick", "shelly", "Laura", "COLM"));
+		System.out.println(names);
 		
-		
-		
-		
-		
-		
+		//OVERRIDEN COLLECTIONS.SORT METHOD - takes our comparator object made above.
+		Collections.sort(names, byString);
+		System.out.println(names);
 		
 		
 	}
