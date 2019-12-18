@@ -403,7 +403,6 @@ public class Examples {
 		Kettle<Animal, Behaviour, Integer>myKettle3 = new Kettle <Animal,Behaviour,Integer>(new Elephant(), myBehave, 333);
 		
 		
-		
 	}
 	
 

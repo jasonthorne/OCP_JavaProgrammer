@@ -1,6 +1,10 @@
 package com.android;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -88,4 +92,94 @@ public class Examples {
 		System.out.println(ratTree);
 		
 	}
+	
+	
+	static void ex3() {
+		System.out.println("ex3:");
+		
+		//COMPARATORS: +++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * comparators are used for organising list, sets & hashmaps.
+		
+		 * A Treeset is an ordered list that doesnt allow duplicates. 
+		 * Its ordered by only allowing objects that implement the COMPARABLE interface 
+		 * 
+		 * TreeMap: the keys are an ordered list that doesnt allow duplicates. 
+		 * The keys are ordered by only allowing objects that implement the comparable interface. 
+		 */
+		
+		List<Integer>listNum=new ArrayList<>();
+		listNum.addAll(Arrays.asList(23,23,23,4,1,67,3,3,1002,-56,0)); //unordered list
+		
+		Set<Integer>mySet = new TreeSet<>(); //treeset
+		mySet.addAll(listNum); //add unordered list to treeSet to order them.
+	
+		System.out.println(mySet); //show ordered list
+		
+		/*
+		 * As well as using the comparable interface, we could also use a seperate object of type Comparator to organise a list, set, map or queue
+		 * NOT a treeSet or TreeMap. By using this a list of objects doesnt need to implement comparable interface. 
+		 * 
+		 * It looks like the following:
+		 * 
+		 * interface Comparator<T>{
+		 * 		public compare(T t, T t2){
+		 * 			
+		 * 		}
+		 * }
+		 * 
+		 * comparaABLE has a compareTO method. ComparaTOR has a COMPARE method. 
+		 * 
+		 * Classes usually do NOT implement Comparator
+		 * 
+		 * More often than not, you use this by creating an anonymous inner class for a lambda, 
+		 * as this is a functional interface (only one abstract method)
+		 */
+		//-------------------------------------------------
+		//ANONYMOUS CLASS IMPLEMENTATION OF COMPATATOR:
+		
+		/*
+		 * This is goingto be used to organise a list of names alphabetically (ignoring case)
+		 */
+		Comparator<String>byString= new Comparator<String>(){
+
+			@Override
+			public int compare(String s1, String s2) {
+				return s1.compareToIgnoreCase(s2);
+			}
+			
+		};
+		
+		System.out.println("List of strings");
+		List<String>names=new ArrayList<>();
+		names.addAll(Arrays.asList("bernie", "ann", "Ann", "adam", "Aidan", "bernie", "Ciara", "Siobhan", "mick",
+				"shelly", "Laura", "COLM"));
+		
+		System.out.println(names);
+		
+		Collections.sort(names); 
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
