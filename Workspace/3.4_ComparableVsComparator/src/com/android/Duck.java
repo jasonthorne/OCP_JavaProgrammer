@@ -1,12 +1,53 @@
 package com.android;
 
 public class Duck {
-	String name;
-	int weight;
-	int height;
+	private String name;
+	private int weight;
+	private int height;
 	static int counter=0;
 	int id;
 	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public static int getCounter() {
+		return counter;
+	}
+
+	public static void setCounter(int counter) {
+		Duck.counter = counter;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public Duck(String name, int weight, int height) {
 		super();
 		this.name = name;
@@ -47,6 +88,11 @@ public class Duck {
 		if (weight != other.weight)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Duck [name=" + name + ", weight=" + weight + ", height=" + height + ", id=" + id + "]";
 	}
 
 	

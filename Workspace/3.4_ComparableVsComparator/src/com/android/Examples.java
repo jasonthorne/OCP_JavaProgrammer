@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 public class Examples {
 	
 	/*
@@ -177,9 +176,89 @@ public class Examples {
 		System.out.println(names);
 		
 		
+		//------------------
+		
+		/*
+		 * We will have a list of ducks that we will sort by name
+		 * then by weight
+		 * then by height
+		 * then by id
+		 * Duck class will NOT implement Comparable
+		 */
+		
+		Comparator<Duck>comparatorDuck=new Comparator<Duck>(){
+
+			/*takes in 2 ducks, gets the weight of both of them 
+			then use the compareTO method of the integer class
+			*/
+			@Override
+			public int compare(Duck d1, Duck d2) {
+				Integer duck1W = d1.getWeight();
+				Integer duck2W = d2.getWeight();
+				return duck1W.compareTo(duck2W);
+			}	
+		};
+		
+		//make ducks
+		Duck duck1 = new Duck("daffy", 2, 10);
+		Duck duck2 = new Duck("donald", 1, 11);
+		Duck duck3 = new Duck("daisy", 345, 12);
+		Duck duck4 = new Duck("andy", 7, 14);
+		Duck duck5 = new Duck("donna", 4, 15);
+		
+		//make list of ducks:
+		List<Duck>ducks = new ArrayList<>();
+		ducks.addAll(Arrays.asList(duck1, duck2, duck3, duck4, duck5));
+		
+		System.out.println(ducks);
+		
+		
+		//THis WONT COMPILE as duck doesnt implement comparable. ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//Collections.Sort method only works for objects thst implement comparable
+		//Collections.sort(ducks); 
+		
+		//this will work though, as it takes our duck comparator made above:
+		Collections.sort(ducks, comparatorDuck);
+		System.out.println("ducks sorted by weight: " + ducks); //sorted ducks list. organised by weight as per the comparator. 
+		
+		//--------------
+		
+		//another comparator:
+		//this comparator will compare by names of the duck in alphabetical order (including case)
+		Comparator<Duck>byDuckName=new Comparator<Duck>() {
+
+			@Override
+			public int compare(Duck d1, Duck d2) {
+				return d1.getName().compareTo(d2.getName());
+			}
+		};
+		
+		ducks.clear();
+		ducks.addAll(Arrays.asList(duck1, duck2, duck3, duck4, duck5));
+		
+		Collections.sort(ducks, byDuckName);
+		System.out.println("ducks sorted by name: " + ducks); //ducks sorted by name
+		
+		//--------------------
+		
+		//another comparator:
+		//this comparator will compare by names of the duck in alphabetical order (including case)
+		
+		/*
+		 * compares by: String name > int weight > int height > int id
+		 */
+		Comparator<Duck>comparatorDuck2=new Comparator<Duck>() {
+
+			@Override
+			public int compare(Duck d1, Duck d2) {
+				//if same duck
+				return 0;
+			}
+		};
+		
 	}
 	
-	
+	 
 	
 	
 	
