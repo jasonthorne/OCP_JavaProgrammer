@@ -251,8 +251,29 @@ public class Examples {
 
 			@Override
 			public int compare(Duck d1, Duck d2) {
-				//if same duck
-				return 0;
+				Integer weight1 = d1.getWeight();
+				Integer weight2 = d2.getWeight();
+				
+				Integer height1 = d1.getHeight();
+				Integer height2 = d2.getHeight();
+				
+				Integer id1 = d1.getId();
+				Integer id2 = d2.getId();
+				
+				if(d1.equals(d2)) //equals method has been overriden in the duck class
+					return 0;
+				
+				if(!(d1.getName().equals(d2.getName()))) //if names arent the same
+					return d1.getName().compareTo(d2.getName()); //use compare method to sort them out! 
+				
+				if(!(weight1.equals(weight2))) //if weights arent the same
+					return weight1.compareTo(weight2); //use compare method to sort them out! 
+				
+				if(!(height1.equals(height2))) //if heights arent the same
+					return height1.compareTo(height2); //use compare method to sort them out! 
+				
+				//above checks mean they have to not have the same ids!
+				return id1.compareTo(id2);
 			}
 		};
 		
