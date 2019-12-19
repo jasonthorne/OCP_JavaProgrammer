@@ -175,6 +175,34 @@ public class Examples {
 		Collections.sort(names, byString);
 		System.out.println(names);
 		
+		//==================================
+		//SQUIRREL:
+		
+		Squirrel sammy=new Squirrel("sammy", 2, 3);
+		Squirrel sharon=new Squirrel("sharon", 4, 2);
+		Squirrel samantha=new Squirrel("samantha", 1, 5);
+		Squirrel sean=new Squirrel("sean", 7, 1);
+		//Squirrel sean2=new Squirrel("sean", 7, 1);
+		
+		//list of squirrels:
+		List<Squirrel>squirrels =new ArrayList<>();
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean )); //sean2));
+		System.out.println("squirrel list unordered: " + squirrels);
+		//squirrels sorted by name uses the compareTo in the squirrel class/
+		
+		/*
+		 * Collections.sort only takes a list of objects whose classes implement comparable
+		 * Squirrel implements comparable and the compareTo organises squirrels in a list by names in alphabetical order. 
+		 * SORTING DOES NOT REMOVE DUPLICATES +++
+		 */
+		Collections.sort(squirrels);
+		
+		
+	}
+	
+	 
+	static void ex4() {
+		System.out.println("ex4:");
 		
 		//------------------
 		
@@ -276,13 +304,10 @@ public class Examples {
 				return id1.compareTo(id2);
 			}
 		};
+				
 		
+	
 	}
-	
-	 
-	
-	
-	
 	
 	
 	
