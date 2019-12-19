@@ -218,10 +218,10 @@ public class Examples {
 		
 		squirrels.clear(); //clear list 
 		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
-		System.out.println("\nsquirrel list unordered: " + squirrels);
+		System.out.println("squirrel list unordered: " + squirrels);
 		
 		Collections.sort(squirrels ,bySquirrelWeight);
-		System.out.println("\nsquirrel list ordered by weight: " + squirrels);
+		System.out.println("squirrel list ordered by weight: " + squirrels);
 		
 		//----------------
 		
@@ -244,10 +244,10 @@ public class Examples {
 		
 		squirrels.clear(); //clear list 
 		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
-		System.out.println("\nsquirrel list unordered: " + squirrels);
+		System.out.println("squirrel list unordered: " + squirrels);
 		
 		Collections.sort(squirrels ,bySquirrelWeight);
-		System.out.println("\nsquirrel list ordered by height: " + squirrels);
+		System.out.println("squirrel list ordered by height: " + squirrels);
 		
 		//===============more advanced comparator: ++++++++++++++
 		
@@ -302,8 +302,41 @@ public class Examples {
 		 */
 		
 		// sorting list of squirrels by weight:
-		//compare weights by returning the difference of the two weights:
-		Comparator<Squirrel>byWeight=(s1,s2)->s1.getWeight()-s2.getWeight(); 
+		//compare weights AND SORT THEM by the the difference of the two weights:
+		Comparator<Squirrel>byWeight=(s1,s2)->s1.getWeight()-s2.getWeight(); //IMPLEMENTING THE COMPARE METHOD OF THE COMPARATOR ++++
+		
+		
+		squirrels.clear();
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("squirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels, byWeight); //sort squirrels by weight ascending. 
+		System.out.println("squirrel list ordered by weight: " + squirrels);
+		//------------------
+		
+		//comparator sorts in opposite way to above comparator, which is descending
+		Comparator<Squirrel>byWeightDesc=(s1,s2)->s2.getWeight()-s1.getWeight(); //IMPLEMENTING THE COMPARE METHOD OF THE COMPARATOR ++++
+		
+		
+		squirrels.clear();
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("squirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels, byWeight); //sort squirrels by weight DEscending. 
+		System.out.println("squirrel list ordered by weight DEscending: " + squirrels);
+		
+		
+		//======================================================================================
+		
+		//comparator for a list of Squirrels
+		Comparator<Squirrel>bySquirrelLambda=(r1,r2)->r2.compareTo(r1); //second squirrel compares iteself against the first 
+		
+		squirrels.clear();
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("squirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels, bySquirrelLambda);
+		System.out.println("squirrel list orderedbySquirrelLambda: " + squirrels);
 		
 		
 	}
@@ -414,11 +447,48 @@ public class Examples {
 		};
 				
 		
+		//===================+++++++++++++++USING A LAMBDA COMPARATOR WITH ITS STATIC METHODS
+		System.out.println();
+		ducks.clear();
+		ducks.addAll(Arrays.asList(duck1, duck2, duck3, duck4, duck5));
+		System.out.println(ducks);
+		
+		//redefine the duck comparator as a lambda.A lambda with multiple lines has to be enclosed in curly braces 
+		/*
+		 * The comparator interface has only one abstract method, however it also has a number of static methods. 
+		 */
+		comparatorDuck2=(d1,d2)->{
+			
+			//static methods in Comparator:
+			//comparing(), thenComparing() and compare()
+			//We can us them in place of the ifs used in the previous comparator above
+			
+			//SORT BY NAME:
+			Comparator<Duck>cs=Comparator.comparing(s->s.getName()); //creates and calls the compareTO method for you (defined in it's class or above)
+			//SORT BY WEIGHT: (if name was the same)
+			cs=cs.thenComparing(s->s.getWeight());
+			//SORT BY HEIGHT: (if weight was the same)
+			cs=cs.thenComparing(s->s.getHeight());
+			//SORT BY ID (if height was the same)
+			cs=cs.thenComparing(s->s.getId());
+			
+			//this is applying the above comparator to the 2 ducks that were defined as args:
+			return cs.compare(d1,d2); //return this comparator 
+		};
+		
+		Collections.sort(ducks, comparatorDuck2);
+		System.out.println("\nduck list sorted by static methods of the Comparator interface:");
+		System.out.println(ducks);
 	
 	}
 	
+	//=========================================================
 	
-	
+	Comparator<Duck>dComparator=(d1,d2)->{
+		Comparator<Duck>cs=Comparator.comparing(s->s.getName());
+		cs=cs.thenComparing(s->s.getId()); //id is the last thing to compare by as id here will be unique. 
+		return cs.compare(d1,d2);
+	};
 	
 	
 	
