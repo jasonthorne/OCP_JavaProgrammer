@@ -196,6 +196,114 @@ public class Examples {
 		 * SORTING DOES NOT REMOVE DUPLICATES +++
 		 */
 		Collections.sort(squirrels);
+		System.out.println("squirrel list ordered: " + squirrels);
+		//=========================
+		
+		//This sorts a list by weight of squirrel:
+		Comparator<Squirrel>bySquirrelWeight=new Comparator<Squirrel>() {
+
+			/*
+			 * If this returns a minus number: squirrel1 comes before squirrel 2.
+			 * If this returns a plus number: squirrel2 comes before squirrel 1.
+			 * If this returns a 0 number: they're the same, and can be put in any order.
+			 */
+			@Override
+			public int compare(Squirrel s1, Squirrel s2) {
+				Integer s1Weight=s1.getWeight();
+				Integer s2Weight=s2.getWeight();
+				return s1Weight.compareTo(s2Weight);
+			}
+		};
+		
+		
+		squirrels.clear(); //clear list 
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("\nsquirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels ,bySquirrelWeight);
+		System.out.println("\nsquirrel list ordered by weight: " + squirrels);
+		
+		//----------------
+		
+		//This sorts a list by height of squirrel:
+		Comparator<Squirrel>bySquirrelHeight=new Comparator<Squirrel>() {
+
+			/*
+			 * If this returns a minus number: squirrel1 comes before squirrel 2.
+			 * If this returns a plus number: squirrel2 comes before squirrel 1.
+			 * If this returns a 0 number: they're the same, and can be put in any order.
+			 */
+			@Override
+			public int compare(Squirrel s1, Squirrel s2) {
+				Integer s1Height=s1.getHeight();
+				Integer s2Height=s2.getHeight();
+				return s1Height.compareTo(s2Height);
+			}
+		};
+		
+		
+		squirrels.clear(); //clear list 
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("\nsquirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels ,bySquirrelWeight);
+		System.out.println("\nsquirrel list ordered by height: " + squirrels);
+		
+		//===============more advanced comparator: ++++++++++++++
+		
+		/*
+		//This sorts a list by height of squirrel:
+		Comparator<Squirrel>sqrComparator=new Comparator<Squirrel>() {
+
+		
+			@Override
+			public int compare(Squirrel s1, Squirrel s2) {
+				if(s1.equals(s2))
+						return 0; //exit if they're the same squirrel
+				if(!(s1.getName().equals(s2.getName()))) //if the names arent the same 
+						s1.compareTo(s2); //use the sqirrel's compareTo class to 
+				Integer weight1=s1.getWeight();
+				Integer weight2=s2.getWeight();
+				if(!(weight1.equals(weight2))) //if weights arent the same 
+						weight1.compareTo(weight2);
+				
+				return 0;
+				
+			}
+		};
+		
+		squirrels.clear(); //clear list 
+		squirrels.addAll(Arrays.asList(sammy, sharon, samantha, sean));
+		System.out.println("\nsquirrel list unordered: " + squirrels);
+		
+		Collections.sort(squirrels ,bySquirrelWeight);
+		System.out.println("\nsquirrel list ordered by height: " + squirrels);
+		
+		*/
+		
+		//================LAMBDA COMPARATOR: +++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		Comparator<Rat>byRat=new Comparator<Rat>() {
+
+			@Override //overriding the Rat's comparator method
+			public int compare(Rat r1, Rat r2) {
+				
+				/*
+				 * You can add additional criteria in here
+				 */
+				return 0;
+			}
+			
+		};
+		
+		
+		/*
+		 * Comparator is a functional interface, so we usually use a lambda when creating a Comparator. +++++++++++++++++++++++++++++++++++++ 
+		 */
+		
+		// sorting list of squirrels by weight:
+		//compare weights by returning the difference of the two weights:
+		Comparator<Squirrel>byWeight=(s1,s2)->s1.getWeight()-s2.getWeight(); 
 		
 		
 	}
