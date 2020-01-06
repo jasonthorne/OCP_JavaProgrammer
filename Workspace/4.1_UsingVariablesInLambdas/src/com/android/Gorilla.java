@@ -2,7 +2,7 @@ package com.android;
 
 
 /*
- * RULES FRO ACCESSING LAMBDAS:
+ * RULES FOR ACCESSING LAMBDAS:
  * 
  * Lambdas can acess fields of a class, as they always have a default value even if none are given
  * (ie string has a default value of null, uin has default val of 0 etc).
