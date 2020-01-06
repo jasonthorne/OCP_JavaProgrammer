@@ -1,5 +1,7 @@
 package com.android;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -61,6 +63,57 @@ public class Examples {
 		
 		Supplier<Integer>supplierInt=new Dog()::eat; //double colon operator example ++++++++++++++++++++++++++
 	}
+	
+	
+	
+
+	static void ex2() {
+		
+		System.out.println("\nex2()");
+		
+		/*
+		 * Functional interfaces sre interfaces that only have one abstract method (they can have static or defaults too)
+		 * From functional interfaces we crearte lambdas. We can also create our own unctional inrterface. 
+		 */
+		
+		/*
+		 * Behaviour is a functional interface:
+		 * 
+		 * public interface Behaviour<T,U,V,R> {
+
+			R happy(T t, U u, V v);
+		 */
+		
+		//takes (T t, U u, V v) and returns R
+		//Behaviour<T,U,V,R>
+		Behaviour<String, Integer, List<Dog>,Double>behaveLamb;
+		
+		behaveLamb=(t,u,v)->{
+			System.out.println("t is a: " + t.getClass().getSimpleName());
+			t.charAt(0); //has all methods of the String class
+			System.out.println("u is a: " + u.getClass().getSimpleName());
+			u.intValue(); //has all methods of the Integer class
+			System.out.println("v is a: " + v.getClass().getSimpleName());
+			v.get(0); //has access to all methods of the List interface
+			return 12.5;
+		};
+		
+		behaveLamb.happy("apple", 33, Arrays.asList(new Dog(), new Dog()));
+	}
+
+	
+	static void ex3() {
+		
+		System.out.println("\nex3()");
+	
+		//BIG COMMENT HERE (TO GET FROM MASTER COPY) ++++++++++++++++++++++++++++++++
+	
+	
+	
+	}
+	
+	
+	
 
 }
 
@@ -76,6 +129,21 @@ class Dog{
 		return 0;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @FunctionalInterface

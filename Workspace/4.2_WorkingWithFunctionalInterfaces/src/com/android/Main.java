@@ -6,6 +6,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		Examples.ex1();
+		Examples.ex2();
+
 
 	}
 
