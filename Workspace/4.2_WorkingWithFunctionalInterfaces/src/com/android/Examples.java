@@ -1,5 +1,6 @@
 package com.android;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -103,12 +104,59 @@ public class Examples {
 
 	
 	static void ex3() {
-		
+		//++++++++++++++++++++++++++++++++++++++++++++++++PRE DEFINED INTERFACES++++++++++++++++++++++++++++++++++++++++
 		System.out.println("\nex3()");
-	
+		
+		System.out.println("PRE DEFINED INTERFACES");
+		
+		
 		//BIG COMMENT HERE (TO GET FROM MASTER COPY) ++++++++++++++++++++++++++++++++
-	
-	
+		
+		//------------------------------
+		
+		//SUPPLIER FUNCTIONAL INTERFACE:
+		System.out.println("SUPPLIER FUNCTIONAL INTERFACE (see Employee class)");
+		
+		/*
+		 * this is the method we will be implementing:
+		 * 
+		 * public T get() {
+		
+			return null;
+		 }
+		 */
+		Supplier sup=()->"this can return any object as we have not defined a type";
+		System.out.println(sup.get()); //call the supplier lambda
+		
+		//---------
+		
+		/*
+		 * here we are supplying a type, so it produces a String reference to a String object
+		 */
+		Supplier<String> Stringsup=()->"string type returned from the Supplier";
+		
+		//This supplier object produces a string reference to a string object so you have access to all the methods of the String class.
+		System.out.println(Stringsup.get().toUpperCase());
+		
+		//----------
+		/*
+		 * this is a supplier that creates an Animal with a random age between 0 & 100.
+		 */
+		
+		int num=(int)(Math.random()*100); //+++++++++++++++++++++++++++++++++++LOOK AT THIS FOR PILOT MAKING (skill assignment during construction!)
+		Supplier<Animal>animalSup=()->new Animal(num, "andy");
+		
+		Animal andy = animalSup.get();
+		System.out.println(andy);
+		
+		/*
+		 * Supplier's main function is for creating objects, 
+		 * and in particular used in conjunction with Stream.generate, to create unlimited amount of objects
+		 */
+		
+		//----------------------
+		Supplier<LocalDate>supD1=()->LocalDate.now(); //creates a date wghich is todays date
+		supD1=LocalDate::now;
 	
 	}
 	
