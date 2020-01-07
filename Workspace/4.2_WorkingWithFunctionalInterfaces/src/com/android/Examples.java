@@ -270,7 +270,55 @@ public class Examples {
 		conAnimal.accept(new Animal((int)(Math.random()*100), "andy"));
 		
 		
+		
+		//======================================
+		
+		Animal andy = new Animal(23, "andy");
+		
+		//conusmer takes a string (s1) which is passed into andy.eat()
+		Consumer<String>conEatStr=(s1)->andy.eat(s1);
+		Consumer<String>conEatStr2=andy::eat; //double colon shorthand version of above++++++++++++
+		
+		conEatStr.accept("apple"); //call Consumer, which calls andy.eat, passing in "apple"
+		conEatStr.accept("beef"); //call Consumer, which calls andy.eat, passing in "apple"
+		
+		
+		//----------------
+		
+		Consumer<StringBuilder>conStrBuilder=(sb)->{
+			sb.append("dawg");
+		};
+		
+		StringBuilder mySb = new StringBuilder("Yo ");
+		
+		
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION:+++++++++++++++++++++++++++
+		
+		Consumer<List<Integer>>conIntList=(a1)->System.out.println("arraylist created: " + a1); //create consumer obj
+		
+		//call consumer method below, passing in consumer obj and list
+		//calling it's accept on it, which prints arraylist passed
+		//create a new consumer (myT) and making it simple print whats passed to it
+		//The myT that's returned then has it's .accept() called, which prints the list being passed to it.
+		takeConsumer(conIntList, Arrays.asList(10,100,1000)).accept(Arrays.asList(23,45,67,345));
+		
+		
+
 	}
+	
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION METHOD:+++++++++++++++++++++++++++
+	
+	//returns a consumer obj of type T, and takes a consumer obj of type T, and an object of type T.
+	//The consumer obj that's sent to the method will determine what T will be.
+	static <T>Consumer <T>takeConsumer(Consumer<T>t, T t2){
+		t.accept(t2);
+		Consumer<T>myT=(a1)->System.out.println(a1);
+		return myT;
+	}
+			
+			
 	
 	
 	
