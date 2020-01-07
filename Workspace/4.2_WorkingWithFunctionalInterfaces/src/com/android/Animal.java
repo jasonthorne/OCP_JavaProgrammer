@@ -42,3 +42,15 @@ public class Animal {
 	}
 
 }
+
+
+
+class Hamster extends Animal{
+	
+}
+
+
+class Cat extends Animal{
+	
+}
+

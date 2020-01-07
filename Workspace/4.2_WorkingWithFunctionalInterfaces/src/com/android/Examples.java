@@ -1,10 +1,12 @@
 package com.android;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /*
  * DOBLE COLON OPERATOR
@@ -155,9 +157,119 @@ public class Examples {
 		 */
 		
 		//----------------------
-		Supplier<LocalDate>supD1=()->LocalDate.now(); //creates a date wghich is todays date
+		Supplier<LocalDate>supD1=()->LocalDate.now(); //creates a date which is todays date
 		supD1=LocalDate::now;
+		
+		//---------------
+		Supplier<Animal>animal1=()->new Animal();
+		Supplier<Animal>animal2=Animal::new;
+		animal1.get();
+		animal2.get();
+		
+		//------------------------
+		
+		//Supplier<List<Animal>>supList1=()->new ArrayList<Animal>(); //lambda way
+		//Supplier<List<Animal>>supList2::new; //double colon way
+		
+		List<String>names=Arrays.asList("bill", "ben", "bob");
+		Supplier<List<String>>supListStr=()->new ArrayList<String>();
+		supListStr.get().addAll(names);
+		
+		
+		//===================================METHODS THAT TAKE SUPPLIER OBJECTS:
+		
+		//1st takeSupplier below:
+		takeSupplier(animal1); //passing animal supplier to takeSupplier method below (Animal generic type)
+		takeSupplier(supListStr); //(List generic type)
+		takeSupplier(supD1); //(LocalDate generic type)
+		
+		//2nd takeSupplier below:
+		takeSupplier2(animal1); //takes a Supplier of Animal generic type (or subclass)
+		Supplier<Hamster>hamSup=Hamster::new;
+		takeSupplier2(hamSup); //takes a subclass Supplier of Animal
+		Supplier<Hamster>catSup=Hamster::new;
+		takeSupplier2(catSup); //takes a subclass Supplier of Animal
+		
+		//3rd takeSupplier below:
+		takeSupplier2(animal1); //takes a Supplier of Animal generic type (or subclass)
+		
+		
+		//-----------------------------------
+		
+		Supplier<ArrayList<Cat>>catSupList=ArrayList<Cat>::new; //this supplier object is going to create an arraylist of cats 
+		ArrayList<Cat>catList=catSupList.get(); //create arrayList of Cats
+		
+		
+		Stream.generate(Cat::new).limit(10).forEach(catList::add); //generate 10 new cats and for each of them, add them to list +++++++++++++++++
+		
+		System.out.println(catList.size());
+		
+	}//end of ex3
 	
+	
+	/*
+	 * These 3 methods take supplier based objects
+	 */
+	
+	//This can take a supplier object of ANY type, but they come in as OBJECT references to their own type 
+	static<T>void takeSupplier(Supplier<T>s){ //supplier object param is called "s" <T> on method determines the type of this param
+		System.out.println("take supplier method");
+		s.get(); //s is passed in as an OBJECT reference to it's own type ++++++++++++++++++++++++++++
+		System.out.println("This is a: " + s.get().getClass().getSimpleName());
+	}
+	
+	//This can take a supplier object of Animals or a subclass of Animal. But they come in as ANIMAL references to their own types.
+	static void takeSupplier2(Supplier<? extends Animal>s){ //can take an Animal or a class that extends Animal +++++++++++
+		System.out.println("take supplier2 method");
+	}
+	
+	//This can take a supplier object of Animals or a superclass of Animal. But they come in as ANIMAL references to their own types.
+	static void takeSupplier3(Supplier<? super Animal>s){ //can take an Animal or a class that is super to Animal +++++++++++
+		System.out.println("take supplier3 method");
+	}
+	
+	
+	
+	static void ex4() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++CONSUMER FUNCTIONAL INTERFACES++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex4()");
+		
+		System.out.println("CONSUMER FUNCTIONAL INTERFACES - See Astronought for class implementation");
+		
+		/*
+		 * Can be used when an object needs to be "consumed" without returning any result (ie a sysout)
+		 */
+		
+		//simplest form of consumer. 
+		//This takes an object OF ANY TYPE, and doesn't return anything. 
+		Consumer c1=(x)->System.out.println("simple consumer lambda: " + x);
+		c1.accept(new Animal(3, "andy")); //x will be an object reference to an Animal
+		c1.accept("yo dawg"); //x will be an object reference to a String
+		
+		
+		//these 2 are tje exact same. They both print out a string
+		Consumer<String>conStr=(str)->System.out.println(str); //lambda version
+		Consumer<String>conStr2=System.out::println; //double colon version
+		
+		conStr.accept("Here is my string to printout"); //using consumer defined above
+		
+		//---------------------------------
+		
+		//consumer object that takes an Animal:
+		Consumer<Animal>conAnimal=(andy)->{ //consumes object, then does stuff to said object
+			System.out.println("conAnimal consumer called");
+			System.out.println(andy);
+			andy.drink();
+			andy.eat("meat");
+			//andy=new Animal();
+		};
+		
+		conAnimal.accept(new Animal(5, "angela")); //passing new animal to consumer.
+		
+		//consumer creates objects here that cannot be accessed once run (as they vanish once run)
+		conAnimal.accept(new Animal((int)(Math.random()*100), "andy"));
+		
+		
 	}
 	
 	
