@@ -3,8 +3,12 @@ package com.android;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -293,7 +297,7 @@ public class Examples {
 		
 		
 		
-		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION:+++++++++++++++++++++++++++
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION A:+++++++++++++++++++++++++++
 		
 		Consumer<List<Integer>>conIntList=(a1)->System.out.println("arraylist created: " + a1); //create consumer obj
 		
@@ -308,7 +312,7 @@ public class Examples {
 	}
 	
 	
-	//+++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION METHOD:+++++++++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION METHOD A:+++++++++++++++++++++++++++
 	
 	//returns a consumer obj of type T, and takes a consumer obj of type T, and an object of type T.
 	//The consumer obj that's sent to the method will determine what T will be.
@@ -319,7 +323,87 @@ public class Examples {
 	}
 			
 			
+	static void ex5() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++BI CONSUMER++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex5()");
+		
+		System.out.println("BI CONSUMER - See accountant class");
+		
+		//bi consumer without a generic type:
+		BiConsumer b1 = (bc1, bc2)->System.out.println("biConsumer called: " + bc1+ "bcr obj is: " + bc2.getClass().getSimpleName());
+		
+		b1.accept(new ArrayList<Integer>(Arrays.asList(23,44,55,66)), 1000);
+		
+		//-------------------------------
+		
+		BiConsumer<String, Integer>b2=(s1, i1)->System.out.println("string is: " + s1 + " number is: " + i1);
+		b2.accept("yo dawg", 333);
+		
+		//========================================Bi consumer with MAP
+		
+		//hashmap with a key (0which has to be unique, and a string value -
+		Map<Integer, String>myMap=new HashMap<Integer, String>();
+		
+		myMap.put(1, "harry");
+		myMap.put(2, "mary");
+		myMap.put(3, "shelly");
+		System.out.println(myMap);
+		
+		//this biConsumer takes an int and string then inputs the int as a key and the string as a value in the hashmap:
+		BiConsumer<Integer, String>biPutMap=(k, v)->myMap.put(k, v); //lambda version
+		
+		BiConsumer<Integer, String>biPutMap2=myMap::put; //double colon version
+		
+		biPutMap.accept(5, "donald");
+		biPutMap2.accept(10, "douglas");
+		
+		System.out.println(myMap);
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION B:+++++++++++++++++++++++++++
+		takeBiConsumer(biPutMap, 333);
 	
+	}
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION METHOD B:+++++++++++++++++++++++++++
+	
+	static<T,R>BiConsumer<R,R>takeBiConsumer(BiConsumer<T,R>b, T t){
+		BiConsumer<R,R>myBi=(r,r2)->System.out.println("r is: " + r + "r2 is: " + r2);
+		//myBi.accept("hello", "world");
+		return myBi;
+	}
+	
+	
+	
+	static void ex6() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++PREDICATE++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex6()");
+		
+		System.out.println("PREDICATE");
+		
+		//returns boolean, takes any object. 
+		
+		Predicate<Integer>p1=(i)->i>18; //return true if i is 18 or greater
+		
+		//call predicate:
+		System.out.println(p1.test(12)); 
+		System.out.println(p1.test(18));
+		System.out.println(p1.test(3));
+		System.out.println(p1.test(20));
+		
+		//---------------------------------
+		
+		Predicate<Animal>animalPred=a1->{
+			return a1.age>0;
+		};
+		
+		Animal andy = new Animal(0, "andy");
+		Animal angela = new Animal(-2, "angela");
+		Animal aidan = new Animal(3, "aiden");
+		System.out.println("\n"+animalPred.test(andy));
+		System.out.println(animalPred.test(angela));
+		System.out.println(animalPred.test(aidan));
+		
+	}
 	
 	
 
