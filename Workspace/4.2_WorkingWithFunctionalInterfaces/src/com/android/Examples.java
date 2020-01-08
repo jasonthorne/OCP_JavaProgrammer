@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -436,7 +437,7 @@ public class Examples {
 		System.out.println("biPred: " + biPred.test(36, "FEMALE"));
 		
 		//-----------------------
-		//this takes 2 strings & checks to see if the first string begins with the second string +++++++++++++++++++++MIGHT USE THIS DURING TEMP MAP MODEL FILL
+		//this takes 2 strings & checks to see if the first string begins with the second string
 		BiPredicate<String, String>b1=(str,prefix)->str.startsWith(prefix);
 		System.out.println(".startsWith: " + b1.test("chicken", "chick"));
 		System.out.println(".startsWith: " + b1.test("chicken", "hen"));
@@ -594,9 +595,10 @@ public class Examples {
 		System.out.println(unModifyAnimal.apply(myAnimal)); //call unary operator lambda obj. changing age and name
 		
 		//------------------------
-		
-		//call method below:
 		takeUnary(unModifyAnimal, myAnimal);
+		//call method below:
+		System.out.println("takeUnary method result: " + myAnimal);
+		
 		
 	}
 	
@@ -606,9 +608,26 @@ public class Examples {
 	}
 	
 	
-	
-	
-	
+
+	static void ex11() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++BINARY OPERATOR++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex11()");
+		
+		System.out.println("BINARY OPERATOR");
+		
+		/*
+		 * Using the binary operator takes 2 objects and returns an object
+		 * ALL objects are the SAME TYPE
+		 */
+		
+		BinaryOperator<String>b1=(string, toAdd)->string.concat(toAdd); //taking in 2 strings and adding them together
+		BinaryOperator<String>b2=String::concat; //shorthand version ++++++
+		
+		//calling blambda objs above:
+		System.out.println(b1.apply("yo", " dawg"));
+		System.out.println(b2.apply("yeeah", " boi"));
+
+	}
 	
 }
 
