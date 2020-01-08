@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -306,9 +307,6 @@ public class Examples {
 		//create a new consumer (myT) and making it simple print whats passed to it
 		//The myT that's returned then has it's .accept() called, which prints the list being passed to it.
 		takeConsumer(conIntList, Arrays.asList(10,100,1000)).accept(Arrays.asList(23,45,67,345));
-		
-		
-
 	}
 	
 	
@@ -366,9 +364,9 @@ public class Examples {
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++EXAM QUESTION METHOD B:+++++++++++++++++++++++++++
 	
-	static<T,R>BiConsumer<R,R>takeBiConsumer(BiConsumer<T,R>b, T t){
+	static<T,R>BiConsumer<R,R>takeBiConsumer(BiConsumer<T,R>b, T t){ //return value can be of T OR R ++++++++++++++++++++++++++
 		BiConsumer<R,R>myBi=(r,r2)->System.out.println("r is: " + r + "r2 is: " + r2);
-		//myBi.accept("hello", "world");
+		///myBi.accept(t, b); //wong!! :P
 		return myBi;
 	}
 	
@@ -406,7 +404,47 @@ public class Examples {
 	}
 	
 	
-
+	static void ex7() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++BI-PREDICATE++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex7()");
+		
+		System.out.println("BI-PREDICATE");
+		
+		/*
+		 * Takes 2 objects of any type and returns a boolean.
+		 * The objects can be of the same type, or different types. 
+		 */
+		
+		
+		//Here we create a predicate that will check to see if someone is over 18 and a valid human sex. Male or Female:
+		BiPredicate<Integer, String>biPred=(in, st)->{
+			if(in<18) {
+				System.out.println("under 18 years of age");
+				return false;
+			}
+			if(!(st.equalsIgnoreCase("male")|| st.equalsIgnoreCase("female"))) {
+				System.out.println("incorrect gender entered");
+				return false;
+			}
+			return true;
+		};
+		
+		System.out.println("biPred: " + biPred.test(18, "male"));
+		System.out.println("biPred: " + biPred.test(36, "FEMALE"));
+		
+		//-----------------------
+		//this takes 2 strings & checks to see if the first string begins with the second string +++++++++++++++++++++MIGHT USE THIS DURING TEMP MAP MODEL FILL
+		BiPredicate<String, String>b1=(str,prefix)->str.startsWith(prefix);
+		System.out.println(".startsWith: " + b1.test("chicken", "chick"));
+		System.out.println(".startsWith: " + b1.test("chicken", "hen"));
+		
+		//----------------------//double colon version of above:
+		BiPredicate<String, String>b2=String::startsWith;
+	
+	}
+	
+	
+	
 }
 
 
