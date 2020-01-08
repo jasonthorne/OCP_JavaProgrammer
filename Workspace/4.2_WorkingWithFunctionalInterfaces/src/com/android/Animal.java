@@ -5,12 +5,13 @@ public class Animal {
 	int age; 
 	String name;
 	
+	
 	public Animal(int age, String name) {
 		super();
 		this.age = age;
 		this.name = name;
 		System.out.println("Animal with age and name provided created");
-	} 
+	}
 	
 	public Animal() {
 		System.out.println("Animal withh no args created");

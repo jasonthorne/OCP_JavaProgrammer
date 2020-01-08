@@ -7,11 +7,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
 /*
@@ -477,7 +479,135 @@ public class Examples {
 		System.out.println(f1.apply("sup"));
 		System.out.println(f1.apply("Supercalifragilisticexpialidocious"));
 		
+		
+		//-------------
+		
+		/*
+		 * A function lambda that returns an Animal and takes an Integer.
+		 * The integer is used to vcreate the animal that's returned. 
+		 */
+		Function<Integer, Animal>animalFunction=(in)->{
+			System.out.println("Animal function lambda");
+			return new Animal(in, "andy");
+		};
+		
+		animalFunction.apply(12);
+		
+		
+		//-----------------------------
+		//call static below:
+		
+		
+		/*
+		 * this method take a function lambda which in our case is a function lambda with type of Integer and Animal. 
+		 * This means that the second variable type here HAS to be an Integer, and the 3rd variable type has to be an Animal.
+		 */
+		takeFunction(animalFunction, 12, new Animal());
+		
 	}
+	
+	static<T,R> void takeFunction(Function<T,R>f1, T t, R r) {
+		System.out.println("t is a: " + t.getClass().getSimpleName());
+		System.out.println("r is a: " + r.getClass().getSimpleName());
+		f1.apply(t);
+	}
+	
+	
+	static void ex9() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++BI-FUNCTION++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex9()");
+		
+		System.out.println("BI-FUNCTION");
+		
+		/*
+		 * Takes 3 types, has 2 params and one return type.
+		 * They can all be the same type or all different types, or combinations.
+		 */
+		
+		System.out.println("BiFunction with all the same types");
+		//takes 2 strings and returns a string. 
+		BiFunction<String, String, String>b1 = (string, toAdd)->string.concat(toAdd); //takes 2 strings and concatenates them together
+		BiFunction<String, String, String>b2 = String::concat; //double colon version +++++++++++++
+		
+		//calling above biFunctions:
+		System.out.println(b1.apply("hello", " nice to meet you"));
+		System.out.println(b1.apply("sup", " dawg!"));
+		
+		
+		//-----------------------------------------
+		/*
+		 * This takes in an integer and a string and returns an animal.
+		 * Here it takes in an integer and string and uses both to construct a new Animal with this integer and string. 
+		 */
+		BiFunction<Integer, String, Animal>createAnimal1=(in, str)-> new Animal(in, str);
+		
+		//short form verison:
+		BiFunction<Integer, String, Animal>createAnimal2=Animal::new; //calls the constructor in the Animal class that takes an int and a String ++++++++++++++
+		
+		System.out.println(createAnimal2.apply(12, "angela"));
+		
+		//-------------
+		//call takeBiFunction() below:
+		takeBiFunction(createAnimal2, 12, "bob", new Animal(2, null));
+		
+	
+	}
+	
+	//R is return type. Gets sent T & V.
+	static<T,V,R> R takeBiFunction(BiFunction<T,V,R>bif, T t, V v, R r) {
+		r=bif.apply(t, v);
+		System.out.println(r.getClass().getSimpleName() + " has been created");
+		System.out.println(r);
+		return r;
+	}
+	
+	
+
+	static void ex10() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++UNARY OPERATOR++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex10()");
+		
+		System.out.println("UNARY OPERATOR");
+		
+		//This takes an Object and returns an Object of the SAME TYPE
+		//Takes in an Animal, returns an Animal
+		
+		//this takes in a string and returns the uppercase version of that string. 
+		UnaryOperator<String>u1 = str->str.toUpperCase(); //only ONE type needed declaring here, as both arg and return val must be of the same type. ++++++++++
+		UnaryOperator<String>u2 = String::toUpperCase; //double colon version
+		
+		System.out.println(u1.apply("bob"));
+		System.out.println(u1.apply("cuthbert"));
+		
+		
+		//-----------------------------
+		
+		UnaryOperator<Animal>unAnimal=(a1)->new Animal(4, "bill"); //takes in an Animal and returns an Animal
+		UnaryOperator<Animal>unModifyAnimal=(a1)->{
+			a1.age=a1.age*2; //double the age of the animal
+			a1.name = a1.name + " smith"; //change name of animal
+			return a1;
+		};
+		
+		//call method above:
+		Animal myAnimal=new Animal(10, "frank"); //create animal
+		System.out.println(unModifyAnimal.apply(myAnimal)); //call unary operator lambda obj. changing age and name
+		
+		//------------------------
+		
+		//call method below:
+		takeUnary(unModifyAnimal, myAnimal);
+		
+	}
+	
+	//unary operator method +++++++
+	static<T> T takeUnary(UnaryOperator<T>myU, T t) {
+		return myU.apply(t);
+	}
+	
+	
+	
+	
 	
 	
 }
