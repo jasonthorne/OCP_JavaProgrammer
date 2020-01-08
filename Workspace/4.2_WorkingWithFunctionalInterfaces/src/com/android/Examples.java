@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -443,6 +444,40 @@ public class Examples {
 	
 	}
 	
+	
+	
+	static void ex8() {
+		//++++++++++++++++++++++++++++++++++++++++++++++++FUNCTION++++++++++++++++++++++++++++++++++++++++
+		System.out.println("\nex8()");
+		
+		System.out.println("FUNCTION");
+		
+		/*
+		 * function takes an object and returns an object. They can be the same type or a different type. 
+		 */
+		
+		//takes any object and returns an object reference to it as a string 
+		Function myFunction=o1 -> o1 +" hello";
+		
+		System.out.println(myFunction.apply("myString"));
+		System.out.println(myFunction.apply(333));
+		System.out.println(myFunction.apply(LocalDate.now()));
+		
+		
+		//-------------------
+		//return type of Integer and parameter of Integer
+		Function<Integer, Integer>fSame=in->in*2; //takes in a number and multiples it by 2
+		System.out.println(fSame.apply(12));
+		
+		//-------------
+		//takes in a String and an Integer and returns the length of the string
+		Function<String,Integer>f1=x->x.length();
+		Function<String,Integer>f2=String::length; //double colon version
+		
+		System.out.println(f1.apply("sup"));
+		System.out.println(f1.apply("Supercalifragilisticexpialidocious"));
+		
+	}
 	
 	
 }
