@@ -51,27 +51,82 @@ public class Examples {
 		//create stream from list:
 		List<String>fruits=Arrays.asList("apple", "orange", "banana", "pineapple");
 		
-		Stream<String>fromFruits=fruits.parallelStream(); //a stream from the list of fruits
+		Stream<String>fromFruits=fruits.stream(); //a stream from the list of fruits
 		
 		fromFruits.forEach((str)->System.out.println(str + " tree")); //print off each item in fruits + "tree"
 		
+		//fromFruits.forEach(System.out::println); //double colon operator for printing items
+		
+		//CANT perform a second terminal operation on a stream, as stream is now finished +++++++++++++++++++++++++++
+		//fromFruits.forEach(System.out::println); //falls over as stream is finished.
+		
+		fromFruits=fruits.stream(); //REDEFINE the stream 
+		
+		//THEN you use another terminal operator:
+		fromFruits.forEach(System.out::println); //double colon operator for printing items
+		
+		//==================parallel stream:
+		
+		/*
+		 * Parallel Streams utilises multiple CPU course if your machine has them. 
+		 * If they are not parallel streams, then they are said to be sequential (one after another)
+		 */
+		
+		Stream<String>fromFruitParallel=fruits.parallelStream();
+		
+		fromFruitParallel.forEach((str)->System.out.println("johhny " + str + "seed"));
 		
 		
+		//-----------------------------------------
+		
+		fromFruits=fruits.stream(); //redefine the stream 
+	}
+	
+	
+	static void ex2() {
+		
+		System.out.println("\nex2()");
+		
+		//=========================produce random numbers between 1 & 100
+		
+		System.out.println("random number between 1 & 100: " + (int)(Math.random()*100));
+		System.out.println("generate()");
+		
+		/*
+		 * You can produce an infinite stream very easily. You cant create an infinate list. 
+		 * Generate takes a supplier, which takes no params and returns an object of type T
+		 * in this case it will return an Integer.
+		 */
+		
+		//GENERATE:  +++++++++++++++++++++++++++++
+		Stream<Integer>randoms=Stream.generate(()->{
+			System.out.print("\nrandom number: ");
+			return (int)(Math.random()*100); //taking in nothing and producing a random number (1-100)
+	
+		});
+		
+		//TERMINAL operation called on stream, which runs the stream. This produces an infinite amount of integers.
+		//randoms.forEach(System.out::print);
+		
+		//LIMIT +++++++++++++++++++++++++++++
+		
+		/*
+		 * limit is an INTERMEDIATE operation that doesn't run until the stream hits a terminal operation. 
+		 */
+		randoms.limit(10).forEach(System.out::print);
 		
 		
+		//EXAMPLE:
 		
+		Stream<Animal>randAnimal=Stream.generate(()->{
+			int num = (int)(Math.random()*100);
+			return new Animal(num, "bob");
+		});
 		
+		System.out.println();
+		//randAnimal.forEach(System.out::println);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		randAnimal.limit(4).forEach(System.out::println);
 		
 	}
 
