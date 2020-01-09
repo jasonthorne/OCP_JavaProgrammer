@@ -162,7 +162,7 @@ public class Main {
 	}//end of main
 	
 	
-	//This returns an optional variable, whixh may or may not have a value.
+	//This returns an optional variable, which may or may not have a value.
 	/*
 	 * This takes a varArgs which may be a number of ints, a single int, an array or ints or NO ints.
 	 * If we send no ints to this method (average()) this can't return an average of nothing.
