@@ -3,6 +3,7 @@ package com.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class Examples {
@@ -114,8 +115,8 @@ public class Examples {
 		 * limit is an INTERMEDIATE operation that doesn't run until the stream hits a terminal operation. 
 		 */
 		randoms.limit(10).forEach(System.out::print);
-		
-		
+		System.out.println();
+		//=============================================================================================================
 		//EXAMPLE:
 		
 		Stream<Animal>randAnimal=Stream.generate(()->{
@@ -124,9 +125,28 @@ public class Examples {
 		});
 		
 		System.out.println();
-		//randAnimal.forEach(System.out::println);
+		//randAnimal.forEach(System.out::println); //infinate loop
 		
 		randAnimal.limit(4).forEach(System.out::println);
+		
+		//supplier obj:
+		Supplier<Animal>supAnimal=()->{
+			int num = (int)(Math.random()*100);
+			return new Animal(num, "bob");
+		};
+		
+		randAnimal=Stream.generate(supAnimal); //passing supplier into stream
+		System.out.println("");
+		randAnimal.limit(4).forEach(System.out::println);
+		
+		
+		//----------------
+		
+		randAnimal=Stream.generate(supAnimal); //reset stream
+		
+		List<Animal>animalList=new ArrayList<Animal>();
+		randAnimal.limit(10).forEach((a1)->animalList.add(a1));
+	
 		
 	}
 
