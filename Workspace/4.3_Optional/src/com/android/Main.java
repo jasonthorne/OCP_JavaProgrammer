@@ -101,18 +101,109 @@ public class Main {
 		//assign optional to be emtpy if value has a value of null, or assign it to be the value of value
 		Optional o=(value==null)?Optional.empty():Optional.of(value); 
 		
+		//if optional has a value, assign that value to dNum, otherwise assign 0.0 to dNum
+		Double dNum=(optDbl.isPresent()?optDbl.get():0.0);
+		
+		//------------------
+		
+		Optional<Double>dblOpt = Optional.of(12.34);
+		optInt=Optional.empty(); //this optional now has NO value +++++++++++++++
+		
+		//System.out.println(optInt.get());
 		
 		
+		//================================OR ELSE:
+		
+		System.out.println("orElse");
+		
+		//if optInt has no value, this will use the int value of 23. 
+		//HOWEVER optInt is STILL EMPTY
+		System.out.println(optInt.orElse(23));
+		
+		System.out.println(optInt); //still empty
+		System.out.println(dblOpt.orElse(100.00));
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++can be used like a get:
+		dNum=dblOpt.orElse(100.00); //same as a get. If no value exists, then 100 is assigned
+		System.out.println(dNum);
 		
 		
+		//================================OR ELSE GET: 
+		
+		/*
+		 * gets the value of an Optional if the optional has a value. 
+		 */
+		
+		dblOpt=Optional.empty(); //dblOpt now has NO value
+		//dblOpt.get(); //generates NOSuchElement exception
+		
+		System.out.println(dblOpt.orElseGet( ()->Math.random()*10));
+		
+		//==========================================================================
+		
+		//calling method below:
+		
+		System.out.println("sending numbers to method that returns an optional");
+		
+		System.out.println("calling average with some numbers:");
+		System.out.println(average(10,20,30,40));
+		
+		System.out.println("calling average with one number:");
+		System.out.println(average(3));
+		
+		System.out.println("calling average with array:");
+		System.out.println(average(new int[] {67,89,99,1000}));
+		
+		System.out.println("calling average with no numbers:");
+		System.out.println(average());
+		System.out.println(average().orElse(3.3)); //using oElse 
+
+		
+	}//end of main
+	
+	
+	//This returns an optional variable, whixh may or may not have a value.
+	/*
+	 * This takes a varArgs which may be a number of ints, a single int, an array or ints or NO ints.
+	 * If we send no ints to this method (average()) this can't return an average of nothing.
+	 * That is why we make the return type an option. As it may or may not have a return value.
+	 */
+	static Optional<Double>average(int...scores){
+		
+		//have to check if any numbers are sent to this method:
+		if(scores.length==0) {
+			System.out.println("No numbers sent to this method");
+			return Optional.empty(); //return an optional value with no values
+		}
+		System.out.println("Numbers have been sent to this metohd");
+		
+		int sum=0;
+		for(int score:scores)
+			sum+=score;
 		
 		
-		
-		
-		
-		
-		
-		
+		return Optional.of((double)sum/scores.length); //return the avarage as a double to the optional
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
