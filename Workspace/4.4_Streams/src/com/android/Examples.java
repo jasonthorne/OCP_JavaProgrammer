@@ -125,7 +125,7 @@ public class Examples {
 		});
 		
 		System.out.println();
-		//randAnimal.forEach(System.out::println); //infinate loop
+		//randAnimal.forEach(System.out::println); //infinite loop
 		
 		randAnimal.limit(4).forEach(System.out::println);
 		
@@ -147,6 +147,72 @@ public class Examples {
 		List<Animal>animalList=new ArrayList<Animal>();
 		randAnimal.limit(10).forEach((a1)->animalList.add(a1));
 	
+		
+	}
+	
+	
+	static void ex3() {
+		
+		System.out.println("\nex3()");
+		
+		//============================================ITERATE +++++++++++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * Iterate can be used fro creating streams. 
+		 * Iterate for streams takes 2 params; A seed (which will be a starting value), and a unary operator 
+		 * (a unirary operatoe takes an aobject and returns an object the same type)
+		 * 
+		 * In this case we have a starting seed of the number 1, and add 2 to the number each time, which produces an infinate stream of odd numbers. 
+		 * starting at 1 -> 1+2=3, 3+2=5 etc..
+		 */
+		
+		//Starting at number 1, take in n and return n+2.
+		Stream<Integer>oddNumbers=Stream.iterate(1, (n)->n+2);
+		//This will print out an infinite number of odd numbers:
+		//oddNumbers.forEach(System.out::println);
+		
+		
+		oddNumbers.limit(25).forEach(System.out::println); //print 25 odd numbers
+		
+		//Produce 25 even numbers: ====================================
+		
+		Stream<Integer>evenNumbers=Stream.iterate(2, (n)->{
+			Integer number=(int)(Math.random()*1000);
+			/*
+			 * using modulus to determine if the number is even
+			 */
+			
+			/*
+			 * one method:
+			if(number%2==0)
+				return number;
+			else
+				return number+1;
+			*/
+			
+			//another method:
+			
+			//if the number %2 is 0, the number is even, and return it
+			//else the number is odd, so add 1 to the number and return that.
+			return number%2==0?number:number+1;
+			
+			
+		});
+		
+		//print 25 even numbers:
+		System.out.println("");
+		//evenNumbers.limit(25).forEach(System.out::println); 
+		
+		//filter:
+		//evenNumbers.filter((n)->n%10==0).forEach(System.out::println); 
+		
+		
+		
+		//--------------+++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		List<String>people=new ArrayList<>(Arrays.asList("bill", "ben", "bob", "cuthbert"));
+		//filter out the objects that are greater than 4 in length:
+		people.stream().filter(s->s.length()>3).forEach(System.out::println);
 		
 	}
 
