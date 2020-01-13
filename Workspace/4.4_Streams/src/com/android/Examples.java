@@ -330,11 +330,37 @@ public class Examples {
 		
 		//This produces an infinite amount of integers, so thee is no max or min: 
 		//Stream.iterate(2, n->n+2).forEach(System.out::println);
-		
+		/*
+		 * Min takes a comparator which is an interface that only has one abstract method inside it: <T>long compare(T t1, T t2)
+		 * Below we take in 2 ints n1 & n2 
+		 * and use the compareTo method of the Integer class that takes an Integer in this case and compares it with the Integer calling the method.
+		 * The integer class implements the comparable interface, and compareTo is a method of the Comparable interface. 
+		 */
 		
 		//---------
 		//taking in a comparator (that takes in 2 objects and returns whichever is deemed to be the target value)
 		Optional<Integer>mini=numStream.min((n1,n2)->n1.compareTo(n2));
+		System.out.println("minimum number is: " + mini.get());
+		
+		//alternative shorthand version of above:
+		numStream=Stream.of(234,56,11,2,6,99); //reset stream first!! 
+		mini=numStream.min((n1,n2)->n1-n2);
+		System.out.println("minimum number (alt shorter version) is: " + mini.get());
+		
+		//--------MAX:
+		
+		Optional<Integer>maxi=Stream.of(234,56,11,2,6,99).max((n1,n2)->n1.compareTo(n2));
+		System.out.println("maxi is: " + maxi.get());
+		
+		//alternative shorthand version of above:
+		maxi=Stream.of(234,56,11,2,6,99).max((n1,n2)->n1-n2);
+		System.out.println("maxi (alt shorter version) is: " + maxi.get());
+		
+		
+		//=============================================
+		//Another example:
+		
+		
 
 	}
 
