@@ -85,7 +85,7 @@ public class Examples {
 	
 	
 	static void ex2() {
-		
+		//++++++++++++++++++++++++++++++++++++++++++++++GENERATE +++++++++++++++++++++++++++++++++++++++++++++++++++++
 		System.out.println("\nex2()");
 		
 		//=========================produce random numbers between 1 & 100
@@ -112,7 +112,7 @@ public class Examples {
 		//LIMIT +++++++++++++++++++++++++++++
 		
 		/*
-		 * limit is an INTERMEDIATE operation that doesn't run until the stream hits a terminal operation. 
+		 * limit is an INTERMEDIATE operation that doesn't run until the stream hits a TERMINAL operation. 
 		 */
 		randoms.limit(10).forEach(System.out::print);
 		System.out.println();
@@ -215,5 +215,106 @@ public class Examples {
 		people.stream().filter(s->s.length()>3).forEach(System.out::println);
 		
 	}
+	
+	
+	static void ex4() {
+		
+		//++++++++++++++++++++++++++++++EFFECTIVELY CLOSED +++++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * Each intermediate operation on a stream creates a new stream and effectively closes the stream it is operating on.
+		 */
+		
+		
+		System.out.println("\nex4()");
+		
+		//supplier object:
+		Supplier<Animal>supAnimal=()->{
+			int num = (int)(Math.random()*100);
+			return new Animal(num, "Andy"); //generate an Animal with a random age between 1 and 100
+		};
+		
+		//create stream from supplier object:
+		Stream<Animal>randAnimal=Stream.generate(supAnimal); //////produces stream A
+		
+		//limit to 20
+		randAnimal.limit(20); //////produces stream B (which EFFECTIVELY CLOSES stream A)
+		
+		//filter those 20 where age > 20
+		//randAnimal.filter(a->a.age>20); //falls over because stream A is effectively closed (as it's already been operated on)
+		
+	
+		///randAnimal.forEach(System.out::println); //falls over as well as stream A is effectively closed
+		
+		
+		//---------------------
+		
+		
+		
+		//redefine randAnimal
+		randAnimal=Stream.generate(supAnimal); //////produces stream A (assigned to randAnimal) 
+		randAnimal= randAnimal.filter(a->a.age>20); ///produces stream B (assigned to randAnimal) 
+		randAnimal= randAnimal.limit(5);  ///produces stream c (assigned to randAnimal) 
+		System.out.println("print 5 animals:");
+		
+		randAnimal.forEach(System.out::println); //this is calling stream C
+		System.out.println();
+		
+		//shorthand of above:
+		Stream.generate(supAnimal).filter(a->a.age>20).limit(5).forEach(System.out::println); 
+		
+		
+		//-------------
+		
+		/*
+		 * You cant assign the below code to anything as the final method call is what determines what the line of code as a whole returns.
+		 * forEach returns VOID, so this CANNOT BE assigned to any variable.
+		 */
+		
+		Stream.generate(supAnimal).filter(a->a.age>20).limit(5).forEach(System.out::println);
+		
+		//answer to above problem: 
+		List<Animal>animals = new ArrayList<Animal>(); //list for storing animals from stream
+		
+		Stream.generate(supAnimal).filter(a->a.age>20).limit(5).forEach((a->{
+			System.out.println(a);
+			animals.add(a); //add amimal to list
+		}));
+		
+	}
+	
+	
+	static void ex5() {
+		
+		//++++++++++++++++++++++++++++++OTHER TERMINAL OPERATIONS +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex5()");
+		
+		
+		//=====================================REDUCTIONS
+		
+		/*
+		 * Reductions are a special type of terminal operation where all the objects created by the stream are combined into a single value
+		 */
+		
+		//COUNT - counts the amount of objects in a stream and it returns a long. 
+		//count is a REDUCTION
+		//count is a TERMINAL OPERATION
+		
+		Stream<Integer>numStream=Stream.generate(()->(int)(Math.random()*100)).limit(15);
+		System.out.println("amount of objects created: " + numStream.count());
+		
+		/*
+		 * Terminal operation executes the code and closes the stream
+		 */
+		
+		//random numbers (0-99),limited to 20, and filtered  by number is > 50:
+		numStream=Stream.generate(()->(int)(Math.random()*100)).limit(20).filter((i)->i>50);
+		
+		System.out.println(numStream.count());
 
+	}
+
+	
+	
 }
