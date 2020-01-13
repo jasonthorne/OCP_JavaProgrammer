@@ -2,8 +2,10 @@ package com.android;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -360,8 +362,55 @@ public class Examples {
 		//=============================================
 		//Another example:
 		
+		//supplier object:
+		Supplier<Animal>supAnimal=()->{
+			int num = (int)(Math.random()*100);
+			return new Animal(num, "Andy"); //generate an Animal with a random age between 1 and 100
+		};
 		
-
+		
+		System.out.println();
+		List<Animal>zoo = new ArrayList<Animal>();
+		//below produces 10 animals that are added to the list of animals called zoo
+		Stream.generate(supAnimal).limit(5).forEach((a)->{
+			zoo.add(a);
+			System.out.println(a);
+		});
+		
+		System.out.println("\nanimal with max age is: " + zoo.stream().max((a1,a2)->a1.age-a2.age).get());
+		
+		//Can't use compareTo with Animal as Animal hasnt implemented the Comparable Interface.
+		System.out.println(zoo.stream().min((a1,a2)->a1.age-a2.age).get());
+		
+		
+		
+		//=============================================
+		//IMPLEMENTING THE COMAPRE METHOD:
+		
+		Rat r1= new Rat(12,"Bob", 3.3);
+		Rat r2= new Rat(5,"Frank", 33.3);
+		Rat r3= new Rat(7,"Cuthbert", 3.33);
+		Rat r4= new Rat(5,"SPG", 3.33);
+		Rat r5= new Rat(5,"SPG", 333.33);
+		
+		List<Rat>ratList = new ArrayList<>(Arrays.asList(r1,r2,r3,r4,r5));
+		
+		System.out.println("minimun rat: " + ratList.stream().min((rat1,rat2)->rat1.compareTo(rat2)).get()); //.get() is returning the actual object as these are OPTIONALS +++++++++++
+		System.out.println("maximun rat: " + ratList.stream().max((rat1,rat2)->rat1.compareTo(rat2)).get());
+		
+		
+		//-----------
+		
+		Set<String>setStr=new HashSet<>();
+		
+		//Sets remove duplicates so only one apple is added to this set:
+		setStr.addAll(Arrays.asList("orange","apple","banana","apple", "pineapple"));
+		
+		System.out.println(setStr);
+		System.out.println(setStr.stream().min((s1,s2)->s1.compareTo(s2)).get()); //using stream to find minimum string
+		
+		
+		
 	}
 
 	
