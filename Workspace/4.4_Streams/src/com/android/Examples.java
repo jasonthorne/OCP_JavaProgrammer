@@ -3,6 +3,7 @@ package com.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -291,7 +292,7 @@ public class Examples {
 		System.out.println("\nex5()");
 		
 		
-		//=====================================REDUCTIONS
+		//=====================================COUNT
 		
 		/*
 		 * Reductions are a special type of terminal operation where all the objects created by the stream are combined into a single value
@@ -311,7 +312,29 @@ public class Examples {
 		//random numbers (0-99),limited to 20, and filtered  by number is > 50:
 		numStream=Stream.generate(()->(int)(Math.random()*100)).limit(20).filter((i)->i>50);
 		
-		System.out.println(numStream.count());
+		//numbers are created here and this closes the last stream: 
+		System.out.println(numStream.count()); //.count RETURNS A LONG (so can't be tacked onto the end of above line)
+		
+		
+		//=====================================MIN & MAX
+		
+		/*
+		 * Min method signiature looks like the following:
+		 * 
+		 *  Optional<T>min(<? super T>comparator)
+		 *  
+		 *  Has to be optional as if dealing with an infinite stream, then there is no max or min. 
+		 */
+		
+		numStream=Stream.of(234,56,11,2,6,99);
+		
+		//This produces an infinite amount of integers, so thee is no max or min: 
+		//Stream.iterate(2, n->n+2).forEach(System.out::println);
+		
+		
+		//---------
+		//taking in a comparator (that takes in 2 objects and returns whichever is deemed to be the target value)
+		Optional<Integer>mini=numStream.min((n1,n2)->n1.compareTo(n2));
 
 	}
 
