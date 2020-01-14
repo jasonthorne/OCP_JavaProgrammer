@@ -2,6 +2,7 @@ package com.android;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -339,6 +340,9 @@ public class Examples {
 		 * The integer class implements the comparable interface, and compareTo is a method of the Comparable interface. 
 		 */
 		
+		//==================comparator:
+		//Comparator<Integer>compInt=(n1,n2)->n1.compareTo(n2);
+		
 		//---------
 		//taking in a comparator (that takes in 2 objects and returns whichever is deemed to be the target value)
 		Optional<Integer>mini=numStream.min((n1,n2)->n1.compareTo(n2));
@@ -410,9 +414,74 @@ public class Examples {
 		System.out.println(setStr.stream().min((s1,s2)->s1.compareTo(s2)).get()); //using stream to find minimum string
 		
 		
+	}
+	
+	
+	static void ex6() {
+		
+		//++++++++++++++++++++++++++++++FIND ANY +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex6()");
+		
+		/*
+		 * Will display if there is any element in a stream. It doesnt take any variables. but it returns an option.
+		 * It is a terminal operator. But it is not a reduction, a it doesnt not reduce a stream to a single value, and returns an option. 
+		 */
+		
+		Stream<String>apes=Stream.of("monkey", "gorilla", "orangitang");
+		
+		apes.findAny().ifPresent((s)->System.out.println("ape is: " + s)); //Returns the first instance 
+		//shorthand version:
+		//apes.findAny().ifPresent(System.out::println);
+		
+		//----------
+		
+		apes=Stream.empty(); //empty stream
+		apes.findAny().ifPresent(System.out::println); //prints nothing as stream is empty
+		//------------
+		
+		//oe else will return a string no matter what. 
+		apes=Stream.empty(); //empty stream
+		
+		System.out.println(apes.findAny().orElseGet(()->{
+			System.out.println("no monkey");
+			return "chimp"; //if there is no string in the apes stream than this will return a chimp
+		}));
+		
+		//------------
+		
+		//redefine steam:
+		apes=Stream.of("monkey", "gorilla", "orangitang");
+		
+		//this NOW returns "monkey"
+		System.out.println(apes.findAny().orElseGet(()->{
+			System.out.println("no monkey");
+			return "chimp"; //if there is no string in the apes stream than this will return a chimp
+		}));
+		
+		//----------------
+		
+		//redefine steam:
+		apes=Stream.of("monkey", "gorilla", "orangitang");
+		
+		//this will check if the stream is empty or not:
+		System.out.println(apes.findAny().isPresent()); //returns true
+		
+		//----------------
+	
+		Stream<Integer>infinateNums=Stream.generate(()->(int)(Math.random()*100));
+		System.out.println(infinateNums.findAny().get());
+		
+		
+		//++++++++++++++++++++++++++++++FIND FRST +++++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * Returns an optional. Hasto be optional as this may be an empty string.
+		 */
+		
+		ArrayList<Animal>listAnimal=new ArrayList<Animal>();
 		
 	}
-
 	
 	
 }
