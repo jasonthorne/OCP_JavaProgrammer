@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -480,8 +481,170 @@ public class Examples {
 		 */
 		
 		ArrayList<Animal>listAnimal=new ArrayList<Animal>();
+		Stream.generate(()->new Animal()).limit(5).forEach((a)->{
+			System.out.println("animal " + a + "is added to the arraylist");
+			listAnimal.add(a);
+		});
+		
+		System.out.println(listAnimal);
+		System.out.println(listAnimal.stream().findFirst().orElseGet(null));
+		
 		
 	}
+	
+	
+	static void ex7() {
+		
+		//++++++++++++++++++++++++++++++TERMINAL OPERATIONS - anyMatch(), allMatch(), noneMatch() +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex7()");
+		
+		System.out.println("TERMINAL OPERATIONS - anyMatch(), allMatch(), noneMatch()");
+	
+		//anyMatch()
+		
+		//If any item in a stream matches what this predicate is looking for, this will return true (i.e looking for ANY dog with the name of "spot")
+		/*
+		 * boolean anyMatch(Predicate<? super T> predicate)
+		 *
+		 */
+		
+		//allMatch()
+		
+		/*
+		 * If ALL items in a stream match what this predicate is looking for, this will return true (i.e are ALL dogs in a stream called "spot")
+		 */
+		/*
+		 * boolean allMatch(Predicate<? super T> predicate)
+		 *
+		 */
+		
+		//noneMatch()
+		/*
+		 * If NO items in a stream match what this predicate is looking for, this will return true (i.e are NO dogs in a stream called "spot")
+		 */
+		/*
+		 * boolean allMatch(Predicate<? super T> predicate)
+		 *
+		 */
+		
+		
+		//-------------examples:
+		
+		List<String>list=Arrays.asList("monkey", "2", "chimp");
+		Stream<String>infinite=Stream.generate(()->"chimp");
+		Stream<String>streams=Stream.of("monkey", "2", "chimp");
+		
+		Predicate<String>pred=x->Character.isLetter(x.charAt(0));
+		
+		//allMatch()
+		//checks if ALL entries in the list contain characters. they dont, so this will return false ++++++++++++++++++++++
+		System.out.println(list.stream().allMatch(pred)); //false
+		
+		
+		//noneMatch()
+		//checks if all strings in the list do NOT begin with a character. 2 do, so this will return false ++++++++++++++++
+		System.out.println(streams.noneMatch(pred)); //false, and streams is now closed. 
+		
+		
+		//anyMatch()
+		//checks if ANY of the strings in the list begin with a character. 2 do, so this will return true ++++++++++++++++
+		System.out.println(list.stream().anyMatch(pred)); //true
+		
+		//You CAN USE anyMatch with an infinite stream //+++++++++++++++++++++++++++++++
+		System.out.println(infinite.anyMatch(pred));
+		infinite=Stream.generate(()->"chimp");
+		
+		
+		//You CANT answer allMatch as it would go on indefinitely so wont ever give answer:
+		//System.out.println(infinite.allMatch(pred));
+		
+		
+		//none match wont work
+		System.out.println(infinite.noneMatch(pred)); //false
+
+	}
+	
+	
+	
+	static void ex8() {
+		
+		//++++++++++++++++++++++++++++++To Array() +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex8()");
+	
+		Stream<String>names=Stream.of("bill", "bob", "cuthbert");
+		
+		//String[]nameArray=names.toArray();
+		
+	
+	}
+	
+	
+	static void ex9() {
+		
+		//++++++++++++++++++++++++++++++FOR EACH() +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex9()");
+	
+		
+		/*
+		 * forEach takes a consumer (a consumer takes an object and returns void)
+		 */
+		
+		Stream<String>animalStream = Stream.of("monkey", "gorilla", "bonobo");
+		
+		List<String>animals=new ArrayList<String>();
+		
+		animalStream.forEach((s)->animals.add(s)); //for each 
+		
+		animalStream = Stream.of("monkey", "gorilla", "bonobo"); //reset stream
+		
+		animalStream.forEach(animals::add); //shortened version of for each 
+		
+		System.out.println("animals is: " + animals);
+		
+		//-------------
+		
+		animals.stream().forEach((s)->{
+			System.out.println("animal is: " + s);
+			System.out.println("animal lives in a " + s + " house");
+
+			//this leads to a ConcurrentModificationExcpetion as you cant access a collection object by name directly inside a string:
+			//animals.add(s);
+		});
+		
+		
+		/**
+		 * FOREACH IS NOT A LOOP IN JAVA
+		 */
+		
+		//++++++++++++++++++++++++++++++FOR EACH() ORDERED +++++++++++++++++++++++++++++++++++++++
+		
+		//This is for parallel streams
+		
+		//this creates a 2nd paralel stream, and runs it alongside the original:
+		animals.parallelStream().forEach((s)->System.out.println("not in order " + s));
+		
+		//this creates a parallel stream, but runs them one after the other, in ordered format 
+		animals.parallelStream().forEachOrdered((s)->System.out.println("in order " + s));
+		
+		/*
+		 * You can call a forEach ordered on a nonparallel stream, but it operates exactly the sme as on a parallel stream.
+		 */
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
