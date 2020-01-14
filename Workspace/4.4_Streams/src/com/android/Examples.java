@@ -633,16 +633,42 @@ public class Examples {
 		 * You can call a forEach ordered on a nonparallel stream, but it operates exactly the sme as on a parallel stream.
 		 */
 		
-		
-		
 	}
 	
 	
 	
+	static void ex10() {
+		
+		//++++++++++++++++++++++++++++++REDUCE +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex10");
+		
+		/*
+		 * Three overloaded methods:
+		 * 
+		 *FIRST OVERLOADED REDUCE:
+		 *
+		 * this returns an object of type t, and takes 2 parameters:
+		 * first is an object Type t, and a binary operator,
+		 * and the binary operator takes 2 objects of the same type T and returns one object of type T. 
+		 * <T> t reduce (T identity, BinaryOperator<T>accumulator)
+		 * 
+		 * Stream<Integer>intStream=Stream.generate().limit(10).reduce(0,(n1,n2)->n1+n2);
+		 * 
+		 * SECOND OVERLOADED REDUCE:
+		 * 
+		 * Optional<T> reduce(BinaryOperator<T>Accumulator)
+		 * 
+		 * This returns an optional object of type T and takes only ONE parameter, which is a binaryOperator,
+		 * a binary operator takes in 2 objects of type t and returns one object of type t. 
+		 * 
+		 */
+		
+		Optional<Integer>optInt=Stream.iterate(1, n->n*10).limit(5).peek(System.out::println).reduce((n1, n2)->n1+n2);
+		System.out.println(optInt.get());
 	
 	
-	
-	
+	}
 	
 	
 	
