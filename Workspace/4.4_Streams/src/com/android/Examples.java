@@ -733,7 +733,7 @@ public class Examples {
 		System.out.println(optSum.orElseGet(()->0));
 		
 		
-		//==========================================================================================================
+		//=---------------------------
 		
 		List<Integer>numbers=new ArrayList<Integer>();
 		
@@ -742,10 +742,47 @@ public class Examples {
 		
 		sum=numbers.stream().peek(System.out::println).reduce(1,biOp);
 		System.out.println("sum is: " + sum);
+		
+		
+		//--------------------------------
+		
+		//THIRD OVERLOADED REDUCE METHOD - for parallel streams but will work on ordinary streams. but you dont gr the cost benefit if used with ordinary streams 
+		
+		/* +++++++++++++++++++++++++++++++++++++++++++++++++
+		 * returns a U, takes in a U and a BiFunction (which takes in a U, a T (which can be the same as U, or a super of it), and returns a U)
+		 *  and a BinaryOperator, which takes in U.
+		 *  
+		 *  
+		 * <U> U reduce(U identity, BiFunction<U, ? super T, U>, BinaryOperator<U>accumulator)
+		 */
+		
+		//example:
+		sum=numbers.parallelStream().reduce(1, biOp, biOp);
+		System.out.println("sum produced by paralell streams is: " + sum);
 	
 	}
 	
 	
+	static void ex11() {
+		
+		//++++++++++++++++++++++++++++++COLLECT +++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex11");
+		
+		/*
+		 * Collect is something called a "mutable reduction"
+		 * 
+		 * It's working on the same object, so it's more effecient as you are using the same mutable object.
+		 * 
+		 * there are 2 different overloaded collect methods that do the same thing:
+		 * 
+		 * <R> collect(Supplier<R> supplier, BiConsumer<R, ? superT>)
+		 * 
+		 */
+		
+		
+	
+	}
 	
 	
 }
