@@ -34,7 +34,8 @@ public class Main {
 		//Examples.ex7();
 		//Examples.ex8(); //needs done
 		//Examples.ex9();
-		Examples.ex10();
+		//Examples.ex10();
+		Examples.ex11();
 
 	}
 

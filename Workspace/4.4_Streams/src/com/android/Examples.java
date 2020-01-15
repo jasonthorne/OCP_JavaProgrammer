@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+
 public class Examples {
 	
 	static void ex1() {
@@ -776,12 +777,81 @@ public class Examples {
 		 * 
 		 * there are 2 different overloaded collect methods that do the same thing:
 		 * 
-		 * <R> collect(Supplier<R> supplier, BiConsumer<R, ? superT>)
+		 * <R> collect(Supplier<R> supplier, BiConsumer<R, ? superT>,  BiConsumer<R,R> combiner)
 		 * 
 		 */
 		
+		//Example with stringbuilder:
+		StringBuilder sb = new StringBuilder("yo");
 		
-	
+		Stream<String>stream=Stream.of("who's" + " afraid" + " of" + " virginia" + " wolf");
+		//a is stringbuilder (created in first arg), b is string. Both passed into biConsumer (with returns a appended to b) 
+		StringBuilder word = stream.collect(()->new StringBuilder(), (a, b)->a.append(b), (b,c)->b.append(c));
+		
+		System.out.println(word);
+		
+		
+		//-------------
+		
+		//Example with TreeSet:
+		
+		List<String>list2 = Arrays.asList("W", "o", "l", "f");
+		//list 2 is a list of type String, so the created treeset (supier obj passed to collect)is of type String.
+		//b is a string
+		
+		//noel's notes:
+		/*
+		 * 1st arg: creates a treeset
+		 * 2nd: treeset and number in stream passed into biConsumer
+		 */
+		TreeSet<String>	set2 = list2.stream().collect(()->new TreeSet<>(), (a,b)->a.add(b), (a,b)->a.addAll(b));
+		
+		System.out.println(set2);
+		
+		//-----------
+		//shorthand version of above:
+		set2 = list2.parallelStream().collect(TreeSet::new, TreeSet::add, TreeSet::addAll);
+		
+		
+		//=====================OTHER TYPE OF COOLECT METHOD:+++++++++++++++++++++++++++++++++//adds collection to a list, set etc...
+		//Stream<integer>
+		
+		
+		//Set<Integer>set3=Stream.generate(()->(int)(Math.random()*100)).limit(5).peek(System.out::println).collect(Collectors.toSet()));
+		
+		//TreeSet<Integer>set3=Stream.generate(()->(int)(Math.random()*100)).limit(5).peek(System.out::println).collect(Collectors.toCollection(()->new TreeSet()));
+		
+		//System.out.println(set3);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	
