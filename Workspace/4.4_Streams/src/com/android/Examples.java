@@ -822,35 +822,7 @@ public class Examples {
 		//TreeSet<Integer>set3=Stream.generate(()->(int)(Math.random()*100)).limit(5).peek(System.out::println).collect(Collectors.toCollection(()->new TreeSet()));
 		
 		//System.out.println(set3);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 	}
 	
