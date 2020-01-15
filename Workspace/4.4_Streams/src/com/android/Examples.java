@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -663,10 +665,83 @@ public class Examples {
 		 * a binary operator takes in 2 objects of type t and returns one object of type t. 
 		 * 
 		 */
-		
+		//peek is for debugging.
+		//needs to be an optional as it's NOT GIVEN A STARTING VALUE, so may return blank +++++++++++++++++++++++++++++++++++++++
 		Optional<Integer>optInt=Stream.iterate(1, n->n*10).limit(5).peek(System.out::println).reduce((n1, n2)->n1+n2);
 		System.out.println(optInt.get());
-	
+		
+		//-------------------
+		//exmple here is concatenating all the strings in the array to one string.
+		String[]array = new String[] {"who's", " afraid", " of", " virginia", " wolf"};
+		String result = "";
+		for(String s: array)
+			result = result+s;
+		System.out.println(result);
+		
+		//---
+		
+		//we use the reduce method to do the same thing:
+		//create stream from array:
+		String myString=Stream.of(array).reduce("",(s1, s2)->s1+s2);
+		System.out.println(myString);
+		
+		//-------------------
+		
+		List<Integer>intList=new ArrayList<Integer>();
+		
+		/*
+		 * This is creating 10 random numbers and adding them to the already create int list.
+		 */
+		Stream.generate(()->(int)(Math.random())*100).limit(10).peek(System.out::println).forEach((i)->{
+			intList.add(i);
+		});
+		
+		//---------------------------------------------
+		
+		TreeSet<Integer>tInt=new TreeSet<>();
+		Stream.generate(()->(int)(Math.random())*100).limit(10).peek(System.out::println).forEach((i)->{
+			tInt.add(i);
+		});
+		
+		System.out.println("treeset of ints is: " + tInt);
+		
+		/*
+		 * Only objects whos class implements the comparable interface can be inserted into a treeset, 
+		 * and objects are then organised in a Treeset as deemed by the compareTo method.
+		 */
+		
+		TreeSet<Rat>ratSet = new TreeSet<>();
+		
+		TreeSet<Animal>animalSet=new TreeSet<>();
+		ratSet.add(new Rat()); //CANE BE ADDED as this implements comparable +++++++++++++++++++++++
+		//animalSet.add(new Animal()); //class cast exception as Animal doesnt implement comparable (is allowed though as it COULd implement it)
+		
+		animalSet.add(new Badger()); //CAN be added to treeSEt as this implements comparable
+		
+		//-----------
+		/*
+		 * If you want sum to be a definite number you have to use a reduce method that takes an Integer and a binaryOperator<Integer>
+		 */
+		int sum = tInt.stream().reduce(0,(a,b)->a+b);
+		System.out.println("our numbers are: " + tInt);
+		System.out.println("sum of which is: " + sum);
+		
+		/*
+		 * If you use this method it produces an Option, so you have to use orElseGet or use get in combination with an if statement or ternary operator
+		 */
+		Optional<Integer>optSum=tInt.parallelStream().reduce((a,b)->a+b);
+		System.out.println(optSum.orElseGet(()->0));
+		
+		
+		//==========================================================================================================
+		
+		List<Integer>numbers=new ArrayList<Integer>();
+		
+		Stream.generate(()->(int)(Math.random()*100)).limit(10).forEach(numbers::add);
+		BinaryOperator<Integer>biOp=(a,b)->a*b; //takes in both numbers and multiplies them.
+		
+		sum=numbers.stream().peek(System.out::println).reduce(1,biOp);
+		System.out.println("sum is: " + sum);
 	
 	}
 	

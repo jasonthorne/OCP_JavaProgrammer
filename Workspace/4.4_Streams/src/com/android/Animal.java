@@ -35,6 +35,10 @@ class Rat implements Comparable<Rat>{
 		this.weight = weight;
 	}
 
+	public Rat() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "Rat [weight=" + weight + ", age=" + age + ", name=" + name + "]";
@@ -96,5 +100,16 @@ class Rat implements Comparable<Rat>{
 	}
 	
 
+	
+}
+
+
+class Badger extends Animal implements Comparable<Badger>{
+
+	@Override
+	public int compareTo(Badger arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }
