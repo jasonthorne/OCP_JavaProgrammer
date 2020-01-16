@@ -803,6 +803,10 @@ public class Examples {
 		/*
 		 * 1st arg: creates a treeset
 		 * 2nd: treeset and number in stream passed into biConsumer
+		 * 3rd is for parallel streams. If you have parallel streams instead of streams you will have a few different treesets being processed at the sme time. 
+		 * (in  a stream of 100 strings, one stream processes 25, another 25 etc.. so you'd end up with 4 treesets.)
+		 * so this parameter is used to merge the 4 treesets to our final one treeset.
+		 * 
 		 */
 		TreeSet<String>	set2 = list2.stream().collect(()->new TreeSet<>(), (a,b)->a.add(b), (a,b)->a.addAll(b));
 		
