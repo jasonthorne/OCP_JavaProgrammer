@@ -283,7 +283,33 @@ public class Examples {
 		
 		//----------------
 		
-		Stream
+		//This produces a list of Strings that are our 3 lists of Strings flattened out to become one stream,
+		//from which we create a list of Strings that contains all of our apes:
+		List<String>apeList=Stream.of(zero,one,two).flatMap(l->l.stream()).collect(Collectors.toList());
+		System.out.println(apeList);
+		
+		
+		//--------------
+		
+		//FLATTENING STREAMS:
+		
+		Stream<Integer>s1 = Stream.of(2);
+		Stream<Integer>s2 = Stream.iterate(1, n->n+2).limit(5); //will produce 1,3,5,7,9
+		Stream<Integer>s3 = Stream.generate(()->(int)(Math.random()*100)+1).limit(4); //produce 4 random numbers between 1 and 100.
+		
+		//this just prints the addresses of these streams:
+		System.out.println(s1 + "" + s2 + "" + s3);
+		
+		
+		//to flatten out these streams:
+		Stream.of(s1,s2,s3).flatMap((s)->s).forEach(System.out::println);
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
