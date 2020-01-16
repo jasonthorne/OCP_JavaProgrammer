@@ -95,7 +95,7 @@ public class Examples {
 			
 			
 			/*
-			 * We have overriden the equals method of the Cat class, so those cats with the same age & weight will be said to be the same. 
+			 * We have overridden the equals method of the Cat class, so those cats with the same age & weight will be said to be the same. 
 			 */
 			
 			Cat cat1 = new Cat(1, 2);
@@ -115,7 +115,7 @@ public class Examples {
 			/*
 			 * This will produce 100 random random numbers between 0 - 100 (but not include 100), 
 			 * we have said it will be distinct, so this means we will get all possible numbers. 
-			 * We then save them in a treeSet, which will organise them in ascending numeric order.
+			 * We then save them in a treeSet, which will organise them in ascending numeric order. 
 			*/
 			
 			List<Integer>test = Stream.generate(()->(int)(Math.random()*100)).distinct().limit(100).sorted().collect(Collectors.toCollection(ArrayList::new));
@@ -123,11 +123,35 @@ public class Examples {
 			
 			//------------------------
 			
-			//6 random numbers from 
+			//6 random numbers from a pool of numbers 1-47 inclusive
 			List<Integer>lotto = Stream.generate(()->(int)(Math.random()*100)+1).filter(i->i<48).distinct().limit(6).collect(Collectors.toList()); 
 			System.out.println("The lotto numbers are: " + lotto);
 			
 	}
 	
+	
+	static void ex3() {
+		
+		//===========================SKIP=======================
+
+		System.out.println("\nex3()");
+		
+		/*
+		 * This is an intermediate operation that returns a stream and takes an int.
+		 * and simply skips that amount of items. 
+		 * eg: you have a stream of 10 items, and you go: myStream.skip(5). This will skip the first 5 objects.
+		 */
+		
+		//this is an infinite stream that begins at 2 and increments by 2, so will print out all even numbers. 
+		Stream<Integer>intStream = Stream.iterate(2, n->n+2);
+		
+		//skips first 4 results, then prints out the next 4.
+		intStream.skip(4).limit(4).forEach(System.out::println);
+		
+		//the other way around, it skips the first 4 that it's been limited to, so prints nothing. +++++++++++++++++
+		intStream = Stream.iterate(2, n->n+2);
+		intStream.limit(4).skip(4).forEach(System.out::println);
+			
+	}
 
 }
