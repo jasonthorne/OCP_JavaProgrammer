@@ -2,6 +2,7 @@ package com.android;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.TreeSet;
@@ -151,7 +152,130 @@ public class Examples {
 		//the other way around, it skips the first 4 that it's been limited to, so prints nothing. +++++++++++++++++
 		intStream = Stream.iterate(2, n->n+2);
 		intStream.limit(4).skip(4).forEach(System.out::println);
+		
+		
+		//------------------
+		
+		//LIMIT WITH SKIPPING: 
+		System.out.println("\nlimit with skipping:");
+		intStream = Stream.iterate(2, n->n+2);
+		
+		//skips first 15, then takes the next 10 numbers and uses only the numbers that are divisible by 10
+		intStream.skip(15).limit(10).filter(i->i%10==0).forEach(System.out::println);
+		
+		//LIMIT AND SKIP SKIP 10 NUMBERS: 
+		System.out.println("\nlimit and skip 10 numbers:");
+		intStream = Stream.iterate(2, n->n+2);
+		
+		//skips first 15, then uses only the numbers that are divisible by 10, then limit them to 10 numbers:
+		intStream.skip(15).filter(i->i%10==0).limit(10).forEach(System.out::println);
 			
 	}
+	
+	
+	
+	static void ex4() {
+		
+		//===========================MAP=======================
 
+		System.out.println("\nex4()");
+		
+		/*
+		 * Map translates a stream of a certain type into a stream of another type. (take in a stream of cats output a stream of dogs)
+		 * 
+		 *returns a Stream of type R. takes a function (which takes an obj of type T and returns an obj of type R)
+		 * <R> Stream<R> map(Function<T,R>mapper)
+		 * 
+		 * i.e we are taking in a stream of Strings and returning a stream of Integers.
+		 * R would be the Integer, T would be a String
+		 * 		
+		 */
+		
+		List<String>apes=new ArrayList<>();
+		apes.addAll(Arrays.asList("monkey", "gorilla", "bonobo", "marmot"));
+		
+		/*
+		 * below takes in a string ("monkey", "gorilla" etc) and returns the length of each string which is an integer. 
+		 * So this map method takes in a stream of strings and returns a stream of integers.
+		 */
+		
+		List<Integer>apeInt= apes.stream().map(x->x.length()).collect(Collectors.toList());
+		
+		System.out.println("apeInt: " + apeInt);
+		
+		//-------------------------------
+		
+		/*
+		 * This takes in a stream of strings (x) and returns a stream of integers, which will be the hashcode method of each string in the stream. 
+		 */
+		apeInt=apes.parallelStream().map(x->x.hashCode()).collect(Collectors.toList());
+		
+		System.out.println("apeInt: " + apeInt);
+		
+		//-------------------------------
+		
+		
+		apes.stream().map(x->x.concat(" the ape")).forEach(System.out::println);
+		
+		//-----------------------------
+		
+		
+		//dogs into cats:
+		
+		Dog dog1 = new Dog(3, 10);
+		Dog dog2 = new Dog(3, 10);
+		Dog dog3 = new Dog(1,5);
+		
+		Stream<Dog>dogStream=Stream.of(dog1,dog2,dog3); //stream of dog objs
+		
+		//This takes a stream of Dogs and produces a stream of cats. The method makeCat in dog creates a cat with the same age and name as the Dog.
+		//after the map method you now have a stream of Cats, so every method after map() is now operating on a stream of Cats. 
+		
+		
+		List<Cat>catList=dogStream.map(d->d.makeCat()).distinct().collect(Collectors.toList());
+		
+		System.out.println(catList);
+		
+		//-----------
+		
+		//takes a stream of integers and returns a stream of integers. 
+		Stream.generate(()->(int)(Math.random()*1000)+1).map((x)->x.doubleValue()).limit(5).forEach(System.out::println);
+		
+		
+	}
+	
+	
+	
+	
+	
+	static void ex5() {
+		
+		//===========================FLAT MAP=======================
+
+		System.out.println("\nex5()");
+		
+		/*
+		 * flattening in computing usually means changing from complex to basic. 
+		 * Flatmap is usually used to take a number of collection objects or streams and flaten them to one collection object or one steam. 
+		 * 
+		 * eg: 3 lists of Integers flattened to become one list of Integers. OR 3 TreeSets of Strings flattened to become one TreeSet of Strings.
+		 */
+		
+		
+		
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
