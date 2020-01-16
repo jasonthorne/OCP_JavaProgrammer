@@ -261,10 +261,30 @@ public class Examples {
 		 * eg: 3 lists of Integers flattened to become one list of Integers. OR 3 TreeSets of Strings flattened to become one TreeSet of Strings.
 		 */
 		
+		List<String>zero=Arrays.asList();
+		List<String>one=Arrays.asList("bonobo");
+		List<String>two=Arrays.asList("mummy gorilla", "baby gorilla", "boomer", "king kong");
 		
+		//normally only way to print 3 lists together:
+		System.out.println(zero + " "  + one + " " + two);
 		
+		//very easy to create a stream from a single list:
+		two.parallelStream().forEach(System.out::println);
 		
-	
+		//this produces NOT a stream of strings, but a stream of LISTS of strings, so any operation on this stream after this point is operating on a stream of lists. 
+		Stream.of(zero,one,two).collect(Collectors.toList());
+		
+		/*
+		 * What flatmap does is puts all the strings into one stream of strings. So it flattens out the lists of strings.
+		 */
+		
+		// s is a list of strings, and it produces a stream of strings , made from all of the string lists passed into it
+		Stream.of(zero,one,two).flatMap(l->l.stream()).peek((s)->System.out.println("ape is "+ s)).filter(s->s.startsWith("b")).forEach(System.out::println);
+		
+		//----------------
+		
+		Stream
+		
 	}
 	
 	
