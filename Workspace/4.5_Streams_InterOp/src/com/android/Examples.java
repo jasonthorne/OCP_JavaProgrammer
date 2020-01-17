@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -306,22 +308,166 @@ public class Examples {
 		
 		
 		
-		
-		
-		
-		
-		
 	}
 	
 	
+	static void ex6() {
+		
+		//===========================COMPARE TO=======================
+
+		System.out.println("\nex6()");
+		
+		/*
+		 * this returns the stream with the elements sorted.+
+		 * Only streams that contain objects that have implemented the comparable interface can usethis method
+		 * OR have a comparator defined for objects of this class. 
+		 * There are two overloaded sort methods:
+		 * Stream<T> sorted() - only classes that implement the comparable interface can use this overloaded sorted method. 
+		 * Stream<T> sorted(Comparator<? super T> comparator)
+		 */
+		
+		System.out.println("built in classes that use sorted: ");
+		Stream<String>animals=Stream.of("dog", "anteater", "bear", "cat");
+		
+		
+		//This will sort the strings in their natural order (non numeric, numeric, uppercase, lowercase)
+		//This is the FIRST overloaded method of the ComparaBLE interface +++++++++++++++++++++++++++++++++
+		animals.sorted().forEach(System.out::println);
+		
+		animals=Stream.of("dog", "anteater", "bear", "cat"); //reset stream
+		//This is the SECOND overloaded method of the ComparaBLE interface +++++++++++++++++++++++++++++++++
+		//it is a static method of the comparator interface ++++++++++++++++++++++++++++
+		animals.sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		
+		//=================================
+		//Employees example:
+		
+		Employee emp1 = new Employee(44, "eddie");
+		Employee emp2 = new Employee(34, "edel");
+		Employee emp3 = new Employee(23, "etna");
+		
+		Stream<Employee>empStream=Stream.of(emp1,emp2,emp3);
+		
+		//gives a ClassCastException because Employees DO NOT implement the comparable interface, or have a Comparator+++++++++++++++++++++++++++++++++ 
+		//empStream.sorted().forEach(System.out::println);
+		
+		//--------------------
+		
+		//Cats example:
+		
+		Cat tibbles = new Cat(1,2);
+		Cat harry = new Cat(1,1);
+		Cat mary = new Cat(2,2);
+		Cat kate = new Cat(2,1);
+		
+		//this will generate a class cast exception, as Cat doesnt implement comparable, and we dont yet have a comparator for cat. 
+		///Stream.of(tibbles,harry,mary,kate).sorted().forEach(System.out::println); +++++++++++++
+		
+		//making a Comparator object for our cat:
+		Comparator<Cat>catComparator= new Comparator<Cat>() {
+
+			@Override
+			public int compare(Cat c1, Cat c2) {
+				
+				/*
+				 * below will be a minus number if 1st cat is greater than 2nd.
+				 * will be a plus number if 2nd cat is greater than 1st cat
+				 * and 0 if both cats are the same
+				 */
+				int result;
+				
+				if(!c1.equals(c2)) { //if they're NOT the same cats: (according to the overriden equals method in the Cat class.)
+					result = c1.age - c2.age;
+					if(result!=0) //if one is bigger than the other, return result
+						return result;
+					return c1.weight - c2.weight;
+				}
+				return 0;
+			}
+			
+		};
+		
+		System.out.println("using the Cat comparator");
+		//using the cat comparator:
+		
+		Stream.of(tibbles, harry, mary, kate, mary).sorted(catComparator).forEach(System.out::println);
+		
+		System.out.println();
+		//remove duplicates with .distinct()
+		Stream.of(tibbles, harry, mary, kate, mary).sorted(catComparator).distinct().forEach(System.out::println);
+		
+		//------------
+		
+		//remove duplicates by dumping into a Set:
+		Set<Cat>catSet=Stream.of(tibbles, harry, mary, kate, mary).sorted(catComparator).collect(Collectors.toSet());
+		System.out.println("\nunique set of cat: " + catSet);
+		
+		
+		//==================================
+		
+		System.out.println("Dogs:");
+		
+		Dog spot = new Dog(1,2);
+		Dog rex = new Dog(1,1);
+		Dog prince = new Dog(2,2);
+		Dog benji = new Dog(2,1);
+		
+		/*
+		 * The Dog class implements the Comparable interface so we can use the no arguments sorted method: 
+		 */
+		Stream.of(spot,rex,prince,benji).sorted().forEach(System.out::println);
+
+	}
 	
 	
+	static void ex7() {
+		
+		//===========================PEEK=======================
+
+		System.out.println("\nex7()");
+		
+		/*
+		 * Peek allows us to look at the stream and is not a terminal operation like forEach()
+		 * 
+		 * Stream<T> peek(Consumer<? super T> action)
+		 */
+		
+		Stream<String>stream=Stream.of("orange", "apple", "carrot", "cabbage");
+		//forEach is a terminal operator, so you CANT call any other operations on his stream. 
+		stream.forEach(System.out::println);
+		
+		
+		Stream<Cow>cowStream=Stream.of(new Cow(), new Cow(), new Cow());
+		cowStream.peek((Animal a) ->{ //peek can take Cow OR a SUPERCLASS of cow +++++++++++++++++++++++++++++++++++++++
+			System.out.println("this can take a superclass of Cow");
+			a.run();
+			//a.milk(); //wont work as this is an Animal not a Cow
+		}).count(); //peek will not run without a terminal operation such as count
+		
+		
+		//----------------------------------
+		//this can take objects of both Cows and animals. But can only call methods of the animal class
+		Stream<Animal>animalStream=Stream.of(new Animal(), new Cow());
+		animalStream.peek((Animal a)->{
+			System.out.println(a);
+			a.run();
+			//a.milk(); //wont work as this is an Animal not a Cow
+		}).count();
+				 
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+}
+
+
+class Animal{
+	void run() {
+		
+	}
+}
+
+
+class Cow extends Animal {
+	void milk() {
+		
+	}
 }

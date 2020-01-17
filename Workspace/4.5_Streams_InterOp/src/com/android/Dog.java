@@ -1,6 +1,6 @@
 package com.android;
 
-public class Dog {
+public class Dog implements Comparable<Dog>{
 	
 	int age;
 	int weight;
@@ -18,6 +18,17 @@ public class Dog {
 	
 	Cat makeCat() {
 		return new Cat(age, weight);
+	}
+
+	@Override
+	public int compareTo(Dog d) {
+		int result = age - d.age;
+		
+		if(result !=0) //if they're not the same
+			return result; //return result
+		result = weight - d.weight; //ELSE
+			return result;
+
 	}
 	
 	
