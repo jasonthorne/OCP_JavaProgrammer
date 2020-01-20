@@ -3,7 +3,10 @@ package com.android;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -144,7 +147,7 @@ public class Examples {
 
 	static void ex3() {
 		
-		//============================PRIBTING A STREAM+++++++++++++++++++++++++
+		//============================PRINTING A STREAM+++++++++++++++++++++++++
 		
 		System.out.println("\nex3()");
 	
@@ -173,22 +176,79 @@ public class Examples {
 		.limit(4) //this produces a stream of the first 4 elements 
 		.sorted() //this sorts those elements
 		.forEach(System.out::println); //print sorted elements
+		
+		//---
+		System.out.println();
+		
+		names.stream()
+		.sorted() //this sorts ALL elements in the list
+		.limit(4) //this produces a stream of the first 4 sorted elements 
+		.forEach(System.out::println); //print 4 selected sorted elements
+		
+		
+		
+		//----------------------------------------------
+		
+		int num=(int)(Math.random()*100);
+		
+		//generates a potential infinite stream of dogs, all with the name spot and a random age
+		List<Dog>dogList = Stream.generate(()->new Dog("spot", generateNum()))
+		.filter(d -> d.age<50) //this filters the dogs to only dogs with an age > 50
+		.distinct() //prevent duplicate entries ==============================================using the hashcode & equals ++++++++++++++++++++++++++++++++++
+		.limit(10) //this limits the stream to only 10 dogs
+		.sorted() //=====================================================using the compareTo method of the impldmented comparable interface +++++++++++++++++++++++
+		.collect(Collectors.toList()); //save dogs to a hashmap
+		
+		System.out.println("dogSet: " + dogList.size());
+		
+		
+		//------
+		
+		TreeSet<Dog>dogTree = Stream.generate(()->new Dog("spot", generateNum()))
+		.filter(d -> d.age<50) //this filters the dogs to only dogs with an age > 50
+		.distinct() //prevent duplicate entries
+		.limit(10) //this limits the stream to only 10 dogs
+		.collect(Collectors.toCollection(TreeSet::new)); //save dogs to a hashmap
+		
+		System.out.println("dogTree: " + dogTree.size());
+		
 	
+	}
+	
+	static int generateNum() {
+		return (int)(Math.random()*100);
 	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	static void ex4() {
 		
-
+		//===========================RANDOM+++++++++++++++++++++++++
+		
+		System.out.println("\nex4()");
+		
+		//this can generate a pseudo random number: 
+		//If you know the algorithm for generating this number, you will be able to work out this number at any time. 
+		
+		Random rand = new Random(); 
+		
+		//this will generate a random number between -2.1 & + 2.1 billion
+		int randNum=rand.nextInt();
+		System.out.println("randNum is: " + randNum);
+		
+		//this will generate a random number between 0 and 99 inclusive 
+		randNum=rand.nextInt(100);
+		
+		//this will generate a random number between 1 and 100 inclusive 
+		randNum=rand.nextInt(100)+1;
+		
+		//----
+		
+		Stream.generate(()->new Random().nextInt(100)+1)
+		.filter(x-> x%2==0)
+		.limit(5)
+		.forEach(System.out::println); 
+		
+	}
+	
 }
