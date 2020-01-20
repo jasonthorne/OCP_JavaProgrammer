@@ -119,12 +119,62 @@ public class Examples {
 		.limit(4) //this limits our otherwise infinite stream to 4 
 		.sorted().forEach(System.out::println); //THEN we sort it, then add a terminal operator
 		
-
-	}
 		
+		
+		//---------------------------------------
+		
+		Stream.iterate(1, x->x+1) //This creates an infinite stream of numbers. Starts at 1 and increments by 1.
+		.limit(5) //limits the stream to 5 numbers, which will be: 1,2,3,4,5
+		.filter(x->x%2==1) //allows only odd numbers
+		.forEach(System.out::println); //prints 1.3.5
+		
+		//-------
+		
+		Stream.iterate(1, x->x+1) //This creates an infinite stream of numbers. Starts at 1 and increments by 1.
+		.limit(5) //limits the stream to 5 numbers, which will be: 1,2,3,4,5
+		.peek(System.out::println)
+		.filter(x->x%2==1) //allows only odd numbers
+		.peek((x)->System.out.println("peek is now: " + x )) //peek AFTER the filter only gives a 1,3 & 5
+		.forEach((x)->System.out.println("number is now: " + x )); //prints 1.3.5
+		
+	}
+	
 	
 	
 
+	static void ex3() {
+		
+		//============================PRIBTING A STREAM+++++++++++++++++++++++++
+		
+		System.out.println("\nex3()");
+	
+		List<String>names=Arrays.asList("bob", "stewart", "ben", "huberty", "frank");
+		
+		//--------------------
+		System.out.println();
+		//method 1 of printing a stream: forEach()
+		names.parallelStream().forEach(System.out::println);
+		
+		//--------------------
+		System.out.println();
+		//method 2 of printing a stream: Converting to a Collection object
+		System.out.println(names.stream().collect(Collectors.toList())); //takes a list, converts to a stream, then prints as a list (can be stored in a list as well)
+		
+		//--------------------
+		System.out.println();
+		//method 3 of printing a stream: Using Peek
+		names.stream().peek((System.out::println)).count(); //terminal operation need for stream to fire
+		
+		//--------------------
+		System.out.println();
+		//method 4 of printing a stream: 
+		
+		names.stream()
+		.limit(4) //this produces a stream of the first 4 elements 
+		.sorted() //this sorts those elements
+		.forEach(System.out::println); //print sorted elements
+	
+	}
 	
 	
 	
@@ -139,5 +189,6 @@ public class Examples {
 	
 	
 	
+		
 
 }
