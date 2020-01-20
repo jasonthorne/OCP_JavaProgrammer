@@ -453,8 +453,97 @@ public class Examples {
 			a.run();
 			//a.milk(); //wont work as this is an Animal not a Cow
 		}).count();
-				 
+		
+		
+		//--------------------------
+		
+		/*
+		 * There is NO TERMINAL OPERATION here so the code doesnt run:
+		 * Also, peek produces a new stream which isnt assigned to anything so this statement is liable for collection after creation.
+		 */
+		Stream.of("orange", "apple", "cabbage").filter(s->s.startsWith("c")).peek(System.out::println);
+		
+		//-----
+		//this code runs: 
+		//this has a TERMINAL OPERATOR (.count) which causes the code to run. It returns a Long and closes the stream.
+		long count=	Stream.of("orange", "apple", "cabbage").filter(s->s.startsWith("c")).peek(System.out::println).count();
+		
+		System.out.println("amount of strings is: " + count);
+	
+		
+		//==========================
+		
+		//50 unique numbers pulled from 0-99
+		Stream<Integer>numList=Stream.generate(()->(int)(Math.random()*100)).distinct().limit(50);
+		
+		
+		//--------
+		/*
+		 * Thisd will only produce 10 numbers as the first peek has the potential to produce 50 numbers, 
+		 * but we then limit it to 20 and the next peek has the potential to produce 20 numbers, but we then limit to 10,
+		 * so the code only runs when we get to the terminal operation count(), and at this point our strem is limited to producing 10 numbers. 
+		 */
+		count=numList.peek((i)->System.out.println("number is: " + i)) //potential to print print off 50 numbers
+				.limit(20) //limit above 50 to be 20
+				.peek((n)->System.out.println("second batch of numbers is: " + n)) //potential to print print off 20 numbers
+				.limit(10) //limit above 20s to be 10
+				.count();
+				
+				System.out.println("amount of numbers is: " + count);
+				
+				
+		//===============================
+				
+		/*
+		 * Peek is only really supposed to be used when debugging code. It should not rweally be changing code. 
+		 * 
+		 * Bad peek code:
+		 */
+				
+		Stream.generate(()->(int)(Math.random()*100)).limit(5).peek(System.out::println).peek((n)->{
+			n=n*2;
+			System.out.println("n is: " + n);
+		}).forEach(System.out::println);
+		
+		
+		//=============================================
+		
+		Employee emp1=new Employee(2, "eddie");
+		Employee emp2=new Employee(3, "edel");
+		Employee emp3=new Employee(4, "ethna");
+		Employee emp4=new Employee(6, "edgar");
+		 
+		/*
+		 * This is a stream of existing employees of all different ages. 
+		 * Here the peek changes all the ages of all the existing Employees to 20.
+		 */
+		
+		Stream<Employee>empList=Stream.of(emp1,emp2,emp3,emp4);
+		
+		empList.peek(e->{
+			e.setAge(20);
+		}).forEach(System.out::println);
+		
+		//-------------------------------------
+		
+		//Stream of Employees
+		
+		//This is also bad peek code as we are doubling the age of the Employees generated in the peek:
+		
+		Stream.generate(()->{
+			return new Employee((int)(Math.random()*100), "edd"); //generate an employee
+		}).limit(5) //limit to 5
+		.peek(System.out::println) //printing them out 
+		.peek((e)->{
+			e.setAge(e.getAge()*2);
+			System.out.println("new age is: " + e.getAge());
+		}).forEach((e)->{
+			System.out.println("final age is: " + e.getAge());
+		});
 	}
+	
+
+	
 	
 }
 
