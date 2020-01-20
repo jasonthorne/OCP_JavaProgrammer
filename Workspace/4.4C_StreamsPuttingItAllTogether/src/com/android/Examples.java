@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Examples {
 	
@@ -74,34 +75,56 @@ public class Examples {
 		
 		System.out.println("our final list is:" + list);
 		
+	}
+	
+	
+	static int count = 0;
+	
+	
+	static void ex2() {
 		
 		//============================ORDER OF STREAM OPERATIONS+++++++++++++++++++++++++
 		
+		System.out.println("\nex2()");
 		
 		/*
 		 * The order of stream operations DOES MATTER as can be shown in this example:
 		 */
 		
+	
+		//SORT THEN LIMIT:
 		
+		/*
+		 * You CANT sort an infinite streram
+		 * You need to limit it FIRST then sort()
+		 */
 		
+		/*
+		Stream.generate(()->{ //generate will produce an infinate amount of streams unless limited
+			count++;
+			if(count%2>0)
+				return "eddie";
+			return "ethna";
+		})
+		.sorted() //this is attempting to sort an infinite list, so this will continue forever
+		.limit(4).forEach(System.out::println);
+		*/
 		
+		Stream.generate(()->{ //generate will produce an infinite amount of streams unless limited
+			count++;
+			if(count%2>0)
+				return "eddie";
+			return "ethna";
+		})
+		.limit(4) //this limits our otherwise infinite stream to 4 
+		.sorted().forEach(System.out::println); //THEN we sort it, then add a terminal operator
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
+		
+	
+	
+
 	
 	
 	
