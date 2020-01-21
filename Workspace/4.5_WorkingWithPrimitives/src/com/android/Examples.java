@@ -223,7 +223,7 @@ public class Examples {
 		
 		/*
 		 * As these types of streams can only take primitives, 
-		 * (you cant create a IntStream for instance from a liat of Integers, as lists only contain objects not primitives).
+		 * (you cant create a IntStream for instance from a list of Integers, as lists only contain objects not primitives).
 		 * However you can create a stream from an array of primitive vars.
 		 */
 		
@@ -269,6 +269,100 @@ public class Examples {
 		
 		System.out.println("optD is: " + optD.orElse(0.0)); //if you use this, your calculations will continue using 0.0 as value
 		System.out.println("optD is: " + optD.orElseGet(()->Double.NaN)); //if you use this, no calculations will be performed +++++++++++++++++++++++++++BETTER OPTION!! 
+		
+		//-------------------------
+		
+		//this time it has a value:
+		
+		optD=DoubleStream.of(dArray).average();
+		
+		//these will work as this time optD is valid
+		System.out.println("optD is: " + optD.orElse(0.0)); //if you use this, your calculations will continue using 0.0 as value
+		System.out.println("optD is: " + optD.orElseGet(()->Double.NaN)); //if you use this, no calculations will be performed +++++++++++++++++++++++++++BETTER OPTION!! 
+		
+		
+		//================================================================================
+		
+		//stream of doubles:
+		
+		/*
+		 * streams that use primitives can also use iterate and generate. And just like in other streams, can produce infinite streams. 
+		 */
+		
+		//this would produce an infinite amount of primitive doubles:
+		DoubleStream randomDs = DoubleStream.generate(()->Math.random());
+		
+		randomDs.limit(5).forEach(System.out::println); //cteate 5 random doubles from stream
+		
+		//------------------
+		
+		/*
+		 * You can also use iterate
+		 * iterate takes sa seed and a unary operator
+		 * seed will be an double and the unary operator will take a double and return an int.
+		 */
+		
+		///---------
+		System.out.println("\nfractions:");
+		
+		DoubleStream fractions = DoubleStream.iterate(0.5, d->d/2).limit(4);
+		
+		System.out.println(fractions.peek(System.out::println).sum());
+		
+		
+		//----------
+		System.out.println("\nmultiples:");
+		
+		double dNum = 2;
+		DoubleStream.iterate(dNum, d->d*2).limit(10).forEach(System.out::println);
+		
+		
+		//========================
+		//15 random doubles
+		
+		
+		DoubleStream.generate(()->Math.random()).limit(15).forEach(System.out::println);
+		
+		System.out.println("generating 5 random numbers between the numbers 3 & 30 (not including 3 & 30)");
+		
+		IntStream.generate(()->{
+			int num = (int)(Math.random()*100);
+			while(num<4 || num>31)
+				num=(int)(Math.random()*100);
+			return num;
+		}).distinct().limit(5).forEach(System.out::println);
+		
+		
+		
+		//=============================
+		
+		//Range:
+		
+		/*
+		 * range takes an int which is the number we start from and will be included, and takes a second int, the number we go up to but do not include.
+		 */
+		System.out.println("using range to print 4-29");
+		IntStream.range(4, 30).peek(System.out::println).sum(); 
+		
+		
+		//-------
+		//Range closed:
+		
+		/*
+		 * the opposite to range - BOTH the start and end are included
+		 */
+		
+		System.out.println("\nusing rangeClosed to print 4-30:");
+		IntStream.rangeClosed(4, 30).peek(System.out::println).sum();
+		
+		//================================================================
+		
+		//change a stream to a primitive stream:
+		
+		Stream<String>strStream=Stream.of("penguin", "seal", "whale", "dog", "fish", "shark");
+		
+		//get the length of each string (by using mapToInt to turn to an int stream) then .average closes the stream and .getAsDouble returns the result as an optional double.
+		System.out.println(strStream.peek(System.out::println).mapToInt(x->x.length()).peek(System.out::println).average().getAsDouble());
 		
 		
 	}
