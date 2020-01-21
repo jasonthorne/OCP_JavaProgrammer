@@ -9,6 +9,7 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -199,27 +200,88 @@ public class Examples {
 		optI = IntStream.empty().min();
 		System.out.println(optI);
 		
+	}
+	
+	
+	
+	static void ex2() {
+		
+		//===========================+++++++++++++++++++++++++
+		
+		System.out.println("\nex2()");
+		
+		/*
+		 * as already stated there are 3 primitive stream types:
+		 * 
+		 * IntStream uaed for: int, short, byte and char
+		 * LongStream used for the primitive type: long
+		 * DoubleStream used for the primitive types: doubles and floats. 
+		 */
+		
+		//creating an empty stream:
+		DoubleStream empty = DoubleStream.empty();
+		
+		/*
+		 * As these types of streams can only take primitives, 
+		 * (you cant create a IntStream for instance from a liat of Integers, as lists only contain objects not primitives).
+		 * However you can create a stream from an array of primitive vars.
+		 */
+		
+		double[]dArray= {3.45,6.78,3.2,102,456};
+		
+		List<Double>dList=Arrays.asList(3.0,455.4,7.5,78.5,3.2,102.35);
+		
+	
+		//You can create a stream of primitive doubles from an array of primitive doubles:
+		DoubleStream dStream = DoubleStream.of(dArray);
+		
+		//But you CANT create a stream of double primitives from a list of wrapper Doubles:
+		//dStream=DoubleStream.of(dList); //WONT COMPILE
+		
+		//----------
+		
+		//SUM: - returns a double
+		System.out.println("sum of doubles is: " + dStream.sum()); //will return a double
 		
 		
+		//---------
+		//AVERAGE: //NEEDS A getAsDouble to return a double ++++++++++++++++++++++++++++++++++++++++++++++++++++++will return an optionalDouble otherwise!! 
+		
+		dStream = DoubleStream.of(dArray); //reset stream
+		
+		System.out.println("avg of doubles is: " + dStream.average()); //will return an OptionalDouble
+		
+		//reserting the stream within the sysout:
+		System.out.println("avg of doubles is: " + DoubleStream.of(dArray).average().getAsDouble()); //will return a double
 		
 		
+		//==========================
 		
+		//System.out.println(DoubleStream.empty().average().getAsDouble()); //will fallover as an empty Stream can use a get method
 		
+		//workaround:
+		OptionalDouble optD = DoubleStream.of(dArray).average();
+		optD=DoubleStream.empty().average();
+		System.out.println(optD);
 		
+		//better workaround: ++++++++++++++++++
+		//use orElse
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		System.out.println("optD is: " + optD.orElse(0.0)); //if you use this, your calculations will continue using 0.0 as value
+		System.out.println("optD is: " + optD.orElseGet(()->Double.NaN)); //if you use this, no calculations will be performed +++++++++++++++++++++++++++BETTER OPTION!! 
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
