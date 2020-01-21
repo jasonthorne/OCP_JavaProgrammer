@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+import java.util.OptionalLong;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -132,7 +135,78 @@ public class Examples {
 		 */
 		//List<Integer>nums=intStream.collect(Collectors.toList());
 		
-		intStream
+		
+		
+		//================================
+		//MAX:
+		
+		intStream = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10);
+	
+		System.out.println("max");
+		//max retuirns an optional int (which is not a number)
+		System.out.println(intStream.peek(System.out::println).max()); //print off all the numbers, then print off the max
+		
+		
+		intStream = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10); //redefine stream
+		
+		System.out.println("second max:");
+		System.out.println(intStream.peek(System.out::println).max().getAsInt()); //getAsInt returns our number
+		
+		//-------------------
+		//SUM:
+		
+		intStream = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10); //redefine stream
+	
+		System.out.println(intStream.peek(System.out::println).sum()); 
+		
+		//---------------------
+		//MIN:
+			
+		intStream = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10); //redefine stream
+		
+		System.out.println(intStream.peek(System.out::println).min().getAsInt()); //getAsInt returns our number
+		
+		
+		//---------------------
+		//AVERAGE:
+		
+		//This returns an optional DOUBLE, so you need getAsDouble()
+			
+		intStream = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10); //redefine stream
+		
+		System.out.println(intStream.peek(System.out::println).average().getAsDouble()); //getAsDouble returns our number (an optional DOUBLE) ++++++++++++++++++
+		
+		
+		///============================================
+		//Different option types as per their streams:
+		
+		OptionalInt optI = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10).max(); //.max() returns an int.
+		OptionalDouble optDbl = IntStream.generate(()->(int)(Math.random()*100)+1).limit(10).average(); //average returns a DOUBLE ++++++++++
+		OptionalLong optlong;
+		
+		
+		//----------------
+		
+		//This is getting the average of an empty string:
+		optDbl = IntStream.empty().average();
+		System.out.println(optDbl);
+		
+		//gets the max of an empty stream:
+		optI = IntStream.empty().max();
+		System.out.println(optI);
+		
+		//gets the min of an empty stream:
+		optI = IntStream.empty().min();
+		System.out.println(optI);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		
