@@ -1,14 +1,22 @@
 package com.android;
 
 import java.util.Arrays;
+import java.util.DoubleSummaryStatistics;
 import java.util.HashSet;
 import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.LongSummaryStatistics;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleConsumer;
+import java.util.function.DoubleSupplier;
+import java.util.function.IntConsumer;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
@@ -533,18 +541,140 @@ public class Examples {
 		System.out.println("sum of ints is: " + statInts.getSum());
 		System.out.println("class of objects in the stream: " + statInts.getClass());
 		
+		//--------------------------
+		//other types of summaryStatistics:
+		
+		//DoubleSummaryStatistics obj holding 15 random numbers limited to 15. 
+		DoubleSummaryStatistics statDoubles = DoubleStream.generate(()->Math.random()).limit(15).summaryStatistics();
+		
+		System.out.println("\ncount of doubles is: " + statDoubles.getCount());
+		System.out.println("max of doubles is: " + statDoubles.getMax());
+		System.out.println("min of doubles is: " + statDoubles.getMin());
+		System.out.println("average of doubles is: " + statDoubles.getAverage());
+		System.out.println("sum of doubles is: " + statDoubles.getSum());
+		System.out.println("class of objects in the stream: " + statDoubles.getClass());
+		
+		LongSummaryStatistics statLong;
+		
+	}
+	
+	
+	static void ex5() {
+		
+		//===========================BOOLEAN SUPPLIER FUNCTIONAL INTERFACE++++++++++++++++++++++++
+		
+		System.out.println("\nex5()");
+		
+		//BOOLEAN SUPPLIER:
+		
+		//A supplier takes in nothing, and returns an object.
+		
+		/*
+		 * A Boolean supplier is a functionl interface that is a specialist SUPPLIER that takes in no params and returns a primitive boolean. 
+		 * The method inside the functional interface is getAsBoolean.
+		 */
+		
+		BooleanSupplier b1 = ()->true;
+		BooleanSupplier b2 = ()->false;
+		
+		BooleanSupplier b3 = ()->(int)(Math.random()*10)>5;
+		
+		BooleanSupplier b4 = ()->{
+			boolean bool = (int)(Math.random()*10)>5;
+			if(bool)
+				System.out.println("number greater than 5");
+			else
+				System.out.println("number less than 5");
+			return bool;
+		};
+		
+		
+		//System.out.println(b1); //this just prints off the address
+		System.out.println(b4.getAsBoolean()); //this will run the code inside b4
+		System.out.println(b1.getAsBoolean());
+
+		
 	}
 	
 	
 	
+	static void ex6() {
+		
+		//===========================FUNCTIONAL INTERFACES FOR DOUBLE INT & LONG ++++++++++++++++++++++++
+		
+		System.out.println("\nex6()");
+		
+		/*
+		 * will do examples for primitive doubles and the exact same applies to int and long. 
+		 * Except rthe name will begin with "int" or "long". ie:
+		 *  doubleConsume is a consumer for a primitive double
+		 *  intConsume is a consumer for a primitive int
+		 *  longConsume is a consumer for a primitive long
+		 */
+		
+		//SUPPLIERS - takes nothing and returns an object:
+		
+		
+		Supplier<Double> sup = ()->Math.random();
+		
+		/*
+		 * You do not have to specify a type as double supplier is returning a primitive double no matter what. 
+		 * Also types<> can ONLY BE objects and a primitive double is NOT an object.
+		 * These are suppliers for primitives:
+		 */
+		
+		DoubleSupplier doubleSup = ()->Math.random();
+		
+		//The method for the doubleSupplier is "getAsDouble()"
+		//getAsDouble is the abstract method - double getAsDouble()
+		System.out.println(doubleSup.getAsDouble());
+		
+		//intSupplier example:
+		IntSupplier intSup = ()->(int)(Math.random()*100);
+		System.out.println(intSup.getAsInt());
+		
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//CONSUMER: - Takes in an object and returns void.
+		
+		/*
+		DoubleConsumer takes in a primitive double and returns void.
+		intConsumer takes in a primitive int and returns void.
+		longConsumer takes in a primitive long and returns void.
+		
+		The method is "accept"
+		
+		void accept(double d)
+		
+		No generics needed as the DoubleConsumer always returns a primitive double
+		*/
+		
+		DoubleConsumer doubleConsumer = (d)->System.out.println("number is: " + d);
+		doubleConsumer = System.out::println;
+		
+		doubleConsumer.accept(3.45);
+		//---------------------------
+		
+		int localInt = 78;
+		int changeInt = 45;
+		changeInt = 78;
+		String name = "yo";
+		
+		/*
+		 * The only variable you CANT access inside a functional interface is a local variable that is not effectively final:
+		 */
+		IntConsumer intConsumer = (i)->{
+			System.out.println("age inside variable is:" + weight); //can acces weight as its static 
+			System.out.println("localInt is a a local effectively final variable:" + localInt); //can acces weight as its static 
+			//System.out.println("cant access local variables that are not effectively final:" + changeInt); //cant acess weight as its NOT effectively final
+		};
+		
 	
+	}
 	
-	
-	
-	
-	
-	
-	
+	int age = 34;
+	static int weight = 5;
 	
 	
 	
