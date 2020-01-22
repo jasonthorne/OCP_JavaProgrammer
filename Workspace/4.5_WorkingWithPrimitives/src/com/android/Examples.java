@@ -2,6 +2,7 @@ package com.android;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
@@ -11,6 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import com.android.Widget.Colour;
@@ -245,7 +247,9 @@ public class Examples {
 		
 		
 		//---------
-		//AVERAGE: //NEEDS A getAsDouble to return a double ++++++++++++++++++++++++++++++++++++++++++++++++++++++will return an optionalDouble otherwise!! 
+		//AVERAGE: //NEEDS A getAsDouble to return a double +++++++++++++will return an optionalDouble otherwise!! 
+		
+		//AVERAGE WILL ALWAYS RETURN AN OPTIONAL DOUBLE +++++++++++++(so needs getDouble())
 		
 		dStream = DoubleStream.of(dArray); //reset stream
 		
@@ -365,7 +369,190 @@ public class Examples {
 		System.out.println(strStream.peek(System.out::println).mapToInt(x->x.length()).peek(System.out::println).average().getAsDouble());
 		
 		
+		//==========================
+		
+		
+		//generate a  list of 15 random numbers:
+		List<Integer>numbers = Stream.generate(()->(int)(Math.random()*100))
+				.distinct()
+				.filter(x -> x%2 ==0) //makes all numbers even
+				.limit(15)
+				.collect(Collectors.toList());
+		
+		/*
+		 * You CANT creat an intStream from a collection object (list, set or a qeue),
+		 * however you can first create a stream from a collection object, 
+		 * then use one of the mappers to create your intStream, doubleStream or longStream.
+		 * In this case we take our numbers list of Integers and create a stream, then we use MAPTOINT to create an intStream from this stream.
+		 * Then we can use all of the methods of the intStream class. 
+		 */
+		
+		numbers.stream().mapToInt(x ->x).peek(System.out::println).sum();
+		
+		System.out.println(numbers);
+		
+		//=====================================================================
+		//CONVERTING FROM INTSTREAM TO STREAM OF INTEGERS - mapToObj()	++++++++++++++++++++++++++++++++++++++
+		
+		//produce odd numbers between 3 & 20:
+		IntStream ranges = IntStream.rangeClosed(3, 20).filter(x -> x%2 ==1);
+		
+		//converting from intSTream to Stream of Integers
+		//take in the ints from the intStream and change them to Integer:
+		ranges.mapToObj(x -> x) //this produces a sytream of Integers
+		.peek(System.out::println)
+		.collect(Collectors.toList()); //add integers to list
+		
+		
 	}
+	
+	
+	
+	static void ex3() {
+		
+		//===========================USING OPTIONALS WITH PRIMITIVE STREAMS+++++++++++++++++++++++++
+		
+		System.out.println("\nex3()");
+		
+		/*
+		 * This is an optional for Objects. We have to give the optional a type. If we dont it will be an optional of type object:
+		 */
+		Optional<Double>optDouble = Optional.of(3.45);
+		
+	
+		/*
+		 * this is an optional of type object:
+		 * If you dont supply a type, your optional will be of type object. 
+		 */
+		Optional optNoType = Optional.of(3.45);
+		
+		
+		System.out.println(optDouble);
+		System.out.println(optDouble.get()); //to GET the value of the optional
+		
+		optDouble = Optional.empty(); //empty the optional of it's value
+		
+		//System.out.println(optDouble); //gives an exception as a result of having no value++++++++++++
+		
+		System.out.println(optDouble.orElse(0.0)); //if it doesnt have a number, give it a number
+		
+		System.out.println(optDouble.orElseGet(()-> Double.NaN)); //mark it as NaN if no value ++++++++++
+		
+		
+		//------------------------------------------------------
+		
+		//OPTIONALDOUBLE:
+		
+		//produces a stream of numbers divisible by 15 and between 10 & 100:
+		IntStream stream = IntStream.rangeClosed(10, 100).filter(n->n%15==0);
+		
+		/*
+		 * average returns an optionalDouble. 
+		 * THis is a DIFFERENT data type to optional of type Double (Optional<Double> - which is for wrapper double objects). 
+		 * OptionalDouble is for primitive doubles.
+		 */
+		
+		//OptionalDouble:
+		//average is a terminal operation which closes the stream.
+		OptionalDouble optDbl = stream.peek(System.out::println).average();
+		
+		 //The stream is closed, but you can call of the methods of the OptionalDouble class on the variable optDbl:
+		
+		System.out.println(optDbl);
+		System.out.println(optDbl.getAsDouble());
+		System.out.println(optDbl.orElse(Double.NaN));
+		
+		
+		//------------------------------------------------------
+		
+		//OptionalLong:
+		
+		LongStream longs = LongStream.rangeClosed(1,30).filter(l -> l%3==0);
+		
+		OptionalLong optLong = longs.max(); //this is a terminal operation, so you cant perform any more operations on this stream (lie example below). 
+		
+		//longs.min(); //generates an illegalStateException
+	
+		System.out.println(optLong);
+		System.out.println(optLong.getAsLong());
+		System.out.println(optLong.orElse(333));
+		System.out.println(optLong.orElseGet(()->(long)Math.random()));
+		
+		/*
+		 * Just like an ordinary stream, a LongStream, IntStream or DoubleStream can produce infinite streams ++++++++++++++++++++++++++++++++++
+		 */
+		
+		System.out.println(Math.PI);
+		
+		DoubleStream doubles = DoubleStream.generate(()->Math.PI);
+		
+		/*
+		 * This will produce an infinite stream of the number: 3.141592653589793
+		 */
+		doubles.forEach(System.out::println);
+
+
+	}
+	
+	
+	
+	static void ex4() {
+		
+		//===========================SUMMARY STATISTICS+++++++++++++++++++++++++
+		
+		System.out.println("\nex4()");
+		
+		//10 multiples of 85:
+		IntStream ints = IntStream.rangeClosed(1,1000).filter(i->i%85==0).limit(10);
+		
+		//getting the max of our range: (BUT THIS IS A TERMINAL OPERATION, so it closes the stream, so you can do no more operations (Terminal or intermediate) on this stream)
+		System.out.println(ints.max().getAsInt());
+		
+		//System.out.println(ints.max().getAsInt()); //cant be done as stream was closed.
+		
+		/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * We can use SUMMARY STATISTICS to perform max, min, average, sum & getCount, and these are NOT methods of the stream class, but a seperate class entirely.
+		 * 
+		 * IntSummaryStatistics for IntStream
+		 * DoubleSummaryStatistics for DoubleStream
+		 * LongSummaryStatistics for LongStream
+		 */
+		
+		//reset ints Stream:
+		ints = IntStream.rangeClosed(1,1000).filter(i->i%85==0).limit(10);
+		
+		//create a seperate IntSummaryStatistics obj:
+		
+		IntSummaryStatistics statInts = ints.summaryStatistics(); //.summaryStatistics() is itself a terminal opperation, so no more opperations can be used on the intsStream.
+		
+		
+		System.out.println("count of ints is: " + statInts.getCount());
+		System.out.println("max of ints is: " + statInts.getMax());
+		System.out.println("min of ints is: " + statInts.getMin());
+		System.out.println("average of ints is: " + statInts.getAverage());
+		System.out.println("sum of ints is: " + statInts.getSum());
+		System.out.println("class of objects in the stream: " + statInts.getClass());
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
