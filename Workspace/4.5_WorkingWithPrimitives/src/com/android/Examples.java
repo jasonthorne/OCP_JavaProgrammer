@@ -669,8 +669,8 @@ public class Examples {
 		 */
 		IntConsumer intConsumer = (i)->{
 			System.out.println("age inside variable is:" + weight); //can acces weight as its static 
-			System.out.println("localInt is a a local effectively final variable:" + localInt); //can access weight as its static 
-			//System.out.println("cant access local variables that are not effectively final:" + changeInt); //can't access weight as its NOT effectively final
+			System.out.println("localInt is a a local effectively final variable:" + localInt); //can acces weight as its static 
+			//System.out.println("cant access local variables that are not effectively final:" + changeInt); //cant acess weight as its NOT effectively final
 		};
 		
 		intConsumer.accept(56);
@@ -728,6 +728,24 @@ public class Examples {
 	
 	int age = 34;
 	static int weight = 5;
-		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
