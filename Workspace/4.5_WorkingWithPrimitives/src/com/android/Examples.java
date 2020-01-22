@@ -13,8 +13,11 @@ import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleConsumer;
+import java.util.function.DoubleFunction;
+import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
 import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
 import java.util.function.IntSupplier;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -670,6 +673,56 @@ public class Examples {
 			//System.out.println("cant access local variables that are not effectively final:" + changeInt); //cant acess weight as its NOT effectively final
 		};
 		
+		intConsumer.accept(56);
+		
+		
+		
+
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//PREDICATE: - Takes in an object and returns a boolean primitive.
+		
+		/*
+		 * DoublePredicate takes a primitive double and returns a boolean
+		 * IntPredicate takes a primitive int and returns a boolean
+		 * LongPredicate takes a primitive long and returns a boolean
+		 * 
+		 * Relatively simple functional interface that teats a long, int and double
+		 * 
+		 * We do not have to define a generic type as this will always take a primitive double, and always return a boolean.
+		 */
+		
+		
+		DoublePredicate doublePred = (d)->d>0.5;
+		double dNum = Math.random();
+
+		System.out.println(doublePred.test(dNum));
+		
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//FUNCTION: - Takes in an object and returns a boolean primitive.
+		
+		/*
+		 * function takes an object and returns an object. Can be the same type or different.
+		 * DoubleFunction takes a Double and returns an object.
+		 * LongFunction takes a Long and returns an object.
+		 * IntFunction takes an Int and returns an object.
+		 * 
+		 * uses apply:
+		 * 
+		 */
+		
+		//Takes in a double and returns an Integer
+		DoubleFunction<Integer>doubleFunc = d->(int)(d*2);
+		
+		//Takes an int and returns a String
+		IntFunction<String>intFunc = i->i+"";
+		
+		//takes in a double of type d, and returns a stringBuilder obj with a d string inside it
+		DoubleFunction<StringBuilder>doubleFunct2 = d -> new StringBuilder(d+"");
+		
+		System.out.println(doubleFunct2.apply(2.34).getClass().getSimpleName());
 	
 	}
 	
