@@ -22,14 +22,21 @@ public class Dog {
 		super();
 		this.age = age;
 		this.name = name;
-		System.out.println("Dog created");
-		myStream.forEach((i)->System.out.println("numer is: " + i));
+		/////////System.out.println("Dog created");
+		//////////////myStream.forEach((i)->System.out.println("numer is: " + i));
 	}
 	
 	void bark() {
 		System.out.println("the bark method calls a terminal operation on the Dog stream");
 		myStream.filter(x->x%2 ==0).forEach((n)->System.out.println("number is: " + n));
 	}
+
+	@Override
+	public String toString() {
+		return "Dog [age=" + age + ", name=" + name + "]";
+	}
+	
+	
 	
 
 }
