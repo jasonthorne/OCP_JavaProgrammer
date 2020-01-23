@@ -12,13 +12,17 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
+import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoubleConsumer;
 import java.util.function.DoubleFunction;
 import java.util.function.DoublePredicate;
 import java.util.function.DoubleSupplier;
+import java.util.function.DoubleUnaryOperator;
+import java.util.function.IntBinaryOperator;
 import java.util.function.IntConsumer;
 import java.util.function.IntFunction;
 import java.util.function.IntSupplier;
+import java.util.function.IntUnaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -713,7 +717,7 @@ public class Examples {
 		 * 
 		 */
 		
-		//Takes in a double and returns an Integer
+		//Takes in a double and returns an Integer (Determined by generic type +++++++++)
 		DoubleFunction<Integer>doubleFunc = d->(int)(d*2);
 		
 		//Takes an int and returns a String
@@ -723,7 +727,67 @@ public class Examples {
 		DoubleFunction<StringBuilder>doubleFunct2 = d -> new StringBuilder(d+"");
 		
 		System.out.println(doubleFunct2.apply(2.34).getClass().getSimpleName());
-	
+		
+		
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//UNARY OPERATOR: - Primitive equivalent of unary operator for primitive ints, primitive doubles and primitive longs.  
+		
+		/*
+		 * Ordinary unary operator takes in an object and returns an object of the same type. 
+		 * 
+		 * DoubleUnaryOperator takes in a Double and returns a Double.
+		 * LongUnaryOperator takes a Long and returns a Long.
+		 * IntUnaryOperator takes an Int and returns an Int.
+		 */
+		
+		DoubleUnaryOperator doubleUn = (d)->d*2;
+		System.out.println(doubleUn.applyAsDouble(4.5));
+		
+		IntUnaryOperator intUn = (i -> i*10);
+		System.out.println(intUn.applyAsInt(123));
+		
+		
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		//BINARY OPERATOR: - Primitive equivillent of binary operator for primitive ints, primitive doubles and primitive longs.  
+		
+		/*
+		 * Ordinary binary operator takes in2 objects of the same type and returns 1 object of the same type.  
+		 * 
+		 * DoubleBinaryOperator takes in 2 Doubles and returns a Double.
+		 * LongBinaryOperator takes 2 Longs and returns a Long.
+		 * IntBinaryOperator takes 2 Ints and returns an Int.
+		 */
+		
+		DoubleBinaryOperator doubleBinar = (d1, d2)->d1*d2;
+		System.out.println(doubleBinar.applyAsDouble(4.5, 3.3));
+		
+		
+		IntBinaryOperator intBinar = (i1, i2)->i1*i2;
+		System.out.println(intBinar.applyAsInt(3, 3));
+		
+		
+		/* //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * There is no bifunction equivalent for doubles, ints and longs.
+		 * 
+		 * There is no biPredicate equivalent for double,s ints and longs.
+		 * 
+		 * * There is no biconsumer equivalent for doubles, ints and longs.
+		 */
+		
+		
+		/*
+		 * There are:
+		 * Supplier, 
+		 * Consumer,
+		 * Predicate,
+		 * Function
+		 * Binary
+		 */
+		
+		
 	}
 	
 	int age = 34;
