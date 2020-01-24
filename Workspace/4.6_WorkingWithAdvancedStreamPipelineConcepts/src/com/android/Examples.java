@@ -2,6 +2,7 @@ package com.android;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
@@ -370,9 +371,27 @@ public class Examples {
 		 */
 		
 		//oldest dog:
-		Optional<Dog>dogOptOld=dogList.stream().collect(Collectors.maxBy(dogAgeComp)); //returns an optional 
+		Optional<Dog>dogOptAge=dogList.stream().collect(Collectors.maxBy(dogAgeComp)); //returns an optional 
+		System.out.println("oldest dog is: " + dogOptAge.get());
 		
-		System.out.println("oldest dog is: " + dogOptOld.get());
+		//heaviest dog:
+		Optional<Dog>dogOptWeight=dogList2.stream().collect(Collectors.maxBy(dogWeightComp)); //returns an optional 
+		System.out.println("heaviest dog is: " + dogOptWeight.get());
+		
+		
+		//============MIN BY:
+		
+		/*
+		 * min by operates exactly the same way as max by
+		 */
+		
+		//youngest dog:
+		Optional<Dog>dogOptAge2=dogList.stream().collect(Collectors.minBy(dogAgeComp)); //returns an optional 
+		System.out.println("youngest dog is: " + dogOptAge2.get());
+		
+		//lightest dog:
+		Optional<Dog>dogOptWeight2=dogList2.stream().collect(Collectors.minBy(dogWeightComp)); //returns an optional 
+		System.out.println("lightest dog is: " + dogOptWeight2.get());
 
 	}
 	
@@ -382,10 +401,25 @@ public class Examples {
 	}
 	
 	
-	
-	
-	
-	
+	static void ex6() {
+		
+		//===========================SUMMARISING DOUBLE, INT & LONG
+		
+		System.out.println("\nex6()");
+		
+		List<String>animals=Arrays.asList("dog", "cat", "mouse", "sheep", "pig");
+		
+		//Separate obj that stores info about the stream:
+		//animals is a list of strings, s is a string
+		DoubleSummaryStatistics statStr = animals.stream().collect(Collectors.summarizingDouble(s->s.length()));
+		
+		System.out.println("average length of strings is: " + statStr.getAverage());
+		System.out.println("total ammount of chars in our strings is: " + statStr.getCount());
+		System.out.println("string with most chars is: " + statStr.getMax());
+		System.out.println("string with least chars is: " + statStr.getMin());
+		System.out.println("total amount of chars is: " + statStr.getSum());
+		
+	}
 	
 	
 	
