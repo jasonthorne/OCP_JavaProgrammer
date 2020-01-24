@@ -1,6 +1,7 @@
 package com.android;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
@@ -252,7 +253,7 @@ public class Examples {
 		System.out.println("\nex4()");
 		
 		
-		//COLLECTORS.COUNTING:
+		//=======================================COLLECTORS.COUNTING:
 		
 		/*
 		 * Note that you dont know how many numbers are created when you do this: 
@@ -262,10 +263,138 @@ public class Examples {
 				.limit(50) //max amount will be 50
 				.filter(n->n%4==0)
 				.peek(System.out::println)
-				.collect(Collectors.counting());
+				.collect(Collectors.counting()).longValue(); //.longValue() converts this to a long. 
 		
+		//store the count of the amount of objects created: 
+		long lAmount = Stream.generate(()->(int)(Math.random()*100))
+		.limit(50) //max amount will be 50
+		.filter(n->n%4==0)
+		.peek(System.out::println)
+		.collect(Collectors.counting()).longValue();  
+		
+		System.out.println("lAmount: " + lAmount);
+		
+		
+		//=======================================COLLECTORS.JOINING:
+		
+		//Collectors.joining is only for strings:
+		
+		List<String>animals=Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
+		
+		//this would need redefining each time :( so we use the list above  
+		Stream<String>strStream=Stream.of("dog ", "cat ", "mouse ", "cow ", "sheep ", "pig ");
+		
+		//--------------------------------------
+		/*
+		 * First joining() method tsakes no arguements
+		 * and returns a String that is a string containing all the strings in the stream
+		 */
+		
+		//joins all of the strings in the arraylist to be one string: 
+		String joined = animals.parallelStream().collect(Collectors.joining());
+		System.out.println("joined string is: " + joined);
+		
+		//-----------------------------------
+		/*
+		 * 2nd joining(),method takes one arg, a string and a delimeter
+		 */
+		
+		/*
+		 * Each of our strings is going to be seperated by a comma and a space: 
+		 */
+		 joined = animals.parallelStream().collect(Collectors.joining(", "));
+		 System.out.println("joined string with delimeter is: " + joined);
+		 
+		//-----------------------------------
+		 
+		 /*
+		  * 3rd overloaded joining() method takes 3 argumemnts:
+		  * a delimeter (inbetween the string), a prefix (start of string) and a suffix (end of the string)
+		  */
+		 
+		 joined = animals.parallelStream().collect(Collectors.joining(", ", "our list of animals is: ", ". Which are all native to Ireland"));
+		 
+		 System.out.println(joined);
+		 
+
 	
 	}
+	
+	
+	
+	static void ex5() {
+		
+		//===========================MORE COLLECTOR.METHODS we should know
+		
+		System.out.println("\nex5()");
+		
+		//----------------------------------
+		
+		//10 dogs with random ages, which are less than 20
+		List<Dog>dogList=Stream.generate(()->new Dog(generateRandom(), "spot"))
+				.filter(d->d.age<20)
+				.limit(10)
+				.collect(Collectors.toList());
+		
+		System.out.println("doglist:" + dogList);
+		
+		
+		//------------------------
+		
+		//10 dogs with ages less than 20 and weights greater than 1 and less than 30:
+		List<Dog>dogList2=Stream.generate(()->new Dog(generateRandom(), "rex", Math.random()*100))
+				.filter(d->d.age<20)//.distinct() 
+				.filter(d->d.weight>1)//.distinct()
+				.filter(d->d.weight<30)//.distinct()
+				.limit(10)
+				.collect(Collectors.toList());
+		
+		
+		System.out.println("dogList2:" + dogList2);
+		System.out.println(Dog.dogCounter + " dogs created to give a list of 10 dogs");
+		
+		
+		//==========================COMPARATORS FOR DOGS:
+		
+		Comparator<Dog>dogAgeComp=(d1,d2)->d1.age-d2.age; //comparator for ages of dogs
+		
+		//Comparator returns either a -int, a 0 int or a + int, so the compareTo method of the double wrapper class is used ++++++++++++++++++++++++++++
+		Comparator<Dog>dogWeightComp=(d1,d2)->d1.weight.compareTo(d2.weight); //comparator for weights of dogs
+		
+		//============MAX BY:
+		
+		/*
+		 * MaxBY returns an optional of type Dog:
+		 * Optional<Dog>
+		 * and takes a comparator for what attribute of the dog we are trying to find a max for (ie oldest dog or heaviest dog)
+		 */
+		
+		//oldest dog:
+		Optional<Dog>dogOptOld=dogList.stream().collect(Collectors.maxBy(dogAgeComp)); //returns an optional 
+		
+		System.out.println("oldest dog is: " + dogOptOld.get());
+
+	}
+	
+	
+	static int generateRandom() {
+		return (int)(Math.random()*100+1);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

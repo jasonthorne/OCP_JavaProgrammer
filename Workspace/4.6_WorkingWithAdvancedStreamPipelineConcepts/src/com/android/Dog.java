@@ -6,6 +6,7 @@ public class Dog {
 	
 	int age;
 	String name;
+	Double weight;
 	
 	
 	private static Stream<Integer>myStream;
@@ -26,6 +27,16 @@ public class Dog {
 		//////////////myStream.forEach((i)->System.out.println("numer is: " + i));
 	}
 	
+	static int dogCounter = 0;
+	public Dog(int age, String name, double weight) {
+		super();
+		this.age = age;
+		this.name = name;
+		this.weight = weight;
+		dogCounter++;
+	}
+	
+	
 	void bark() {
 		System.out.println("the bark method calls a terminal operation on the Dog stream");
 		myStream.filter(x->x%2 ==0).forEach((n)->System.out.println("number is: " + n));
@@ -33,7 +44,7 @@ public class Dog {
 
 	@Override
 	public String toString() {
-		return "Dog [age=" + age + ", name=" + name + "]";
+		return "Dog [age=" + age + ", name=" + name + ", weight=" + weight + "]";
 	}
 	
 	
