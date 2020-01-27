@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
@@ -523,7 +524,7 @@ public class Examples {
 		myMap.put(333, "yo"); //value is overwritten as key is there already
 		myMap.putIfAbsent(333, "dawg"); //key is there so this wont be put in
 		
-		System.out.println(myMap);
+		System.out.println("myMap: " + myMap);
 		
 		
 		//You CANT use Collectors.toCollection with maps as they're not part of the collection interface
@@ -541,12 +542,98 @@ public class Examples {
 		
 		Map<String, Integer>strMap = animals.stream().collect(Collectors.toMap(s->s, s->s.length()));
 		
-		System.out.println(strMap);
+		System.out.println("strMap: " + strMap);
+		
+		//--------------------------------
+		
+		//create a treeMap and dump in strMap (to have strMap be ordered)
+		TreeMap<String, Integer>tMap = new TreeMap<String, Integer>(strMap);
+		//tMap.putAll(strMap);
+		
+		System.out.println("tMap: " + tMap);
+		
+		
+		//------------------------
+		//List<String>animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
+		
+		/*
+		 * create a map of animals, using its index in the list as the key.
+		 */
+		Map<Integer, String>intMap=Stream.iterate(0, n->n+1)
+				.limit(animals.size())
+				/*
+				 * the value CAN be generated from the key, as here you get elements from a list
+				 * by using the key in the get statement, but you dont HAVE TO generate a value based on a key. 
+				 */
+				.collect(Collectors.toMap(n->n, n->animals.get(n)));
+		
+		System.out.println("intMap: " + intMap);
+		
+		
+		
+		//==================================================TO MAP FUNCTIONS:
+		
+		
+		List<String>animals2 = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig", "pig");
+		
+		//first overloaded toMap:
+		/*
+		 * strMap takes a String and an Integer:
+		 * 
+		 * This below stream has duplicate values. So thee values are what the map will use as the keys. 
+		 * A map cannot have duplicate keys. (if we use put, the keys would be input and the original values overriden).
+		 * If we try and add duplicates to a map using a stream though, we get an illegal state exception.
+		 */
+		strMap = animals2.stream()
+				.distinct() //this prevents exception as the duplicate key isnt allowed. ++++++++++++++
+				.collect(Collectors.toMap(s->s, s->s.length()));
+		
+		
+		System.out.println("strMap: " + strMap);
+		
+		
+		/*
+		 * This creates a map wih a unique key generated from the static int counter that increments by one each time.
+		 * As the key is unique we dont have to use "distinct()" here as the values in the stream are not used to generate the keys.
+		 */
+		Map<Integer, String>integerMap=animals2.stream()
+				.collect(Collectors.toMap(s->++count, s->s)); //taking a string (but not doing anything with it)
+		
+		
+		System.out.println("integerMap: " + integerMap);
+		
+		//--------------------------------------------
+		//2nd overloaded toMap:
+		
+		/*
+		 * The overloaded toMap() method takes a function, function and a BinaryOperator 
+		 * First arg creates the key, second creates the val, 3rd arg is what happens when you have 2 keys that are the same. 
+		 */
+		
+		//intMap<Integer, String>
+		//animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
+		
+		intMap.clear();
+		intMap = animals.stream().collect(Collectors.toMap(s->s.length(),  //take in string from current pos in list and return it's length as key.
+														s->s, //take in string from current pos in list and use that as value
+														(s1, s2)-> s1+", " + s2)); //if 2 keys are the same (same length), concatenate the two strings to create a new value for them
+		
+		
+		System.out.println("intMap: " + intMap); //prints: intMap: {3=dog, cat, cow, pig, 5=mouse, sheep}
+		
+		
+		//--------------------------------------------
+		//3nd overloaded toMap:
+		
+		
+		
+		
+		
 		
 	}
 	
 	
-	
+	static int count=0;
 	
 	
 	
