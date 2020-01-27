@@ -531,7 +531,7 @@ public class Examples {
 		//so you need to use the below: +++++++++++++++++++
 		
 		
-		List<String>animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
+		List<String>animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig", "ox", "elephant");
 		
 		/*
 		 * This map will take as it's key: a string in the above list, and as it's value: the length of the string. 
@@ -614,8 +614,8 @@ public class Examples {
 		//animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
 		
 		intMap.clear();
-		intMap = animals.stream().collect(Collectors.toMap(s->s.length(),  //take in string from current pos in list and return it's length as key.
-														s->s, //take in string from current pos in list and use that as value
+		intMap = animals.stream().collect(Collectors.toMap(k->k.length(),  //take in string from current pos in list and return it's length as key.
+														v->v, //take in string from current pos in list and use that as value
 														(s1, s2)-> s1+", " + s2)); //if 2 keys are the same (same length), concatenate the two strings to create a new value for them
 		
 		
@@ -625,10 +625,14 @@ public class Examples {
 		//--------------------------------------------
 		//3nd overloaded toMap:
 		
+		TreeMap<Integer, String>treeMap=animals.stream()
+				.collect(Collectors.toMap(k->k.length(), 
+						v->v, 
+						(s1, s2)-> s1+", " + s2, 
+						//()->new TreeMap<Integer, String>())); //longer version of below
+						TreeMap::new));
 		
-		
-		
-		
+		System.out.println("treeMap: " + treeMap); 
 		
 	}
 	
