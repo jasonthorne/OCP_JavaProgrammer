@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
@@ -419,6 +420,65 @@ public class Examples {
 		System.out.println("string with least chars is: " + statStr.getMin());
 		System.out.println("total amount of chars is: " + statStr.getSum());
 		
+		//same things work for int and long +++++++
+		
+		
+		//===========================SUMMING DOUBLE, SUMMING INT & SUMMING LONG:
+		
+		//example beforehand:
+		//This produces 5 dogs with random ages between 1 & 100, nd randpm weights between 1.0 & 10.0
+		List<Dog>dogList = Stream.generate(()->new Dog(generateRandom(), "spot", Math.random()*10))
+				.limit(5)
+				.collect(Collectors.toList());
+		
+		System.out.println(dogList);
+		
+		//summing double:
+		//This will return the total weight of all the dogs:
+		//summingDouble takes a toDoubleFunction
+		double dogWeight = dogList.stream().collect(Collectors.summingDouble(d->d.weight));
+		
+		
+		//summing int:
+		//returns the total of all ages of dogs:
+		int dogAge = dogList.stream().collect(Collectors.summingInt(d->d.age));	
+		
+		
+		//===========================ADDING TO COLLECTIONS:
+		//REMEMBER to LIMIT the stream ++++++++++++++++++++ 
+		
+		//======TOLIST():
+		//Returns a list of whatever type we state our list to be in the generic
+		//this will multiply each number produced by a factor of 10:
+		List<Integer>intList = Stream.iterate(1, n->n*10).limit(10).collect(Collectors.toList());
+		
+		System.out.println(intList);
+		
+
+		//======TOSET():
+		
+		List<String>animals2=Arrays.asList("dog", "cat", "pig", "pig", "sheep", "cow");
+		
+		//this returns a set based on the list of animals above.
+		Set<String>animalSet=animals2.stream().collect(Collectors.toSet());
+		
+		System.out.println(animalSet);
+		
+		
+		//======TOCOLLECTION():
+		
+		/*
+		 * allows us to save our stream to any particular type of collection object
+		 * (any type of set, queue or list, NOT MAPS)
+		 */
+		
+		
+		TreeSet<Integer>treeInt=Stream.generate(()->generateRandom())
+				.distinct() //have to put in distinct if you want exactly 7 numbers each time (as rand numbers could be duplicates)
+				.limit(7)
+				.collect(Collectors.toCollection(()->new TreeSet<Integer>())); //takes in a supplier object, and this object has to provide a collection obj of some type
+		
+				System.out.println(treeInt);
 	}
 	
 	
