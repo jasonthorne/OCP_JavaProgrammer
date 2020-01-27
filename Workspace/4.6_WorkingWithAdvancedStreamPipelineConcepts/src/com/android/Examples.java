@@ -3,7 +3,10 @@ package com.android;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.DoubleSummaryStatistics;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
@@ -478,12 +481,69 @@ public class Examples {
 				.limit(7)
 				.collect(Collectors.toCollection(()->new TreeSet<Integer>())); //takes in a supplier object, and this object has to provide a collection obj of some type
 		
-				System.out.println(treeInt);
+		System.out.println(treeInt);
+		
+		
+		treeInt.clear();
+		
+		//Shortened version of above:
+		treeInt= Stream.generate(()->generateRandom()).distinct()
+				.limit(7)
+				.collect(Collectors.toCollection(TreeSet::new)); //automatically creates a treeSet of INTEGERS. otherwise you need to remember the INTEGER generic on the above example. 
+				
+		
+		
+		//---------------------
+		
+		//this list contains: [dog, cat, mouse, sheep, pig]
+		System.out.println(animals);
+		
+		LinkedList<String>linkedStr = animals.stream().collect(Collectors.toCollection(LinkedList::new));
+		
+		System.out.println(linkedStr);
+				
 	}
 	
 	
 	
-	
+	static void ex7() {
+		
+		//=======================================COLLECTING STREAMS INTO MAPS:
+		
+		//---------------TOMap()
+		
+		//map of integers & strings:
+		//if you put in a duplicate key, the value for that key is overwritten
+		Map<Integer, String>myMap = new HashMap<Integer, String>();
+		
+		myMap.put(333, "jay");
+		myMap.put(111, "dan");
+		myMap.put(444, "sam");
+		myMap.put(555, "laura");
+		myMap.put(333, "yo"); //value is overwritten as key is there already
+		myMap.putIfAbsent(333, "dawg"); //key is there so this wont be put in
+		
+		System.out.println(myMap);
+		
+		
+		//You CANT use Collectors.toCollection with maps as they're not part of the collection interface
+		//so you need to use the below: +++++++++++++++++++
+		
+		
+		List<String>animals = Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig");
+		
+		/*
+		 * This map will take as it's key: a string in the above list, and as it's value: the length of the string. 
+		 * 
+		 * ToMap takes in 2 function methods. First function takes in a string and returns a string. this will be our key. 
+		 * 2nd function 
+		 */
+		
+		Map<String, Integer>strMap = animals.stream().collect(Collectors.toMap(s->s, s->s.length()));
+		
+		System.out.println(strMap);
+		
+	}
 	
 	
 	
