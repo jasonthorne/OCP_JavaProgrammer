@@ -509,7 +509,7 @@ public class Examples {
 	
 	static void ex7() {
 		
-		//=======================================COLLECTING STREAMS INTO MAPS:
+		//=======================================COLLECTING STREAMS INTO MAPS:  ++++++++++++++++++++++++++++++:
 		
 		//---------------TOMap()
 		
@@ -538,9 +538,11 @@ public class Examples {
 		 * 
 		 * ToMap takes in 2 function methods. First function takes in a string and returns a string. this will be our key. 
 		 * 2nd function 
+		 * 
+		 * 's' is a string, because its declared to be in the first generic & is being mae from a stream of strings ++++++++++++
 		 */
 		
-		Map<String, Integer>strMap = animals.stream().collect(Collectors.toMap(s->s, s->s.length()));
+		Map<String, Integer>strMap = animals.stream().collect(Collectors.toMap(s->s, s->s.length())); 
 		
 		System.out.println("strMap: " + strMap);
 		
@@ -619,10 +621,14 @@ public class Examples {
 														(s1, s2)-> s1+", " + s2)); //if 2 keys are the same (same length), concatenate the two strings to create a new value for them
 		
 		
-		System.out.println("intMap: " + intMap); //prints: intMap: {3=dog, cat, cow, pig, 5=mouse, sheep}
+		System.out.println("intMap++: " + intMap); //prints: intMap: {3=dog, cat, cow, pig, 5=mouse, sheep}
 		
 		
-		//--------------------------------------------
+		//--------------------------------------------DO THIS WITH A LOOP! :P ++++++++++++++++++++++++++++++
+		
+		/*
+		 * this sorts the map by key:
+		 */
 		//3nd overloaded toMap:
 		
 		TreeMap<Integer, String>treeMap=animals.stream()
@@ -640,7 +646,46 @@ public class Examples {
 	static int count=0;
 	
 	
-	
+	static void ex8() {
+		
+		//=================================================GROUPING BY() ++++++++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex8:");
+		
+		List<String>animals=Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig", "elephant", "antelope");
+		
+		
+		/*
+		 * grouping by returns a group of lists (collection objects) that are grouped in whatever format we want. 
+		 * Here we are going to return lists of strings and the first list will contain all the strings with 3 characters in it. 
+		 * 
+		 * Second list will be the list with 5 characters
+		 * 
+		 * This produces a map of Integers and lists of strings. 
+		 * Key 3 will be the lsit that contains: dog, cat, cow, pig
+		 * 
+		 * key 5 will be the list that contains: mouse, sheep.
+		 * 
+		 * key 8 will be the list that contains elephant and Antelope
+		 * 
+		 */
+		
+		Map<Integer, List<String>>tMapList = animals.stream().collect(Collectors.groupingBy(s->s.length()));
+		
+		System.out.println(tMapList); //this prints out: {3=[dog, cat, cow, pig], 5=[mouse, sheep], 8=[elephant, antelope]}
+		
+		//get lists:
+		System.out.println(tMapList.get(3));
+		System.out.println(tMapList.get(5));
+		System.out.println(tMapList.get(8));
+		
+		//get an element from the list:
+		System.out.println("this gets the dog: " + tMapList.get(3).get(0));
+		
+		System.out.println("this gets the dog: " + tMapList.get(8).get(tMapList.get(8).size()-1));
+
+		
+	}
 	
 	
 }
