@@ -782,16 +782,57 @@ public class Examples {
 		//---------------------------------------THIRD overloaded groupingBy method:
 		
 		
+		/*
+		 * This takes 3 args.
+		 * 1st arg is a function that specifies key & grouping. 
+		 * 2nd is the specific type of map we want this to be. (a supplier that takes a map)
+		 * 3rd: specific type of collection you want these values to be in your collection.
+		 */
+		
+		/*
+		 * This creates a treeMap of TreeSets  of Strings, that have Integers as the keys.
+		 */
+		TreeMap<Integer, TreeSet<String>>tTreeMapTree=animals
+												.stream()
+												.collect(Collectors.groupingBy
+														(s->s.length(), //same as s->s.length()s
+														TreeMap::new, //same as ()->new TreeMap<Integer, TreeSet<String>>()
+														Collectors.toCollection(TreeSet::new))); //same as ()->new TreeSet<String>()
+	
+		
+		System.out.println("tTreeMapTree: " + tTreeMapTree);
 		
 		
 		
+	
+		//==============================================Partitioning: +++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * Partitioning is a special type of grouping, and with this there are only 2 possible groups: true or false. 
+		 * 
+		 * PartitionBy() takes a predicate
+			true - those strings longer than 4 characters long
+			false - those with string 4 or less
+		 *
+		 *The key is alwaya a boolean
+		 *The value is always a collection of objects
+		 */
+		
+		Map<Boolean, List<String>>partMap = animals.stream()
+											.collect(Collectors.partitioningBy(s -> s.length()>=4)); //partition by all strings that have 4 or more characters
 		
 		
+		System.out.println(partMap);
+		
+		/*
+		 * Below takes a predicate and downstream collector (which is just the collection type we want our map to contain)
+		 */
+		Map<Boolean, Set<String>>partMapSet=animals.stream()
+													.collect(Collectors.partitioningBy(s->s.length()>=4, Collectors.toSet()));
 		
 		
-		
-		
-		
+		Map<Integer, Long>longIntMap = animals.parallelStream().collect(Collectors.groupingBy(String::length, Collectors.counting()));
+		System.out.println(longIntMap);
 		
 		
 		
