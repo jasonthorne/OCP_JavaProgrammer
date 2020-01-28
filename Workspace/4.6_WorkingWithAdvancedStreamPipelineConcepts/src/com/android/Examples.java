@@ -669,6 +669,8 @@ public class Examples {
 		 * key 8 will be the list that contains elephant and Antelope
 		 * 
 		 */
+		
+		//-----------------------------FIRST overloaded groupingBy method:
 		/*
 		 * This groupBy returns a HashMap that is going to have as a key any object type and as its value, a liat of any object type. 
 		 */
@@ -745,7 +747,77 @@ public class Examples {
 				.collect(Collectors.toSet());
 				
 		System.out.println("our set of values is now: " + values);
+		
+		
+		
+		//---------------------------------------SECOND overloaded groupingBy method:
+		
+		
+		/*
+		 * This groupingby  is when we want to return a partuicular type of collection. 
+		 * As the groupingBy that only takes one arguement can only return a map of lists as values, the key can be any type you want.
+		 */
+		
+		/*
+		 * This will not work as this groupingBy generates a list of strings not a set of strings. 
+		 */
+		/*
+		Map<Integer, Set<String>>tMapSet= animals.stream()
+				.collect(Collectors.groupingBy(s->s.length()));
+		*/
+		
+		
+		/*
+		 * This groupingBy takes 2 params:
+		 * 1st is a function which creates our key and groups all of the values according to key,
+		 * in this case all strings with length 3 will be one group, of length 5 will be another group. of length 8 will be another group. 
+		 * 
+		 * 2nd arg: is called a DOWNSTREAM COLLECTOR which determines what type of collection you want it to be.
+		 */
+		Map<Integer, Set<String>>tMapSet= animals.stream()
+				.collect(Collectors.groupingBy(s->s.length(), Collectors.toSet())); 
+		
+		
+		
+		//---------------------------------------THIRD overloaded groupingBy method:
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
