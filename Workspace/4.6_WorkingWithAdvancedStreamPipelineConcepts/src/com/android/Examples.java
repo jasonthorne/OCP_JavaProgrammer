@@ -669,6 +669,10 @@ public class Examples {
 		 * key 8 will be the list that contains elephant and Antelope
 		 * 
 		 */
+		/*
+		 * This groupBy returns a HashMap that is going to have as a key any object type and as its value, a liat of any object type. 
+		 */
+		
 		
 		Map<Integer, List<String>>tMapList = animals.stream().collect(Collectors.groupingBy(s->s.length()));
 		
@@ -683,8 +687,64 @@ public class Examples {
 		System.out.println("this gets the dog: " + tMapList.get(3).get(0));
 		
 		System.out.println("this gets the dog: " + tMapList.get(8).get(tMapList.get(8).size()-1));
-
 		
+		
+		//-----------------SET OF KEYS;
+		
+		//returns a set of all the keys:
+		System.out.println(tMapList.keySet());
+		
+		//--
+		
+		Map<Integer, Double>myMap=Stream.iterate(1, n->n+10)
+				.limit(10)
+				.collect(Collectors.toMap(k->k, v->Math.random()*v));
+		
+
+		System.out.println(myMap);
+		
+		/*
+		 * myMap<Integer, Double> 
+		 * has an Integer key and a Double value. To get all the values of a map we use .Values()
+		 * which returns a collection object containing all the values.
+		 * In this case this returns a collection of doubles.
+		 */
+		
+		List<Double>dList=myMap.values()
+				.stream() //when you have a stream, you can create a list
+				.collect(Collectors.toList()); //here we have a list
+		
+		System.out.println("list of double values is: " + dList);
+		System.out.println("list of Integr key is: " + myMap.keySet() //grab keys
+														.stream() //stream of integers
+														.collect(Collectors.toCollection(TreeSet::new))); //put all the integers into a treeSet
+		
+		
+		//-------------------
+		
+		tMapList.clear();
+		tMapList = animals.stream().collect(Collectors.groupingBy(s->s.length()));
+		
+		System.out.println(tMapList.keySet());
+		System.out.println(tMapList.keySet().parallelStream().collect(Collectors.toCollection(TreeSet::new)));
+		
+		System.out.println(tMapList.values().stream().collect(Collectors.toList()));
+		List<List<String>>listList=tMapList.values().stream().collect(Collectors.toList());
+		
+		/*
+		 * This gets the first list in our list of strings and then gets the first string in that list, which is a dog:
+		 */
+		
+		System.out.println(listList.get(0).get(0));
+		
+		//------------using FLATMAP:
+		
+		Set<String>values=tMapList.values() //produce a collection of a list of strings
+				.stream() //a stream of lists of strings
+				.flatMap(l->l.stream()) //this produces just a stream of list of Strings from our stream of lists of strings
+				.collect(Collectors.toSet());
+				
+		System.out.println("our set of values is now: " + values);
 	}
 	
 	
