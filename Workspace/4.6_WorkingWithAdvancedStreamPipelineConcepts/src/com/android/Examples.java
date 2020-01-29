@@ -842,12 +842,22 @@ public class Examples {
 	
 	
 	
+	static void ex9() {
+		
+		//=================================================COLLECTORS MAPPING ++++++++++++++++++++++++++++++++++++++++++++
+		
+		System.out.println("\nex9:");
+		
+		List<String>animals=Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig", "elephant", "antelope");
+		
+		List<Integer>listStr=animals.stream()
+				.collect(Collectors.mapping(s->s.length(), null));
+		
 	
 	
 	
 	
-	
-	
+	}
 	
 	
 	
