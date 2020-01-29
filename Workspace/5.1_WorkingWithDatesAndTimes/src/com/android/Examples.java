@@ -314,12 +314,74 @@ public class Examples {
 		System.out.println(p1); //this is now 5 years, 4 months & 2 days (P5Y4M2D)
 		
 		
+		//------------
+		
+		
+		//get years
+		
+		System.out.println(p1.getYears()); 
+		
+		//A period of weeks is stored as days: ++++++++++++++++++++++++++++++++++++++
+		Period per2 = Period.ofWeeks(4);
+		System.out.println("per2 is 4 weeks which is: " + per2);
+		
+		
+		//================================
+		
+		LocalDate future = today.plusMonths(4).plusYears(3).plusWeeks(19).plusDays(678);
+		System.out.println("future: " + future);
+		
+		Period between = Period.between(today, future);
+		System.out.println("between: " + between);
+		
+		/*
+		 * to check this is right, we add our periods onto today's date and we should get the same future date
+		 */
+		
+		System.out.println("today.plus(between): " + today.plus(between));
+
 	}
 	
 	
+	static void ex4() {
+		
+		//=================================================DIFFERENT TYPES OF DURATION
+		System.out.println("\nex4:");
+		
+		//duration is for times:
+		Duration daily = Duration.ofDays(2);
+		System.out.println(daily);
+		
+		Duration hourly = Duration.ofHours(2);
+		System.out.println(hourly);
+		
+		//any duration longer than an hour, (if you use minutes) will be stored as hours.
+		Duration minutes = Duration.ofMinutes(333);
+		System.out.println(minutes);
+		
+		//any duration longer than an hour, (if you use minutes) will be stored as hours.
+		Duration everyMinute = Duration.ofSeconds(60);
+		System.out.println(everyMinute);
+		
+		Duration lotSeconds = Duration.ofSeconds(3660);
+		System.out.println(lotSeconds);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
-	
-	
+	}
 	
 	
 	
