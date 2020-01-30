@@ -1,6 +1,7 @@
 package com.android;
 
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.chrono.Era;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -364,30 +366,114 @@ public class Examples {
 		Duration everyMinute = Duration.ofSeconds(60);
 		System.out.println("everyMinute: " + everyMinute);
 		
-		Duration lotSeconds = Duration.ofSeconds(3660);
+		Duration lotSeconds = Duration.ofSeconds(3661); //one hour, one min, and one sec.
 		System.out.println("lotSeconds: " + lotSeconds);
 		
+		Duration.ofMillis(100); //millisecs
+		Duration.ofNanos(100); ///nanoseconds
+		
+		//---------------------------------CHRONOUNITS 
+		
+		/*
+		 * 
+		 */
+		
+		daily = Duration.of(1, ChronoUnit.DAYS);
+		hourly = Duration.of(1, ChronoUnit.HOURS);
+		
+		/*
+		 * Duration only works for TIMES. Once you go over days this will not compile ++++++++++++++++++++++++++
+		 */
+		//System.out.println(Duration.of(7, ChronoUnit.CENTURIES));
+		
+		everyMinute=Duration.of(10, ChronoUnit.MINUTES);
+		
+		System.out.println(everyMinute);
+		System.out.println(Duration.of(10, ChronoUnit.MINUTES));
 		
 		
+		//--------------------
+		
+		LocalTime midnight = LocalTime.MIDNIGHT;
+		System.out.println("time to midnight: " + midnight);
+		
+		LocalTime now = LocalTime.now();
+		System.out.println("time now: " + now);
 		
 		
+		//time period between now & midnight:
+		System.out.println(ChronoUnit.SECONDS.between(now, midnight)); //the amount of seconds from midnight
+		
+		System.out.println(Duration.of(ChronoUnit.SECONDS.between(now, midnight), ChronoUnit.SECONDS));
+		
+		//-----------------
+		
+		LocalDateTime td1 = LocalDateTime.now();
+		LocalDateTime td2 = td1.plusDays(13).plusHours(4).plusMinutes(20);
+		
+		System.out.println(td1);
+		System.out.println(td2);
+		
+		System.out.println(ChronoUnit.MINUTES.between(td1, td2));
+		System.out.println(ChronoUnit.DAYS.between(td1, td2));
 		
 		
+		td2 = td1.plusWeeks(100).plusMonths(50).plusDays(100).plusYears(70);
+		System.out.println(ChronoUnit.MINUTES.between(td1,  td2));
+		
+		System.out.println("years between td1 & td2: " + ChronoUnit.YEARS.between(td1, td2));
 		
 		
+		/*
+		 * You can use durations with LocalTimes and LocalDateTimes, but you cant use durtations with LocalDates +++++++++++++++++++++++++++++++++++
+		 * 
+		 * everyMinute is a duration so you can add this to a localDateTime:
+		 */
+		System.out.println(td1.plus(everyMinute));
 		
+		//You CANT add it to a LocalDate:
+		//LocalDate.now().plus(everyMinute);
 		
+		//-------------
 		
+		//Periods DONT take ChronoUnits:
+		//Period per1=Period.of(years, months, days);
 		
+		System.out.println(td1.plus(everyMinute).plus(lotSeconds)); //++++++++++++++++you CAN chain these as their NOT PERIODS or DURATIONS (which CANT be chained)++++++
 		
-		
-	
+
 	}
 	
 	
+	static void ex5() {
+		
+		//=================================================INSTANT
+		System.out.println("\nex5:");
+		
+		/*
+		 * Instant is a particular point in time in the GMT time zone
+		 * 
+		 * So for instance, if the current GMT time is 13:00 this will be the same on the machine in Tokyo or London
+		 */
+		
+		Instant now = Instant.now();
+		
+		System.out.println("now: " + now);
+		
+		long j=0;
+		
+		for(long i=0;i<1_200_000_000;i++) {
+			j=j+1;
+		}
+		
+		System.out.println(j);
+		Instant later = Instant.now();
+		
+		Duration duration=Duration.between(now, later);
+		
+		System.out.println("duration: " + duration);
 	
-	
-	
+	}
 	
 
 }
