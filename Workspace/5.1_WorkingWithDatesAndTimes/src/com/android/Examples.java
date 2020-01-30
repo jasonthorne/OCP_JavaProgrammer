@@ -9,11 +9,13 @@ import java.time.Month;
 import java.time.Period;
 import java.time.Year;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.chrono.Era;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.*;
 
 public class Examples {
 	
@@ -462,7 +464,7 @@ public class Examples {
 		
 		long j=0;
 		
-		for(long i=0;i<1_200_000_000;i++) {
+		for(long i=0;i<1_200_000_000L;i++) {
 			j=j+1;
 		}
 		
@@ -471,8 +473,67 @@ public class Examples {
 		
 		Duration duration=Duration.between(now, later);
 		
-		System.out.println("duration: " + duration);
-	
+		System.out.println("duration: " + duration.toNanos());
+		
+		
+		//----------------------
+		
+		now = Instant.now();
+		/*
+		 * cooment this out to see how long it takes a stream to create 1.2 billion Integer wrapper objects (approx 9 secs)
+		 */
+		//Stream.iterate(0, n-> n+1).limit(1200000000).count();	//.collect(Collectors.toList());
+		later = Instant.now();
+		
+		System.out.println("duration2: " + Duration.between(now, later).toMillis());
+		
+		
+		//--------------------
+		
+		LocalDateTime ldt1 = LocalDateTime.of(LocalDate.now().plusDays(27), LocalTime.now().plusMinutes(72));
+		
+		System.out.println(ldt1);
+		
+		
+		/*
+		 * this is the offSet of Paris. paris is one hour ahead of GMT.
+		 * We are asuming the above date was on a machine in paris.
+		 */
+		ZoneOffset zOffset = ZoneOffset.ofHours(-1); 
+		System.out.println(ldt1.toInstant(zOffset)); //this will be GMT, which is instant time.
+		
+		//------------using ZoneId:
+		
+		LocalDate date=LocalDate.of(2022, Month.JULY, 2);
+		LocalTime time = LocalTime.of(14, 25);
+		
+		ZoneId zone = ZoneId.of("Asia/Shanghai");
+		
+		ZonedDateTime zonedDateTime = ZonedDateTime.of(date,  time, zone);
+		System.out.println("zonedDateTime: " + zonedDateTime); //the plus 8 it is 8 hours ahead of GMT.
+		
+		Instant instant2 = zonedDateTime.toInstant();
+		System.out.println("instant2: " + instant2);
+		
+		
+		//-------------
+		
+		zone = ZoneId.of("Asia/Shanghai");
+		
+		//this is the current time applied to Shanghi timezone, so this will print out: 2:12 in the afternoon. 
+		zonedDateTime = ZonedDateTime.of(LocalDateTime.now(), zone);
+		System.out.println("zonedDateTime: " + zonedDateTime); //the plus 8 it is 8 hours ahead of GMT.
+		
+		//the GMT time when it was 2:12 in shanghai was 8 hours before which will be 6:12 in the morning.
+		
+		instant2 = zonedDateTime.toInstant();
+		System.out.println("instant2: " + instant2);
+		
+		
+		
+		
+		
+
 	}
 	
 
