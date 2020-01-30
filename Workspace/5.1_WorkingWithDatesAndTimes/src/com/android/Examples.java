@@ -349,22 +349,23 @@ public class Examples {
 		System.out.println("\nex4:");
 		
 		//duration is for times:
+		//if you have a duraion for days, this will print our hours.
 		Duration daily = Duration.ofDays(2);
-		System.out.println(daily);
+		System.out.println("daily: " + daily);
 		
 		Duration hourly = Duration.ofHours(2);
-		System.out.println(hourly);
+		System.out.println("hourly: " + hourly);
 		
 		//any duration longer than an hour, (if you use minutes) will be stored as hours.
 		Duration minutes = Duration.ofMinutes(333);
-		System.out.println(minutes);
+		System.out.println("minutes: " + minutes);
 		
 		//any duration longer than an hour, (if you use minutes) will be stored as hours.
 		Duration everyMinute = Duration.ofSeconds(60);
-		System.out.println(everyMinute);
+		System.out.println("everyMinute: " + everyMinute);
 		
 		Duration lotSeconds = Duration.ofSeconds(3660);
-		System.out.println(lotSeconds);
+		System.out.println("lotSeconds: " + lotSeconds);
 		
 		
 		

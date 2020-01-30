@@ -850,11 +850,79 @@ public class Examples {
 		
 		List<String>animals=Arrays.asList("dog", "cat", "mouse", "cow", "sheep", "pig", "elephant", "antelope");
 		
-		List<Integer>listStr=animals.stream()
-				.collect(Collectors.mapping(s->s.length(), null));
+		//List<Integer>listStr=animals.stream().collect(Collectors.mapping(s->s.length(), null));
+		
+		/*
+		 * This will have as a key, the amount of characters in a string:
+		 */
+		Map<Integer, List<Character>>charMap = animals.stream()
+			.collect(Collectors.groupingBy(
+					String::length, //this is what were grouping the strings by (which will be the keys)
+					//below is for producing the value:
+					Collectors.mapping(
+							/*
+							 * collectors.mapping takes 2 args:
+							 * 1st is a mapper, which is a function that takes in the strings and produces a character,
+							 * the character will be the first char in the string.
+							 */
+							s -> s.charAt(0), //this is a "function" (takes in a string and returns a character)
+							/*
+							 * second arg is a downstream collector, which is a reduction, which is what all characters will be stored in.
+							 * this is the type of VALUE in the hashmap.
+							 */
+							Collectors.toList())
+					));
+		
+		//this produces the following:
+		//{3=[d, c, c, p], 5=[m, s], 8=[e, a]}
+		System.out.println(charMap);
+		
+		
+		//--------------------------------------------------------------------------------
 		
 	
-	
+		Map<Integer, List<String>>strMap = animals.stream()
+			.collect(Collectors.groupingBy(
+					String::length, //this is what were grouping the strings by (which will be the keys)
+					//below is for producing the value:
+					Collectors.mapping(
+							/*
+							 * collectors.mapping takes 2 args:
+							 * 1st is a mapper, which is a function that takes in the strings and returns a string,
+							 *
+							 */
+							s -> s, //this is a "function" (takes in a string and returns a string)
+							/*
+							 * second arg is a downstream collector, which is a reduction, which is what all characters will be stored in.
+							 * this is the type of VALUE in the hashmap.
+							 */
+							Collectors.toList())
+					));
+		
+		
+		//this produces the following:
+		//{3=[dog, cat, cow, pig], 5=[mouse, sheep], 8=[elephant, antelope]}
+		System.out.println(strMap);
+		
+		
+		//--------------------------------------------------------------------------------
+		/*
+		Map<Integer, Optional<Character>>charMapOrder = animals.stream()
+				.collect(Collectors.groupingBy(
+						String::length, //key
+						Collectors.mapping(
+								// below has to be a char as this is what was defined as a map on the left hand side.
+								s->s.chatAt(0), 
+								// below has to be an optional as this is what was defined in our map on the left hand side.
+								Collectors.minBy(Comparator.naturalOrder())
+						)
+						
+						
+						);
+						
+						
+		System.out.println(charMapOrder);
+		*/	
 	
 	
 	}
