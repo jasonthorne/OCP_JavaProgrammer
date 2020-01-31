@@ -96,6 +96,8 @@ public class Examples {
 		
 		System.out.println(sb.substring(1,4)); //*bd
 		
+		System.out.println(b); //substring does NOT change the Stringbuilder
+		
 		
 	}
 
