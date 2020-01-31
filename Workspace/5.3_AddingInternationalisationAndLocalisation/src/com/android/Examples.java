@@ -3,6 +3,9 @@ package com.android;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Examples {
@@ -115,6 +118,42 @@ public class Examples {
 		
 		//-----------------------
 		
+		/*
+		Map<String, Set<String>>countryLanguage = locList.stream()
+				.collect(Collectors.groupingBy(l->l.getCountry()), Collectors.toSet());
+		
+		*/
+		
+		
+	}
+	
+	
+	
+	static void ex2() {
+		
+		System.out.println("\nex2:");
+		
+		//================================================LOCALIZATION: 
+		
+		
+		//------------------RESOURCE BUNDLES:
+		/*
+		 * resource bundles can be a java class or a packages file. 
+		 */
+		
+		Locale us = new Locale("en", "US");
+		Locale germany = new Locale("de", "DE");
+		
+		
+		//To create a properties file in eclipse, click on new file, then go to the correct package, and save file by naming it MyBundle.properties
+		//you HAVE to include the file extension. Then you create the resource bundle from the full file name: package + filename, but NOT file extension, 
+		//and use this resource bundle to access each of the values through their keys.
+		
+		ResourceBundle rb = ResourceBundle.getBundle("com.android.myBundle"); 
+		
+		System.out.println("1st statement: " + rb.getString("hello")); 
+		
+		System.out.println("2nd statement: " + rb.getString("open"));
 		
 		
 		
@@ -123,6 +162,24 @@ public class Examples {
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
 
