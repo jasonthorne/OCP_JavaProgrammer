@@ -308,12 +308,104 @@ public class Examples {
 		
 		//================================================JAVA CLASS RESOURCE BUNDLE
 		
+		Locale britain = new Locale("en", "GB");
+		Locale germany = new Locale("de", "DE");
+		Locale france = new Locale("fr", "FR");
+		
+		//Bundle is made from ALL classes in 'com.bundle' package that begin with Farm. This CAN contain both classes and property files. 
+		ResourceBundle rb = ResourceBundle.getBundle("com.bundle.Farm", britain); //BRITAIN
+		System.out.println(rb.getString("open"));
+		System.out.println(rb.getString("hello"));
 		
 		
-	
+		rb = ResourceBundle.getBundle("com.bundle.Farm", germany); //GERMANY
+		System.out.println(rb.getString("open"));
+		System.out.println(rb.getString("hello"));
+		
+		/*
+		 * The value for open is an Object, so we cant use getString() to get that object, we have to use getObject()
+		 */
+		rb = ResourceBundle.getBundle("com.bundle.Farm", france); //FRANCE
+		System.out.println(rb.getObject("open")); //this has an Animal value
+		System.out.println(rb.getString("hello")); //this has a string value 
+		//System.out.println(rb.getString("yo")); //this has an ArrayList of Integers value
+		
+		
+		//----------------no locale defined in bundle creation:
+		
+		/*
+		 * If no locale is stated it will use the default value used on your machine.
+		 */
+		rb=ResourceBundle.getBundle("com.bundle.Farm");
+		System.out.println(rb.getObject("open")); //this has an Animal value
+		System.out.println(rb.getString("hello")); //this has a string value 
+		
+		
+		//=========================================
+		
+		/*
+		 * creating a bundle for offices:
+		 */
+		
+		//OFFICE IN FRANCE:
+		rb=ResourceBundle.getBundle("com.android.Office", france);
+		System.out.println(rb.getString("hello")); 
+		System.out.println(rb.getString("open"));
+		
+		/*
+		 * This uses the default locale, which is the locale of this machine, which is the english language. 
+		 * However their is no English locale in this bundle, only French. 
+		 * So if you attempt to use any other locale other than English you will get a 'missing resource exception'.
+		 */
+		
+		//rb=ResourceBundle.getBundle("com.android.Office"); //using the machines default of english, but there is no '_en' file
+		
+		//-----------------------
+		
+		
+		rb=ResourceBundle.getBundle("com.android.Zoo", britain);
+		System.out.println(rb.getObject("open"));
+		
+		rb=ResourceBundle.getBundle("com.android.Zoo", germany);
+		System.out.println(rb.getObject("open"));
+		
+		/*
+		 * If it cannot use the locale (here the Zoo_fr is not a public level class, its a default level class)
+		 * java will attempt to use the default locale instead, which is english on this machine.
+		 * 
+		 * If you are using resourceBundle, that means you have to have a public class ending with the words "en", 
+		 * here we have a file called Zoo_en.
+		 */
+		rb=ResourceBundle.getBundle("com.android.Zoo", france);
+		System.out.println(rb.getObject("open"));
+		
 	}
 	
 	
+	static void ex5() {
+		
+		System.out.println("\nex5:");
+		
+		Locale us = new Locale("en", "US");
+		System.out.println("Tax in the United States");
+		ResourceBundle rb=ResourceBundle.getBundle("com.money.Tax", us);
+		System.out.println(rb.getObject("tax"));
+		
+		Locale ie = new Locale("en", "IE");
+		System.out.println("Tax in Ireland");
+		rb=ResourceBundle.getBundle("com.money.Tax", ie);
+		System.out.println(rb.getObject("tax"));
+		
+		
+		//----------------
+		/*
+		 * If you dont provide a locale, it will use the default locale which is english, ireland.
+		 */
+		rb=ResourceBundle.getBundle("com.money.Tax");
+		System.out.println(rb.getObject("tax"));
+		
+		
+	}
 
 }
 
