@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -149,29 +150,150 @@ public class Examples {
 		//you HAVE to include the file extension. Then you create the resource bundle from the full file name: package + filename, but NOT file extension, 
 		//and use this resource bundle to access each of the values through their keys.
 		
+		//this is accessing only one properties file: 
+		//Usually with a resource bundle, you can access a number of propertie files
 		ResourceBundle rb = ResourceBundle.getBundle("com.android.myBundle"); 
 		
+		//key for this is: "hello", val is: "hello"
 		System.out.println("1st statement: " + rb.getString("hello")); 
 		
+		//key for this is: "open". value is: "The zoo is open at 9"
 		System.out.println("2nd statement: " + rb.getString("open"));
 		
+		//----------------------
+		
+		//get all keys:
+		System.out.println(rb.keySet());
+		
+		//get all values for each key: +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		//grabbing all the keysets, and for each of them, get thhe vals, and print them out.
+		rb.keySet().stream().map(k->rb.getString(k)).forEach(System.out::println);
+		
+		//cleaner way of getting all keys:
+		rb.keySet().parallelStream().forEach((k)->{
+			System.out.println("key is: " + k);
+			System.out.println("value is: " + rb.getString(k));
+		});
+		
+		//======================CREATING RESOURCE BUNDLE WITH MULTIPLE PROPERTY FILES ++++++++++++++++++++++++++++++++
+		
+		Locale france = new Locale("fr", "FR");
+		
+		/*
+		 * this bundle is based on all files in the com.bundle package that begin with zoo.
+		 * after the underscore in the properites file. denotes what language we are dealing with.
+		 * In this example we create a bundle of the fuiles in the com.bundle package
+		 * that begin with the word zoo, and then we supply a locale, which will search the bundle for a file that uses that language.
+		 */
+		
+		//IN FRENCH: 
+		ResourceBundle rbMult = ResourceBundle.getBundle("com.bundle.Zoo", france);
+		
+		System.out.println("\nrbMult.keySet(): " + rbMult.keySet());
+		
+		System.out.println("zoo hello: " + rbMult.getString("hello"));
+		System.out.println("zoo open: " + rbMult.getString("open"));
 		
 		
+		//IN GERMAN:
+		rbMult = ResourceBundle.getBundle("com.bundle.Zoo", germany);
+		
+		System.out.println("zoo hello: " + rbMult.getString("hello"));
+		System.out.println("zoo open: " + rbMult.getString("open"));
+		
+		//-----------------
+		//non existent key:
+			
+		//if yoyu attempt to access a non existanrt key, you will get a missing resource exception:
+		//rbMult.getString("woohoo");	
+		//--------------------
+		
+		//IN ENGLISH:
+		rbMult = ResourceBundle.getBundle("com.bundle.Zoo", us);
+		
+		System.out.println("zoo hello: " + rbMult.getString("hello"));
+		System.out.println("zoo open: " + rbMult.getString("open"));
+		
+		getLocalDetails(rbMult);
 		
 		
+		//-----------------------
+		ResourceBundle rbUs = ResourceBundle.getBundle("com.bundle.Zoo", us);
+		
+		//keys of us locale:
+		
+		Set<String>keys=rbMult.keySet();
+
+		System.out.println("us locale keys: " + keys);
+		
+		//values of a us locale:
+		Set<String>values=keys.stream().map(k ->rbUs.getString(k)).collect(Collectors.toSet());
+		
+		System.out.println("values: " + values);
 		
 		
+		//=========================================
+		
+		/*
+		 * If no locale is given, then it will use the default locale.
+		 * HOWEVER you have to have a file for it to work. If you DONT HAVE a _en file in this bundle or this wont compile.
+		 * there HAS TO BE a Zoo_en file inside the com.android package.
+		 * 
+		 */
+		ResourceBundle rb4 = ResourceBundle.getBundle("com.bundle.zoo"); //	,new Locale("EN")); - this is instinctively created. 
+		
+		System.out.println("**********rb4: " + rb4.keySet());
+			
+
+		
+	}
+	
+	//gets all the keys and values of a particular properties file
+	static void getLocalDetails(ResourceBundle myRb) {
+		System.out.println(myRb.keySet());
+		myRb.keySet().stream().forEach((k)->{
+			System.out.println(myRb.getString(k));
+		});
 	}
 	
 	
 	
+	static void ex3() {
+		
+		System.out.println("\nex3:");
+		
+		//================================================PROPERTIES CLASS: 
+		
+		/*
+		 * A properties class is a java inbuilt class which stores the values and keys of a properties file
+		 * 
+		 */
+		
+		Properties props = new Properties();
+		
+		//locale for germany:
+		Locale germany = new Locale("de", "DE");
+		
+		ResourceBundle rb = ResourceBundle.getBundle("com.bundle.Zoo", germany);
+		
+		//for every key in resource file, put that key and its value into the properties object: ++++++++++++++++++
+		rb.keySet().stream().forEach(k->props.put(k, rb.getString(k)));
+		
+		
+		
+		System.out.println("properties: " + props);
+		
+		System.out.println("props.keySet: " + props.keySet());
+		
+		System.out.println("props.get('open'): " + props.get("open"));
 	
-	
-	
-	
-	
-	
-	
+		//getting all the values of our properties file:
+		props.keySet().stream().map(k->props.get(k)).forEach(System.out::println);
+		
+		//saving to a set:
+		//Set<String>setKeys=props.keySet().stream().map(k->props.get(k)).collect(Collectors.toSet());
+		
+	}
 	
 	
 	
