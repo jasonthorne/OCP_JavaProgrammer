@@ -231,7 +231,6 @@ public class Examples {
 		
 		System.out.println("values: " + values);
 		
-		
 		//=========================================
 		
 		/*
@@ -244,8 +243,6 @@ public class Examples {
 		
 		System.out.println("**********rb4: " + rb4.keySet());
 			
-
-		
 	}
 	
 	//gets all the keys and values of a particular properties file
@@ -262,7 +259,7 @@ public class Examples {
 		
 		System.out.println("\nex3:");
 		
-		//================================================PROPERTIES CLASS: 
+		//================================================PROPERTIES OBJECT: 
 		
 		/*
 		 * A properties class is a java inbuilt class which stores the values and keys of a properties file
@@ -293,13 +290,28 @@ public class Examples {
 		//saving to a set:
 		//Set<String>setKeys=props.keySet().stream().map(k->props.get(k)).collect(Collectors.toSet());
 		
+		
+		//----------------------------------------
+		
+		//props has all the keys and values of the Germany file.
+		
+		System.out.println(props.keys().nextElement()); //first key in germany locale
+		System.out.println(props.elements().nextElement()); //first value in germany locale
+			
 	}
 	
 	
 	
+	static void ex4() {
+		
+		System.out.println("\nex4:");
+		
+		//================================================JAVA CLASS RESOURCE BUNDLE
+		
+		
+		
 	
-	
-	
+	}
 	
 	
 
