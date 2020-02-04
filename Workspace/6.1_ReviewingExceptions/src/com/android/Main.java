@@ -1,6 +1,8 @@
 package com.android;
 
 import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -80,7 +82,40 @@ public class Main {
 		 * a file object is the address of a file, not the file itself.
 		 */
 		File myFile1 = new File("test1.txt");
-		File myFile2 = new File("test2.txt");
+		File myFile2 = new File("C:/someDir/test.txt");
+		
+		List<Integer>nums = Arrays.asList(34,56,8);
+		
+		try {
+			//uncomment these to see their exceptions:
+			//nums.get(5); //caught by the first catch block
+			//Dog spot = (Dog) new Animal(); //caught by the 2nd catch block
+			//LocalDate myDate = LocalDate.of(1970, 14, 29); //caught by 3rd catch block, that deals with ALL other runtime exceptions
+			
+			System.out.println("is file created: " + myFile1.createNewFile()); //this WILL create a file
+			//System.out.println("is file created: " + myFile2.createNewFile()); //this WONT create a file as the path a non existent dir.
+			
+			//throw new SQLException();
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.getClass().getSimpleName());//this catches the 1st exception
+		}
+		catch(ClassCastException e) { 
+			System.out.println(e.getClass().getSimpleName());//this catches the 2nd exception
+		}
+		catch(RuntimeException e) {
+			System.out.println(e.getClass().getSimpleName());//this catches all other runtime exceptions
+		}
+		
+		//-------------below WILL NOT COMPLE unless there's some code in the try block that COULD generate an exception. 
+		catch(IOException e) { //this will catch all IO exceptions
+			System.out.println(e.getClass().getSimpleName());
+		}
+		
+		catch(Exception e) { //this can catch ANY exception.
+			System.out.println(e.getClass().getSimpleName());
+			//SQL exception caught here
+		}
 		
 		
 		
