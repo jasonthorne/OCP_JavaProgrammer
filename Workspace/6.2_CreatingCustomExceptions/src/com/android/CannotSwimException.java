@@ -52,7 +52,17 @@ class SharkInTheWater extends DangerInTheWater{
 	
 }
 
-class Person{
+
+class Animal {
+	void swim() throws CannotSwimException{
+		System.out.println("this type of animal can swim "); 
+	}
+	
+	
+	
+}
+
+class Person extends Animal{
 	
 	/*
 	 * This method has to be in a try/catch, or whatevr'd calling this has to "throws CannotSwimException"
@@ -61,6 +71,8 @@ class Person{
 		System.out.println("help, I cant swim");
 		throw new CannotSwimException();
 	}
+	
+
 }
 
 
