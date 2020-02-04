@@ -433,6 +433,49 @@ public class Examples {
 		*/
 		
 	}
+	
+	
+
+	static void ex7() {
+		
+		System.out.println("\nex7:");
+		
+		Locale locale = new Locale("eng", "CA"); //english canada
+		ResourceBundle rb = ResourceBundle.getBundle("com.properties.Zoo", locale);
+		
+		/*
+		 * There is no hello key in Zoo_en_CA so it goes UP the chain to check Zoo_en and there is a hello key in that file, 
+		 * so it will print out "hello in english"
+		 */
+		System.out.println(rb.getString("hello"));
+		
+		
+		/*
+		 * There is no "name key in Zoo_en_CA", so it goes UP the chain and no "name" there so it goes further up the chain to Zoo and finds one there.
+		 */
+		System.out.println(rb.getString("name"));
+		
+		
+		/*
+		 * There is a visitor key in Zoo_en_CA and will so will use it's value of english canada visitor
+		 */
+		//System.out.println(rb.getString("visitor"));
+		
+		
+		/*
+		 * There is a trst key in every file, so it looks for it's closest match which is Zoo_en_CA
+		 */
+		//System.out.println(rb.getString("test"));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 
 }
 
