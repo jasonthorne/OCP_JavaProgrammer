@@ -55,6 +55,18 @@ public class Examples {
 			System.out.println("Rescure our percy!");
 		}
 		
+		
+		try {
+			Dog.swim();
+		}catch (CannotSwimException e) {
+			System.out.println("Rescure our Dog!");
+		}
+		
+		
+		
+		
+		
+		
 	}
 
 }
