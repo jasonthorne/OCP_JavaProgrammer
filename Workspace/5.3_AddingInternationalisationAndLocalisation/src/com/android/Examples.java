@@ -317,7 +317,6 @@ public class Examples {
 		System.out.println(rb.getString("open"));
 		System.out.println(rb.getString("hello"));
 		
-		
 		rb = ResourceBundle.getBundle("com.bundle.Farm", germany); //GERMANY
 		System.out.println(rb.getString("open"));
 		System.out.println(rb.getString("hello"));
@@ -404,6 +403,34 @@ public class Examples {
 		rb=ResourceBundle.getBundle("com.money.Tax");
 		System.out.println(rb.getObject("tax"));
 		
+		
+	}
+	
+	
+	
+	static void ex6() {
+		
+		System.out.println("\nex6:");
+		
+		//================================================PROPERTIES FILE PRIORITY
+		
+		//This uses the english ireland locale, as thats the default locale
+		//if you dont provide a locale it will always use the default locale
+		
+		/*
+		 * This respurce bundle has a choice in that it can use either House_en.properties file OR house_en.java file.
+		 * It's first preference will be the House_en.properties file.
+		 */
+		ResourceBundle rb = ResourceBundle.getBundle("com.android.house");
+		
+		rb.keySet().parallelStream().map(k->"key is: " + k + "value is: " + rb.getString(k)).forEach(System.out::println);
+		
+		/* 
+		DONT RUN :P (in case it changes default local of eclipse, and causes problems)
+		Locale.setDefault(newLocale)new Locale("hi");
+		ResourceBundle rb5 = ResourceBundle.getBundle("Zoo", new Locale("en"));
+		
+		*/
 		
 	}
 
