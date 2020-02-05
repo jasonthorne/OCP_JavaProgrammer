@@ -95,6 +95,19 @@ public class Examples {
 		
 		//========================================AUTOCLOSABLE
 		
+		/*
+		 * Bird class below doesnt NOT implement autoclosable, so cannot be in a 'try with resources' 
+		 */
+		/*
+		try(Bird myBird = new Bird()){
+			
+		}*/
+		
+		try(Pub myPub = new Pub()){
+			myPub.takeIdiotsMoney();
+			myPub.serveIdiots();
+		}
+		
 		
 		
 	
