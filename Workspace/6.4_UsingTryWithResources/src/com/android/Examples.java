@@ -62,7 +62,6 @@ public class Examples {
 		
 		//========================================TRY WITH RESOURCES:
 		
-		
 		Path path1=Paths.get("src/test.txt");
 		Path path2=Paths.get("src/test2.txt");
 		
@@ -70,13 +69,14 @@ public class Examples {
 		 * Try with resources has a ().
 		 * In there we put the resources we want to be automatically closed.
 		 * Below we put in a BufferedReader, which will read from a file src/test.txt
+		 * ONLY objects who's classes implement AutoClosable can be in a try with resources
 		 */
 		
 		//these resources MUST be on SEPERATE LINES +++++++++++++++++++++++++++++++
 		try(BufferedReader in=Files.newBufferedReader(path1); //this is the object we use to read from test.txt
 			BufferedWriter out = Files.newBufferedWriter(path2);) { //this is the obj we use to write to test2.txt
 			
-			System.out.println("try with resources runs");
+			System.out.println("try with resources runs. test2.txt runs");
 			out.write(in.readLine());
 			
 		}catch(IOException e) {
@@ -85,21 +85,19 @@ public class Examples {
 		
 		System.out.println("BufferedReader is now closed");
 		
+	
+	}
+	
+	
+	static void ex4() {
 		
+		System.out.println("\nex4:");
 		
-		
-		
-		
-		
+		//========================================AUTOCLOSABLE
 		
 		
 		
 	
 	}
-	
-	
-	
-	
-	
 
 }
