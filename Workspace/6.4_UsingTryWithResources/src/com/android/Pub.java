@@ -15,12 +15,12 @@ public class Pub implements AutoCloseable{
 		
 	}
 	
-	void takeIdiotsMoney() {
-		System.out.println("takeIdiotsMoney");
+	void takeMoney() {
+		System.out.println("takeMoney");
 	}
 	
-	void serveIdiots() {
-		System.out.println("serveIdiots");
+	void serveBeer() {
+		System.out.println("serveBeer");
 	}
 
 }

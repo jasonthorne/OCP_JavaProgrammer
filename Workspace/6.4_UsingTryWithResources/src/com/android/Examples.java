@@ -85,6 +85,7 @@ public class Examples {
 		
 		System.out.println("BufferedReader is now closed");
 		
+		
 	
 	}
 	
@@ -104,13 +105,129 @@ public class Examples {
 		}*/
 		
 		try(Pub myPub = new Pub()){
-			myPub.takeIdiotsMoney();
-			myPub.serveIdiots();
+			myPub.takeMoney();
+			myPub.serveBeer();
 		}
 		
+	
+	}
+	
+	
+	
+	static void ex5() throws Exception {
+		
+		System.out.println("\nex5:");
+		
+		//========================================EXCEPTION
+		
+		/*
+		 * In a try with resources, the catch and finally block are optional.
+		 * Here the turkey shed implements autoclosable, and the close method has a "throws exception"
+		 * in the close signiature. 
+		 * Which means we either have to have a catch block in this exception
+		 *  or have this method (ex5) throws exception.
+		 *  the close() method is called automatically in a try with resources, and this method
+		 *  throws exception.
+		 */
+		
+		try(TurkeyShed myTurkey = new TurkeyShed()){
+			System.out.println("open turkey shed");
+		}
+		
+	
+	}
+	
+	
+	
+	static void ex6(){
+		
+		System.out.println("\nex6:");
+		
+		try(Shop myShop = new Shop()){
+			System.out.println("shop open");
+		}
+		
+		/*
+		 * the close() method in the shop class throws an IllegalStateException, which is a runtime exception.
+		 * If no exception was generated in the close method then you wouldnt need the catch block below.
+		 */
+		catch(Exception e) {
+			System.out.println(e);
+			System.out.println("message is: " + e);
+			e.printStackTrace(); //this prints the map of the exception
+		}
+		
+		System.out.println("our code continues");
+	
+	}
+	
+	/*
+	 * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	 * 
+	 * If the object in the try with resources generates an exception, then it can  be dealt with in the catch block 
+	 * (as in ex6)
+	 * or the method dealing with it can throws it to another method (as in ex5) 
+	 */
+	
+	
+	
+	static void ex7(){
+		
+		System.out.println("\nex7:");
+		
+		/*
+		 * Shop implements AutoClosable and the close method of the Shop class throws a new IllegalStateException,
+		 *  so the catch will deal with the IllegalStateException
+		 */
+		
+		//======================================SUPRESSED EXCEPTIONS +++++++++++++++++++++++++
+	
+		try(Shop myShop = new Shop()){
+			System.out.println("open the shop");
+			//close() method of the shop class will be called automatically here
+			//generates IllegalStateException
+		}
+		catch(Exception e) { //catches IllegalStateException
+			System.out.println(e); //prints out exception "shop will not close"
+		}
+		
+		
+		//----------------not catching supressed exception:
+		
+		/*
+		 * myShop.close() generates an IllegalStateException
+		 * However inside the rtry block there is an ArrayindexOutOfBoundsException generated.
+		 * Any exception henerated insode a try block will be considered a PRIMARY excpetion and will be the exception caught by the catch block. 
+		 * The IllegalStateException is NOT caught or dealt with by the catch block.
+		 */
+		
+		try(Shop myShop = new Shop()){
+			System.out.println("open a second shop");
+			int[]nums= {34,56};
+			System.out.println(nums[3]);
+					
+		
+		}
+		catch(Exception e) { //will only catch the ArrayIndexOutOfBOundsException
+			System.out.println(e); 
+		}
 		
 		
 	
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

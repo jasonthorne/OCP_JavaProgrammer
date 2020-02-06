@@ -9,6 +9,16 @@ public class Main {
 		Examples.ex2();
 		Examples.ex4();
 		
+		try {
+			Examples.ex5();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		Examples.ex6();
+		
+		Examples.ex7();
+		
 	}
 
 }
