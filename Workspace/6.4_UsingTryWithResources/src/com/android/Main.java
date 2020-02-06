@@ -5,19 +5,21 @@ public class Main {
 	public static void main(String[] args) {
 	
 		
-		Examples.ex1();
-		Examples.ex2();
-		Examples.ex4();
+		//Examples.ex1();
+		//Examples.ex2();
+		//Examples.ex4();
 		
 		try {
-			Examples.ex5();
+			//Examples.ex5();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		Examples.ex6();
+		//Examples.ex6();
 		
-		Examples.ex7();
+		//Examples.ex7();
+		
+		Examples.ex8();
 		
 	}
 
