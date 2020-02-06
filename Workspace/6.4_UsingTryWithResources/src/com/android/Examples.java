@@ -259,7 +259,7 @@ public class Examples {
 			//close method for Bar THEN for Cub run here
 		}
 		catch(Exception e) {
-			//this will ONLY see the arrayIndexOutOfBOunds exception that was generated in the try block.
+			//this will ONLY see the arrayIndexOutOfBounds exception that was generated in the try block.
 			System.out.println("primary exception is: " + e);
 			
 			//e.getSupressed() is an array of throwable objects that are out 2 suppressed exceptions
@@ -271,6 +271,11 @@ public class Examples {
 			
 			//showing exceptions with a stream:
 			Arrays.asList(e.getSuppressed()).stream().forEach(System.out::println);
+			
+			System.out.println("end of catch");
+		}
+		finally {
+			System.out.println("finally, run me!");
 		}
 	}
 	
