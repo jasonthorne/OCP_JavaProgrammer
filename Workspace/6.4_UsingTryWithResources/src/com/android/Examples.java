@@ -204,9 +204,11 @@ public class Examples {
 		try(Shop myShop = new Shop()){
 			System.out.println("open a second shop");
 			int[]nums= {34,56};
-			System.out.println(nums[3]);
-					
-		
+			/*
+			 * Below causes an exception which is what will be caught in the catch beneath it. 
+			 * PREVENTING the IllegalStateException in the shop class from being caught ++++++++++++++++++++++++++++++++
+			 */
+			System.out.println(nums[3]); 
 		}
 		catch(Exception e) { //will only catch the ArrayIndexOutOfBOundsException
 			System.out.println(e); 
