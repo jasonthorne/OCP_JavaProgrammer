@@ -30,3 +30,4 @@ public class Examples {
 enum Seasons{
 	SPRING,SUMMER,AUTUMN,WINTER;
 }
+
