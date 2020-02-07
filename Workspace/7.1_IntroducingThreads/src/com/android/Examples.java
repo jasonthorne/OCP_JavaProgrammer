@@ -50,10 +50,15 @@ public class Examples {
 		
 		Thread t1 = new Thread(new PrintData());
 		
+		
+		
 		System.out.println("first thread");
 		t1.start(); //this causes the run method in printData to run
 		
+		//---------------second thread:
 		
+		//create a new thread with a printData and then start thatthread:
+		new Thread(new PrintData()).start();
 		
 		
 	}
