@@ -243,10 +243,77 @@ public class Examples {
 		
 	}
 	
+	static int counter1 = 0;
+	static int counter2 = 0;
+	static int counter3 = 0;
 	
 	
+	static void ex7(){ 
+		
+		
+		//======================================THREE THREADS ACCESSING VARIABLES IN EACH THREAD:
+		
 	
+		System.out.println("\nex7:");
 	
+		//make thread 1:
+		Thread t1 = new Thread(()->{
+			System.out.println("t1 started");
+			for(int i=0; i<1_000_000;i++) {
+				counter1++;
+			}
+			System.out.println("in thread1, access counter2: " + counter2);
+			System.out.println("in thread1, access counter3: " + counter3);
+		});
+		
+		//make thread 2:
+		Thread t2 = new Thread(()->{
+			counter2 = 2_000_000;
+			System.out.println("t2 started");
+			for(int i=2_000_000; i<3_000_000;i++) {
+				counter2++;
+			}
+			counter1=2_000_000;
+		});
+		
+		//make thread 3:
+		Thread t3 = new Thread(()->{
+			counter3 = 4_000_000;
+			System.out.println("t3 started");
+			for(int i=4_000_000; i<5_000_000;i++) {
+				counter3++;
+			}
+		});
+		
+		
+		//start threads:
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		/*
+		 * The three threads each have a loop that could be all operating at the same time. 
+		 */
+		System.out.println("Before system thread sleep");
+		
+		System.out.println("counter1 is: " + counter1);
+		System.out.println("counter2 is: " + counter2); 
+		System.out.println("counter3 is: " + counter3);
+		
+		
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("after sleep");
+		
+		System.out.println("counter1 is: " + counter1);
+		System.out.println("counter2 is: " + counter2); 
+		System.out.println("counter3 is: " + counter3);
+	
+	}
 	
 	
 	

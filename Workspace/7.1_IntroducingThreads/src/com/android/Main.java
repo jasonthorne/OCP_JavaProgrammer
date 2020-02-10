@@ -16,13 +16,17 @@ public class Main {
 			e.printStackTrace();
 		}*/
 		
-		
+		/*
 		try {
 			Examples.ex6();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
+		
+		Examples.ex7();
+		
 
 	}
 
