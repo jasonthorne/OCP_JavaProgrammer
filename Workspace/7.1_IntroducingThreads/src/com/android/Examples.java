@@ -93,7 +93,7 @@ public class Examples {
 		//this statement is running on the system thread
 		System.out.println("\nex3:");
 		
-		//this is a user defined thread
+		//this is a user defined thread:
 		new Thread(()->{
 			for(int i=0;i<500_000;i++) {
 				counter++;
@@ -119,14 +119,151 @@ public class Examples {
 		System.out.println("reached");
 		System.out.println("while loop has executed: " + wCounter + " times");
 		
+	}
+	
+	static void ex4() { 
+		
+		
+		//======================================ALL TASKS IN USER DEFINED THREADS:
+		
+		//this statement is running on the system thread
+		System.out.println("\nex4:");
+		
+		//this is a user defined thread:
+		new Thread(()->{
+			for(int i=0;i<500_000;i++) {
+				counter++;
+			}
+		}).start();
+		
+		
+		//another user defined thread:
+		new Thread(()->{
+			
+			int wCounter = 0;
+			
+			while(counter<500_000) {
+				System.out.println("not reached yet");
+				wCounter++;
+			}
+			
+			System.out.println("while loop has executed: " + wCounter + " times");
+			
+		}).start();
 		
 		
 	}
+	
+	
+	static void ex5() throws InterruptedException{ 
+		
+		
+		//======================================THREADS WITH SLEEP:
+		
+		//this statement is running on the system thread
+		System.out.println("\nex5:");
+		
+		//this is a user defined thread:
+		new Thread(()->{
+			for(int i=0;i<500_000;i++) {
+				counter++;
+			}
+		}).start();
+		
+		int wCounter = 0;
+		
+		/*
+		 * This while loop is part of the system thread, so while loop is a task on the system thread
+		 * So it will start while the user defined thread is still running, 
+		 * so our for loop above and our while loop here are running at the same time.
+		 * The while loop will keep executing untill the for loop increments counter to be above 500_000.
+		 * So this while loop also cant guarantee how many times the ahile loop will execute. 
+		 */
+		
+		
+		//this is on the system thread:
+		while(counter<500_000) {
+			System.out.println("not reached yet");
+			wCounter++;
+			
+			/*
+			 * thread.sleep puts the system thread to sleep for x millisecs.
+			 * It's considered bad coding practice NOT to put in some sort of delay.
+			 * After the first iteration of this loop, this thread (the system thread) will go to sleep for 100 milis, 
+			 * so will not access any other thread for 100 millisecs.
+			 */
+			Thread.sleep(1);
+		}
+		System.out.println("reached");
+		System.out.println("while loop has executed: " + wCounter + " times");
+		
+	}
+	
+	
+	
+	static void ex6() throws InterruptedException{ 
 		
 		
 		
 		
+		//this statement is running on the system thread
+		System.out.println("\nex6:");
 		
+		//this is a user defined thread:
+		new Thread(()->{
+			for(int i=0;i<500_000;i++) {
+				counter++;
+			}
+		}).start();
+		
+		
+		//another user defined thread:
+		new Thread(()->{
+			
+			int wCounter = 0;
+			
+			while(counter<500_000) {
+				
+				try {
+					System.out.println("not reached yet");
+					wCounter++;
+					/*
+					 * sleep below could throw an interrupted exception so has to be put in a try/catch or thrown
+					 */
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			System.out.println("while loop has executed: " + wCounter + " times");
+			
+		}).start();
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 		
 		
