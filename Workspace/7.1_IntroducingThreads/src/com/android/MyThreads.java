@@ -1,5 +1,10 @@
 package com.android;
 
-public class MyThreads {
+public class MyThreads extends Thread {
+	
+	@Override
+	public void run() {
+		System.out.println("using extends thread to create a thread (java 7 method)");
+	}
 
 }
