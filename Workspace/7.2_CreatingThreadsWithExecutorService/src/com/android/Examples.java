@@ -46,20 +46,27 @@ public class Examples {
 			 * .execute() creates a thread and takes an overridden run method from Runnable interface
 			 */
 			
-			service1.execute(()->System.out.println("using our first executor service")); //first task ran
+			service1.execute(()->System.out.println("using our first executor service")); //1st task ran in 1st thread
 			
-			service1.execute(()->new Dog()); //second task ran
+			service1.execute(()->new Dog()); //2nd task ran in 1st thread
 			
-			service2.execute(()->System.out.println("service2 executed"));
+			service2.execute(()->System.out.println("service2 executed")); //first task ran in 2nd thread
 			
-			service1.execute(()->{ //3rd task ran 
+			service1.execute(()->{ //3rd task ran in 1st thread
 				Stream.iterate(0, i->i+1).limit(10).forEach((i)->System.out.println("i is: " + i));
 			});
 			
 		}finally {
-			service1.shutdown();
+			
+			//check if service is shut down:
+			if(!service1.isShutdown()) {
+				service1.shutdown();
+			}
+		
 			service2.shutdown();
 		}
+		
+		System.out.println("serive is shutdown? " + service1.isShutdown());
 		
 		
 		
