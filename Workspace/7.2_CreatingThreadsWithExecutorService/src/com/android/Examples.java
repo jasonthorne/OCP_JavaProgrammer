@@ -1,5 +1,6 @@
 package com.android;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -169,16 +170,45 @@ public class Examples {
 			Future<?>mySubmit;
 			mySubmit = service.submit(()->System.out.println("running submit")); //add a task to a future object
 			
-			///////service.submit(new Dog());
+			//-------------------------------------------
 			
+			//IS DONE:
 			
+			service.submit(new Dog()); //add a Dog as a second task to service
+			
+	
 			//returns boolean, true if completed, false if not.
+			/*
+			 * Returns true if this task completed.
+			 * Completion may be due to normal termination, an exception, or cancellation
+			 *  -- in all of these cases, this method will return true.
+			 */
+			
+			
 			System.out.println("isDone");
-			System.out.println(mySubmit.isDone());
-		
+			
+			
+			System.out.println(mySubmit.isDone()); //returns true as a NEW task was given, which CANCELS the previous
+			
+			//-----------------------------------
+			
+			//IS CANCELLED:
+			
+			/*
+			 * is cancelled returns true if the task was completed and not cancelled before completion.
+			 * returns false if the task was cancelled before completion.
+			 */
+			
+			System.out.println("wasfirst task cancelled before completion? " + mySubmit.isCancelled());
+			
+			//This is how we cancel a particular task associated with this future object.
+			System.out.println(mySubmit.cancel(true));
+			
+			
+			
+			
 			
 		}finally {
-			
 			
 			if(!service.isShutdown()) {
 				service.shutdown();
@@ -189,5 +219,86 @@ public class Examples {
 	
 		
 	}
+	
+	
+	
+	
+	static void ex4() {
+		
+		System.out.println("ex4");
+		
+		//=====================================INTRODUCING CALLABLE:
+		
+		ExecutorService service = Executors.newSingleThreadExecutor(); 
+		
+		/*
+		 * If your future object has a particular type (not a ? or just object)
+		 * then you cant use the submit method that takes a runnable object,
+		 * as a runnable object returns void, and this object below for instance needs an INteger. 
+		 */
+		//Future<Integer>futInt = service.submit(()->System.out.println("returns nothing"));
+		
+		/*
+		 * So we use the overloaded submit() method that implements the CALLABLE interface. 
+		 * The callable interface is simillar to the runnable interface except that the call(0 returns a value
+		 * and also can throw an exception.
+		 * 
+		 * Looks like this: 
+		 * 
+		 * @DFunctionalInterface public interface Callable<V>{
+		 * v call() throws Exception;
+		 */
+		
+		int num1 = 12, num2=44;
+		int total = 0;
+		
+		Callable<Integer>sumCall=()->num1+num1;
+		
+		try {
+			
+			Future<Integer>result1 = service.submit(sumCall); //first task
+			Future<Integer>result2 = service.submit(()->num1*num1); //second task
+			Future<Integer>result3 = service.submit(()->num2-num1); //third task
+			Future<Integer>result4 = service.submit(()->num2/num1); //forth task
+			
+			/*
+			 * If you want to get the value of a future object 
+			 * (in this case they're all Integers)
+			 * you use the .get() method
+			 * 
+			 */
+			System.out.println(result1.get());
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}finally {
+			
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+			
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
