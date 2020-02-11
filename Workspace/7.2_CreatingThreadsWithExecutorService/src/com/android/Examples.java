@@ -1,5 +1,6 @@
 package com.android;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -220,8 +221,8 @@ public class Examples {
 		
 	}
 	
-	
-	
+	static int number = 10;
+	static int sum = 2;
 	
 	static void ex4() {
 		
@@ -268,6 +269,12 @@ public class Examples {
 			 * 
 			 */
 			System.out.println(result1.get());
+			System.out.println(result2.get());
+			System.out.println(result3.get());
+			System.out.println(result4.get());
+			
+			total = result1.get()+result2.get()+result3.get()+result4.get();
+			System.out.println(total);
 			
 		}catch(Exception e) {
 			System.out.println(e);
@@ -278,26 +285,74 @@ public class Examples {
 			}
 			
 		}
+		
+		
+		//------------------------
+		total = 0; //reset total
+		service = Executors.newSingleThreadExecutor(); //create new thread
+		
+		try {
+			
+			//task 1:
+			Future<Integer>result1 = service.submit(()->{
+				return sum=number+sum; //return number 12, assign 12 to sum
+			}); 
+			
+			//task 2:
+			Future<Integer>result2 = service.submit(()->{
+				return sum=sum*sum; //12 * 12
+			});
+			
+			/*
+			 * This takes 2 tasks.
+			 * The 1st produces the number 12, which is used by the 2nd to be multiplied by itself.
+			 */
+			total=result1.get()+result2.get();
+			
+		}catch(Exception e) {
+			
+		}finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
 	
 	}
 	
 	
+	static void ex5() {
+		
+		System.out.println("ex5");
+		
+		//=====================================SLEEP :
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		
+		
+		try {
+			Future<?>mySubmit=service.submit(()->{
+				System.out.println("runnig submit");
+				//List<Integer>numbers = Stream.iterate(0, i->i+1).limit(1_000_000_000).collect(Collectors.toList());
+				
+				Stream.iterate(0, i->i+1).limit(1000).collect(Collectors.toList());
+			});
+			
+			mySubmit.get();
+			System.out.println("list created");
+		}
+		catch(Exception e) {
+			System.out.println("exception caught");
+		}
+		finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
+		
+		
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}
 	
 	
 
