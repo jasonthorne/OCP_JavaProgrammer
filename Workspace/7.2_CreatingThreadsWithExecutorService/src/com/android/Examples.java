@@ -5,6 +5,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.*;
 
 public class Examples {
@@ -324,7 +325,7 @@ public class Examples {
 		
 		System.out.println("ex5");
 		
-		//=====================================SLEEP :
+		//=====================================TIME LENGTHS FOR GETS:
 		
 		ExecutorService service = Executors.newSingleThreadExecutor();
 		
@@ -334,14 +335,20 @@ public class Examples {
 				System.out.println("runnig submit");
 				//List<Integer>numbers = Stream.iterate(0, i->i+1).limit(1_000_000_000).collect(Collectors.toList());
 				
-				Stream.iterate(0, i->i+1).limit(1000).collect(Collectors.toList());
+				Stream.iterate(0, i->i+1).limit(100000).collect(Collectors.toList());
 			});
 			
-			mySubmit.get();
+			//mySubmit.get();
+			/* 
+			 * +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+			the max amount of time ALLOWED for this is 10 miilisecs
+			If its NOT completed within that time, it will throw an exception.
+			*/
+			mySubmit.get(10, TimeUnit.MILLISECONDS); //++++++++++++++++++++++++++++++
 			System.out.println("list created");
 		}
 		catch(Exception e) {
-			System.out.println("exception caught");
+			System.out.println("exception caught: " + e);
 		}
 		finally {
 			if(!service.isShutdown()) {
