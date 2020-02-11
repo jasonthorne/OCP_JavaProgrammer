@@ -331,7 +331,7 @@ public class Examples {
 		
 		
 		try {
-			Future<?>mySubmit=service.submit(()->{
+			Future<?>mySubmit=service.submit(()->{ //submit with a runnable +++++++++++++++++++
 				System.out.println("runnig submit");
 				//List<Integer>numbers = Stream.iterate(0, i->i+1).limit(1_000_000_000).collect(Collectors.toList());
 				
@@ -346,6 +346,12 @@ public class Examples {
 			*/
 			mySubmit.get(10, TimeUnit.MILLISECONDS); //++++++++++++++++++++++++++++++
 			System.out.println("list created");
+			
+			
+			//--------------------
+			
+			Future<Integer> mySubmit2 = service.submit(()->2+2); //submit with a callable +++++++++++++
+			System.out.println(mySubmit2.get());
 		}
 		catch(Exception e) {
 			System.out.println("exception caught: " + e);
@@ -355,12 +361,76 @@ public class Examples {
 				service.shutdown();
 			}
 		}
-		
-		
-	
 	
 	}
 	
+	/*
+	static void ex6() {
+		
+		System.out.println("ex6");
+		
+		//=====================================SUBMIT WITH SLEEP:
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		
+		
+		try {
+			service.submit(()->{
+				Thread.sleep(1000);
+			});
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+		finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
 	
+	}
+	*/
+	
+	
+	static void ex7() {
+		
+		System.out.println("ex7");
+		
+		//=====================================SUBMIT WITH SLEEP:
+		
+		ExecutorService service = Executors.newSingleThreadExecutor();
+		
+		try {
+			
+			//submit using Runnable:
+			service.submit(()->System.out.println("calling first submit")); //first task
+			
+			//execute can ONLY use Runnable:
+			service.execute(()->System.out.println("calling first execute on same thread")); //second task
+			
+			//Submit using Callable with type Integer:
+			Future<Integer>futInt=service.submit(()->2+2); //third task
+			System.out.println(futInt.get());
+			
+			if(!service.isShutdown()) {
+				service.awaitTermination(10, TimeUnit.SECONDS);
+			}
+			
+		}
+		catch(Exception e) {
+			System.out.println(e); //this is for futInt.get() as it COULD cause an exception +++++
+		}
+		finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
+		
+		
+		
+		
+		
+		
+	}
 
 }
