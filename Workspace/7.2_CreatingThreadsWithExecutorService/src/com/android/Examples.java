@@ -73,6 +73,18 @@ public class Examples {
 			 * Which you may want if there is some thread that contains tasks that need to be constantly operating in the background.
 			 */
 			
+			//-------------
+			//send system thread to sleep to ensure print out below is ran last
+			try {
+				Thread.sleep(100);
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			
+			
+			System.out.println("I should be last because of sleep");
+			//--------------
+			
 			//check if service is shut down:
 			if(!service1.isShutdown()) {
 				service1.shutdown();
