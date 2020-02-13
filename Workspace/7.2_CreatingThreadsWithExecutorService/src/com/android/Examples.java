@@ -571,11 +571,14 @@ public class Examples {
 			//--------------------
 			//scheduled method of the schduledExecutorService class: //+++++++++++++++++++++++++++++
 			int time = 5;
+			
+			//We run this FIRST task 5 seconds in the future:
 			Future<?>result1=service.schedule(task1, time, TimeUnit.SECONDS); //(task to be ran, how long until it fires, timeunit to use)
 			
 			
 			//=================
 			
+			//we run this SECOND task 7 seconds in the future:
 			Future<String>result2 = service.schedule(task2, time+2, TimeUnit.SECONDS);
 			
 		}catch(Exception e) {
@@ -586,32 +589,94 @@ public class Examples {
 				service.shutdown();
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	
+			
 	}
 	
 	
 	
+	static void ex12() {
+		
+		System.out.println("ex12");
+		
+		//==================================SHEDULING WITH LOOP: ++++++++++++++++++++++++++++++++++++
+		
+		count = 0;
+		
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		
+		try {
+			
+			for(int i=0;i<5;i++) {
+				service.schedule(
+						()->{
+							System.out.println("count is: " + (++count) + ". time is: " + LocalTime.now());
+							
+							if(count>4) {
+								System.out.println("all tasks complete");
+							}
+							
+							/*
+							 * Each time a task has nearly finished, we put in a sleep for 2 secs, so the previous task is given time to finish. 
+							 */
+							/////Thread.sleep(2000);
+							return null; //this make this a CALLABLE +++++++++++++++++++++
+							
+						}, 2, TimeUnit.SECONDS); //this will run all of the tasks 2 seconds ahead of the time it would have run if they were normal tasks in a normal string. 
+						
+			}
+			
+		}catch(Exception e) {
+			System.out.println("exception: " + e);
+		}finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
 	
+	}
+	
+	
+
+	static void ex13() {
+		
+		System.out.println("ex13");
+		
+		//==================================SHEDULING AT FIXED RATE: ++++++++++++++++++++++++++++++++++++
+		
+		//++++++++++++++++++++++++makes a task run over and over, at fixed intervals,  until a fixed time is met.
+		
+		
+		count = 0;
+		
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		
+		Runnable task1=()->{
+			System.out.println("Runnable task 1 " + (++count) + ". Time is: " + LocalTime.now());
+		};
+		
+		/*
+		 * This is going to complete TASKS. 
+		 * The first taks will have a 5 sec lead in time.
+		 * Every task after the first task will have a 2 sec delay. 
+		 */
+		service.scheduleAtFixedRate(task1, 5, 2, TimeUnit.SECONDS); //first task to be run, initial delay for 1st task, 2 delay for all other firings of THIS task, time unit to use
+		
+		System.out.println("time at start is: " + LocalTime.now());
+		
+		try {
+			TimeUnit.SECONDS.sleep(15);  //This is the entire time period the tasks have to use up. 
+			
+		}catch(Exception e) {
+			System.out.println("exception: " + e);
+		}finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+				System.out.println("service is shutdown at: " + LocalTime.now());
+			}
+		}
+	
+		
+	}
 	
 
 }
