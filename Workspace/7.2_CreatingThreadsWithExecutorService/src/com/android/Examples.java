@@ -658,7 +658,10 @@ public class Examples {
 		 * This is going to complete TASKS. 
 		 * The first taks will have a 5 sec lead in time.
 		 * Every task after the first task will have a 2 sec delay. 
+		 * 
+		 * Make sure all of your tasks would complete in 2 secs, as each new task does NOT wait until 2 secs.
 		 */
+		
 		service.scheduleAtFixedRate(task1, 5, 2, TimeUnit.SECONDS); //first task to be run, initial delay for 1st task, 2 delay for all other firings of THIS task, time unit to use
 		
 		System.out.println("time at start is: " + LocalTime.now());
@@ -674,9 +677,26 @@ public class Examples {
 				System.out.println("service is shutdown at: " + LocalTime.now());
 			}
 		}
+	}
+	
+	
+	
+	static void ex14() {
+		
+		System.out.println("ex14");
+		
+		//==================================SHEDULING AT FIXED RATE: ++++++++++++++++++++++++++++++++++++
+		
+		System.out.println();
 	
 		
+	
 	}
+	
+	
+	
+	
+	
 	
 
 }

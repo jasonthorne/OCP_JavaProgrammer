@@ -25,7 +25,9 @@ public class Main {
 		
 		//Examples.ex12();
 		
-		Examples.ex13();
+		//Examples.ex13();
+		
+		Examples.ex14();
 
 
 	}
