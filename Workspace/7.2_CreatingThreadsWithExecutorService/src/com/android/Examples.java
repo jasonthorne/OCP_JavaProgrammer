@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.*;
 
@@ -525,23 +526,88 @@ public class Examples {
 				service1.shutdown();
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 	
+	static int count=0;
+	
+	static void ex11() {
+		
+		System.out.println("ex11");
+		
+		//==================================SHEDULING: ++++++++++++++++++++++++++++++++++++
+		
+		
+		/*
+		 * Scheduling certain tasks to run at certain times
+		 */
+		
+		/*
+		 * This is the object we use to control tasks that will run at some point in the future. 
+		 */
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+		
+		
+			
+		try {
+			
+			//to see the sheduler in action, we need ot know what time it starts at:
+			System.out.println("time is: " + LocalTime.now());
+			
+			//tasks for scheduler:
+			
+			Runnable task1=()->{
+				System.out.println("\ntime of first task is: " + LocalTime.now());
+				System.out.println("runnable task count is: " + (++count));
+			};
+			
+			Callable<String> task2=()->{
+				System.out.println("\ntime of second task is: " + LocalTime.now());
+				String str="horse " + + (++count);
+				System.out.println("callable task count is: " + count);
+				return str;
+			};
+			
+			//--------------------
+			//scheduled method of the schduledExecutorService class: //+++++++++++++++++++++++++++++
+			int time = 5;
+			Future<?>result1=service.schedule(task1, time, TimeUnit.SECONDS); //(task to be ran, how long until it fires, timeunit to use)
+			
+			
+			//=================
+			
+			Future<String>result2 = service.schedule(task2, time+2, TimeUnit.SECONDS);
+			
+		}catch(Exception e) {
+			System.out.println("exception is: " + e);
+			
+		}finally {
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	
 	
-	
-	
-	
-	
+	}
 	
 	
 	

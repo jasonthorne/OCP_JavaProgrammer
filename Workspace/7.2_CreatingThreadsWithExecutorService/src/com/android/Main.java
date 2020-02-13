@@ -15,11 +15,13 @@ public class Main {
 		
 		//Examples.ex5();
 		
-		Examples.ex7();
+		//Examples.ex7();
 		
 		//++++++++++++++++++OTHER EXS ARE IN HIS VERISON (grrr..)
 		
-		Examples.ex10();
+		//Examples.ex10();
+		
+		Examples.ex11();
 
 
 	}
