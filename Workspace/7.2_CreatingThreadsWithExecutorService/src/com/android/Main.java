@@ -16,6 +16,10 @@ public class Main {
 		//Examples.ex5();
 		
 		Examples.ex7();
+		
+		//++++++++++++++++++OTHER EXS ARE IN HIS VERISON (grrr..)
+		
+		Examples.ex10();
 
 
 	}

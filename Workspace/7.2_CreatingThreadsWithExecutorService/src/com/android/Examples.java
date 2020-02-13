@@ -1,6 +1,8 @@
 package com.android;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -438,11 +440,112 @@ public class Examples {
 			}
 		}
 		
+	}
+	
+	//+++++++++++++OTHER EXS ARE IN HIS CODE!! (grrr...)+++++++++++++++++++++
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	
+	
+	static void ex10() {
+		
+		System.out.println("ex10");
+		
+		//===========================USING SUBMIT TO SLEEP THREADS=====================
+		
+		/*
+		 * This submit uses a callable.
+		 * A callable returns an object and throws Exception. Which means you can have a thrwad.sleep command inside this service.
+		 */
+		
+		ExecutorService service1 = Executors.newSingleThreadExecutor();
+		ExecutorService service2 = Executors.newSingleThreadExecutor();
+		
+		
+		LocalTime now = LocalTime.now();
+		
+		try {
+			
+			service1.submit(()->{
+				System.out.println("b4 first thread: " + now);
+				
+				/*
+				 * If your submit returns ANYTHING (even null)
+				 * then this is a submit with a callable whic throws an interupted exception.
+				 */
+				
+				Stream.generate(()->Math.random()*100)
+				.limit(20)
+				.collect(Collectors.toList());
+				System.out.println("after first thread: " + now);
+				return null;
+				
+			});
+			
+			/*
+			 * As long as your thread is inside a try/catch you can use Thread.sleep in a submit with a callable,
+			 * as callable throws Interrupted exception. 
+			 * Which means that it looks for an enclosing try/catch with any exception of the method that contans these threads could THROWS excpetion. 
+			 */
+			
+			//++++++++++++++++
+			/*
+			 * Submit returns a future Object
+			 * The submit with Runnable always this sort of future object: 
+			 * Future<?>futObj
+			 * The submit with a Callable returns a future object of a PARTICULAR type.
+			 * i.e here the type is INteger, which means the returned type will be an Integer.
+			 * 
+			 */
+			//+++++++++++++++
+			
+			Future<Integer>futInt=service2.submit(()->{
+				
+				
+				/*
+				 * nearly always bettwer to put your own thread to sleep instead of the system thread. 
+				 * Makes sense to put your thread to sleep at the atart, before the work is done, as at the end the work is already done.
+				 */
+				
+				
+				
+				Thread.sleep(100);
+				Optional<Integer>optInt=Stream.generate(()->(int)Math.random()*100)
+					.limit(20)
+					.max((i1,i2)->i1-i2);
+				return optInt.get();
+			});
+			
+			
+			
+		}catch(Exception e) {
+			System.out.println("exception is: " + e);
+		}
+		finally {
+			if(!service1.isShutdown()) {
+				service1.shutdown();
+			}
+		}
+		
+		
+		
+		
 		
 		
 		
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
