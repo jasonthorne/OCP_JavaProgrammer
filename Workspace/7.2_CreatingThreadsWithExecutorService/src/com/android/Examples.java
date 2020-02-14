@@ -770,9 +770,56 @@ public class Examples {
 		
 		//==================================INCREASING CONCURRENCY WITH POOLS: ++++++++++++++++++++++++++++++++++++
 		
+		/*
+		 * A thread pool is a group of pre-instantiated reusable threads that can be used to perform any set of arbitary tests. 
+		 * 
+		 * 3 types:
+		 * 
+		 * newCachedTHreadPool() - for multiple single threads
+		 * newFixedThreadPool(int numOfThreads) - for multiple single threads
+		 * newScheduledThreadPool(int numOfThreads) - for 
+		 * 
+		 * Whereas a single thread executor will usually (but not always ) wait until a thread is read to execute a task,
+		 * a pooled thread can execute the next task at the same time (concurrently).
+		 * 
+		 */
 		
+		ExecutorService service1 = Executors.newCachedThreadPool();
+		count=0;
 		
-	
+		try {
+			
+			//task 1
+			service1.submit(()->{
+				System.out.println("runable task 1");
+			
+				int i=0;
+				for(i=0;i<5_000;i++) {
+					i=i+i;
+				}
+				System.out.println("i is: " + i);
+				System.out.println(++count);
+				return null;
+			});
+			
+			//task 2
+			service1.submit(()->System.out.println("runable task 2"));
+			
+			//task3
+			service1.execute(()->{
+				System.out.println("runnable  task 3");
+				System.out.println(++count);
+			});
+			
+		}catch(Exception e) {
+			
+			if(!service1.isShutdown()) {
+				service1.shutdown();
+				System.out.println("service is shutdown at: " + LocalTime.now());
+			}
+		}
+		
 	}
+	
 
 }
