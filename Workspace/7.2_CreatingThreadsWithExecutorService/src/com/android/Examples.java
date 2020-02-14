@@ -1,8 +1,10 @@
 package com.android;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -660,6 +662,8 @@ public class Examples {
 		 * Every task after the first task will have a 2 sec delay. 
 		 * 
 		 * Make sure all of your tasks would complete in 2 secs, as each new task does NOT wait until 2 secs.
+		 * 
+		 * THIS CAN ONLY TAKE A RUNNABLE +++++++++++++++++++++++++++++++++++
 		 */
 		
 		service.scheduleAtFixedRate(task1, 5, 2, TimeUnit.SECONDS); //first task to be run, initial delay for 1st task, 2 delay for all other firings of THIS task, time unit to use
@@ -669,9 +673,20 @@ public class Examples {
 		try {
 			TimeUnit.SECONDS.sleep(15);  //This is the entire time period the tasks have to use up. 
 			
+			//----------
+			//this will run before the 5 second wait to run for the one above it.
+			service.submit(()->System.out.println("second task"));
+			//---------
+			
+			
 		}catch(Exception e) {
 			System.out.println("exception: " + e);
 		}finally {
+			
+			/*
+			 * If you want a thread to run continuously, you just dont shutdown the scheduled thread until you close the app
+			 * comment this out to see.
+			 */
 			if(!service.isShutdown()) {
 				service.shutdown();
 				System.out.println("service is shutdown at: " + LocalTime.now());
@@ -685,18 +700,79 @@ public class Examples {
 		
 		System.out.println("ex14");
 		
-		//==================================SHEDULING AT FIXED RATE: ++++++++++++++++++++++++++++++++++++
+		//==================================SHEDULING WITH FIXED DELAY: ++++++++++++++++++++++++++++++++++++
 		
-		System.out.println();
+		//Any schedualed task will wait until a task that is fired before it is finished before launching it's next task. 
+		
+		System.out.println("before any tasks, time is: " + LocalTime.now());
+		
+		
+		//REMEMBER: THese can ONLY TAKE RUNNABLES:
+		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 	
+		//our task:
+		Runnable task1 = ()->{
+			System.out.println("before set creation, time is: " + LocalTime.now());
+			Set<Double>doubleSet=Stream.generate(()->Math.random()).limit(10_000_000).collect(Collectors.toSet());
+			System.out.println("after set creation, time is: " + LocalTime.now());
+		};
+		
+	
+		//no initial delay before first firing, then launch each new thread after 2 secs.
+		
+		/*
+		 * Each of these tasks will ony start after the previous task has been finished
+		 *  and will give a 2 second delay after the previous task has been finished
+		 *  The very first task in this service will start immediately after the previous task.
+		 *  
+		 *  without a TimeUnit.SECONDS sleep, this will continue infinitely. 
+		 */
+		service.scheduleWithFixedDelay(task1, 0, 2, TimeUnit.SECONDS);
+		
+		/* ++++++++++++++++++++++++++++++++++++++++++++++++++
+		 * The isuue with these is that if exceptions are generated during any of these tasks, 
+		 * i.e: this produces 50 tasks and task 25 produces an interrupted exception.
+		 * this will be a supressed exception. 
+		 */
+		
+		try {
+			TimeUnit.SECONDS.sleep(18);
+		}catch(Exception e) {
+			System.out.println("exception: " + e);
+			
+			/*
+			 * e not only contains the primary exception, but also an array of suppressed exceptions, if they exist. ++++++++++++++++++++++++++++++
+			 */
+			System.out.println(e.getSuppressed());
+			Arrays.asList(e.getSuppressed() //array of throwables
+					).stream().forEach(System.out::println);  //adding suppressed exceptions to list and printing them off
+			
+		}finally {
+			
+			/*
+			 * If you want a thread to run continuously, you just dont shutdown the scheduled thread until you close the app
+			 * comment this out to see.
+			 */
+			if(!service.isShutdown()) {
+				service.shutdown();
+				System.out.println("service is shutdown at: " + LocalTime.now());
+			}
+		}
 		
 	
 	}
 	
 	
 	
+	static void ex15() {
+		
+		System.out.println("ex15");
+		
+		//==================================INCREASING CONCURRENCY WITH POOLS: ++++++++++++++++++++++++++++++++++++
+		
+		
+		
 	
-	
-	
+	}
 
 }
