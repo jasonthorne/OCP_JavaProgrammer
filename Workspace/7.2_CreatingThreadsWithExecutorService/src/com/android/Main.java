@@ -33,7 +33,9 @@ public class Main {
 		
 		//Examples.ex16();
 		
-		Examples.ex17();
+		//Examples.ex17();
+		
+		Examples.ex18();
 
 
 	}

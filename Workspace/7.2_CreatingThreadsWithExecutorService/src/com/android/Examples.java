@@ -966,8 +966,19 @@ public class Examples {
 	
 	
 	
+	static void ex18() { 
+		
+		System.out.println("ex18");
+		
+		System.out.println(Runtime.getRuntime().availableProcessors());
+		int cpuCount=Runtime.getRuntime().availableProcessors();
+		
+		System.out.println(Runtime.getRuntime().totalMemory());
+		System.out.println(Runtime.getRuntime().freeMemory());
+		
+		
 	
-	
+	}
 	
 	
 	
