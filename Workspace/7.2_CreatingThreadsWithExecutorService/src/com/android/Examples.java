@@ -932,9 +932,36 @@ public class Examples {
 		
 		count = 0;
 		
-		Runnable task1 = ()->System.out.println("task 1, number is: " + ++count);
+		Runnable task1 = ()->System.out.println("task 1, number is: " + ++count + ". time is: " + LocalTime.now());
 		
+		//this runs infinately: +++++++++
 		service.scheduleAtFixedRate(task1, 3, 2, TimeUnit.SECONDS); //starts after 3 secs, fire a new one every 2 secs
+		
+		//-------------
+		Runnable task2 = ()->System.out.println("task 2, number is: " + ++count + ". time is: " + LocalTime.now());
+		service.scheduleWithFixedDelay(task2, 3, 2, TimeUnit.SECONDS); //starts after 3 secs, fire a new one every 2 secs //these will fire AFTER the 
+		//-------------------------
+		
+		/*
+		 * This will result in more than 20 tasks being accomplished by the above service,
+		 *  however only 10 threads plus the stystem thread will be used to accomplish these tasks.
+		 */
+		
+		try {
+			TimeUnit.SECONDS.sleep(19);
+		}
+		catch(Exception e) {
+			System.out.println("exception: " + e);
+		}
+		finally {
+			
+			System.out.println("amount of threads in use: " + Thread.activeCount());
+			if(!service.isShutdown()) {
+				service.shutdown();
+			}
+			
+		}
+		
 	}
 	
 	
