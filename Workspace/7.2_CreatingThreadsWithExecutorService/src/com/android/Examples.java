@@ -764,7 +764,7 @@ public class Examples {
 	
 	
 	
-	static void ex15() {
+	static void ex15() { //++++++++++++++++++++POOLS OF THREADS: +++++++++++++++++++++++++++++
 		
 		System.out.println("ex15");
 		
@@ -775,9 +775,9 @@ public class Examples {
 		 * 
 		 * 3 types:
 		 * 
-		 * newCachedTHreadPool() - for multiple single threads
-		 * newFixedThreadPool(int numOfThreads) - for multiple single threads
-		 * newScheduledThreadPool(int numOfThreads) - for 
+		 * + newCachedThreadPool() - for multiple single threads
+		 * + newFixedThreadPool(int numOfThreads) - for multiple single threads (give the amount of threads you want to use)
+		 * + newScheduledThreadPool(int numOfThreads) - a thread pool that allows scheduling. (goes every 2 secs etc)
 		 * 
 		 * Whereas a single thread executor will usually (but not always ) wait until a thread is read to execute a task,
 		 * a pooled thread can execute the next task at the same time (concurrently).
@@ -787,10 +787,18 @@ public class Examples {
 		ExecutorService service1 = Executors.newCachedThreadPool();
 		count=0;
 		
+		/*
+		 * This is used for any application that may have short lived asynchronous tasks (at the same time).
+		 * 
+		 * This will create a pool of threads of an unbounded size, and will v=create threads as needed.
+		 */
+		
 		try {
 			
 			//task 1
+			//this submit takes a callable, which has to return something, even null
 			service1.submit(()->{
+				System.out.println("time in 1st submit is: " + LocalTime.now()); //all threads start at the same time
 				System.out.println("runable task 1");
 			
 				int i=0;
@@ -803,21 +811,41 @@ public class Examples {
 			});
 			
 			//task 2
-			service1.submit(()->System.out.println("runable task 2"));
+			//this submit takes a runnable 
+			service1.submit(()->{
+				System.out.println("time in 2nd submit is: " + LocalTime.now());
+				System.out.println("runable task 2");
+				System.out.println(++count);
+			});
 			
 			//task3
+			//this execute ALWAYS takes a Runnable
 			service1.execute(()->{
+				System.out.println("time in 3rd submit is: " + LocalTime.now());
 				System.out.println("runnable  task 3");
 				System.out.println(++count);
 			});
 			
+			
+			//================sleep system thread to 
+			Thread.sleep(1000);
+			System.out.println("amount of threads is: " + Thread.activeCount()); //++++++++++++++++++++
+			
+			//================
+			
 		}catch(Exception e) {
+			System.out.println("exception: " + e);
+		}
+		finally{
 			
 			if(!service1.isShutdown()) {
 				service1.shutdown();
 				System.out.println("service is shutdown at: " + LocalTime.now());
 			}
+			
 		}
+		
+		
 		
 	}
 	
