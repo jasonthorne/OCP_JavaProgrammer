@@ -1,5 +1,14 @@
 package com.android;
 
-public class Employee {
+import java.time.LocalTime;
+import java.util.concurrent.Callable;
+
+public class Employee implements Callable{
+
+	@Override
+	public Object call() throws Exception {
+		System.out.println("Time in Employee is: " + LocalTime.now());
+		return null;
+	}
 
 }

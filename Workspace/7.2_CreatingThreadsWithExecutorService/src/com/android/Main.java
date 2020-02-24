@@ -29,7 +29,11 @@ public class Main {
 		
 		//Examples.ex14();
 		
-		Examples.ex15();
+		//Examples.ex15();
+		
+		//Examples.ex16();
+		
+		Examples.ex17();
 
 
 	}

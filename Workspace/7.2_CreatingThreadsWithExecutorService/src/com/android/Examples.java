@@ -827,7 +827,7 @@ public class Examples {
 			});
 			
 			
-			//================sleep system thread to 
+			//================sleep system thread to allow other threads to finish first
 			Thread.sleep(1000);
 			System.out.println("amount of threads is: " + Thread.activeCount()); //++++++++++++++++++++
 			
@@ -848,6 +848,124 @@ public class Examples {
 		
 		
 	}
+	
+	
+	
+	static void ex16() { 
+		
+		System.out.println("ex16");
+	
+		//===========================================NEW FIXED THREAD POOL
+		
+		/*
+		 * Takes a number of threads and allocates them all upon creation
+		 * 
+		 * As long as the number of t\sks is less than the number of threads, then all tasks will be executed concurrently. 
+		 * If there are more tasks available, then the the task will be put in a queue.
+		 * 
+		 * i.e we have a fixedThreadPool of 10 threads and have 15 tasks. 
+		 * The first 10 tasks will be assigned to the 210 threads, and 5 will be queued.
+		 */
+		
+		//create an executor service with a fixed max amount of tasks to be running simultaneously 
+		ExecutorService service = Executors.newFixedThreadPool(4);
+		
+		
+		try {
+			
+			service.execute(()->System.out.println("runnable service 1. Time is: " + LocalTime.now())); //run 1st task
+			service.submit(()->System.out.println("submit runnable time is: " + LocalTime.now())); //run 2nd task
+			service.submit(()->{
+				System.out.println("callable submit time is: " + LocalTime.now()); //run 3rd task
+				return null;
+			});
+			service.submit(new Dog()); //run 4th task
+			
+			//----------a 5th task: +++++++++++++++++++++++++++++++++++
+			service.submit(new Employee()); //run a 5th task - This one HAS TO WAIT until one of the 4 threads becomes available. (so it can NEVER be first) +++++++++++++++
+			
+			//----------
+			Thread.sleep(100);
+			System.out.println("amount of threads in use: " + Thread.activeCount());
+			//----------
+		}
+		catch(Exception e) {
+			System.out.println("exception: " + e);
+		}
+		finally {
+			
+			if(!service.isShutdown()) {
+				service.shutdown();
+				System.out.println("service is shutdown at: " + LocalTime.now());
+			}
+			
+			//-----------------------
+			System.out.println("amount of available processors: " + Runtime.getRuntime().availableProcessors());
+			
+			int threadPool = Runtime.getRuntime().availableProcessors();
+			service = Executors.newFixedThreadPool(threadPool/2); //create a thread pool uing only half the available processors.
+			//-----------------------
+		}
+		
+		
+		
+	
+	}
+	
+	
+
+	static void ex17() { 
+		
+		System.out.println("ex17");
+	
+		//===========================================NEW SCHEDULED THREAD POOL
+		
+		/*
+		 * This is the same as new fixed thread pool, except it returns an instance of ScheduleExecutorService, which means you can schedule tasks.
+		 * 
+		 * (returns future objects)
+		 * 
+		 * Like singleSchduledThreads these can ONLY take Runnables
+		 */
+		
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(10);
+		
+		count = 0;
+		
+		Runnable task1 = ()->System.out.println("task 1, number is: " + ++count);
+		
+		service.scheduleAtFixedRate(task1, 3, 2, TimeUnit.SECONDS); //starts after 3 secs, fire a new one every 2 secs
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
