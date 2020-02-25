@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Examples {
 	
@@ -54,9 +56,40 @@ public class Examples {
 		
 		System.out.println(foodData);
 		
-		
-		
-		
 	}
+	
+	private static Map<String, Animal>zooAnimal=new HashMap<String, Animal>();
+	
+	
+	static void ex2() { 
+		
+		System.out.println("ex2");
+		
+		Examples ex1 = new Examples(); 
+		ex1.put2("spot", new Animal("Dog"));
+		ex1.put2("tibbles", new Animal("Cat"));
+		ex1.put2("leo", new Animal("Lion"));
+		
+		//---------------
+		
+		ExecutorService service = Executors.newFixedThreadPool(10);
+		
+		for(int i=0;i<10;i++) {
+			//service.submit(()->System.out.println(ex1.get2("leo")));
+		}
+	
+	}
+	
+	public synchronized void put2(String key, Animal value) {
+		zooAnimal.put(key, value);
+	}
+	
+	public synchronized void get2(String key) {
+		zooAnimal.get(key);
+	}
+	
+	
+	
+	
 
 }
