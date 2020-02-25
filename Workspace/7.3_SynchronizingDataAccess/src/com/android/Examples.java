@@ -59,7 +59,7 @@ public class Examples {
 		
 	}
 	
-	
+	static AtomicInteger atomCount = new AtomicInteger(0); //a static atomic integer
 	
 	static void ex2() { 
 		
@@ -138,6 +138,25 @@ public class Examples {
 		
 		//ourthread pool is set to size 20, so no more than 20 threads operating at the same time.
 		ExecutorService service = Executors.newFixedThreadPool(20);
+		
+		//------------------------
+
+		atomCount.set(0);
+		
+		
+		/* ++++++++++++++++++++++++++++++++++++
+		 * This is acessing the atomicInteger atomCount and incrementing each time the incrementAtom method is called, so this is an Atomic variable,
+		 * ionly one thread can access this at any one time, you cant get unexpected outcomes like repeating numbers. 
+		 */
+		for(int i=0;i<10;i++) {
+			service.submit(()->incrementAtom());
+		}
+		
+		
+		//-------------------------------------------
+		
+		//This is the same thing as above, but will cause errors as this is NOT thread safe:
+		
 		try {
 			for(int i=0;i<10;i++) {
 				service.submit(()->incrementCount());
@@ -154,7 +173,7 @@ public class Examples {
 			}
 			
 		}
-		
+
 		
 	}
 	
@@ -162,6 +181,156 @@ public class Examples {
 	static void incrementCount() {
 		System.out.println(++count);
 	}
+	
+	static void incrementAtom() {
+		System.out.println(atomCount.incrementAndGet());
+	}
+	
+	
+	static void ex3() { 
+		
+		System.out.println("ex3");
+		
+		//=====================SYNCHRONIZATION +++++++++++++++++++++++++++++++
+		/*
+		 * making a block of code thread safe, so only one thread ayt a time can enter a particular block of code
+		 * There are 2 basic types:
+		 * 
+		 * + synchronization of a block of code using Monitor object.
+		 * 
+		 * + synchronization of a method.
+		 */
+		
+		//====================
+		//Using a local object to mark code as being synchronized:
+		
+		Dog spot = new Dog();
+		
+		{
+			System.out.println("this code is not synchronized and many threads could be accessing this var at the same time:");
+			int age = 45; //age is local to these brackets
+		}
+		
+		
+		/*
+		 * This block of code is synchronized and only one thread at a time can access this code.
+		 * this is synchronizing with a local object. If we change spot inside the synchronized block then the code is no longer synchronized.
+		 */
+		synchronized(spot) {
+			//if we change the dog object spot, then this code is no longer synchronized
+			spot.dogCount++;
+		}
+		
+		//------------
+		
+		ExecutorService service = Executors.newFixedThreadPool(15);
+		count = 0;
+		/*
+		 * it is preferable to use a private final object as the object that marks a block of code as synchronized.
+		 * As it's final and private, this MONITOR OBJECT cannot be accessed outside of the class, and also cannot be changed.
+		 * 
+		 * If you could change this object, that owuld mean that as soon as you change the object, youe block of code is no longer synchronized.
+		 */
+		System.out.println("Using obj_Lock to synchronize code:");
+		//instead of using atomic numbers, we are synchronizing this block of code
+		synchronized(OBJ_LOCK) {
+			
+			/*
+			 * This block of coce is synchronized, so only one thread at a time can access this block.
+			 */
+			
+			for(int i=0;i<10;i++) {
+				service.submit(()->incrementCount());
+			}
+			service.shutdown();
+		}
+		
+		//----------
+		/*
+		 * This is using the examples class to synchronize this block of code. 
+		 */
+		synchronized(Examples.class) {
+			
+			service = Executors.newFixedThreadPool(15); //threads created inside here are NOT synchronized (so this doesnt work) ++++++++++++++++
+			count = 0;
+			
+			for(int i=0;i<10;i++) {
+				service.submit(()->incrementCount());
+			}
+			service.shutdown();
+			
+		}
+		
+	
+	}
+	
+	private static final Object OBJ_LOCK = new Object();
+	Integer num = 0;
+	static Double dbl = 0.0;
+	void useSync() {
+		
+		/*
+		 * As long as it's not a static method, you can use the keyword "this" to mark a block of code as being synchronized.
+		 * If we create an object of the examples class and then use that object to call this method.
+		 * This is the object that will synchronize this block of code.
+		 */
+		
+		synchronized(this) {
+			
+		}
+		
+		synchronized(num) {
+			
+		}
+		
+		synchronized(dbl) {
+			
+		}
+		
+		
+		
+	}
+	
+	
+	static void ex4() { 
+		
+		System.out.println("ex4");
+		
+		//=====================SYNCHRONIZED METHODS +++++++++++++++++++++++++++++++
+		count = 0;
+		
+		Examples ex1 = new Examples();
+		ExecutorService service = Executors.newFixedThreadPool(25);
+		
+		try {
+			for(int i=0;i<10;i++) {
+				
+				/*
+				 * As the method statSyncCount is synchronized, 
+				 * this will only allow one thread ata time to enter the method, s
+				 * o no duplicate numbers are produced, and will always end up at 10
+				 */
+				service.submit(()->statSyncCount()); //this gets as far as 10
+				service.submit(()->ex1.statSyncCount()); //this gets as far as 20
+			}
+		}finally {
+			service.shutdown();
+		}
+		
+	
+	}
+	
+	//NON static synchronized
+	private synchronized void syncCount() {
+		System.out.println(++count);
+	}
+	
+	//static synchronized
+	static synchronized void statSyncCount() {
+		System.out.println(++count);
+	}
+	
+	
 	
 	
 	
