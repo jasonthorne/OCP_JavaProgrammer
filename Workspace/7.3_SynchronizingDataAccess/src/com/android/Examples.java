@@ -354,10 +354,11 @@ public class Examples {
 	}
 	
 	
+	static void ex7() { 
+		
 	
 	
-	
-	
+	}
 	
 	
 	
