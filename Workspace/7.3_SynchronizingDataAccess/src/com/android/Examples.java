@@ -310,8 +310,13 @@ public class Examples {
 				 * this will only allow one thread ata time to enter the method, s
 				 * o no duplicate numbers are produced, and will always end up at 10
 				 */
-				service.submit(()->statSyncCount()); //this gets as far as 10
-				service.submit(()->ex1.statSyncCount()); //this gets as far as 20
+				//service.submit(()->statSyncCount()); //this gets as far as 10
+				//service.submit(()->ex1.statSyncCount()); //this gets as far as 20
+				
+				//---------- no synchronized way which causes problems:
+				service.submit(()->incrementCount());
+				service.submit(()->incrementCount());
+				//----------
 			}
 		}finally {
 			service.shutdown();
@@ -332,10 +337,21 @@ public class Examples {
 	
 	
 	
+	static void ex5() { 
+		
+		System.out.println("ex5");
+		
+		//=====================COST OF SYNCHRONIZATION +++++++++++++++++++++++++++++++
+		
+		/*
+		 * Synchronization can be useful, 
+		 * but is costly in that it is taking a multi threaded program and synchronizartion 
+		 * is about getting your program to behave like a single threaded application. 
+		 * Synchronization is about protecting data integrity at the cost of performance. 
+		 */
 	
 	
-	
-	
+	}
 	
 	
 	
