@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -169,7 +170,13 @@ public class Examples {
 		 */
 		
 		/*
+		 * +++++++++++++++++++++++++++++++++++LEARN THESE +++++++++++++++++++++++++++++++++++++++++++
+		 * 
 		 * List of concurrent classes:
+		 * 
+		 * All of these collections opperate in much the same way as their non synchronized version.
+		 * The only difference is in how you actually declare the object itself. ie:
+		 * Set<String>mySkipSet = new ConcurrentSkipListSet();
 		 * 
 		 * CLASS NAME					JAVA COLLECTIONS FRAMEWORK
 		 * -----------------------------------------------------------
@@ -187,10 +194,42 @@ public class Examples {
 		 */
 		
 		
+	}
+	
+	
+	
+	static void ex4() {
+		
+		System.out.println("\nex4");
+		
+		//================================ConcurrentHashMap:
+		
+		/*
+		 * Implements the Map interface
+		 */
+		
+		Map<String, Integer>myMap = new ConcurrentHashMap<>();
+		myMap.put("yo", 3);
+		//etc..
+		
+		/*ConcurrentHashMap also implements the ConcurrentMap interface, 
+		so we can also create a ConcurrentHashMap
+		This is a MORE specific hashMap so will be more thread safe
+		
+		You would use this if ou want to make sure this operates correctly in a multithreaded environment
+		*/
+		
+		ConcurrentMap<Integer, String>map2 = new ConcurrentHashMap<>();
+		
+		
+		//================================ConcurrentLinkedQueue:
+		
+		//Queue<Integer>
+		
+		
 		
 		
 		
 	}
-	
 	
 }
