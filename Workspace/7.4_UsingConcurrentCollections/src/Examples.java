@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -71,14 +72,35 @@ public class Examples {
 		ex1.put2("leo", new Animal("Lion"));
 		
 		//---------------
+		System.out.println("zooAnimal: " + zooAnimal);
 		
 		ExecutorService service = Executors.newFixedThreadPool(10);
 		
-		for(int i=0;i<10;i++) {
-			//service.submit(()->System.out.println(ex1.get2("leo")));
+		try {
+			
+			/*
+			 * The hashmap is not threadsafe here, but the remove2 method is threadsafe.
+			 */
+			for(String key:zooAnimal.keySet()) {
+				service.submit(()->ex1.remove2(key));
+			}
+			
+			Thread.sleep(100);
+			
+		}catch(Exception e) {
+			
 		}
+		finally {
+			service.shutdown();
+		}
+		
+		System.out.println("zooAnimal: " + zooAnimal);
+		
 	
 	}
+	
+	//--------------------------------------------
+	//threadsafe methods:
 	
 	public synchronized void put2(String key, Animal value) {
 		zooAnimal.put(key, value);
@@ -88,8 +110,87 @@ public class Examples {
 		zooAnimal.get(key);
 	}
 	
+	public synchronized void remove2(String key) {
+		zooAnimal.remove(key);
+	}
+	
+	//========================================================================CONCURRENY API +++++++++++++++++++++++++++++++++++
+	/*
+	 * An alternative to the above teqneuwq is to use specific thread safe collections.
+	 * We can use the concurrency API as this is just a collection of interfaces that makes classes thread safe.
+	 * These interfaces include performance enhancements that avoid unnecessary synchronization. 
+	 * 
+	 * So this is what you can use to manage access to our collections across multiple threads. 
+	 * The first type we will use is the concurrent hashmap, the only difference from a normal hashmap is that the object type is a concurrent hashmap. 
+	 */
 	
 	
+	//this is the same methods as a normal hashmap except that they're all threadsafe
+	private static Map<String, Object>farm = new ConcurrentHashMap<String,Object>();
+	static int statKey = 0;
 	
-
+	static void ex3() {
+		
+		farm.put("1", "cow");
+		farm.put("2", "sheep");
+		farm.put("3", "pig");
+		farm.put("4", "chicken");
+		
+		System.out.println("get of Concurrent Hashmap: " + farm.get("3"));
+		
+		System.out.println(farm); //hashmap b4 removal
+		
+		for(String key: farm.keySet()) {
+			farm.remove(key);
+		}
+		
+		System.out.println(farm); //hashmap after removal
+		
+		//---------
+		
+		ExecutorService service = Executors.newFixedThreadPool(10);
+		
+		farm.put("1", "cow");
+		farm.put("2", "sheep");
+		farm.put("3", "pig");
+		farm.put("4", "chicken");
+		
+		
+		/*
+		 * you should use a concurrent collection class anytime you are going to have multiple threads modify a collection object 
+		 * outside of a synchronized block or method.
+		 * If your collection is immutsable or read only (in other words you cant change the collection)
+		 * then a concurrent collection class is not needed.
+		 * It is considered a good practice to pass a concurrent (thread safe) collection using a non concurrent interface reference
+		 * void method (Map<String,Object>myMap){}
+		 * and we will pas the following to this method: 
+		 * private static Map<String, Object>farm = new ConcurrentHashMap<String,Object>();
+		 * method(farm)
+		 */
+		
+		/*
+		 * List of concurrent classes:
+		 * 
+		 * CLASS NAME					JAVA COLLECTIONS FRAMEWORK
+		 * -----------------------------------------------------------
+		 * ConcurrentHashMap			ConcurrentMap
+		 * ConcurrentLinkedDeque		Deque
+		 * ConcurrentLinkedQueue		Queue
+		 * ConcurrentSkipListMap		ConcurrentMap, SortedMap, NavigableMap
+		 * ConcurrentSkipListSet		SortedSet, NavigableSet
+		 * CopyOnWriteArrayList			List
+		 * CopyOnWriteArraySet			Set
+		 * LinkedBlockingDeque			BlockingQueue, BlockingDeque
+		 * LinkedBlokcingQueue			BlockingQueue
+		 * 
+		 * 
+		 */
+		
+		
+		
+		
+		
+	}
+	
+	
 }
