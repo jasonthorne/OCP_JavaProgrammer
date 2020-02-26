@@ -403,7 +403,7 @@ public class Examples {
 		TreeSet<Human>humanTree = new TreeSet<>();
 		
 		 //a Human does NOT implement comparable, so Human CANNOT be be added to a TreeSet.
-		//However you can create a TreeSet of Humans as a subclass of Human COULD implement thre comparable Interface.
+		//However you can create a TreeSet of Humans as a subclass of Human COULD implement the comparable Interface.
 		humanTree.add(new Human());
 		
 		Duck ant = new Duck("ant");
