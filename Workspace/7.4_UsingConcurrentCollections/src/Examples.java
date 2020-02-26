@@ -1,12 +1,22 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.TreeSet;
+import java.util.concurrent.BlockingDeque;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Examples {
 	
@@ -202,7 +212,7 @@ public class Examples {
 		
 		System.out.println("\nex4");
 		
-		//================================ConcurrentHashMap:
+		//ConcurrentHashMap:================================
 		
 		/*
 		 * Implements the Map interface
@@ -222,14 +232,196 @@ public class Examples {
 		ConcurrentMap<Integer, String>map2 = new ConcurrentHashMap<>();
 		
 		
-		//================================ConcurrentLinkedQueue:
+		//ConcurrentLinkedQueue:================================
+		//thread safe queue
 		
-		//Queue<Integer>
+		Queue<Integer>queue=new ConcurrentLinkedQueue<>();
 		
+		queue.offer(31);
+		queue.offer(1);
+		queue.offer(100);
 		
+		System.out.println("queue: " + queue);
 		
+		//peek only retrieves the value at the had of the queue:
+		System.out.println("peek: " + queue.peek());
+		
+		//poll retrieves the value and removes it from queue:
+		System.out.println(queue.poll());
+		
+		System.out.println("queue: " + queue);
+		
+		//ConcurrentLinkedQueue:================================
+		
+		/*
+		 * thread safe deque, deque can add art the end and beginning and can remove from the end and begininng.
+		 */
+		
+		Deque<Integer>deque= new ConcurrentLinkedDeque<>();
+		
+		deque.offer(12); //puts at end of deque
+		deque.push(100); //puts at start of deque
+		deque.offer(45); //puts at end of deque
+		deque.push(120); //puts at start of deque
+		
+		System.out.println("deque: "+ deque); //[120, 100, 12, 45]
+		
+		//display and remove the first item on the list:
+		System.out.println(deque.pop());
+		
+		//display and remove the last item on the list:
+		System.out.println(deque.pollLast());
+	
+		System.out.println("deque: "+ deque); //[100, 12]
 		
 		
 	}
+	
+	
+	
+	
+	static void ex5() {
+		
+		System.out.println("\nex5");
+		//+++++++BLOCKING CLASSES+++++++++++++++++++++++++++++++++++++
+		
+		/*
+		 * Blocking classes implement the blocking interfaces 
+		 * and the ones we cover are LinkedBlockingQueue and LinkedBlockingQueue 
+		 * both implement the blockingQueue interface
+		 * 
+		 * These are like regular queues except they are thread safe 
+		 * and also include methods that wait a specific amount of time to complete a particular operation
+		 * Methods of note are;
+		 * 
+		 * + Offer(E e, long timeOut, TimeUnit unit)
+		 * 
+		 * e is the type of object in your queue, timeout is the amount of time, timeUnit is the amount of time you want to use.
+		 * 
+		 * offer adds items to the queue and will wait a specified time if queue is not ready.
+		 * If this goes ver the set amount of time, this returns false. 
+		 * 
+		 * 
+		 * 
+		 * + Poll(long timeOut, TimeUnit unit)
+		 * Retrieves and removes an item from the queue, waiting the specified time. 
+		 * returns null if the time elapses before the item if available.
+		 * 
+		 * 
+		 * Both of the above methods can throw a checked exception which is an interrupted exception,
+		 * so they need to be thrown be the method or wrapped in try/catch
+		 * 
+		 */
+		
+		//LinkedBlockingQueue:================================
+		
+		try {
+			BlockingQueue<Integer>blockQueue = new LinkedBlockingQueue<>();
+			System.out.println(blockQueue.offer(39)); //returns true as will be inserted
+			
+			//will add 345 to the queue and waits 4 seconds if necessary to do so. Will return false if didn't have enough time.
+			System.out.println(blockQueue.offer(345, 4, TimeUnit.SECONDS)); 
+			System.out.println(blockQueue.offer(100, 4, TimeUnit.SECONDS)); 
+			System.out.println(blockQueue.offer(200, 4, TimeUnit.SECONDS)); 
+			
+			System.out.println(blockQueue);
+			
+			if(blockQueue.offer(345, 4, TimeUnit.SECONDS)) {
+				System.out.println("do some code");
+			}
+			
+			//remove at start of queue:
+			System.out.println(blockQueue.poll()); //will display 39 and remove from queue
+			
+			System.out.println(blockQueue.poll(4, TimeUnit.SECONDS)); //will display 345 and remove from queue
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		
+		
+		//LinkedBlockingDeque:================================
+		
+		/*
+		 * As this class extends nboth queue and dequeu, 
+		 * all the methods of those classes are also available to this,
+		 * and also all of the methods of the BlockingQueue
+		 */
+		
+		try {
+			BlockingDeque<Integer>blockDeque = new LinkedBlockingDeque<>();
+			
+			blockDeque.offer(34); //insert at end of queue
+			blockDeque.push(50); //insert at end of queue
+			blockDeque.offerLast(120, 4, TimeUnit.MILLISECONDS); //end of deque
+			blockDeque.offerFirst(234, 3, TimeUnit.MILLISECONDS); //start of deque
+			
+			System.out.println(blockDeque);
+			
+			
+			System.out.println(blockDeque.poll());  //rereives and removes from head of deque
+			System.out.println(blockDeque.poll(6, TimeUnit.SECONDS)); 
+			System.out.println(blockDeque.pollFirst(200, TimeUnit.MILLISECONDS)); 
+			System.out.println(blockDeque.pollLast(1, TimeUnit.MILLISECONDS)); 
+			
+			System.out.println(blockDeque);
+			
+		}catch(Exception e) {
+			
+		}
+		
+	}
+	
+	
+	static void ex6() {
+		
+		
+		//+++++++++++++++++CONCURRENT SKIP LISTS:
+		
+		/*
+		 * ConcurrentSkipListSet and ConcurrentSkipListMap are concurrent thread safe versions of 
+		 * TreeSet and TreeMap
+		 * TreeSet only allows objects that implement comparable interface or uses a comparator.
+		 */
+		
+		//ConcurrentSkipListSet================================
+		
+		System.out.println("\nex6");
+		
+		TreeSet<Integer>tInt = new TreeSet<>();
+		
+		tInt.add(1200);
+		tInt.add(50);
+		tInt.add(12);
+		tInt.add(100);
+		System.out.println(tInt);
+		
+		
+		//------
+		
+		TreeSet<Human>humanTree = new TreeSet<>();
+		
+		 //a Human does NOT implement comparable, so Human CANNOT be be added to a TreeSet.
+		//However you can create a TreeSet of Humans as a subclass of Human COULD implement thre comparable Interface.
+		humanTree.add(new Human());
+		
+		Duck ant = new Duck("ant");
+		Duck zed = new Duck("zed");
+		Duck bert = new Duck("bert");
+		
+		TreeSet<Duck>duckTree = new TreeSet<>(Arrays.asList(ant, zed, bert));
+		System.out.println(duckTree);
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
