@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.NavigableSet;
@@ -22,6 +24,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Examples {
 	
@@ -486,8 +490,50 @@ public class Examples {
 		
 		//CopyOnWriteCollections================================
 		
+		/*
+		 * CopyOnWriteArraySet and CopyOnWriteSet implement the list and set interface respectively. 
+		 * These operate differently to other concurrent classes in that these classes copy all of the elements
+		 * to a new undwrlying structure anytime an element is added, modified or removed from a collection.
+		 * Although the data is copied to a new underlying structure our reference to the object does not change.
+		 * 
+		 * If an iterator is established prior to any modification then it will not see any changes and will merely iterate over the original elements
+		 * prior to modification.
+		 *  
+		 */
 		
-
+		List<String>list = new ArrayList<>(Arrays.asList("noel", "shelley", "laura", "jack"));
+		
+		Iterator myIter = list.iterator();
+		
+		while(myIter.hasNext())
+			System.out.println(myIter.next());
+		
+		//this wont print anything as the iterator is at the end of the list
+		while(myIter.hasNext())
+			System.out.println(myIter.next());
+		
+		
+		//-----list iterator:
+		
+		ListIterator myListIterator = list.listIterator();
+		
+		while(myListIterator.hasNext())
+			System.out.println(myListIterator.next());
+		
+		while(myListIterator.hasPrevious())
+			System.out.println(myListIterator.previous());
+		
+		//-------------
+		
+		myIter = list.iterator(); //reset iterator
+		
+		//list = list.stream().filter((s)->s.length()>4).collect(Collectors.toList());
+		//System.out.println("new list is: " + list);
+		
+		list = Stream.generate(()->"a string").limit(20).collect(Collectors.toList());
+		
+		while(myIter.hasNext())
+			System.out.println(myIter.next());
 		
 	}
 	
