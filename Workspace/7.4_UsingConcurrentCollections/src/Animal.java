@@ -1,5 +1,5 @@
 
-public class Animal {
+public class Animal{ // implements Comparable {
 	
 	String type;
 	static int counter;
@@ -11,8 +11,19 @@ public class Animal {
 
 	@Override
 	public String toString() {
-		return "Animal [type=" + type + "counter=" + counter + "]";
+		return "Animal [type=" + type + ". counter=" + counter + "]";
 	}
+
+
+	/*
+	@Override
+	public int compareTo(Object arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	*/
+	
+	
 
 
 }

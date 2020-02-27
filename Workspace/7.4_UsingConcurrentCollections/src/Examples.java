@@ -4,7 +4,10 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.NavigableSet;
 import java.util.Queue;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.BlockingQueue;
@@ -12,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -404,22 +409,87 @@ public class Examples {
 		
 		 //a Human does NOT implement comparable, so Human CANNOT be be added to a TreeSet.
 		//However you can create a TreeSet of Humans as a subclass of Human COULD implement the comparable Interface.
-		humanTree.add(new Human());
+		//humanTree.add(new Human()); ---will not compile! 
 		
 		Duck ant = new Duck("ant");
 		Duck zed = new Duck("zed");
 		Duck bert = new Duck("bert");
+		Duck duck2 = new Duck("zed"); 
 		
-		TreeSet<Duck>duckTree = new TreeSet<>(Arrays.asList(ant, zed, bert));
+		TreeSet<Duck>duckTree = new TreeSet<>(Arrays.asList(ant, zed, bert, duck2)); 
 		System.out.println(duckTree);
+		
+		System.out.println(duckTree.add(duck2)); //returns false, as value already exists.
+		
+		
+		//==========================
+		
+		/*
+		 * The key in the TreeMap has to be unique (cannot be repeated), so the key in the hashmap has to be an object that implements the comparable interface.
+		 * Integer implements comparable interface so this will compile and run.
+		 * The value can be any object, anfd you can have repeating values.
+		 */
+		Map<Integer, String>myMap = new HashMap<>();
+		myMap.put(1, "john");
+		myMap.put(2, "mary");
+		myMap.put(3, "frank");
+		myMap.put(4, "frank");
+		myMap.put(1, "bob"); //this will override the key/value pair of 1, "john"
+		
+		System.out.println("myMap: " + myMap);
+		
+		//----
+		
+		Map<Animal, String>myAnimal= new TreeMap<>();
+		//myAnimal.put(new Animal("spot"), "spot");
+		//System.out.println(myAnimal); 		//fallsover as this doesn't implement comparable
+		
+		
+		//--------------------------
+		
+		Map<Duck, Integer>duckMap = new TreeMap<>();
+		
+		duckMap.put(new Duck("daffy"), 6);
+		
+		
+		
+		//======================================================================
+		
+		//Concurrent (thread safe) version of TreeSet is ConcurrentSkipListSet:
+		
+		NavigableSet<String>set = new ConcurrentSkipListSet<>();
+		
+		/*
+		 * Only objects that implements the comparable interface can be added to a ConcurrentSkipListSet and the same rules for TreeSet apply to it.
+		 * But it is thread safe and all methods of this class are also thread safe.
+		 */
+		
+		set.addAll(Arrays.asList("zed", "Zed", "bee", "ant", "Caroline", "angela", "123", "^^+", "bee"));
+		
+		System.out.println(set);
+		
+		//--------------------
+		
+		//same rules for treeMap as for skiplistmap except that this collection object is Threadsafe and can only be accessed by one thread at a time.
+		NavigableMap<Integer, String>navMap = new ConcurrentSkipListMap<>();
+		
+		//All the methods of this class are threadsafe.
+		
+		NavigableMap<Duck, String>navMap2 = new ConcurrentSkipListMap<>();
 	
 	}
 	
 	
-	
-	
-	
-	
+	static void ex7() {
+		
+		System.out.println("\nex7");
+		
+		//CopyOnWriteCollections================================
+		
+		
+
+		
+	}
 	
 	
 	

@@ -15,6 +15,11 @@ public class Duck implements Comparable<Duck> {
 		return name.compareTo(d.name);
 	}
 
+	@Override
+	public String toString() {
+		return "Duck [name=" + name + "]";
+	}
+
 	
 
 }
