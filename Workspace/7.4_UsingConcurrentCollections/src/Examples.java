@@ -512,13 +512,15 @@ public class Examples {
 		while(myIter.hasNext())
 			System.out.println(myIter.next());
 		
-		
 		//-----list iterator:
+		System.out.println();
 		
 		ListIterator myListIterator = list.listIterator();
 		
 		while(myListIterator.hasNext())
 			System.out.println(myListIterator.next());
+		
+		System.out.println();
 		
 		while(myListIterator.hasPrevious())
 			System.out.println(myListIterator.previous());
@@ -530,10 +532,44 @@ public class Examples {
 		//list = list.stream().filter((s)->s.length()>4).collect(Collectors.toList());
 		//System.out.println("new list is: " + list);
 		
-		list = Stream.generate(()->"a string").limit(20).collect(Collectors.toList());
+		//list = Stream.generate(()->"a string").limit(20).collect(Collectors.toList());
+		System.out.println();
+		
+		//==============
+		
+		myIter = list.iterator();
+		//list.add("bob"); ///causes concurrent exception
+		//list.remove("noel"); //causes concurrent exception
+		//list = new ArrayList<>(Arrays.asList("a", "b", "c")); //iterates over original list
 		
 		while(myIter.hasNext())
 			System.out.println(myIter.next());
+		
+		
+		
+		
+		//=====================================
+	
+		list = new ArrayList<>(Arrays.asList("noel", "shelley", "laura", "jack"));
+		
+		/*
+		 * This also produces a concurrent modification exception. As list is still not thread safe:
+		 */
+		for(String s: list) {
+			list.add("new String");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
