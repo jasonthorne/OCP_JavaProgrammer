@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
@@ -555,25 +557,114 @@ public class Examples {
 		/*
 		 * This also produces a concurrent modification exception. As list is still not thread safe:
 		 */
+		/*
 		for(String s: list) {
 			list.add("new String");
 		}
+		*/
 		
 		
+		///CopyList: ================================
 		
+		//adding to a copyList:
 		
+		List<Integer>copyList = new CopyOnWriteArrayList<>(Arrays.asList(4,3,2,1));
 		
+		/*
+		 * By using CopyOnWirteArrayList you CAN add and remove objects from the list. 
+		 * Here for every number in the list, you will add the number 99
+		 * HOWEVER you will not be able to see the changes in the loop. Its only AFTER the loop we will see that 99 has been added.
+		 */
 		
+		for(Integer i:copyList) { 
+			copyList.add(99);
+			System.out.println(i);
+		}
 		
+		System.out.println(copyList); //[4, 3, 2, 1, 99, 99, 99, 99]
 		
+		//-------------------
 		
+		//removing from a copyList:
 		
+		for(Integer i:copyList) { 
+			if(i==99) {
+				copyList.remove(i);
+			}
+		}
 		
+		System.out.println(copyList); //[4, 3, 2, 1]
 		
+		//-------------------
+		
+		Iterator<Integer>copyIter = copyList.iterator();
+		
+		copyList.add(1000);
+		
+		while(copyIter.hasNext()) {
+			System.out.println(copyIter.next()); //this iterates over the ORIGINAL list not the new copyList with the 1000 added to it. 
+		}
+		
+		System.out.println(copyList); //[4, 3, 2, 1, 1000]
 		
 	}
 	
 	
 	
+	static void ex8() {
+		
+		System.out.println("\nex8");
+		
+		//Synchronized versions of non-concurrent collections================================
+		
+		
+		List<Integer>list = Stream.generate(()->(int)(Math.random()*100)+1).limit(10).collect(Collectors.toList());
+		
+		//this is an easy way to convert a non thread safe collection type to a thread safe collection type:
+		List<Integer> copyList = new CopyOnWriteArrayList<>(list); //Each of the collection classes can take another collection object to create itself. +++++++++++++
+		
+		System.out.println(list);
+		
+		
+		/*
+		this turns a synchronized version of the list arrayList.
+		This synchronizes the get and set methods of this object.
+		So only 1 thread can add an item to this list at a time, or modify an item at a time.
+		HOWEVER the iterators are NOT synchronized. 
+		*/
+		List<Integer>syncList = Collections.synchronizedList(list);
+		
+		Iterator<Integer>myIter = syncList.iterator();
+		
+		/*
+		 * many threads can use the add() method, which means that the add() method is NOT thread safe
+		 */
+		
+		syncList.add(1000);
+		
+		/* 
+		while(myIter.hasNext())
+				System.out.println(myIter.next()); //causes concurrentModificationException
+		*/
+		
+		/*
+		synchronized(syncList) {
+			while(myIter.hasNext())
+				System.out.println(myIter.next());
+		}*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+	}
 	
 }
