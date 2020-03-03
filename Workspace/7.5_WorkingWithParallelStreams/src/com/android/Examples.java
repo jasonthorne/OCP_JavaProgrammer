@@ -151,7 +151,7 @@ public class Examples {
 		System.out.println("This has taken: " + finish + " millis");
 		System.out.println("This has taken: " + finish/1000 + " seconds");
 		
-		System.out.println("amount of threads in operation: " + Thread.activeCount());
+		System.out.println("amount of threads in operation: " + Thread.activeCount()); //1 thread in operation
 	
 	}
 	
@@ -178,7 +178,7 @@ public class Examples {
 		System.out.println("This has taken: " + finish + " millis");
 		System.out.println("This has taken: " + finish/1000 + " seconds");
 		
-		System.out.println("amount of threads in operation: " + Thread.activeCount());
+		System.out.println("amount of threads in operation: " + Thread.activeCount()); //4 threads in operation
 	
 	
 	}
@@ -205,11 +205,15 @@ public class Examples {
 	public int processRecord(int input) {
 		
 		try {
+			/*
+			 * each thread will sleep for 5 millis, so if single threaded, it goes sleep > process number > sleep all one after the other. 
+			 * However if its multi-threaded, you have 4 threads, so 4 threads go to sleep at the same time, wake up at the same time, and process 16 numbers at the same time. 
+			 * Then goes to next 16 numbers. 
+			 * So in the time it takes 1 thread to process one number, a multi threaded application could have 16 numbers processed. 
+			 */
 			Thread.sleep(5); //put thread to sleep for 5 millisecs
 		}
-		catch(Exception e) {
-			System.out.println("uh oh!");
-		}
+		catch(Exception e) { System.out.println("uh oh!"); }
 		
 		return input -1;
 	}
@@ -220,6 +224,12 @@ public class Examples {
 		
 		/*
 		 * This takes approximately 5 seconds.
+		 * The more CPUs you have, the better the performance. 
+		 * SCALING is the property.
+		 * as we add more resources the results gradually improve.
+		 * Improvements in performance using parallel streams are often only noticeable when using streams with large amounts of elements 
+		 * or when processing complex tasks. 
+		 * For small streams the improvements are often limited as there are some overhead costs to allocating and setting up parallel processing.
 		 */
 		
 		System.out.println(data.parallelStream().map((i)->processRecord(i)).count());
