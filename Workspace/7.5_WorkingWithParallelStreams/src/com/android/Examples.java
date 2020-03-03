@@ -53,7 +53,6 @@ public class Examples {
 		//sort the random numbers of the list:
 		list.stream().sorted().forEach((i)->System.out.print(i + ","));
 		
-		
 		System.out.println();
 		
 		/*
@@ -63,13 +62,36 @@ public class Examples {
 		
 		System.out.println();
 		
+		/*
+		 * The forEach ordered is a terminal operation that only allows 1 thread to access the stream at a time, so it becomes in effect a single threaded stream.
+		 * This leads to a loss of performance you may have gained by using the parallel stream operation.
+		 */
 		
-		list.parallelStream().sorted().forEachOrdered((i)->System.out.print(i + ","));
+		list.parallelStream().sorted().peek((i)->System.out.print("Thread count is: " + Thread.activeCount())).forEachOrdered((i)->System.out.print(i + ","));
 		
 	}
 	
 	
 	
+	static void ex3() {
+		
+		System.out.println("\nex3");
+	
+		//Single VS parallel stream:================================yunderstanding performance improvements 
+		
+		/*
+		 * We are processing 500_000_00 numbers. We will do this processing using a single threaded stream, 
+		 * and we will also do the same with a multi-threaded stream (parallel stream)
+		 */
+		
+		
+		//List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).parallel()
+		
+		
+		
+		
+		
+	}
 	
 	
 	
