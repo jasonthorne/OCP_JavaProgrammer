@@ -87,7 +87,7 @@ public class Examples {
 		
 		//List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).parallel()
 		
-		List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).collect(Collectors.toList());
+		List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600).collect(Collectors.toList()); //original limit: .limit(600_000_000)
 		
 		System.out.println("time b4 stream: " + LocalTime.now());
 		
@@ -124,17 +124,107 @@ public class Examples {
 	
 	
 	
+	static void ex4() {
+		
+		System.out.println("\nex4");
+	
+		//Understanding performance improvements 2:================================
+		
+		Examples ex1 = new Examples();
+		
+		List<Integer>data=Stream.iterate(0, i->i+1).limit(4000).collect(Collectors.toList());
+		
+		System.out.println(data.size()); //400
+		
+		System.out.println(data); //0 - 3999
+		
+		long start = System.currentTimeMillis(); //amount of time since the first millisecond on 01-01-1970
+		
+		/*
+		 * The only difference with this is this method uses a parallel stream, and the time taken to do this work is approximately 5 seconds. 
+		 * As we have 4 threads in operation, it seems that all the threads are being used by parallel stream.
+		 */
+		
+		ex1.processAllData(data); //send array of 4000 numbers into the method
+		double finish = System.currentTimeMillis()-start;
+		
+		System.out.println("This has taken: " + finish + " millis");
+		System.out.println("This has taken: " + finish/1000 + " seconds");
+		
+		System.out.println("amount of threads in operation: " + Thread.activeCount());
+	
+	}
+	
+	
+	static void ex5() {
+		
+		System.out.println("\nex5");
+		
+		//Understanding performance improvements 2:================================
+		
+		Examples ex1 = new Examples();
+		
+		List<Integer>data=Stream.iterate(0, i->i+1).limit(4000).collect(Collectors.toList());
+		
+		System.out.println(data.size()); //400
+		
+		System.out.println(data); //0 - 3999
+		
+		long start = System.currentTimeMillis(); //amount of time since the first millisecond on 01-01-1970
+		
+		ex1.processAllDataPar(data); //send array of 4000 numbers into the method
+		double finish = System.currentTimeMillis()-start;
+		
+		System.out.println("This has taken: " + finish + " millis");
+		System.out.println("This has taken: " + finish/1000 + " seconds");
+		
+		System.out.println("amount of threads in operation: " + Thread.activeCount());
+	
+	
+	}
 	
 	
 	
+	/*
+	 * We will send our list to this method which contains our numbers:
+	 */
+	public void processAllData(List<Integer>data) {
+		
+		/*
+		 * For each number, the thread that is dealing with the number will sleep for 5 millisecs. 
+		 * As this is a single threaded stream, a stream will sleep, then perform the operation,
+		 * and will do this 400 times as we have 4000 numbers.
+		 * 
+		 * This takes approximately 22 seconds. 
+		 */
+		
+		System.out.println(data.stream().map((i)->processRecord(i)).count());
+		
+	}
+	
+	public int processRecord(int input) {
+		
+		try {
+			Thread.sleep(5); //put thread to sleep for 5 millisecs
+		}
+		catch(Exception e) {
+			System.out.println("uh oh!");
+		}
+		
+		return input -1;
+	}
 	
 	
-	
-	
-	
-	
-	
-	
+	//PARALLEL stream: 
+	public void processAllDataPar(List<Integer>data) {
+		
+		/*
+		 * This takes approximately 5 seconds.
+		 */
+		
+		System.out.println(data.parallelStream().map((i)->processRecord(i)).count());
+		
+	}
 	
 	
 	
