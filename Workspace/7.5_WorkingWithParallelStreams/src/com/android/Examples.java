@@ -36,7 +36,6 @@ public class Examples {
 		System.out.println("amount of threads: " + Thread.activeCount()); //amount of threads: 4
 		
 		//===========================
-		
 	}
 	
 	
@@ -77,13 +76,12 @@ public class Examples {
 		
 		System.out.println("\nex3");
 	
-		//Single VS parallel stream:================================yunderstanding performance improvements 
+		//Single VS parallel stream:================================understanding performance improvements 
 		
 		/*
 		 * We are processing 500_000_00 numbers. We will do this processing using a single threaded stream, 
 		 * and we will also do the same with a multi-threaded stream (parallel stream)
 		 */
-		
 		
 		//List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).parallel()
 		
