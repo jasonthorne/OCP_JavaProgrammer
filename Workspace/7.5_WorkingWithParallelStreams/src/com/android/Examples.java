@@ -1,6 +1,8 @@
 package com.android;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -85,7 +87,36 @@ public class Examples {
 		
 		//List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).parallel()
 		
+		List<Long>list=Stream.generate(()->((long)(Math.random()*100)+1)).limit(600_000_000).collect(Collectors.toList());
 		
+		System.out.println("time b4 stream: " + LocalTime.now());
+		
+		//single threaded stream: 
+		
+		list.stream().forEach((n)->{
+			n++;
+		});
+		
+		System.out.println("after stream: " + LocalTime.now());
+		
+		//-------
+		//multi-threaded stream: 
+		
+		/*
+		 * This stream is 7 times faster because its a parallel stream. and you have multiple threads operating on the steam at the same time.
+		 */
+		
+		System.out.println("time b4 parallel: " + LocalTime.now()); 
+		
+		list.parallelStream().forEach((n)->{
+			n++;
+		});
+		
+		System.out.println("after parallel: " + LocalTime.now());
+		
+		//---------------
+		
+		System.out.println("time b4: " + LocalTime.now());
 		
 		
 		
