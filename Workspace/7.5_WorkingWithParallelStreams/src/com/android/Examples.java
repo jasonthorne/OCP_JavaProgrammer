@@ -396,11 +396,126 @@ public class Examples {
 		System.out.println();
 		System.out.println(data2);
 		
+	}
+	
+	
+	
+	static void ex8() {
 		
+		System.out.println("\nex8");
+		
+		//Reductions with parallel streams:================================
+		
+		/*
+		 * Reductions are combining contents of a stream into a single object. 
+		 * However parallel reductions can be different. to what you expect the with serial streams.
+		 * 
+		 */
+		
+		List<Integer>numbers = new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6));
+		
+		
+		//this returns an OPTIONAL of type Integer: Optional<Integer>optInt; so we need to use the get() method of the optional class to get the value
+		//if there are any numbers in this stream it will get the first number in the stream.
+		System.out.println(numbers.stream().findAny().get());
+		
+		/*
+		 * In theory as this is a parallel stream, any number can be returned: 
+		 */
+		System.out.println(numbers.parallelStream().findAny().get());
+		
+		/*
+		 * In theory as this is a parallel stream, any number can be returned: 
+		 */
+		System.out.println(numbers.parallelStream().findFirst().get());
+		
+		
+		/*
+		 * Any stream operation that is based on a parallel stream such as findFirst(), limit(), skip() etc
+		 * do operate and produce the same results as would be produced from  srial stream. 
+		 * These operations may perform more slowly as you are forcing something that is implementing parallel processing to behave in a single threaded manner.
+		 */
+		
+		//using skip:
+		numbers.parallelStream().skip(2).forEach(System.out::println);
+		
+		
+		//using limit:
+		numbers.parallelStream().limit(3).forEach(System.out::println);
+		
+		
+		
+		//===============================
+		
+		//unordered Streams:
+		
+		List<Integer>data=Stream.iterate(1, i -> i+1).limit(4000).collect(Collectors.toList());
+	
+		Examples ex1 = new Examples();
+		long start = System.currentTimeMillis();
+		
+		ex1.processAllData3(data);
+		double finish = System.currentTimeMillis() - start;
+		System.out.println("task completed in: " + finish + " millis");
+		
+		System.out.println("task completed in: " + finish/1000 + " seconds");
 		
 		
 	}
+	
+	public void processAllData3(List<Integer>data) {
 		
+		//unordered makes the stream ALYWAYS act as a parallel stream (regardless of things like skip() being used within it)
+		data.parallelStream().unordered().map(a->processRecord3(a)).count(); 
+		
+		//ORDERED version: (slower)
+		//data.parallelStream().unordered().map(a->processRecord3(a)).count(); 
+		
+	}
+	
+	public int processRecord3(int input) {
+		try {
+			Thread.sleep(10);
+		}catch(InterruptedException e) {
+			
+		}return input -1;
+	}
+	
+	
+	
+	static void ex9() {
+		
+		System.out.println("\nex9");
+		
+		//REDUCE WITH PARALLEL STREAMS================================
+		
+		/*
+		 * reduce is a stream terminal operation that reduces our stream of objects to ANY object we want. 
+		 * (take in a group of animals, and return a farm object)
+		 * With parallel streams we have really only two effective overloaded methods:
+		 * 
+		 * 
+		 */
+		
+		List<Integer>numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+		
+		System.out.println("max is: " + numbers.parallelStream().max((a,b)->a-b)); //find max from list
+		
+		
+		
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
