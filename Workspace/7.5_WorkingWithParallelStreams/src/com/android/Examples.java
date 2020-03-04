@@ -1,6 +1,8 @@
 package com.android;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -238,5 +240,66 @@ public class Examples {
 	
 	
 	
-
+	static void ex6() {
+		
+		System.out.println("\nex6");
+		
+		//Understanding independent operations:================================
+		
+		/*
+		 * The results of ani ndependent operation of stream should not impact the results of another element of the stream. 
+		 */
+		
+		List<String>animals = new ArrayList<>(Arrays.asList("Baboon", "Chimpanzee", "Anteater", "Giraffe", "Elephant"));
+		
+		/*
+		 * You are not guarenteed any order when using parallel streams, so all strings could be acted upon at the same time. 
+		 * Each of these strings are totally independent of each other. They are not dependent on each other.  
+		 */
+		
+		animals.parallelStream().map(s->s.toUpperCase()).forEach(System.out::println);
+		
+		System.out.println("Thread amount is: " + Thread.activeCount());
+		
+		//===================
+		System.out.println();
+		//second print:
+		
+		/*
+		 * As these are parallel streams, you have no order, so you oculd have uppercase printing before lowrcase and vise versa,
+		 * in no particular order.
+		 */
+		
+		
+		animals.parallelStream()
+		.map((s)->{
+			System.out.println(s); //print the lowercase versions
+			return s.toUpperCase();
+		})
+		.forEach(System.out::println); //print the uppercase version
+		
+	
+	}
+	
+	
+	static void ex7() {
+		
+		System.out.println("\nex7");
+		
+		//Understanding independent operations:================================
+		
+		/*
+		 * We wish to avoid STATEFUL LAMBDA EXPRESSION
+		 * This is where one of the results in your stream depends on the result of another element in the stream. 
+		 * 
+		 * A STATELESS LAMBDA EXPRESION is where a result doesn NOT depend on any state that may change uring execurtion of a pipeline.
+		 */
+		
+		
+		
+	}
+		
+	
+	
+	
 }
