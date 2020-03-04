@@ -501,8 +501,17 @@ public class Examples {
 		
 		System.out.println("max is: " + numbers.parallelStream().max((a,b)->a-b)); //find max from list
 		
+		//---
 		
+		int sum = numbers.parallelStream().reduce(0,(a, b)->a+b, (c,d)->c+d); //adding all elements (starting at 0)
 		
+		System.out.println("sum of list: " + sum);
+		
+		//------
+		
+		sum = numbers.parallelStream().reduce(0, (a,b)->a-b, (c,d)->c-d); //minusing all elements  (starting at 0)
+		
+		System.out.println("sum of list: " + sum);
 	
 	}
 	
