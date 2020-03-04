@@ -3,6 +3,7 @@ package com.android;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -282,6 +283,8 @@ public class Examples {
 	}
 	
 	
+	static List<Integer>intList=new ArrayList<>();
+	
 	static void ex7() {
 		
 		System.out.println("\nex7");
@@ -294,6 +297,64 @@ public class Examples {
 		 * 
 		 * A STATELESS LAMBDA EXPRESION is where a result doesn NOT depend on any state that may change uring execurtion of a pipeline.
 		 */
+		
+		
+		
+		//NON recommended weay: 
+		
+		Stream.iterate(1, i->i*2).limit(12).forEach((i)->{
+			intList.add(i);
+		});
+		
+		System.out.println(intList);
+		
+		//--------
+		//recommended way: 
+		
+		intList=Stream.iterate(1, i->i*2).limit(12).collect(Collectors.toList());
+		
+		System.out.println(intList);
+		
+		//-------
+		
+		intList.clear();
+		
+		Stream.iterate(1, i->i*2).limit(12).parallel().forEach((i)->{
+			intList.add(i);
+		});
+		
+		System.out.println(intList); //order is unpredicatable as parallel changes the stream to be a parallel stream.
+		
+		
+		//-------
+		
+		//Using Collects.toList() guarantees correct order when collecting with a parallel stream:
+		
+		intList.clear();
+		
+		intList = Stream.iterate(1, i->i*2).limit(12).parallel().collect(Collectors.toList());
+		
+		System.out.println(intList); 
+		
+		
+		//=========
+		
+		/*
+		 * This is a threadsafe arraylist so you effectively lose the benefits of parallel streams, when you use this collection object.
+		 */
+		
+		List<Integer>data=Collections.synchronizedList(new ArrayList<>());
+		
+		List<Integer>numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+		
+		
+		numbers.parallelStream().map((i)->{
+				data.add(i);
+				return i;
+			});
+		
+		
+		
 		
 		
 		
