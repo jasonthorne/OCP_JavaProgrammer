@@ -343,17 +343,58 @@ public class Examples {
 		 * This is a threadsafe arraylist so you effectively lose the benefits of parallel streams, when you use this collection object.
 		 */
 		
+		
+		//using synchronized list with parallel streams: ========================
+		
+		
 		List<Integer>data=Collections.synchronizedList(new ArrayList<>());
 		
 		List<Integer>numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
 		
+		/*
+		 * With a parallel stream and a synchronized list you are guaranteed that all the numbers will be entered, but NOT the order. 
+		 */
+		
+		/*
+		 * The values entered in the data synchreonized list depend on what value i is at a position in the numbers list. ie:
+		 * 1st element is 1, 2nd is 2 etc..
+		 * What number is entered into data list is dependent on the state of the numbers list. 
+		 * As its a parallel stream you can never know for sure which of the 6 numbers it will be. As all numbers process at the same time. 
+		 * REMOVE statefull operations when using parallel streams and also if possible for serial streams.
+		 * 
+		 * 
+		 */
+		numbers.parallelStream().map((i)->{
+				data.add(i); //STATEFULL LAMBDA EXPRESSION
+				return i;
+			}).forEachOrdered(i->System.out.print(i + ", " ));
+		
+		
+		System.out.println();
+		System.out.println(data);
+		
+		
+		
+		//using a NON synchronized list with parallel streams: ========================
+		
+		
+		List<Integer>data2 = new ArrayList<>();
+		
+		/*
+		 * We are using a NON synchronized collection type arraylist. Results CAN be lost.
+		 * As we can see forEachOrdered() always produces 6 numbers. However the issue is with the stateful lambda expression data.add(i)
+		 * AS when using an arraylist, the JVM manages a primitive array of the same size as the elements are added to the arraylist in the background is increased in size,
+		 * but if the elements are added to the same position at the same time, only one will be added and other lost.
+		 * 
+		 */
 		
 		numbers.parallelStream().map((i)->{
-				data.add(i);
-				return i;
-			});
+			data2.add(i); //STATEFULL LAMBDA EXPRESSION - this might add any amount of numbers. The key her is that it's not predictable how many numbers will be added at any time.
+			return i;
+		}).forEachOrdered(i->System.out.print(i + ", " ));
 		
-		
+		System.out.println();
+		System.out.println(data2);
 		
 		
 		
