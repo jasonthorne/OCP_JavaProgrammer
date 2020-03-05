@@ -346,6 +346,8 @@ public class Examples {
 		
 		//using synchronized list with parallel streams: ========================
 		
+		//AVOIDING STATEFUL LAMBDA EXPRESSIONS ++++++++++++++++++++++++++++++++++++++++++++
+		
 		
 		List<Integer>data=Collections.synchronizedList(new ArrayList<>());
 		
@@ -361,11 +363,15 @@ public class Examples {
 		 * What number is entered into data list is dependent on the state of the numbers list. 
 		 * As its a parallel stream you can never know for sure which of the 6 numbers it will be. As all numbers process at the same time. 
 		 * REMOVE statefull operations when using parallel streams and also if possible for serial streams.
-		 * 
-		 * 
 		 */
+		
 		numbers.parallelStream().map((i)->{
-				data.add(i); //STATEFULL LAMBDA EXPRESSION
+			
+			/*
+			 *whats added below depends on what element is being targeted. BUT the same element could be being targeted by multiple threads
+			 * If more than 1 thread is trying to add an element to the data list then ONLY ONE will be picked, and the other will be lost.
+			 */
+				data.add(i); //STATEFULL LAMBDA EXPRESSION 
 				return i;
 			}).forEachOrdered(i->System.out.print(i + ", " ));
 		
@@ -492,9 +498,18 @@ public class Examples {
 		/*
 		 * reduce is a stream terminal operation that reduces our stream of objects to ANY object we want. 
 		 * (take in a group of animals, and return a farm object)
-		 * With parallel streams we have really only two effective overloaded methods:
-		 * 
-		 * 
+		 * With parallel streams we have really only two effective overloaded methods.
+		 */
+		
+		/**
+		 * Reduce() combines a Stream into a single object.
+		 * IDENTITY - What you start with (could be the number to start the calculation, or the object you want all of the
+		 * elements of the stream to produce.  (i.e a zoo object could be produced from a stream of Animals, so the identity would be a Zoo object)
+		 * ACCUMULATOR - What you want to do with pairs of elements in the stream. In this case its a stream of Integers
+		 * and we want to add the numbers in pairs. Takes a BiFunction which takes 2 args and returns one object.
+		 * COMBINER - This is what we wish to do with all of the items produced by the accumulator.
+		 * The accumulator produces numbers that are the product of two of the numbers added up (i.e: 1+0,2+3,4+5,+6)
+		 * Here we wishto add up all of the products (1+5+9+6) = 21.
 		 */
 		
 		List<Integer>numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
@@ -503,15 +518,24 @@ public class Examples {
 		
 		//---
 		
-		int sum = numbers.parallelStream().reduce(0,(a, b)->a+b, (c,d)->c+d); //adding all elements (starting at 0)
+		//Note that the last 2 args are BIFUNCTIONS +++++
+		int sum = numbers.parallelStream().reduce(0,(a, b)->a+b, (c,d)->c+d); //adding all elements (starting at 0) //ASOCIATE ACCUMULATOR
 		
 		System.out.println("sum of list: " + sum);
 		
 		//------
+		//Serial stream reduce subtraction:
+		
+		/*
+		 * Accumulator has to be a STATELESS lambda expression and has to be ASSCOCIATIVE.
+		 */
+		
+		sum = numbers.stream().reduce(0, (a,b)->a-b, (c,d)->c-d); //minusing all elements  (starting at 0)
+		System.out.println("sum of list using single (therefore, ordered) stream: " + sum); //gives RIGHT answer (-21)
+		
 		
 		sum = numbers.parallelStream().reduce(0, (a,b)->a-b, (c,d)->c-d); //minusing all elements  (starting at 0)
-		
-		System.out.println("sum of list: " + sum);
+		System.out.println("sum of list using parallel (therefore targeted in ANY order) streams: " + sum);  //gives WRONG answer (3)
 	
 	}
 	
