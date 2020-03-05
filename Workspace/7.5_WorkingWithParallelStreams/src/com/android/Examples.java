@@ -4,8 +4,11 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.SortedSet;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -596,24 +599,72 @@ public class Examples {
 		/*
 		 * This organises letters in alphabetical order.#So this becomes: f,l,o,w
 		 */
+		
+		/*
+		 * This is recommended mwthod for use with parallel streams.
+		 * As this is specifically designed for parallel streams. +++++++++++++++++++++
+		 */
 		SortedSet<String> set = stream.collect(
 				()->new ConcurrentSkipListSet<>(), 
 				(sortedSet, str)->sortedSet.add(str), 
 				(sortedSet,str)->sortedSet.addAll(str));
 		
 		System.out.println(set);
-		
-		
-		
-	
 	
 	}
 	
 	
+	static void ex11() {
+		
+		System.out.println("\nex11");
+		
+		//USING THE 1 ARG COLLECT METHOD:================================
+		
+		List<String>list = new ArrayList<String>(Arrays.asList("w", "o", "l", "f"));
+		
+		HashSet<String>set1 = list.parallelStream().collect(Collectors.toCollection(()->new HashSet<>())); //HashSet DOESNT organise
+		
+		TreeSet<String>set2 = list.parallelStream().collect(Collectors.toCollection(()->new TreeSet<>())); //treeSet organises alphabetically
+		
+		System.out.println(set1); //[Unknown order!]
+		System.out.println(set2); //[f, l, o, w]
+		
+		
+		//-------------
+		
+		List<String>list2 = list.parallelStream().collect(Collectors.toList());
+		System.out.println(list2);
+		
+	}
 	
+	static void ex12() {
+		
+		System.out.println("\nex12");
+		
+		List<String>animals = new ArrayList<>(Arrays.asList("lions", "tigers", "lepords", "wolves", "sharks"));
+		System.out.println("list of animals: " + animals);
+		
+		/*
+		 * ConcurrentMap is a THREAD SAFE map.
+		 * Takes a Function, which will be the key,
+		 * Takes a Function which will be A value.
+		 * and a binary operator, which takes 2 args and returns one object, this is the final acumulated value of all elements that are requal to k.length() 
+		 */
+		
+		ConcurrentMap<Integer, String>map = animals
+				.parallelStream()
+				.collect(Collectors.toConcurrentMap(k->k.length(), v->v, (v1, v2)->v1+ "," + v2));
+		
+		System.out.println(map);
+		
+		//-------------
+		
+		
+		
+		
+		
 	
-	
-	
+	}
 	
 	
 }
