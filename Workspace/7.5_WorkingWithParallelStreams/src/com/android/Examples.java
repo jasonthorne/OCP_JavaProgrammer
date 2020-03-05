@@ -509,7 +509,7 @@ public class Examples {
 		 * and we want to add the numbers in pairs. Takes a BiFunction which takes 2 args and returns one object.
 		 * COMBINER - This is what we wish to do with all of the items produced by the accumulator.
 		 * The accumulator produces numbers that are the product of two of the numbers added up (i.e: 1+0,2+3,4+5,+6)
-		 * Here we wishto add up all of the products (1+5+9+6) = 21.
+		 * Here we wish to add up all of the products (1+5+9+6) = 21.
 		 */
 		
 		List<Integer>numbers = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
@@ -519,7 +519,10 @@ public class Examples {
 		//---
 		
 		//Note that the last 2 args are BIFUNCTIONS +++++
-		int sum = numbers.parallelStream().reduce(0,(a, b)->a+b, (c,d)->c+d); //adding all elements (starting at 0) //ASOCIATE ACCUMULATOR
+		int sum = numbers.parallelStream()
+				.reduce(0, //IDENTITY - the starting point for our reduction (if we wanted to add animals to our zoo, this would be 'new Zoo()')
+						(a, b)->a+b, //ACCUMULATOR - this has to be ASSOCIATIVE and stateless, otherwise You will not get the right answer. 
+						(c,d)->c+d); //COMBINER takes the results from the accumulator and does something to these elements. in this case, adds them up.
 		
 		System.out.println("sum of list: " + sum);
 		
@@ -529,14 +532,22 @@ public class Examples {
 		/*
 		 * Accumulator has to be a STATELESS lambda expression and has to be ASSCOCIATIVE.
 		 */
-		
+	
 		sum = numbers.stream().reduce(0, (a,b)->a-b, (c,d)->c-d); //minusing all elements  (starting at 0)
 		System.out.println("sum of list using single (therefore, ordered) stream: " + sum); //gives RIGHT answer (-21)
 		
 		
-		sum = numbers.parallelStream().reduce(0, (a,b)->a-b, (c,d)->c-d); //minusing all elements  (starting at 0)
+		sum = numbers.parallelStream().reduce(0, 
+				(a,b)->a-b, 
+				(c,d)->c-d); //minusing all elements  (starting at 0)
 		System.out.println("sum of list using parallel (therefore targeted in ANY order) streams: " + sum);  //gives WRONG answer (3)
-	
+		
+		
+		System.out.println(Arrays.asList('w', 'o', 'l', 'f').parallelStream().reduce("", (c, s1)-> c+s1, (s2,s3)->s2+s3));
+		
+		System.out.println(Arrays.asList(3, 2, 1, 4).parallelStream().reduce(0, (c, s1)-> c+s1, (s2,s3)->s2+s3));
+		
+
 	}
 	
 	
