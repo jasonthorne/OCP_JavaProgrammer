@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -542,19 +544,70 @@ public class Examples {
 				(c,d)->c-d); //minusing all elements  (starting at 0)
 		System.out.println("sum of list using parallel (therefore targeted in ANY order) streams: " + sum);  //gives WRONG answer (3)
 		
+		List<String>test = new ArrayList<String>();
+		test.add("w");
+		test.add("o");
+		test.add("l");
+		test.add("f");
+		
+		System.out.println(test.parallelStream().reduce("", (c, s1)-> c+s1, (s2,s3)->s2+s3));
+		
 		
 		System.out.println(Arrays.asList('w', 'o', 'l', 'f').parallelStream().reduce("", (c, s1)-> c+s1, (s2,s3)->s2+s3));
 		
 		System.out.println(Arrays.asList(3, 2, 1, 4).parallelStream().reduce(0, (c, s1)-> c+s1, (s2,s3)->s2+s3));
 		
-
+		//======================
+		
+		System.out.println(test.stream().reduce("x", (a,b)->a+b));
+		
+		System.out.println(test.parallelStream().reduce("x", (a,b)->a+b)); //WONT WORK WITH PARALLEL STREAMS (xwxoxlxf) ++++++++
+		
+		System.out.println(test.parallelStream().reduce("", (a,b)->a+b, (c,d)->c+d)); //WONT WORK WITH PARALLEL STREAMS (xwxoxlxf) ++++++++
+		
 	}
 	
 	
+	static void ex10() {
+		
+		System.out.println("\nex10");
+		
+		//COMBINING RESULT WITH COLLECT================================
+		
+		/*
+		 * It is advisable to use he three arg collect method when using with parallel stream.
+		 * By having the .parallel stream operation, this makes this a parallel stream
+		 */
+		
+		Stream<String>stream=Stream.of("w", "o", "l", "f").parallel();
+		
+		//-----
+		/*
+		 * Collect takes 3 args:
+		 * + Supplier - the object you will save the stream values to.
+		 * in this case a thread safe treeSet
+		 * + Accumulator - BiFunction  - takes 2 args and does something with these elements.
+		 * in this case takes a set and a string and adds the string to the set.
+		 * +Combiner - for combining all the strings to one set. 
+		 * 
+		 */
+		
+		
+		/*
+		 * This organises letters in alphabetical order.#So this becomes: f,l,o,w
+		 */
+		SortedSet<String> set = stream.collect(
+				()->new ConcurrentSkipListSet<>(), 
+				(sortedSet, str)->sortedSet.add(str), 
+				(sortedSet,str)->sortedSet.addAll(str));
+		
+		System.out.println(set);
+		
+		
+		
 	
 	
-	
-	
+	}
 	
 	
 	
