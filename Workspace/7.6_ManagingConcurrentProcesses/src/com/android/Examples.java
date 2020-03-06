@@ -92,6 +92,10 @@ public class Examples {
 		CyclicBarrier cStable1 = new CyclicBarrier(4, ()->System.out.println("stable boys have cleaned the pen"));
 		CyclicBarrier cStable2 = new CyclicBarrier(4, ()->System.out.println("stable boys have cleaned up the horse manure"));
 		
+		/*
+		 * This has a CyclicBarrier between the horse being removed and the stables being cleaned,
+		 * and another between the stables being cleaned and the horse being added to the stables again.
+		 */
 		for(StableBoy s: stableBoys) {
 			service.submit(()->s.performTasks(cStable1, cStable2));
 		}
@@ -102,8 +106,9 @@ public class Examples {
 		/*
 		 * If you are using a threadPool, make sure that the number of available threads is at least as large as CyclicBarrier. 
 		 * If your thread pool is 2 and your CyclicBarrier is 4, then it would result in a hang as the barrier would never get to 4.
+		 * 
+		 * Cyclic barrier CAN be less than the pool though. 
 		 */
-		
 		
 		
 		
