@@ -21,8 +21,11 @@ public class ZooKeeper {
 	
 	public void performTasks() {
 		counter++;
+		
 		removeAnimals();
+		
 		cleanPen();
+		
 		addAnimals();
 	}
 	
