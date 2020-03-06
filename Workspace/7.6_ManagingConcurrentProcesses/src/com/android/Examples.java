@@ -65,11 +65,48 @@ public class Examples {
 		 */
 		CyclicBarrier c1 = new CyclicBarrier(4);
 		
+		/*
+		 * This cyclicBarrier takes the amount of threads to track, and a Runnable object.
+		 * Here, this one only prints out "pen cleaned".
+		 * The Runnable object runs once all 4 threads have completed the task (in this case when all the pens have been cleaned.
+		 */
+		CyclicBarrier c2 = new CyclicBarrier(4, ()->System.out.println("pen cleaned")); 
+		
 		Set<Farmer>farmers = Stream.generate(()->new Farmer()).limit(4).collect(Collectors.toSet());
 		ExecutorService service = Executors.newFixedThreadPool(4);
 		for(Farmer f:farmers) {
-			service.submit(()->f.performTasks());
+			service.submit(()->f.performTasks(c1, c2));
 		}
+		if(!service.isShutdown()) {
+			service.shutdown();
+		}
+		
+		//====================
+		//StableBoys class:
+		
+		//create 4 stable boys:
+		Set<StableBoy>stableBoys = Stream.generate(()->new StableBoy()).limit(4).collect(Collectors.toSet());
+		service = Executors.newFixedThreadPool(4);
+		
+		//2 cyclicBarriers:
+		CyclicBarrier cStable1 = new CyclicBarrier(4, ()->System.out.println("stable boys have cleaned the pen"));
+		CyclicBarrier cStable2 = new CyclicBarrier(4, ()->System.out.println("stable boys have cleaned up the horse manure"));
+		
+		for(StableBoy s: stableBoys) {
+			service.submit(()->s.performTasks(cStable1, cStable2));
+		}
+		if(!service.isShutdown()) {
+			service.shutdown();
+		}
+		
+		/*
+		 * If you are using a threadPool, make sure that the number of available threads is at least as large as CyclicBarrier. 
+		 * If your thread pool is 2 and your CyclicBarrier is 4, then it would result in a hang as the barrier would never get to 4.
+		 */
+		
+		
+		
+		
 	}
 
 }
