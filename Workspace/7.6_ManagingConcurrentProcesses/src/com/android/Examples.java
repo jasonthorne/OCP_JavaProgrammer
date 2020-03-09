@@ -202,10 +202,16 @@ public class Examples {
 	}
 	
 	
+	static void ex5() {
+		
+		System.out.println("\nex5");
+		
+		//++++++++++++++++++FORK & JOIN FRAMEWORK:
+		
+		
 	
 	
-	
-	
+	}
 	
 	
 	
