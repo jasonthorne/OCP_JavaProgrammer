@@ -1,5 +1,6 @@
 package com.android;
 
+import java.math.BigInteger;
 import java.util.Set;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
@@ -110,8 +111,104 @@ public class Examples {
 		 * Cyclic barrier CAN be less than the pool though. 
 		 */
 		
+	}
+	
+	static void recursive() {
+		System.out.println("recursive method called");
 		
+		/*
+		 * A method calling itself is a recursive method. However a recursive method has ot have a means of coming to a conclusion. 
+		 * If not, the method will be called multiple times until a stack overflow error. 
+		 * A BASE CASE is an external counter which causes our method to exit after the counter reaches a certain number. +++++++++++++++++++++++++
+		 */
+		recursive();
+	}
+	
+	
+	static void ex3() {
+		
+		System.out.println("\nex3");
+		
+		//+++++++++++++++++++RECURSION:
+		recursive();
+	}
+	
+	
+	static long binomial(Integer num) { //passed as Integer inorder to call the toString()
+		
+		String strNum = num.toString();
+		BigInteger bigNum = new BigInteger(strNum);
+		
+		if(num<=1) { //if num equals 1, return 1.
+			/*
+			 * this is the base case, so we keep decrementing num by 1 until 1 becomes 1
+			 * at which point the binomial method will no longer call itself
+			 */
+			return 1;
+		}
+		else {
+			return num*binomial(num-1); //5 * 4 * 3 * 2 * 1
+		}
+
+	}
+	
+	static int biNomialCount = 0;
+	
+	static BigInteger binomial2(int num) {
+		
+		biNomialCount++;
+		String strNum = ""+num;
+		BigInteger bigInt = new BigInteger(strNum);
+		
+		if(num<=1) { //base case
+			return new BigInteger("1");
+		}else {
+			BigInteger bigInt2 = binomial2(num-1);
+			return bigInt2.multiply(bigInt);
+		}
+	}
+	
+	
+	static void ex4() {
+		
+		System.out.println("\nex4");
+		
+		//++++++++++++++++++BINOMIAL:
+		
+		/*
+		 * This used recursion which is a method calling itself
+		 * and keeps calling itself until it gets to a base case and then exits the method. 
+		 * If a base case is never reached then your program can never finish.
+		 * So this will result in a stack overflow error.
+		 * Binomial numbers get very large very quickly.
+		 * i.e binomial 20 is 2.43 Quintillion, which is 2 and 18 places before a decinal point.
+		 *
+		 *This is a warning as you can quite easily attempt to do tasks in programming that would take more time to do than the entire lifetime of the universe to complete.
+		 */
+		
+		System.out.println(binomial(5)); //calling regular binomial method
+		
+		//---------
+		/*
+		 * calling binomial method that uses the BigInteger data type. 
+		 * Which cant use ordinary mmathematical operators such as + * etc..
+		 * so you use their own methods such as multiply() and add()
+		 */
+		
+		System.out.println(binomial2(984));
+		System.out.println("number is: " + binomial2(984).toString().length() + " digits long");
+		System.out.println("binomial2 method was called: " + biNomialCount + " times");
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
