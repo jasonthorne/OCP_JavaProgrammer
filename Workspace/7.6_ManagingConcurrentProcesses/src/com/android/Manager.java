@@ -11,6 +11,8 @@ public class Manager extends RecursiveAction {
 	private Double[]weights;// array of weights that each manager measures
 	
 	static int counter = 0;
+	static int manageCounter = 0;
+	
 	
 	public Manager(Double[] weights, int start, int end) {
 		counter++;
@@ -31,6 +33,8 @@ public class Manager extends RecursiveAction {
 	protected void compute() {
 		
 		if(end-start <= 3) { //BASE CASE - only 3 at most animals to be weighed.
+			manageCounter++;
+			System.out.println("manager with id: " + manageCounter);
 			for(int i=start;i<end;i++) {
 				weights[i]=Math.random()*100;
 				System.out.println("animal number is: " + i + " weights is: " + weights[i]);
@@ -41,13 +45,13 @@ public class Manager extends RecursiveAction {
 			
 			System.out.println("start is: " + start+ " middle is: " + middle + ". end is: " + end);
 			
-			invokeAll(new Manager(weights,start,middle), new Manager(weights,middle, end));
+			invokeAll(new Manager(weights,start,middle), //fork a new thread passing in 0 as start, and 5 as end
+					new Manager(weights,middle, end)); //fork a new thread, passing in 5 as start, and 10 as end
 		}
 
 	}
 	
-	
-	
+
 
 }
 

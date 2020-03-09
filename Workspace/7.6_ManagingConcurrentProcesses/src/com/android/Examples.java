@@ -264,6 +264,10 @@ public class Examples {
 		
 		System.out.println("weights");
 		Arrays.asList(weights).stream().forEach(d->System.out.println("weight is: " + d));
+		
+		System.out.println("Manager.counter: " + Manager.counter);
+		
+		System.out.println("Manager.manageCounter: " + Manager.manageCounter);
 	
 	
 		
