@@ -208,6 +208,37 @@ public class Examples {
 		
 		//++++++++++++++++++FORK & JOIN FRAMEWORK:
 		
+		/*
+		 * in orde to use fork/join, your class either has to extend the abstrat class RecursiveAction,
+		 * and implement the void compute() method.
+		 * If you want to return a value, we extend the RecursiveTask<T> abstrct class and implement the T compute() method.
+		 * method - Employee 
+		 * 
+		 * + Fork - is assigning a new task or tasks to a new thread. (The existing thread forks in 2)
+		 * + Join - CAN be called after the fork method and causes the current thread to wait for a result from another task or subtask. 
+		 * It's effectively asleep.
+		 * 
+		 */
+		
+		/*
+		 * We want to weigh all the animals in the zoo. Of which there are 10 animals, and then add up all the weights. 
+		 * As our animals are spread out, one person at most can weight 3 animals at one time. 
+		 * So we know at start of problem, 1 person may at most weight 3 animals. 
+		 * So this is our base case in our recursive calls. Which will get us to onw person (thread) weighing three animals. 
+		 * 
+		 * We want to weight all of the animals in the least time possible. We ask one person to do this,
+		 * and he has permission to ask others to help him. 
+		 * at the start we dont know how many others he will ask to help him, but he will ask a certain amount of people to weight a certain amount of animals. 
+		 * 
+		 * We dont know at the very start, how many animals each peson will weight. 
+		 */
+		
+		//-------------------------
+		
+		//this will be used to store the weights of our animals:
+		Double[]weights = new Double[10]; //we want to get the total weight of Animals. 
+		
+		
 		
 	
 	
