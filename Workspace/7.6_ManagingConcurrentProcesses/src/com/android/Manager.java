@@ -29,6 +29,20 @@ public class Manager extends RecursiveAction {
 	 */
 	@Override
 	protected void compute() {
+		
+		if(end-start <= 3) { //BASE CASE - only 3 at most animals to be weighed.
+			for(int i=start;i<end;i++) {
+				weights[i]=Math.random()*100;
+				System.out.println("animal number is: " + i + " weights is: " + weights[i]);
+			}
+		}else { //RECURSIVE PART (that works down to the base case)
+			
+			int middle = start+((end - start)/2);
+			
+			System.out.println("start is: " + start+ " middle is: " + middle + ". end is: " + end);
+			
+			invokeAll(new Manager(weights,start,middle), new Manager(weights,middle, end));
+		}
 
 	}
 	

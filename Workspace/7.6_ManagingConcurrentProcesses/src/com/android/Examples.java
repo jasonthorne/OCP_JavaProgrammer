@@ -1,10 +1,13 @@
 package com.android;
 
 import java.math.BigInteger;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -238,10 +241,32 @@ public class Examples {
 		//this will be used to store the weights of our animals:
 		Double[]weights = new Double[10]; //we want to get the total weight of Animals. 
 		
+		/*
+		 * To create a fork join there are 3 steps you need to carry out:
+		 * - create a forkJoinTask (in our case we'll be creating a manage to weight some animals)
+		 * - create a ForkJoinPool (where the threads for weighing animals comes from)
+		 * - you will need a class that extends either RecursiveAction or RecursiveTask<T>.
+		 */
 		
+		ForkJoinTask<?>task = new Manager(weights, 0, weights.length); //recursive task
 		
+		/*  pool of threads we will use that will acomplish the above recursive task:
+		 *  If it sees that 4 threads for axample are the most efficient way to weight 3 animals at a time, then this pool will have 4 threads.
+		 */
+		
+		ForkJoinPool pool = new ForkJoinPool(); 
+		
+		/*
+		 * Only at this point is a size given to our pool:
+		 */
+		pool.invoke(task);
+		System.out.println("size of the pool is: " + pool.getPoolSize());
+		
+		System.out.println("weights");
+		Arrays.asList(weights).stream().forEach(d->System.out.println("weight is: " + d));
 	
 	
+		
 	}
 	
 	
