@@ -239,7 +239,7 @@ public class Examples {
 		//-------------------------
 		
 		//this will be used to store the weights of our animals:
-		Double[]weights = new Double[10]; //we want to get the total weight of Animals. 
+		Double[]weights = new Double[10]; //we want to get the total weight of Animals.  //[0][1][2][3][4][5][6][7][8][9]
 		
 		/*
 		 * To create a fork join there are 3 steps you need to carry out:
@@ -268,7 +268,6 @@ public class Examples {
 		System.out.println("Manager.counter: " + Manager.counter);
 		
 		System.out.println("Manager.manageCounter: " + Manager.manageCounter);
-	
 	
 		
 	}
