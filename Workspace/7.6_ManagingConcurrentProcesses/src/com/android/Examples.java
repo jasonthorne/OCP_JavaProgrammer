@@ -301,9 +301,10 @@ public class Examples {
 		 * This compute method returns a Double, so this can be assigned to a Double variable:
 		 */
 		Double sum = pool.invoke(task);
+		System.out.println("total amount weighed is: " + sum);
+		System.out.println("there are " + Employee.empsWeighingAnimalsCounter + " used");
+		System.out.println("there are " + Employee.empCounter + " created");
 		
-		
-	
 	}
 	
 
