@@ -43,5 +43,9 @@ public class Examples {
 		myFile = new File("Test.txt");
 		System.out.println(myFile.exists());
 		
+		
+		File dummy = new File("dummy.txt");
+		System.out.println(dummy.exists());
+		
 	}
 }
