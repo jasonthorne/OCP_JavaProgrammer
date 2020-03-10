@@ -67,7 +67,7 @@ public class Manager extends RecursiveAction {
 			 * manager 3, start 0, end 2 -> 2-0
 			 * manager 4 start 2, end 5 -> 5 -2
 			 * manager 5, strt 5, end 7 -> 7-5
-			 * manager 7, start 7, end 10. ->10-7
+			 * manager 7, start 7, end 10. -> 10-7
 			 * 
 			 * So each of these 4 animals will NOT enter the else as these managers satisfy the condition.
 			 *  

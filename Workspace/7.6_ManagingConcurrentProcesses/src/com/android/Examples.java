@@ -273,7 +273,38 @@ public class Examples {
 	}
 	
 	
+	static void ex6() {
+		
+		System.out.println("\nex6");
+		
+		//++++++++++++++++++ RecursiveTask<Double>
+		
+		Double[]weights = new Double[10];
+		
+		/*
+		 * Same as above ex, we want each employee to weight at most, 3 animals at the same time. 
+		 * And we also wish to add up all of the weights. 
+		 * 
+		 * If you want to use a forkJoinPool and you want to return some object, 
+		 * then you have to use only objects that extend RecursiveTask<T> as this compute method is like the following:
+		 * T compute(){ //returns an object
+		 * }
+		 * 
+		 * The compute method of the employee class returns a Double, so this forkJoin task has a generic type of Double:
+		 */
+		
+		ForkJoinTask<Double>task = new Employee(weights, 0, weights.length); //task
+		
+		ForkJoinPool pool = new ForkJoinPool(); //pool
+		
+		/*
+		 * This compute method returns a Double, so this can be assigned to a Double variable:
+		 */
+		Double sum = pool.invoke(task);
+		
+		
 	
+	}
 	
 
 }
