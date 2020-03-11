@@ -1,6 +1,7 @@
 package com.android;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Examples {
 
@@ -158,7 +159,6 @@ public class Examples {
 		System.out.println(myFile.length());
 		System.out.println(myDir.length());
 		
-		
 		//------------
 		
 		//lastModified()
@@ -168,6 +168,78 @@ public class Examples {
 		
 		System.out.println(myFile.lastModified());
 		System.out.println(myDir.lastModified());
+		
+		
+		//-------------
+		
+		//delete()
+		
+		//if its a directory the directory MUST be EMPTY in order to delete. 
+		
+		/*
+		 * We will use delete in combination with mkdir
+		 */
+		
+		File myDir2 = new File("C:/Users/rm20139/Documents/myJavaTest");
+		
+		//C:\Users\rm20139\Documents ++++++++++++++++++++++++++++++++++++++++path to system Documents 
+		
+		if(myDir2.exists()) {
+			System.out.println("The directory already exists, so this command will delete the existing dir");
+			
+			/*
+			 * IF your existing directory contains a file, the existing directory will NOT be deleted.
+			 * (After creating directory, put a file in this directory, and you will see that it will not be deleted)
+			 */
+			myDir2.delete(); //if dir is deleted this returns true, else returns false.
+		}
+		
+		myDir2.mkdir(); //this creates the directory. Returns a boolean.
+		System.out.println(myDir2.exists()); //check if directory exists
+		
+		
+		//----------
+		
+		//mkDir()
+		
+		myFile = new File("C:/Users/rm20139/Documents/myJavaTest/file1.txt");
+		System.out.println(myFile.exists()); //check if file1 exists
+		
+		System.out.println(myFile.delete()); //delete file1
+		
+		
+		//---------
+		
+		//mkDirs()
+		
+		//C:/Users/rm20139/Documents/great/entirely/mighty/filey.txt
+		
+		//this creates a full directory structure:
+		
+		File totalDir = new File("C:/Users/rm20139/Documents/great/entirely/mighty/filey");
+		
+		System.out.println(totalDir.mkdirs());
+		
+		
+		//-----------------
+		
+		//make a file:
+		
+		File myFile4 = new File(totalDir, "myFile.txt");
+		
+		/*
+		 * This is a command we use to create a new file. In this case a new text file called myFile.txt
+		 * When you are doing anything with a file - creting a file, writing to a file, reading, deleting. you have to put it in a try/catch block. 
+		 * The reason being that you may not have access to this file, as the file is outside of the control of java. 
+		 */
+		
+		
+		try {
+			
+		}
+		catch(IOException e) {
+			
+		}
 		
 		
 		
