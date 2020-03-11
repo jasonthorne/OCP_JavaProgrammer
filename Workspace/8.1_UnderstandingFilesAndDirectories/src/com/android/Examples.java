@@ -259,6 +259,8 @@ public class Examples {
 		
 		//list files
 		
+		//This generates an array of File objects, which are all the file objects contained within a particualr directory. 
+		
 		System.out.println("listFiles()");
 		//for(File subFile: totalDir.listFiles());
 		
