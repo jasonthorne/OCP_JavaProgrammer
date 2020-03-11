@@ -2,6 +2,7 @@ package com.android;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Examples {
 
@@ -233,15 +234,47 @@ public class Examples {
 		 * The reason being that you may not have access to this file, as the file is outside of the control of java. 
 		 */
 		
-		
 		try {
-			
+			System.out.println(myFile4.createNewFile());
 		}
 		catch(IOException e) {
-			
+			System.out.println(e);
 		}
 		
 		
+		System.out.println(myFile4.exists()); //check if myFile4 exists
+		
+		
+		//-----------------
+		
+		//getParent()
+		
+		File parentFile = new File("C:/Users/rm20139/Documents/great/entirely/mighty/filey");
+		System.out.println(parentFile.exists()); //check if parentFile exists
+		
+		//System.out.println(parentFile.getParent()); 
+		
+		
+		//-----------------
+		
+		//list files
+		
+		System.out.println("listFiles()");
+		//for(File subFile: totalDir.listFiles());
+		
+		System.out.println(Arrays.asList(totalDir.listFiles())); //this will print off the full addresses for all files and folders
+		
+		for(File subFile: totalDir.listFiles()) {
+			if(subFile.isFile()) //if file object is an actual file, print them all off
+				System.out.println(subFile.getName());
+		}
+		
+		//listing directories:
+		
+		for(File subFile: totalDir.listFiles()) {
+			if(subFile.isDirectory()) //if file object is an actual file, print them all off
+				System.out.println(subFile.getName());
+		}
 		
 	}
 }
