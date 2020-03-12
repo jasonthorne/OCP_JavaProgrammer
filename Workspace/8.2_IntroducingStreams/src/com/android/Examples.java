@@ -8,6 +8,7 @@ package com.android;
  * but gets the data from an external source.
  *
  *
+ *
  */
 
 public class Examples {
