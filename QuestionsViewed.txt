@@ -1,3 +1,19 @@
 1 - create map from list of objects - remember: values are inserted FILO.
 2 - adding elements to a TreeMap
 3 - comparing .equals() using overriden equals method
+
+
+101 - access level modifiers 
+102 - adding and pushing elements toa deque (add adds it to the bottom. Push adds it to the top)
+103 - 	bipredicate (2 of same type, returns bool), 
+	bifunction(2 of any type, returns any type), 
+	bioperator (take one type, return same type), 
+	biconsumer (takes 2 of any type, returns nothing)
+	REMEMBER: predicates use 'test', consumers use 'accept', suppliers use 'get' ALL the REST are 'supply'
+104 - resource bundles, with locales
+105 - reduce on a stream, using a binaryOperator
+106 - peeking on a stream
+107 - collections.sort() using comparable & comparator
+108 - optionals terminator
+109 - left for now +++++++++++++++give this a go! 
+110 - synchronizing blocks
