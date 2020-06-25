@@ -17,3 +17,19 @@
 108 - optionals terminator
 109 - left for now +++++++++++++++give this a go! 
 110 - synchronizing blocks
+111 - executeQuery vs executeUpdate
+112 - ++++++++++++++++++++++++++++++++++++returning to this
+113 - deadlock, race cond, livelock 
+114 - dates
+115 - assertions
+116 - ++++++++++++++++++++++++++++++++++++returning to this (forkjoins)
+117 - flatmap on lists
+118 - overriden methods
+119 - access modifiers
+120 - anyMatch
+121 - ++++++++++++++++++
+122 - 
+
+
+
+1:45
