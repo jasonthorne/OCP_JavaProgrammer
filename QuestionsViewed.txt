@@ -28,7 +28,9 @@
 119 - access modifiers
 120 - anyMatch
 121 - ++++++++++++++++++
-122 - 
+122 - printing elements of a list using a function and consumer
+123 - file path recognition (cant use new withg a path. There is a 'toAbsoloutePath()', but no 'toPath()')
+124 - 
 
 
 
