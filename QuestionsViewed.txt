@@ -30,7 +30,10 @@
 121 - ++++++++++++++++++
 122 - printing elements of a list using a function and consumer
 123 - file path recognition (cant use new withg a path. There is a 'toAbsoloutePath()', but no 'toPath()')
-124 - 
+124 - getCurrencyInstance() using Locales (Locale needs both the language and country for this to work)
+125 - printing a list from a stream of lists
+126 - +++++++++++++++++++ not there
+127 - 
 
 
 
