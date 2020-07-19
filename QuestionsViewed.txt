@@ -1,7 +1,7 @@
 1 - create map from list of objects - remember: values are inserted FILO.
 2 - adding elements to a TreeMap
 3 - comparing .equals() using overriden equals method
-
+.
 
 101 - access level modifiers 
 102 - adding and pushing elements toa deque (add adds it to the bottom. Push adds it to the top)
