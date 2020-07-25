@@ -2,6 +2,7 @@
 2 - adding elements to a TreeMap
 3 - comparing .equals() using overriden equals method
 
+7 
 
 22 - adding elements to a list using arrays.asList(x,x,x); + reduce() explination, and Optionals
 24 - stream.filter()
