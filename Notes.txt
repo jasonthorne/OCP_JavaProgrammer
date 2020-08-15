@@ -8,3 +8,19 @@ portal.azure.com
 rm20139@gretb.ie
 
 -COMPUTE
+
+1-b (and e?)
+2-d
+3-c
+4-a
+5-c
+6-d
+
+//------
+
+1-c
+2-d
+3-c
+4-b
+5-a
+6-c
