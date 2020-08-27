@@ -14,7 +14,6 @@ public abstract class Animal {
 		 */
 		myAnimal.feed(); 
 	}
-
 }
 
 class Cow extends Animal{
