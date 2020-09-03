@@ -1,8 +1,10 @@
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 
@@ -96,8 +98,41 @@ public class Main {
 		
 		/**==================== FileReader (reads characters)================*/
 		
-		/////Main.test();
+		/*
+		 FileReader reads characters from a text file. It inherits from Reader.
+		 It can be created either with a File object or a String path:
+
+		FileReader(File file)
+		FileReader(String path)
+		 */
 		
+		try (Reader r = new FileReader("file1.txt")) {
+		    int c;
+		    // -1 indicates the end of the file
+		    while((c = r.read()) != -1) { 
+		        char character = (char)c;
+		        System.out.print(character);
+		    }
+		    System.out.println();
+		} catch(IOException e) { /** ... */ }
+		
+		
+		//There's also a read() method that reads characters into an array of chars:
+		
+		try (Reader r = new FileReader("file1.txt")) {
+			char[] data = new char[1024];
+			int numberOfCharsRead;	//r.read(data);
+			while((numberOfCharsRead = r.read(data)) != -1) {
+				// Do something with the array data
+				System.out.println(data);
+			}
+		} catch(IOException e) { /** ... */ }
+		
+	    /*FileReader assumes that you want to decode the characters in the file 
+		using the default character encoding of the machine your program is running on.*/
+		
+		
+		/**==================== FileWriter (writes characters)================*/
 		
 	}//main
 
@@ -105,33 +140,12 @@ public class Main {
 		return -1;
 	}
 	
-	/*
-	public static class Product{ 
-		
-		int id; int price;
-		public Product(int id, int price){ 
-			this.id = id;
-			this.price = price;
-		}
-		
-		public String toString() { return id + ":" + price; }
-	}
-		
-	static void test(){
 	
-		List<Product> products = Arrays.asList(new Product (1, 10), new Product (2, 30),
-		new Product (2, 30));
-		Product p = products.stream().reduce(new Product (4, 0), (p1,
-		p2) -> {
-			p1.price+=p2.price;
-			return new Product (p1.id,p1.price);
-			}); 
-		
-		products.add(p); ////////////////this is error. Cant add to an arrays.aslist!! 
-		products.stream().parallel().reduce((p1, p2) -> p1.price > p2.price ? p1 : p2)
-		.ifPresent(System.out::println);
-	}
-	*/
+	
+	
+	
+
+	
 
 
 
