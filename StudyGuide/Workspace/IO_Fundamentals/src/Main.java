@@ -3,13 +3,15 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-
+	
 	public static void main(String[] args) {
 		
 		/*
@@ -134,19 +136,49 @@ public class Main {
 		
 		/**==================== FileWriter (writes characters)================*/
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		/**==================== ObjectOutputStream ================*/
+		
+		try( ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("serializedTestObj.dat"))) {
+			TestObj testObj = new TestObj("TestObj text");
+		    oos.writeObject(testObj);
+		} catch(IOException e) { e.printStackTrace();}
+		
+		/**==================== ObjectInputStream ================*/
+			
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("serializedTestObj.dat"))) {
+			TestObj testObj = null;
+		    Object obj = ois.readObject();
+		    if(obj instanceof TestObj) {
+		    	testObj = (TestObj)obj;
+		    	System.out.println(testObj);
+		    }
+		} catch(IOException ioe) { /** ... */ }
+		catch(ClassNotFoundException cnfe) {
+		   /** ... */
+		}	
+			
 	}//main
 
 	private static int getData() {
 		return -1;
 	}
 	
-	
-	
-	
-	
-
-	
 
 
+}
 
+
+class TestObj implements java.io.Serializable {
+	String name;
+	TestObj(String name){ this.name=name; }
+	@Override
+	public String toString() { return name; }
 }
