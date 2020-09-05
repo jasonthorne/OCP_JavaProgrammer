@@ -1,14 +1,29 @@
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Main {
 	
@@ -161,18 +176,57 @@ public class Main {
 		    	System.out.println(testObj);
 		    }
 		} catch(IOException ioe) { /** ... */ }
-		catch(ClassNotFoundException cnfe) {
+		catch(ClassNotFoundException cnfe) { //for obj cast. 
 		   /** ... */
-		}	
+		}
+		
+		/*Two important notes: 
+		 * When deserializing an object, the constructor, and any initialization block are not executed, 
+		 * Second, null objects are not serialized/deserialized.
+		 */
+		
+		/**==================== PrintWriter ================*/
+		
+		
+		try(PrintWriter pw = new PrintWriter("printWriterFile.txt")) {
+		    pw.write("Hi"); // Writing a String
+		    pw.write(100); // Writing a character
+
+		    // write the string representation of the argument
+		    // it has versions for all primitives, char[], String, and Object
+		    pw.print(true);
+		    pw.print(10);
+
+		    // same as print() but it also writes a line break as defined by
+		    // System.getProperty("line.separator") after the value
+		    pw.println(); // Just writes a new line
+		    pw.println("A new line...");
+
+		    // format() and printf() are the same methods
+		    // They write a formatted string using a format string,
+		    // its arguments and an optional Locale
+		    pw.format("%s %d", "Formatted string ", 1);
+		    pw.printf("%s %d", "Formatted string ", 2);
+		    pw.format(Locale.GERMAN, "%.2f", 3.1416);
+		    pw.printf(Locale.GERMAN, "%.3f", 3.1416);
+		} catch(FileNotFoundException e) { 
+		    // if the file cannot be opened or created
+			e.printStackTrace();
+		} 
+		
+		
+		
+				
+	
+		
+		
+		
+		
+		
 			
 	}//main
 
-	private static int getData() {
-		return -1;
-	}
-	
-
-
+	private static int getData() { 	return -1; }
 }
 
 
@@ -182,3 +236,40 @@ class TestObj implements java.io.Serializable {
 	@Override
 	public String toString() { return name; }
 }
+
+
+
+
+class Book implements Comparator<Book> { 
+	String name;
+	double price;
+	public Book () {}
+	public Book(String name, double price){ 
+		this.name = name;
+		this.price = price;
+	}
+	public int compare(Book b1, Book b2){ 
+		return b1.name.compareTo(b2.name);
+	}
+	public String toString(){ 
+		return name +":" + price;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
