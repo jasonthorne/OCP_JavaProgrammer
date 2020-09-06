@@ -23,6 +23,9 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
+import java.util.stream.DoubleStream;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -215,14 +218,6 @@ public class Main {
 		} 
 		
 		
-		
-				
-	
-		
-		
-		
-		
-		
 			
 	}//main
 
@@ -238,23 +233,6 @@ class TestObj implements java.io.Serializable {
 }
 
 
-
-
-class Book implements Comparator<Book> { 
-	String name;
-	double price;
-	public Book () {}
-	public Book(String name, double price){ 
-		this.name = name;
-		this.price = price;
-	}
-	public int compare(Book b1, Book b2){ 
-		return b1.name.compareTo(b2.name);
-	}
-	public String toString(){ 
-		return name +":" + price;
-	}
-}
 
 
 
