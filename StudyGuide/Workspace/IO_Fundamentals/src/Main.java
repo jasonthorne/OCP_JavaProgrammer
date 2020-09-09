@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.DoubleStream;
@@ -30,7 +32,7 @@ import java.util.stream.Stream;
 
 public class Main {
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException {
+	public static void main(String[] args) throws Exception {//FileNotFoundException, IOException {
 		
 		/*
 		  4 ABSTRACT classes that are the parents of all other classes:
@@ -216,24 +218,20 @@ public class Main {
 		    // if the file cannot be opened or created
 			e.printStackTrace();
 		} 
+
+
+		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		
+		test2 t2 = new test2();
+		double np = t2.ad(Double.parseDouble("0"));
+		System.out.println(np);
 		
+		//===========================================================
+		List<Double>nums = Arrays.asList(1000.0, 2000.0);
 		
-			BufferedReader brCopy =null;
-
-			try (BufferedReader br = new BufferedReader (new FileReader("employee.txt"))) { // line n1
-
-			br.lines().forEach(c ->System.out.println(c)); 
-
-			brCopy=br;                  //line n2
-
-			}
-
-			brCopy.ready();
-			
-
-			
-
+		UnaryOperator<Double> uo = x -> x*2;
+		
+		nums.stream().filter(x -> x>1500).map(x -> uo.apply(x)).forEach(s -> System.out.println(s));
 		
 			
 	}//main
@@ -249,6 +247,13 @@ class TestObj implements java.io.Serializable {
 	public String toString() { return name; }
 }
 
+
+class test2 {
+	public double ad(double price) {
+		assert(price > 0);
+		return price + 0.50;
+	}
+}
 
 
 
