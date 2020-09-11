@@ -15,24 +15,33 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.DoubleFunction;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
 import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -226,78 +235,22 @@ public class Main {
 		    // if the file cannot be opened or created
 			e.printStackTrace();
 		} 
-
-
+		
+		
+		
+		//=============
+	
+	
+	
+	
+	
+	}//=============MAIN
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		/*Resource res1= new Resource();
-	    try {
-	           res1.open();
-	           res1.close();
-	    }
-	    catch(Exception e) {
-	        System.out.println("Exception - 1");
-	    }
-	    try (res1= new Resource()) { //line n1
-	          res1.open();
-	    } 
-	    catch(Exception e) {
-	          System.out.println("Exception - 2");
-	    } 
-
-		*/
-		//===========================================================
-		ExecutorService es = Executors.newCachedThreadPool(); 
-		Runnable r1 = new ThreadRunner ();
-		Callable c1 = new ThreadCaller ();
-		es.submit(r1); Future f1 = es.submit (c1);  // line n1
-		es.shutdown();
-		
-		System.out.println(f1.get());
-		
-		IntConsumer consumer=e->System.out.println(e);
-		Integer value=90;
-		ToIntFunction<Integer> funRef = e -> e + 10; int result = funRef.applyAsInt (value);
-		consumer.accept(result);
-
-		Rideable rider = Car :: new;
-		Car aCar = rider.getCar("aCar");
-		System.out.println(aCar.getName());
-			
-	}//main
 
 	private static int getData() { 	return -1; }
 }
 
 //-------------------------------
-
-class Resource implements AutoCloseable{
-	public void close() throws Exception {
-                   System.out.println("Close -");
-      }
-      public void open() {
-                  System.out.println("Open -");
-      }
-}
-
-
-//==
-
-class ThreadRunner implements Runnable {
-
-	@Override
-	public void run () { System.out.print ("Runnable") ; }
-
-}
-
-class ThreadCaller implements Callable {
-
-	@Override
-	public String call() throws Exception {return "Callable"; }
-
-}
-
-
-
 
 
 //------------------------------------
@@ -309,19 +262,7 @@ class TestObj implements java.io.Serializable {
 	public String toString() { return name; }
 }
 
-interface Rideable	{
-	Car getCar (String name);	
-} 
-class Car {
-	private String name;
-	public Car (String name){ 
-		this.name = name;
-	}
-	
-	String getName() {
-		return name;
-	}
-}
+
 
 
 
