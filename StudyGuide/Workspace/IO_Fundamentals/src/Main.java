@@ -244,8 +244,7 @@ public class Main {
 		
 		
 		//=============
-		byte b = 5;
-		x.a(b,b);
+		
 		
 		
 	
