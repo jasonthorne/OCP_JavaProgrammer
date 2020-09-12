@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,9 +12,11 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
+import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import sun.awt.AWTAccessor.SystemColorAccessor;
 
 
 public class Main {
@@ -239,10 +244,10 @@ public class Main {
 		
 		
 		//=============
-	
-	
-	
-	
+		byte b = 5;
+		x.a(b,b);
+		
+		
 	
 	}//=============MAIN
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -263,7 +268,17 @@ class TestObj implements java.io.Serializable {
 }
 
 
-
+class x {
+	static void a(byte... a) {
+		System.out.println("a1");
+	}
+	static void a(long a, long b) {
+		System.out.println("a2");
+	}
+	static void a(Byte a, Byte b) {
+		System.out.println("a3");
+	}
+}
 
 
 
