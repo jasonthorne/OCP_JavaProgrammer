@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.Closeable;
 import java.io.Console;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -246,7 +247,6 @@ public class Main {
 		//=============
 		
 		
-		
 	
 	}//=============MAIN
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -267,17 +267,6 @@ class TestObj implements java.io.Serializable {
 }
 
 
-class x {
-	static void a(byte... a) {
-		System.out.println("a1");
-	}
-	static void a(long a, long b) {
-		System.out.println("a2");
-	}
-	static void a(Byte a, Byte b) {
-		System.out.println("a3");
-	}
-}
 
 
 
