@@ -51,6 +51,7 @@ import java.util.function.Consumer;
 import java.util.function.DoubleFunction;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
+import java.util.function.IntUnaryOperator;
 import java.util.function.LongUnaryOperator;
 import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
@@ -255,7 +256,9 @@ public class Main {
 		} 
 		
 		//=============
-		
+		Stream<Integer>numStream = Stream.of(10,20,30);
+		numStream.map(n->n+10).peek(s->System.out.println(s));
+		numStream.forEach(s->System.out.println(s));
 		
 	}//=============MAIN
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
