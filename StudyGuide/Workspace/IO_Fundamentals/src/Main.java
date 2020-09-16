@@ -256,9 +256,16 @@ public class Main {
 		} 
 		
 		//=============
-		Stream<Integer>numStream = Stream.of(10,20,30);
-		numStream.map(n->n+10).peek(s->System.out.println(s));
-		numStream.forEach(s->System.out.println(s));
+		List<String> colors = Arrays.asList("red", "red", "yellow");
+		Predicate<String> test = n -> {
+		System.out.println("Searching …"); 
+			return n.contains("red");
+		};
+		colors.stream()
+		.filter(c ->c.length() > 3)
+		.allMatch(test); 
+
+		
 		
 	}//=============MAIN
 		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -276,6 +283,29 @@ class TestObj implements java.io.Serializable {
 	@Override
 	public String toString() { return name; }
 }
+
+
+
+class Book implements Comparator<Book>{ 
+       String name;
+      Double price;
+
+ 
+      public Book (){ }
+
+      public Book(String name, double price){ 
+             this.name = name;
+           this.price = price;
+      }
+      public int compare(Book b1, Book b2){ 
+             //return b1.name.compareTo(b2.name);
+             return b1.price.compareTo(b2.price);
+      }
+      public String toString(){ 
+           return name + ":" + price;
+      }
+}
+
 
 
 
