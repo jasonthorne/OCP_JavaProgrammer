@@ -268,12 +268,12 @@ public class Main {
 		
 		
 	}//=============MAIN
-		//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
 
 	private static int getData() { 	return -1; }
 }
 
-//-------------------------------
+
 
 //------------------------------------
 
@@ -286,25 +286,6 @@ class TestObj implements java.io.Serializable {
 
 
 
-class Book implements Comparator<Book>{ 
-       String name;
-      Double price;
-
- 
-      public Book (){ }
-
-      public Book(String name, double price){ 
-             this.name = name;
-           this.price = price;
-      }
-      public int compare(Book b1, Book b2){ 
-             //return b1.name.compareTo(b2.name);
-             return b1.price.compareTo(b2.price);
-      }
-      public String toString(){ 
-           return name + ":" + price;
-      }
-}
 
 
 
