@@ -1,8 +1,0 @@
-this is names.txt
-noel
-pat
-mary
-harry
-shelly
-laura
-colm
