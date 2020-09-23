@@ -1,5 +1,5 @@
 <h2 align="center">
-  <img src="https://github.com/jasonthorne/OCP_JavaProgrammer/blob/master/img/OCP-JavaSE8-Programmer-clr.bmp">
+  <img src="https://github.com/jasonthorne/OCP_JavaProgrammer/blob/master/Certification/OCP-JavaSE8-Programmer-clr.bmp">
   <br />
   Coursework from GRETB, Java Programmer II course. 
   <br />
@@ -8,4 +8,6 @@
   <br />
   <br />
   Awarded: September 15, 2020.
+  <br />
+  <img src="https://github.com/jasonthorne/OCP_JavaProgrammer/blob/master/Certification/eCertificate.png">
 </h2>
